@@ -45,9 +45,9 @@ app.get('*', (req,res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
 } )
 
-app.listen(443, function(err){
+app.listen(80 , function(err){
     if (err) console.log("Error in server setup")
-    console.log("Server listening on Port", 443 );
+    console.log("Server listening on Port", 80);
 })
 
 app.get("/", (req, res) => {
