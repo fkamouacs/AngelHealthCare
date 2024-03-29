@@ -6,10 +6,12 @@ import {Grid,
         Zoom,
         Box} from '@mui/material';
 
+import loginImagePath from '../loginPicture.jpg';
 import axios from 'axios';
+
 const api = axios.create({
     baseURL: 'http://localhost:8000',
-})
+});
 
 export default function LoginPage(){
 
