@@ -9,8 +9,10 @@ import {Grid,
 import loginImagePath from '../loginPicture.jpg';
 import axios from 'axios';
 
+const loc = window.location;
+
 const api = axios.create({
-    baseURL: `http://localhost:8000`,
+    baseURL: `${loc.protocol}//${loc.hostname}${loc.hostname === 'localhost' ? ':8000' : ''}`,
 });
 
 export default function LoginPage(){
