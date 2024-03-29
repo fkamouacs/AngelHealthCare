@@ -27,7 +27,7 @@ export default function LoginPage(){
     // const [page, setPage] = useState(PAGES.LOGIN);
     const page = PAGES.LOGIN;
     // const [imageLoaded, setImageLoaded] = useState(false);
-    const loginImagePath = require("../loginPicture.jpg");
+    //const loginImagePath = require("../loginPicture.jpg");
 
 
 
@@ -98,7 +98,7 @@ export default function LoginPage(){
                     {content}
                     <Grid item xs={8} sx={{objectFit:'contain'}}>
                         <Zoom in={true} style={{ transitionDelay: '3s'}}>
-                            <Box
+                            {/* <Box
                                 component="img"
                                 sx={{
                                     maxWidth: '100%',
@@ -107,7 +107,7 @@ export default function LoginPage(){
                                 }}
                                 alt="Login Page Image"
                                 src={loginImagePath}
-                            />
+                            /> */}
                         </Zoom>
                     </Grid>
 
