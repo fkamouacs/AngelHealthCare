@@ -45,9 +45,9 @@ app.get('*', (req,res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
 } )
 
-app.listen(process.env.PORT || 8000  , function(err){
+app.listen(process.env.PORT || 5000  , function(err){
     if (err) console.log("Error in server setup")
-    console.log("Server listening on Port", 8000);
+    console.log("Server listening on Port", 5000);
 })
 
 app.get("/", (req, res) => {
