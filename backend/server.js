@@ -24,9 +24,9 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const server = http.createServer(app);
 
-// app.listen(process.env.PORT || 3001, () => {
-//     console.log(`Server is running on port ${PORT}`);
-// });
+server.listen(process.env.PORT || 3001, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 
 
   
@@ -45,11 +45,11 @@ app.get('*', (req,res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
 } )
 
-app.listen(process.env.PORT || 5000  , function(err){
+app.listen( 8000  , function(err){
     if (err) console.log("Error in server setup")
-    console.log("Server listening on Port", 5000);
+    console.log("Server listening on Port", 8000);
 })
-console.log(process.env.PORT)
+
 
 app.get("/", (req, res) => {
     res.status(200).json({msg:"The get('/') was successful!"})

@@ -10,7 +10,7 @@ import loginImagePath from '../loginPicture.jpg';
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: `https://angelhealthcare-6befd2c18f64.herokuapp.com/`,
+    baseURL: `http://localhost:8000`,
 });
 
 export default function LoginPage(){
