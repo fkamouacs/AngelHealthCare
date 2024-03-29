@@ -1,0 +1,13 @@
+{
+  "name": "angelhealthcare",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000A\u0000n\u0000g\u0000e\u0000l\u0000H\u0000e\u0000a\u0000l\u0000t\u0000h\u0000C\u0000a\u0000r\u0000e\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+   "start": "node backend/server.js",
+   "client": "npm start --prefix frontend",
+   "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && run build --prefix frontend"
+  },
+  "author": "",
+  "license": "ISC"
+}
