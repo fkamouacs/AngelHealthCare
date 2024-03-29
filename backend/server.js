@@ -45,10 +45,11 @@ app.get('*', (req,res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
 } )
 
-app.listen(80 , function(err){
+app.listen(process.env.PORT || 5000  , function(err){
     if (err) console.log("Error in server setup")
-    console.log("Server listening on Port", 80);
+    console.log("Server listening on Port", 5000);
 })
+console.log(process.env.PORT)
 
 app.get("/", (req, res) => {
     res.status(200).json({msg:"The get('/') was successful!"})

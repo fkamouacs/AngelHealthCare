@@ -10,7 +10,7 @@ import loginImagePath from '../loginPicture.jpg';
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: `http://localhost:80`,
+    baseURL: `http://localhost:${process.env.PORT || 5000}`,
 });
 
 export default function LoginPage(){
