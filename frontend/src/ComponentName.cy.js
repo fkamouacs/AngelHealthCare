@@ -1,4 +1,4 @@
-import LoginPage from '../../src/components/login_page.js'
+import LoginPage from './component/login_page.js'
 describe('LoginPage Tests', () => {
   beforeEach(() => {
       cy.mount(<LoginPage />)
