@@ -24,7 +24,6 @@
 
 // export default App;
 
-import logo from './logo.svg';
 import './App.css';
 import LoginPage from './components/login_page';
 import { Container } from '@mui/material';
