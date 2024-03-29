@@ -37,7 +37,27 @@ jobs:
       run: npm run build --if-present
       working-directory: ./frontend
 
-    - name: run npm test
-      run: npm test
+    - name: npx cypress run --component
+      run: npx cypress run --component
       working-directory: ./frontend
+
+    - name: Use Node.js ${{ matrix.node-version }} for Backend
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: backend/package-lock.json
+
+    - name: Install Backend Dependencies
+      run: npm ci
+      working-directory: ./backend
+
+    - name: Build Backend (if necessary)
+      run: npm run build --if-present
+      working-directory: ./backend
+
+    - name: Run Backend Tests
+      run: npm test
+      working-directory: ./backend
+  
 

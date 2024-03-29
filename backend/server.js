@@ -18,9 +18,9 @@ mongoose.connect('mongodb+srv://feridkamoua:test@cluster0.tlfbqfv.mongodb.net/?r
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-  console.log('Connected to MongoDB');
-});
+// db.once('open', () => {
+//   console.log('Connected to MongoDB');
+// });
 
 const server = http.createServer(app);
 
@@ -98,20 +98,22 @@ app.put("/user", (req, res) => {
     });
 })
 
-request(app)
-    .get('/')
-    .expect('Content-Type', /json/)
-    .expect('Content-Length', '38')
-    .expect(200)
-    .catch(err => {
-    if (err) throw err;
-    });
+// request(app)
+//     .get('/')
+//     .expect('Content-Type', /json/)
+//     .expect('Content-Length', '38')
+//     .expect(200)
+//     .catch(err => {
+//     if (err) throw err;
+//     });
 
-request(app)
-    .put('/')
-    .expect('Content-Type', /json/)
-    .expect('Content-Length', '38')
-    .expect(200)
-    .catch(err => {
-    if (err) throw err;
-    });
+// request(app)
+//     .put('/')
+//     .expect('Content-Type', /json/)
+//     .expect('Content-Length', '38')
+//     .expect(200)
+//     .catch(err => {
+//     if (err) throw err;
+//     });
+
+module.exports = server;
