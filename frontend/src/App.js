@@ -25,7 +25,7 @@
 // export default App;
 
 import './App.css';
-import LoginPage from './components/login_page';
+import LoginPage from './components/login_page.js';
 import { Container } from '@mui/material';
 
 function App() {
