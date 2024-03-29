@@ -10,6 +10,7 @@ import axios from 'axios';
 const api = axios.create({
     baseURL: 'http://localhost:8000',
 })
+import loginImagePath from '../loginPicture.jpg';
 
 export default function LoginPage(){
 
@@ -27,7 +28,7 @@ export default function LoginPage(){
     // const [page, setPage] = useState(PAGES.LOGIN);
     const page = PAGES.LOGIN;
     // const [imageLoaded, setImageLoaded] = useState(false);
-    const loginImagePath = require("../loginPicture.jpg");
+
 
 
 
