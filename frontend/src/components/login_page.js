@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from 'react';
+import {React, useState} from 'react';
 import {Grid,
         InputLabel,
         Button,
@@ -24,8 +24,8 @@ export default function LoginPage(){
         PROCEDURES : "PROCEDURES"
     };
 
-    const [page, setPage] = useState(PAGES.LOGIN);
-
+    // const [page, setPage] = useState(PAGES.LOGIN);
+    const [page, _] = useState(PAGES.LOGIN);
     // const [imageLoaded, setImageLoaded] = useState(false);
     const loginImagePath = require("../loginPicture.jpg");
 
