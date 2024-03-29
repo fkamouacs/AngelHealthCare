@@ -26,28 +26,28 @@ export default function LoginPage(){
 
     const [page, setPage] = useState(PAGES.LOGIN);
 
-    const [imageLoaded, setImageLoaded] = useState(false);
+    // const [imageLoaded, setImageLoaded] = useState(false);
     const loginImagePath = require("../loginPicture.jpg");
 
 
 
-    useEffect(() => {
-        new Promise((resolve, reject) => {
-          const img = new Image();
-          console.log(loginImagePath);
-          img.src = require("../loginPicture.jpg");
-          console.log(img.src);
-          img.onload = resolve;
-          img.onerror = reject;
-          console.log('image loaded')
-        })
-        .then(() => {
-          setImageLoaded(true);
-        })
-        .catch(error => {
-          console.error("Error loading image:", error);
-        });
-      }, []);
+    // useEffect(() => {
+    //     new Promise((resolve, reject) => {
+    //       const img = new Image();
+    //       console.log(loginImagePath);
+    //       img.src = require("../loginPicture.jpg");
+    //       console.log(img.src);
+    //       img.onload = resolve;
+    //       img.onerror = reject;
+    //       console.log('image loaded')
+    //     })
+    //     .then(() => {
+    //       setImageLoaded(true);
+    //     })
+    //     .catch(error => {
+    //       console.error("Error loading image:", error);
+    //     });
+    //   }, []);
 
 
     function handleLogin(event){
@@ -97,7 +97,7 @@ export default function LoginPage(){
                 <Grid container sx={{height:'90vh'}}>
                     {content}
                     <Grid item xs={8} sx={{objectFit:'contain'}}>
-                        <Zoom in={imageLoaded} style={{ transitionDelay: '1s'}}>
+                        <Zoom in={true} style={{ transitionDelay: '3s'}}>
                             <Box
                                 component="img"
                                 sx={{
@@ -136,24 +136,24 @@ export default function LoginPage(){
                 </Grid>
                 </>
             );
-        case PAGES.HOME:
-            return(
-                <>
-                adsadasdasdasdasd
-                </>
-            );
-        case PAGES.HOME:
-            return(
-                <>
-                adsadasdasdasdasd
-                </>
-            );
-        case PAGES.HOME:
-            return(
-                <>
-                adsad
-                </>
-            );
+        // case PAGES.HOME:
+        //     return(
+        //         <>
+        //         adsadasdasdasdasd
+        //         </>
+        //     );
+        // case PAGES.HOME:
+        //     return(
+        //         <>
+        //         adsadasdasdasdasd
+        //         </>
+        //     );
+        // case PAGES.HOME:
+        //     return(
+        //         <>
+        //         adsad
+        //         </>
+        //     );
         default:
             return(
                 <>404 not found</>
