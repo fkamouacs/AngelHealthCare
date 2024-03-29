@@ -1,5 +1,5 @@
 const http = require("http");
-const socketIo = require("socket.io");
+
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
@@ -28,12 +28,7 @@ server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-const io = socketIo(server, {
-    cors: {
-        origin: "*",
-        methods: ["GET", "POST", "PUT"],
-    },
-});
+
   
 app.use(
     cors({
