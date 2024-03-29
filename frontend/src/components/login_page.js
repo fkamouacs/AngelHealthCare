@@ -25,7 +25,7 @@ export default function LoginPage(){
     };
 
     // const [page, setPage] = useState(PAGES.LOGIN);
-    const [page, _] = useState(PAGES.LOGIN);
+    const page = PAGES.LOGIN;
     // const [imageLoaded, setImageLoaded] = useState(false);
     const loginImagePath = require("../loginPicture.jpg");
 
