@@ -9,6 +9,7 @@ const fs = require('fs');
 const readline = require('readline');
 const express = require('express');
 const request = require('supertest');
+const path = require('path');
 
 const app = express();
 const PORT = 3000;
@@ -41,6 +42,13 @@ app.use(
     })
 );
 app.use(express.json());
+
+__dirname = path.resolve();
+app.use(expres.static(path.join(__dirname, '/frontend/build')))
+
+app.get('*', (req,res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+} )
 
 app.listen(8000, function(err){
     if (err) console.log("Error in server setup")
