@@ -96,20 +96,7 @@ export default function LoginPage(){
                 <>
                 <Grid container sx={{height:'90vh'}}>
                     {content}
-                    <Grid item xs={8} sx={{objectFit:'contain'}}>
-                        <Zoom in={true} style={{ transitionDelay: '3s'}}>
-                            {/* <Box
-                                component="img"
-                                sx={{
-                                    maxWidth: '100%',
-                                    maxHeight: '100%',
-                                    objectFit:'contain'
-                                }}
-                                alt="Login Page Image"
-                                src={loginImagePath}
-                            /> */}
-                        </Zoom>
-                    </Grid>
+                
 
                     <Grid item xs={4} sx={{ marginTop: '30vh'}}>
                         <InputLabel variant='filled' sx={{textAlign:"center", fontSize:75, color:"black"}}>Login</InputLabel>
