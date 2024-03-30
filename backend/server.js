@@ -14,7 +14,7 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-mongoose.connect('mongodb+srv://feridkamoua:test@cluster0.tlfbqfv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://feridkamoua:test@cluster0.tlfbqfv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -24,9 +24,27 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const server = http.createServer(app);
 
-server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+var running = false;
+
+
+const startServer = () => {
+    return server.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+};
+
+if(!running){
+    startServer
+}
+  
+// server.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}`);
+// });
+if (require.main === module) {
+    server.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}
 
 const io = socketIo(server, {
     cors: {
@@ -42,13 +60,6 @@ app.use(
     })
 );
 app.use(express.json());
-
-__dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '/frontend/build')))
-
-app.get('*', (req,res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-} )
 
 app.listen(8000, function(err){
     if (err) console.log("Error in server setup")
@@ -98,22 +109,24 @@ app.put("/user", (req, res) => {
     });
 })
 
-// request(app)
-//     .get('/')
-//     .expect('Content-Type', /json/)
-//     .expect('Content-Length', '38')
-//     .expect(200)
-//     .catch(err => {
-//     if (err) throw err;
-//     });
+request(app)
+    .get('/')
+    .expect('Content-Type', /json/)
+    .expect('Content-Length', '38')
+    .expect(200)
+    .catch(err => {
+    if (err) throw err;
+    });
 
-// request(app)
-//     .put('/')
-//     .expect('Content-Type', /json/)
-//     .expect('Content-Length', '38')
-//     .expect(200)
-//     .catch(err => {
-//     if (err) throw err;
-//     });
+request(app)
+    .put('/')
+    .expect('Content-Type', /json/)
+    .expect('Content-Length', '38')
+    .expect(200)
+    .catch(err => {
+    if (err) throw err;
+    });
 
 module.exports = server;
+
+
