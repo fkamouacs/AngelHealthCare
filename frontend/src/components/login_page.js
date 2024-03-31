@@ -1,18 +1,13 @@
-import {React, useState} from 'react';
 import {Grid,
-        InputLabel,
-        Button,
-        TextField,
-        Zoom,
-        Box} from '@mui/material';
+    InputLabel,
+    Button,
+    TextField,} from '@mui/material';
 
 import loginImagePath from '../loginPicture.jpg';
 import axios from 'axios';
 
-const loc = window.location;
-
 const api = axios.create({
-    baseURL: `https://angelhealthcare-6befd2c18f64.herokuapp.com/`,
+    baseURL: 'http://localhost:8000',
 });
 
 export default function LoginPage(){
@@ -103,7 +98,7 @@ export default function LoginPage(){
                 
 
                     <Grid item xs={4} sx={{ marginTop: '30vh'}}>
-                        <InputLabel variant='filled' sx={{textAlign:"center", fontSize:75, color:"black"}}>Login3</InputLabel>
+                        <InputLabel variant='filled' sx={{textAlign:"center", fontSize:75, color:"black"}}>Login</InputLabel>
                         <Grid container flex={true} sx={{ marginTop: 5, marginBottom: 5}}>
                             <Grid item xs={5}>
                                 <InputLabel  variant='filled' required={true} sx={{textAlign:"right", fontSize:20}}>Username</InputLabel>

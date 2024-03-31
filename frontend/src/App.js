@@ -25,13 +25,13 @@
 // export default App;
 
 import './App.css';
-import LoginPage from './components/login_page.js';
+import Directory from './components/directory.js';
 import { Container } from '@mui/material';
 
 function App() {
   return (
     <Container sx={{height:'90vh', minWidth:"1200px"}}>
-      <LoginPage/>
+      <Directory/>
     </Container>
   );
 }
