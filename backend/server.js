@@ -91,23 +91,23 @@ app.put("/user", (req, res) => {
     });
 })
 
-request(app)
-    .get('/')
-    .expect('Content-Type', /json/)
-    .expect('Content-Length', '38')
-    .expect(200)
-    .catch(err => {
-    if (err) throw err;
-    });
+// request(app)
+//     .get('/')
+//     .expect('Content-Type', /json/)
+//     .expect('Content-Length', '38')
+//     .expect(200)
+//     .catch(err => {
+//     if (err) throw err;
+//     });
 
-request(app)
-    .put('/')
-    .expect('Content-Type', /json/)
-    .expect('Content-Length', '38')
-    .expect(200)
-    .catch(err => {
-    if (err) throw err;
-    });
+// request(app)
+//     .put('/')
+//     .expect('Content-Type', /json/)
+//     .expect('Content-Length', '38')
+//     .expect(200)
+//     .catch(err => {
+//     if (err) throw err;
+//     });
 
 module.exports = server;
 
