@@ -12,7 +12,7 @@ import axios from 'axios';
 const loc = window.location;
 
 const api = axios.create({
-    baseURL: `${loc.protocol}//${loc.hostname}${loc.hostname === 'localhost' ? ':8000' : ''}`,
+    baseURL: `https://angelhealthcare-6befd2c18f64.herokuapp.com/`,
 });
 
 export default function LoginPage(){
