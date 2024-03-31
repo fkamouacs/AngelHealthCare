@@ -1,7 +1,7 @@
 
 import LoginPage from './login_page.js';
 import AccountPage from './account_page.js';
-
+import RoomPage from './room_page.js';
 
 
 export default function MainPage({currentPage, PAGES, setPage, handleLogin, info}){
@@ -31,7 +31,7 @@ export default function MainPage({currentPage, PAGES, setPage, handleLogin, info
             return(
                 <>
                 <AccountPage
-                    userInfo={info}
+                    userInfo={info.userInfo}
                 />
                 </>
             );
@@ -44,7 +44,10 @@ export default function MainPage({currentPage, PAGES, setPage, handleLogin, info
         case PAGES.ROOMS:
             return(
                 <>
-                adsad
+                <RoomPage 
+                    rooms={info.rooms}
+                    patients={info.patients}
+                />
                 </>
             );
         case PAGES.PROCESSES:

@@ -40,7 +40,6 @@
   }
 }
 
-/* *:not(#root):not(body):not(#app-container):not(html) {
+*:not(#root):not(body):not(#app-container):not(html) {
   border: 1px solid rgb(255, 0, 0); 
-  box-sizing: border-box;
-} */
+}

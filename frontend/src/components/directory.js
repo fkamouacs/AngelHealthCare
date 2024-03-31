@@ -21,7 +21,7 @@ export default function Directory(){
         PROCEDURES : "PROCEDURES"
     };
 
-    const [page,setPage] = useState(PAGES.ACCOUNT);
+    const [page,setPage] = useState(PAGES.ROOMS);
 
     const [currentUser, setCurrentUser] = useState({
         username : "Adam Lee",
@@ -152,6 +152,65 @@ export default function Directory(){
         ]
     });
 
+    const [requiredInfo, setRequiredInfo] = useState({
+        rooms: [
+            {
+                "room#" : "134",
+                "avaliable spots" : "4/25"
+            },{
+                "room#" : "134",
+                "avaliable spots" : "4/25"
+            },{
+                "room#" : "134",
+                "avaliable spots" : "4/25"
+            },{
+                "room#" : "134",
+                "avaliable spots" : "4/25"
+            },{
+                "room#" : "134",
+                "avaliable spots" : "4/25"
+            },{
+                "room#" : "134",
+                "avaliable spots" : "4/25"
+            },
+        ],
+        patients: [
+            {
+                "name" : "John Wick",
+                "room#" : "134",
+                "id" : "624567524"
+            },{
+                "name" : "John Wick",
+                "room#" : "134",
+                "id" : "624567524"
+            },{
+                "name" : "John Wick",
+                "room#" : "134",
+                "id" : "624567524"
+            },{
+                "name" : "John Wick",
+                "room#" : "134",
+                "id" : "624567524"
+            },{
+                "name" : "John Wick",
+                "room#" : "134",
+                "id" : "624567524"
+            },{
+                "name" : "John Wick",
+                "room#" : "134",
+                "id" : "624567524"
+            },{
+                "name" : "John Wick",
+                "room#" : "134",
+                "id" : "624567524"
+            },{
+                "name" : "John Wick",
+                "room#" : "134",
+                "id" : "624567524"
+            },
+        ],
+    });
+
 
     function handleLogin(event){
         console.log("Button pressed");
@@ -164,7 +223,17 @@ export default function Directory(){
             PAGES={PAGES}
             setPage={setPage}
             handleLogin={handleLogin}
-            info={currentUser}
+            info={requiredInfo}
         />
     </>);
 };
+
+/*
+genereate a list of dict. there are 3 values, 
+    "room#" which is the room number, this can be random
+    "avaliable spot" this is a string of openspots/totalspots format
+and then generate a list of dict of patients
+    each patient have 3 key value, patient name, their id, and the room they are in
+
+for room generate 10 of them and patient generate 50
+*/
