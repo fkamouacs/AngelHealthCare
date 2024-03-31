@@ -9,190 +9,78 @@ import {
     TextField,
     Button,
     Box,
+    Grid,
 } from '@mui/material';
 import {Circle} from '@mui/icons-material';
 
-export default function AccountPage({}){
+import MessageBox from './account_message.js';
+import NewMessageBox from './account_make_new_message.js';
 
-    
-    const handleOpenAccountsPage = (event, id) => {
-        console.log(id);
-    }   
+export default function AccountPage({userInfo}){
 
-    const handleOpenResourcesPage = (event, id) => {
-        console.log(id);
-    }
-
-    const handleOpenRoomsPage = (event, id) => {
-        console.log(id);
-    }
-
-    const handleOpenProcessesPage = (event, id) => {
-        console.log(id);
-    }
-
-    const handleOpenProceduresPage = (event, id) => {
-        console.log(id);
-    }
-
-    const pages = [
-        {
-            username:"uilfauig",
-            status: "Active"
-        },{
-            username:"sfgh",
-            status: "Active"
-        },{
-            username:"vxcbvxcbfgd",
-            status: "Active"
-        },{
-            username:"bvxcbvxcbv",
-            status: "Inactive"
-        },{
-            username:"432423",
-            status: "Active"
-        },{
-            username:"gbxdfzbfgds",
-            status: "Inactive"
-        },{
-            username:"metyumty",
-            status: "Active"
-        },{
-            username:"eragage",
-            status: "Inactive"
-        },
-    ];
-    
-
+    const [viewContent, setViewContent] = React.useState("message");
 
     return(<>
-        <Box>
-            <TextField variant="outlined" label="Enter Text" size="small"
-                sx={{
-                    width:"90%",
-                    my:"20px",
-                    height:"100%"
-                }}
-            ></TextField>
-            <Button
-                key={"account-page-search-button"}
-                sx={{
-                    width:"10%",
-                    height:"100%",
-                    my:"20px",
-                }}
-            >Search</Button> 
+        <Box py={1} px={3} minHeight={600} height={"75%"}>
+            <Grid container minHeight={100} maxHeight={120} height={"15%"}>
+                <Grid item  padding={1}>
+                    <Typography fontSize={40}>
+                        {userInfo.username}
+                    </Typography>
+                    <Typography fontSize={20}>
+                        {userInfo.userId}
+                    </Typography>
+                </Grid>
+            </Grid>
+            <Divider></Divider>
+            <Grid container minHeight={100} height={"15%"}  maxHeight='100px' alignItems="center">
+                <Grid item xs={7} padding={1}>
+                    <Typography fontSize={25}>
+                        Phone Number
+                    </Typography>
+                    <Typography fontSize={25}>
+                        Status
+                    </Typography>
+                </Grid>
+                <Grid item xs={5} padding={1}>
+                    <Typography fontSize={25}>
+                        {userInfo.phone_number}
+                    </Typography>
+                    <Typography fontSize={25}>
+                        {userInfo.status}
+                    </Typography>
+                </Grid>
+            </Grid>
+            <Grid container minHeight={400} height={"70%"}>
+                <Grid item xs={7} padding={1} height={"100%"} bgcolor={"#E8E8E8"}>
+                    <MessageBox messages={userInfo.messages}/>
+                </Grid>
+                <Grid item xs={5} padding={1} height={"100%"}>
+                <Box display="flex" flexDirection="column" height="100%">
+                    <Box flex="0 0 auto" height="125px">
+                        <Button
+                        disabled={viewContent === "message"}
+                        onClick={() => setViewContent("message")}
+                        sx={{ padding: "10px", margin: "5px" }}
+                        >
+                        View Messages
+                        </Button>
+                        <br/>
+                        <Button
+                        disabled={viewContent === "schedule"}
+                        onClick={() => setViewContent("schedule")}
+                        sx={{ padding: "10px", margin: "5px" }}
+                        >
+                        View Schedule
+                        </Button>
+                    </Box>
+                    <Box flex="1"> 
+                        <NewMessageBox />
+                    </Box>
+                    </Box>
+                </Grid>
+            </Grid>
         </Box>
-        <List dense sx={{ width: '100%', maxWidth: 2000, bgcolor: 'background.paper' }}>
-        <ListItem
-                key={"account-page-header-username"}
-                disablePadding
-                sx={{width:"100%", margin:"2px"}}
-            >
-                    <ListItemText sx={{width:"1005px", marginLeft:"15px"}}>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            // component="a"
-                            // href="#app-bar-with-responsive-menu"
-                            sx={{
-                                // mr: 2,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                color: 'inherit',
-                                textDecoration: 'none',
-                                justifyContent: "left"
-                            }}
-                        >
-                            Username
-                        </Typography>
-                    </ListItemText>
-                    <ListItemText sx={{width:"100px"}}>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            // component="a"
-                            // href="#app-bar-with-responsive-menu"
-                            sx={{
-                                // mr: 2,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                color: 'inherit',
-                                textDecoration: 'none',
-                                justifyContent: "left"
-                            }}
-                        >
-                            Status
-                        </Typography>
-                    </ListItemText>
-            </ListItem>
-        {pages.map((value) => {
-            const labelId = `checkbox-list-secondary-label-${value}`;
-            return (
-            <>
-            <ListItem
-                key={value.username}
-                disablePadding
-                sx={{width:"100%", margin:"2px"}}
-            >
-                <ListItemButton 
-                    sx={{
-                        width:"2000px", 
-                        borderRadius:"25px"
-                    }}>
-                    <ListItemText id={labelId + "-username"} sx={{width:"1000px"}}>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            // component="a"
-                            // href="#app-bar-with-responsive-menu"
-                            sx={{
-                                // mr: 2,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                color: 'inherit',
-                                textDecoration: 'none',
-                                justifyContent: "left"
-                            }}
-                        >
-                            {value.username}
-                        </Typography>
-                    </ListItemText>
-                    <Circle sx={{
-                            width: 15,
-                            height: 15,
-                            color: (value.status) == "Active" ? "#39FF14" : "red", 
-                            marginRight: 1,
-                        }}></Circle>
-                    <ListItemText id={labelId + "-status"} sx={{width:"100px"}}>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            // component="a"
-                            // href="#app-bar-with-responsive-menu"
-                            sx={{
-                                // mr: 2,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                color: 'inherit',
-                                textDecoration: 'none',
-                                justifyContent: "left"
-                            }}
-                        >
-                            {value.status}
-                        </Typography>
-                    </ListItemText>
-                </ListItemButton>
-            </ListItem>
-            <Divider variant="middle" component="li"/>
-            </>
-            );
-        })}
-        </List>
 
 
     </>);

@@ -4,7 +4,7 @@ import AccountPage from './account_page.js';
 
 
 
-export default function MainPage({currentPage, PAGES, setPage, handleLogin}){
+export default function MainPage({currentPage, PAGES, setPage, handleLogin, info}){
     
     switch(currentPage){
         case PAGES.HOME:
@@ -30,7 +30,9 @@ export default function MainPage({currentPage, PAGES, setPage, handleLogin}){
         case PAGES.ACCOUNT:
             return(
                 <>
-                <AccountPage/>
+                <AccountPage
+                    userInfo={info}
+                />
                 </>
             );
         case PAGES.PATIENTS:

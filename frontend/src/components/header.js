@@ -12,23 +12,23 @@ export default function Header({PAGES, currentPage}){
     
 
     const handleOpenAccountsPage = (event, id) => {
-        console.log(id);
+        alert("handleOpenAccountsPage not implemented");
     }   
 
     const handleOpenResourcesPage = (event, id) => {
-        console.log(id);
+        alert("handleOpenResourcesPage not implemented");
     }
 
     const handleOpenRoomsPage = (event, id) => {
-        console.log(id);
+        alert("handleOpenRoomsPage not implemented");
     }
 
     const handleOpenProcessesPage = (event, id) => {
-        console.log(id);
+        alert("handleOpenProcessesPage not implemented");
     }
 
     const handleOpenProceduresPage = (event, id) => {
-        console.log(id);
+        alert("handleOpenProceduresPage not implemented");
     }
 
     const pages = [
