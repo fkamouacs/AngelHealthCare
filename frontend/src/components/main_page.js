@@ -27,7 +27,7 @@ export default function MainPage({currentPage, PAGES, setPage, handleLogin, info
                 adsadasdasdasdasd
                 </>
             );
-        case PAGES.ACCOUNT:
+        case PAGES.ACCOUNTS:
             return(
                 <>
                 <AccountPage
@@ -38,7 +38,7 @@ export default function MainPage({currentPage, PAGES, setPage, handleLogin, info
         case PAGES.PATIENTS:
             return(
                 <>
-                adsad
+                Do we even need this?
                 </>
         );
         case PAGES.ROOMS:

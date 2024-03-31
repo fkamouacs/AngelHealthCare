@@ -32,11 +32,11 @@ export default function Header({PAGES, currentPage}){
     }
 
     const pages = [
-        ['Accounts', handleOpenAccountsPage, PAGES.ACCOUNT], 
-        ['Resources', handleOpenResourcesPage, PAGES.RESOURCE], 
-        ['Rooms', handleOpenRoomsPage, PAGES.ROOM], 
-        ['Processes', handleOpenProcessesPage, PAGES.PROCESS], 
-        ['Procedures', handleOpenProceduresPage, PAGES.PROCEDURE]];
+        ['Accounts', handleOpenAccountsPage, PAGES.ACCOUNTS], 
+        ['Resources', handleOpenResourcesPage, PAGES.RESOURCES], 
+        ['Rooms', handleOpenRoomsPage, PAGES.ROOMS], 
+        ['Processes', handleOpenProcessesPage, PAGES.PROCESSES], 
+        ['Procedures', handleOpenProceduresPage, PAGES.PROCEDURES]];
     
     // const [anchorElNav, setAnchorElNav] = React.useState(null);
     // const [anchorElUser, setAnchorElUser] = React.useState(null);

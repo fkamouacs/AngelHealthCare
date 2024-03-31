@@ -3,6 +3,9 @@ import axios from 'axios';
 
 import MainPage from './main_page.js';
 import Header from './header.js';
+import PatientInfoModal from './patient_info_modal.js';
+
+import { Button } from '@mui/material';
 
 const api = axios.create({
     baseURL: 'http://localhost:8000',
@@ -14,7 +17,7 @@ export default function Directory(){
         HOME : "HOME",
         LOGIN : "LOGIN",
         RESOURCES : "RESOURCES",
-        ACCOUNT : "ACCOUNT",
+        ACCOUNTS : "ACCOUNTS",
         PATIENTS : "PATIENTS",
         ROOMS : "ROOMS",
         PROCESSES : "PROCESSES",
@@ -22,6 +25,17 @@ export default function Directory(){
     };
 
     const [page,setPage] = useState(PAGES.ROOMS);
+
+    const [patientToDisplay, setPatientToDisplay] = useState({
+        "name" : "Paul Der",
+        "id" : "gbvuiaefb",
+        "contact number" : "57189023467",
+        "email" : "3905u0fsdmZ",
+        "insurance #" : "eruiagvndjkxvndfj",
+        "emergency contact person" : "dfasdwhbiu",
+        "emergency contact number" : "51789674543",
+        "room#" : "123"
+    });
 
     const [currentUser, setCurrentUser] = useState({
         username : "Adam Lee",
@@ -151,7 +165,6 @@ export default function Directory(){
             }
         ]
     });
-
     const [requiredInfo, setRequiredInfo] = useState({
         rooms: [
             {
@@ -216,7 +229,79 @@ export default function Directory(){
         console.log("Button pressed");
     }
 
+    function openModal(){
+        setPatientToDisplay({
+            "name" : "Paul Der",
+            "id" : "gbvuiaefb",
+            "contact number" : "57189023467",
+            "email" : "3905u0fsdmZ",
+            "insurance #" : "eruiagvndjkxvndfj",
+            "emergency contact person" : "dfasdwhbiu",
+            "emergency contact number" : "51789674543",
+            "room#" : "123"
+        });
+    }
+
+    function closeModal(){
+        setPatientToDisplay(null);
+    }
+
+
+
     return(<>
+        <Button
+            onClick={openModal}
+            sx={{
+            position: 'fixed',
+            bottom: 0,
+            right: 0,
+            width: 200,
+        }}>open patient Modal
+        </Button>
+        <Button
+            sx={{
+            position: 'fixed',
+            bottom: 0, 
+            right: 200, 
+            width: 200
+        }}>n/a
+        </Button>
+        <Button
+            sx={{
+            position: 'fixed',
+            bottom: 0, 
+            right: 400,
+            width: 200, 
+        }}>n/a
+        </Button>
+        <Button
+            sx={{
+            position: 'fixed',
+            bottom: 0, 
+            right: 600,
+            width: 200, 
+        }}>n/a
+        </Button>
+        <Button
+            sx={{
+            position: 'fixed',
+            bottom: 0, 
+            right: 800,
+            width: 200, 
+        }}>n/a
+        </Button>
+        <Button
+            sx={{
+            position: 'fixed',
+            bottom: 0, 
+            right: 1000,
+            width: 200, 
+        }}>n/a
+        </Button>
+        <PatientInfoModal 
+            patient={patientToDisplay}
+            closeModal={closeModal}
+        />
         <Header PAGES={PAGES} currentPage={page}/>
         <MainPage 
             currentPage={page} 
