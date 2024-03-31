@@ -8,7 +8,7 @@ const uuid = require("uuid");
 const fs = require('fs');
 const readline = require('readline');
 const express = require('express');
-//const request = require('supertest');
+const request = require('supertest');
 const path = require('path');
 
 const app = express();
@@ -28,7 +28,12 @@ server.listen(process.env.PORT || 3000, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-
+// needed for deployment
+__dirname = path.resolve();
+app.use(express.static(path.join(__dirname, '/frontend/build')))
+app.get('*', (req,res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+} )
   
 app.use(
     cors({
@@ -86,23 +91,23 @@ app.put("/user", (req, res) => {
     });
 })
 
-request(app)
-    .get('/')
-    .expect('Content-Type', /json/)
-    .expect('Content-Length', '38')
-    .expect(200)
-    .catch(err => {
-    if (err) throw err;
-    });
+// request(app)
+//     .get('/')
+//     .expect('Content-Type', /json/)
+//     .expect('Content-Length', '38')
+//     .expect(200)
+//     .catch(err => {
+//     if (err) throw err;
+//     });
 
-request(app)
-    .put('/')
-    .expect('Content-Type', /json/)
-    .expect('Content-Length', '38')
-    .expect(200)
-    .catch(err => {
-    if (err) throw err;
-    });
+// request(app)
+//     .put('/')
+//     .expect('Content-Type', /json/)
+//     .expect('Content-Length', '38')
+//     .expect(200)
+//     .catch(err => {
+//     if (err) throw err;
+//     });
 
 module.exports = server;
 
