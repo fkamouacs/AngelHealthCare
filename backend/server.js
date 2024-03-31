@@ -1,5 +1,5 @@
 const http = require("http");
-const socketIo = require("socket.io");
+
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
@@ -8,7 +8,7 @@ const uuid = require("uuid");
 const fs = require('fs');
 const readline = require('readline');
 const express = require('express');
-const request = require('supertest');
+//const request = require('supertest');
 const path = require('path');
 
 const app = express();
@@ -24,34 +24,11 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const server = http.createServer(app);
 
-var running = false;
-
-
-const startServer = () => {
-    return server.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
-};
-
-if(!running){
-    startServer
-}
-  
-// server.listen(PORT, () => {
-//     console.log(`Server is running on port ${PORT}`);
-// });
-if (require.main === module) {
-    server.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
-}
-
-const io = socketIo(server, {
-    cors: {
-        origin: "*",
-        methods: ["GET", "POST", "PUT"],
-    },
+server.listen(process.env.PORT || 3000, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
+
+
   
 app.use(
     cors({
