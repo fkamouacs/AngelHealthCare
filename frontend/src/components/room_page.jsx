@@ -12,7 +12,9 @@ export default function RoomsPage(){
     const [sortBy, setSortBy] = useState('rooms');
     const [sortOrder, setSortOrder] = useState('asc');
     const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorE2, setAnchorE2] = useState(null);
     const [openModal, setOpenModal] = useState(false);
+    const [openEditModal, setOpenEditModal] = useState(false);
     const handleSort = (event, newSortBy) => {
         setSortBy(newSortBy);
     };
@@ -38,6 +40,22 @@ export default function RoomsPage(){
         setOpenModal(false);
     };
 
+    const handleEditMenuClick = (event) => {
+        setAnchorE2(event.currentTarget);
+    };
+      
+    const handleEditMenuClose = () => {
+        setAnchorE2(null);
+    };
+
+    const handleEditModalOpen = () => {
+        setOpenEditModal(true);
+        handleEditMenuClose();
+    };
+      
+    const handleEditModalClose = () => {
+        setOpenEditModal(false);
+    };
     const renderMenu = (
         <Menu
           anchorEl={anchorEl}
@@ -48,6 +66,16 @@ export default function RoomsPage(){
         </Menu>
     );
     
+    const renderMenuEdit = (
+        <Menu
+          anchorEl={anchorE2}
+          open={Boolean(anchorE2)}
+          onClose={handleEditMenuClose}
+        >
+          <MenuItem onClick={handleEditModalOpen} >Edit Patient</MenuItem>
+        </Menu>
+    );
+
     const renderModal = (
         <Modal
             open={openModal}
@@ -253,7 +281,7 @@ export default function RoomsPage(){
                     right: 8,
                 }}
             >
-                <CloseIcon />
+                <CloseIcon sx={{ borderRadius: '50px', borderColor: '#000000', borderWidth: '1', borderStyle: 'solid'}}/>
             </IconButton>
             <Button
                 variant="contained"
@@ -437,9 +465,15 @@ export default function RoomsPage(){
                                 </Grid>
                                 <Grid item xs={1}>
                                 <ListItemSecondaryAction>
-                                    <IconButton edge="end" aria-label="details">
+                                    <IconButton 
+                                    aria-label="more"
+                                    aria-controls="long-menu"
+                                    aria-haspopup="true"
+                                    onClick={handleEditMenuClick}
+                                    >
                                     <MoreVertIcon />
                                     </IconButton>
+                                    {renderMenuEdit}
                                 </ListItemSecondaryAction>
                                 </Grid>
                             </Grid>

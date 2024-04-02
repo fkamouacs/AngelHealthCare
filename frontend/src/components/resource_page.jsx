@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { Grid, Paper, Typography, ToggleButtonGroup, ToggleButton, IconButton, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction, Box} from '@mui/material';
+import { Grid, Paper, Typography, ToggleButtonGroup, ToggleButton, IconButton, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction, Box, Modal} from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 // import MoreVertIcon from '@mui/icons-material/MoreVert.js';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function ResourcesPage(){
     const [sortBy, setSortBy] = useState('Name');
     const [sortOrder, setSortOrder] = useState('asc');
-    
+    const [openModal, setOpenModal] = useState(false);
     const handleSort = (event, newSortBy) => {
         setSortBy(newSortBy);
     };
@@ -18,6 +19,134 @@ export default function ResourcesPage(){
         setSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
     };
     
+    const handleModalOpen = () => {
+        setOpenModal(true);
+    };
+      
+    const handleModalClose = () => {
+        setOpenModal(false);
+    };
+
+    const renderModal = (
+        <Modal
+            open={openModal}
+            BackdropProps={{
+                style: { backgroundColor: 'rgba(0, 0, 0, 0.1)' } // Adjust the opacity here
+            }}
+        >
+            <Box 
+                sx={{
+                    position: 'fixed', // Ensure it's fixed in the viewport
+                    top: '50%', // Center vertically
+                    left: '50%', // Center horizontally
+                    transform: 'translate(-50%, -50%)', // Adjust for exact centering
+                    width: "30%", 
+                    height: "40%",
+                    bgcolor: '#F0F8FF',
+                    p: 3, // Add some padding inside the box
+                    borderRadius: 2, // Optional: for rounded corners
+                    outline: 0 // Remove default focus outline
+                  }}
+            >
+            <Grid container>
+                <Grid item xs={6} fontSize={40}>
+
+                </Grid>
+            </Grid>
+            <Grid container>
+                <Grid container item xs={5} >
+                  <Grid item container xs={12} py={5} alignContent={'center'}>
+                    <Typography fontSize={'30px'} >
+                        Resource Name:
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} py={5} alignContent={'center'}>
+                    <Typography>
+                        Resource Id:
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} py={5}>
+                    <Typography>
+                        Amount of Resources:
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid container item xs={6}>
+                    <Grid item container xs={12} alignContent={'center'}>
+                        <TextField
+                            label="Resource Name"
+                            inputProps={{
+                                style: {
+                                    backgroundColor:'white',
+                                }
+                            }}
+                            InputLabelProps={{
+                                shrink: true
+                            }}
+                            sx={{ width: '225px' }}
+                        />
+                    </Grid>
+                    <Grid item container xs={12} alignContent={'center'}>
+                        <TextField
+                            label="Resource Id"
+                            inputProps={{
+                                style: {
+                                padding: 5,
+                                backgroundColor:'white',
+                                }
+                            }}
+                            InputLabelProps={{
+                                shrink: true
+                            }}
+                            sx={{ width: '225px' }}
+                            size="small"
+                        />
+                    </Grid>
+                    <Grid item container xs={12} alignContent={'center'}>
+                        <TextField
+                            label="Amount of Resources"
+                            inputProps={{
+                                style: {
+                                padding: 5,
+                                backgroundColor:'white',
+                                }
+                            }}
+                            InputLabelProps={{
+                                shrink: true
+                            }}
+                            sx={{ width: '225px' }}
+                            size="small"
+                        />
+                    </Grid>
+                </Grid>
+            </Grid>
+            <IconButton 
+                onClick={handleModalClose} 
+                style={{
+                    position: 'absolute',
+                    top: 8,
+                    right: 8,
+                }}
+                
+            >
+                <CloseIcon sx={{ borderRadius: '50px', borderColor: '#000000', borderWidth: '1', borderStyle: 'solid'}} />
+            </IconButton>
+            <Button
+                variant="contained"
+                color="primary"
+                sx={{
+                    position: 'absolute',
+                    bottom: 16, // Adjust spacing from the bottom
+                    right: 16, // Adjust spacing from the right
+                }}
+                startIcon={<AddCircleOutlineIcon />}
+                onClick={()=>alert("add Item not implemented yet")}
+            >
+                Add Item
+            </Button>
+            </Box>
+        </Modal>
+    );
     const resources = [
         { name: 'Wheelchair', id: 111, count: 11 },
         { name: 'dog', id: 543, count: 566 },
@@ -44,12 +173,14 @@ export default function ResourcesPage(){
                 exclusive
                 onChange={handleSort}
                 aria-label="sort by"
+                sx={{ borderRadius: '50px', borderColor: 'primary.main', borderWidth: '1', borderStyle: 'solid'}}
                 >
-                <ToggleButton value="Name">Name</ToggleButton>
-                <ToggleButton value="Count">Count</ToggleButton>
+                <ToggleButton sx={{ borderRadius: '50px', borderColor: 'primary.main', borderWidth: '1', borderStyle: 'solid'}} value="Name">Name</ToggleButton>
+                <ToggleButton sx={{ borderRadius: '50px', borderColor: 'primary.main', borderWidth: '1', borderStyle: 'solid'}} value="Count">Count</ToggleButton>
                 </ToggleButtonGroup>
                 <IconButton onClick={handleSortOrder} color="primary">
-                    {sortOrder === 'asc' ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
+                    {sortOrder === 'asc' ? <ArrowUpwardIcon sx={{ borderRadius: '50px', borderColor: 'primary.main', borderWidth: '1', borderStyle: 'solid'}}/> : 
+                    <ArrowDownwardIcon sx={{ borderRadius: '50px', borderColor: 'primary.main', borderWidth: '1', borderStyle: 'solid'}}/>}
                 </IconButton>
                 <TextField
                     label="Enter a item name or id"
@@ -78,10 +209,11 @@ export default function ResourcesPage(){
                             variant="contained" 
                             color="primary"
                             startIcon={<AddCircleOutlineIcon />}
-                            onClick={() => { }}
+                            onClick={handleModalOpen}
                         >
                         Add Item
                         </Button>
+                        {renderModal}
                 </Grid>
                 <List dense={true}>
                     {resources.map((resource, index) => (
