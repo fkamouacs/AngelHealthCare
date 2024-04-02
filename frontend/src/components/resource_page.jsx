@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Grid, Paper, Typography, ToggleButtonGroup, ToggleButton, IconButton, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction, Box} from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward.js';
-import MoreVertIcon from '@mui/icons-material/MoreVert.js';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+// import MoreVertIcon from '@mui/icons-material/MoreVert.js';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -97,10 +97,10 @@ export default function ResourcesPage(){
                             padding: '20px'
                         }}>
                         <Grid container alignItems="center" >
-                            <Grid item xs={4}>
+                            <Grid item xs={3.9}>
                             <ListItemText primary={resource.name} />
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={4.2}>
                             <ListItemText primary={resource.id} sx={{ textAlign: 'left' }} />
                             </Grid>
                             <Grid>
