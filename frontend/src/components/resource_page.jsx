@@ -152,14 +152,14 @@ export default function ResourcesPage(){
         { name: 'dog', id: 543, count: 566 },
         { name: 'cat', id: 888, count: 523 },
         { name: 'Wheelchair', id:123456789, count: 15 },
-        { name: 'Wheelchair', id: 111, count: 15 },
-        { name: 'Wheelchair', id: 111, count: 15 },
-        { name: 'Wheelchair', id: 111, count: 15 },
-        { name: 'Wheelchair', id: 111, count: 15 },
-        { name: 'Wheelchair', id: 111, count: 15 },
-        { name: 'Wheelchair', id: 111, count: 15 },
-        { name: 'Wheelchair', id: 111, count: 15 },
-        { name: 'Wheelchair', id: 111, count: 15 }
+        { name: 'Wheelchair', id: 112541, count: 15 },
+        { name: 'Wheelchair', id: 13541, count: 15 },
+        { name: 'Wheelchair', id: 11351, count: 15 },
+        { name: 'Wheelchair', id: 11441, count: 15 },
+        { name: 'Wheelchair', id: 11561, count: 15 },
+        { name: 'Wheelchair', id: 113231, count: 15 },
+        { name: 'Wheelchair', id: 1132311, count: 15 },
+        { name: 'Wheelchair', id: 1111221, count: 15 }
     ];
 
     return(<>
@@ -216,9 +216,9 @@ export default function ResourcesPage(){
                         {renderModal}
                 </Grid>
                 <List dense={true}>
-                    {resources.map((resource, index) => (
+                    {resources.map((resource) => (
                         <ListItem 
-                        key={index} 
+                        key={resource.id} 
                         divider 
                         sx={{ 
                             borderRadius: '50px',

@@ -549,40 +549,40 @@ export default function RoomsPage(){
     const rooms = [
         { id: 111, available: 12, total: 15 },
         { id: 112, available: 10, total: 25 },
-        { id: 112, available: 10, total: 25 },
-        { id: 112, available: 10, total: 25 },
-        { id: 112, available: 10, total: 25 },
-        { id: 112, available: 10, total: 25 },
-        { id: 112, available: 10, total: 25 },
-        { id: 112, available: 10, total: 25 },
-        { id: 112, available: 10, total: 25 },
-        { id: 112, available: 10, total: 25 }
+        { id: 113, available: 10, total: 25 },
+        { id: 114, available: 10, total: 25 },
+        { id: 115, available: 10, total: 25 },
+        { id: 116, available: 10, total: 25 },
+        { id: 117, available: 10, total: 25 },
+        { id: 118, available: 10, total: 25 },
+        { id: 119, available: 10, total: 25 },
+        { id: 120, available: 10, total: 25 }
     ];
 
     const patients = [
         { name: 'Paul Der', room: '111', id: '3843505875' },
         { name: 'Emily Roberts', room: '543', id: '1969453209' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' }, 
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' },
-        { name: 'John Smith', room: '654', id: '8943133259' }
+        { name: 'John Smith', room: '654', id: '8943143259' },
+        { name: 'John Smith', room: '654', id: '894313559' },
+        { name: 'John Smith', room: '654', id: '89431332259' },
+        { name: 'John Smith', room: '654', id: '8943333133259' },
+        { name: 'John Smith', room: '654', id: '894322259' },
+        { name: 'John Smith', room: '654', id: '894313213259' },
+        { name: 'John Smith', room: '654', id: '894313113259' },
+        { name: 'John Smith', room: '654', id: '894313322259' },
+        { name: 'John Smith', room: '654', id: '8943133333259' },
+        { name: 'John Smith', room: '654', id: '89431303259' },
+        { name: 'John Smith', room: '654', id: '89431353259' },
+        { name: 'John Smith', room: '654', id: '89434133259' },
+        { name: 'John Smith', room: '654', id: '89431533259' },
+        { name: 'John Smith', room: '654', id: '894313326659' }, 
+        { name: 'John Smith', room: '654', id: '89431335559' },
+        { name: 'John Smith', room: '654', id: '8943122333259' },
+        { name: 'John Smith', room: '654', id: '89431..33259' },
+        { name: 'John Smith', room: '654', id: '894316633259' },
+        { name: 'John Smith', room: '654', id: '894333133259' },
+        { name: 'John Smith', room: '654', id: '89243133259' },
+        { name: 'John Smith', room: '654', id: '894315533259' }
     ];
 
     return(<>
@@ -688,9 +688,8 @@ export default function RoomsPage(){
                         </Grid>
                     </Grid>
                     <List dense={true}>
-                        {patients.map((patient, index) => (
-                            <ListItem 
-                            key={index} 
+                        {patients.map((patient) => (
+                            <ListItem key={patient.id}
                             divider 
                             sx={{ 
                                 borderRadius: '50px',
