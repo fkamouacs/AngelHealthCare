@@ -80,7 +80,7 @@ const [members, setMembers] = useState([false, true, false]);
             },
           }}
         >
-          <ListItem>
+          <ListItem >
             <Avatar aria-hidden="true" src="/static/images/avatar/1.jpg" />
             <Checkbox
               disabled
