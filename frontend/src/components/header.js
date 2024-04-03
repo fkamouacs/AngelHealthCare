@@ -12,7 +12,7 @@ export default function Header({PAGES, currentPage, changePage}){
     
 
     const handleOpenAccountsPage = (event, id) => {
-        alert("handleOpenAccountsPage not implemented");
+        changePage(PAGES.ACCOUNTS);
     }   
 
     const handleOpenResourcesPage = (event, id) => {
@@ -27,16 +27,14 @@ export default function Header({PAGES, currentPage, changePage}){
         changePage(PAGES.PROCESSES)
     }
 
-    const handleOpenProceduresPage = (event, id) => {
-        alert("handleOpenProceduresPage not implemented");
-    }
+    
 
     const pages = [
         ['Accounts', handleOpenAccountsPage, PAGES.ACCOUNTS], 
         ['Resources', handleOpenResourcesPage, PAGES.RESOURCES], 
         ['Rooms', handleOpenRoomsPage, PAGES.ROOMS], 
         ['Processes', handleOpenProcessesPage, PAGES.PROCESSES], 
-        ['Procedures', handleOpenProceduresPage, PAGES.PROCEDURES]];
+        ];
     
     // const [anchorElNav, setAnchorElNav] = React.useState(null);
     // const [anchorElUser, setAnchorElUser] = React.useState(null);

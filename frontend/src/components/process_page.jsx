@@ -6,40 +6,21 @@ import Typography, { typographyClasses } from '@mui/joy/Typography';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import Link from '@mui/joy/Link';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
-
-function createData(_id, name, patient, procedureIds, startDate, endDate) {
-    return {_id, name, patient, procedureIds, startDate, endDate };
-  }
-  
-  const rows = [
-    createData(1,'Knee Surgery', "JohnSmith", [1,2,3,4], "2/1/2024", "N/A"),
-    createData(2,'Knee Surgery', "JohnSmith", [1,2,3,4], "2/1/2024", "N/A"),
-    createData(3,'Knee Surgery', "JohnSmith", [1,2,3,4], "2/1/2024", "N/A"),
-    createData(4,'Knee Surgery', "JohnSmith", [1,2,3,4], "2/1/2024", "N/A"),
-    createData(5,'Knee Surgery', "JohnSmith", [1,2,3,4], "2/1/2024", "N/A"),
-    createData(6,'Knee Surgery', "JohnSmith", [1,2,3,4], "2/1/2024", "N/A"),
-  ];
-
-  function createProcedure(_id, name, step, stage) {
-    return {_id, name, step, stage}
-  }
-
-  const procedures = [
-    createProcedure(1,"preop", 1, "success"),
-    createProcedure(2,"Knee Surgery", 2, "success"),
-    createProcedure(3,"postop", 3, "primary"),
-    createProcedure(4,"checkup", 4, "disabled"),
-  ]
+import Procedure from "./procedure_page"
+import {processes, procedures} from "../fakedatabase.js"
 
 const Process_page = (props) => {
     const isId = (row) => {
         return row._id === props._id;
     }
     
-    const [currentProcess, setCurrentProcess] = useState(rows.find(isId))
+    const [currentProcess, setCurrentProcess] = useState(processes.find(isId))
+    const [showProcedure, setShowProcedure] = useState(false);
+    const [currentProcedureId, setCurrentProcedureId] = useState(null);
 
-    const handleProcedureClick = () => {
-        console.log("hihi")
+    const handleProcedureClick = (procedure) => {
+        setShowProcedure(true);
+        setCurrentProcedureId(procedure._id)
     }
 
 
@@ -49,7 +30,7 @@ const Process_page = (props) => {
         style={{
             cursor: "pointer"
         }}
-        onClick={handleProcedureClick}
+        onClick={() => handleProcedureClick(p)}
         completed
         indicator={
           <StepIndicator variant="solid" color={p.stage}>
@@ -72,6 +53,9 @@ const Process_page = (props) => {
        
         marginTop: '2rem'
     }}>
+
+        {showProcedure ? <Procedure _id={currentProcedureId} showProcedure={setShowProcedure} 
+        currentProcedure={setCurrentProcedureId} showProcess={props.showProcess} currentProcess={props.currentProcess}/> : <>
 
 <Breadcrumbs aria-label="breadcrumbs">
   
@@ -118,7 +102,9 @@ const Process_page = (props) => {
     >
       {displayProcedures()}
     </Stepper>
+    </>}
     </div>
+   
   )
 }
 

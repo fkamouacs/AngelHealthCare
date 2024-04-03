@@ -3,27 +3,15 @@ import Table from '@mui/joy/Table';
 import {Button} from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Process from "./process_page"
-
-function createData(_id, name, patient, currStage, startDate, endDate) {
-    return {_id, name, patient, currStage, startDate, endDate };
-  }
-  
-  const rows = [
-    createData(1,'Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
-    createData(2,'Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
-    createData(3,'Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
-    createData(4,'Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
-    createData(5,'Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
-    createData(6,'Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
-  ];
+import {processes} from "../fakedatabase.js"
 
 const Processes_page = () => {
     const [showProcess, setShowProcess] = useState(false);
     const [currentProcessId, setCurrentProcessId] = useState(null);
  
-    const handleProcessClick = (row) => {
+    const handleProcessClick = (process) => {
         setShowProcess(true)
-        setCurrentProcessId(row._id)
+        setCurrentProcessId(process._id)
     }
 
     const handleAddProcess = () => {
@@ -66,7 +54,7 @@ const Processes_page = () => {
         </tr>
       </thead>
       <tbody>
-        {rows.map((row) => (
+        {processes.map((row) => (
           <tr key={row.name} onClick={() => handleProcessClick(row)} style={{cursor: 'pointer', 
           }}>
             <td>{row.name}</td>
