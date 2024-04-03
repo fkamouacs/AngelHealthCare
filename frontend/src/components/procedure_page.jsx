@@ -1,4 +1,4 @@
-import {React, useState, Fragment} from 'react'
+import {React, useState, Fragment, useEffect} from 'react'
 import Link from '@mui/joy/Link';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Avatar from '@mui/joy/Avatar';
@@ -7,22 +7,57 @@ import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
-import {procedures} from "../fakedatabase.js"
+import {procedures, accounts, getAvailableAccounts, getProcedureById} from "../fakedatabase.js"
+
 
  const Procedure = (props) => {
-  const isId = (p) => {
-    return p._id === props._id;
-}
-const [currentProcedure, setCurrentProcedure] = useState(procedures.find(isId))
+ 
+const [currentProcedure, setCurrentProcedure] = useState(getProcedureById(props._id))
 
-const [members, setMembers] = useState([false, true, false]);
-  const toggleMember = (index) => (event) => {
+const [availableStaff, setAvailableStaff] = useState(getAvailableAccounts(currentProcedure.date, currentProcedure._id))
+const [assignedStaff, setAssignedStaff] = useState(getProcedureById(props._id).staff)
+
+const [members, setMembers] = useState([]);
+
+useEffect(() => {
+  const arr = [];
+
+  for(let i = 0; i < availableStaff.length; i++) {
+    if (assignedStaff.find((el) => el === availableStaff[i]._id)) {
+      arr.push({[availableStaff[i]._id]: true})
+    } else {
+      arr.push({[availableStaff[i]._id]: false});
+    }
+  }
+  setMembers(arr)
+
+},[availableStaff])
+
+console.log(members)
+ 
+const toggleMember = (index, id) => (event) => {
     const newMembers = [...members];
-    newMembers[index] = event.target.checked;
+    newMembers[index] = {[id]: event.target.checked };
     setMembers(newMembers);
   };
 
-
+  const displayStaff = () => {
+    if (members.length >0)
+    return availableStaff.map((a, index )=> (
+    <ListItem {...(a && { variant: 'soft', color: 'neutral' })}>
+    <Avatar aria-hidden="true" variant="solid">
+      FP
+    </Avatar>
+    <Checkbox
+      label={a.name}
+      overlay
+      color="neutral"
+      checked={members.find((m) => Object.keys(m)[0] == a._id)[a._id]}
+      onChange={toggleMember(index, a._id)}
+    />
+  </ListItem>))
+  }
+  
   return (
     <div>
 <Breadcrumbs aria-label="breadcrumbs">
@@ -80,55 +115,7 @@ const [members, setMembers] = useState([false, true, false]);
             },
           }}
         >
-          <ListItem>
-            <Avatar aria-hidden="true" src="/static/images/avatar/1.jpg" />
-            <Checkbox
-              disabled
-              label="Friedrich Oberbrunner"
-              overlay
-              checked={members[0]}
-              onChange={toggleMember(0)}
-            />
-          </ListItem>
-          <ListItem
-            {...(members[1] && {
-              variant: 'soft',
-              color: 'primary',
-            })}
-          >
-            <Avatar aria-hidden="true" src="/static/images/avatar/2.jpg" />
-            <Checkbox
-              overlay
-              label={
-                <Fragment>
-                  Adeline O&apos;Reilly{' '}
-                  {members[1] && (
-                    <Typography
-                      aria-hidden="true"
-                      sx={{ display: 'block', fontSize: 'sm', color: 'neutral.500' }}
-                    >
-                      This user is your friend.
-                    </Typography>
-                  )}
-                </Fragment>
-              }
-              checked={members[1]}
-              onChange={toggleMember(1)}
-              sx={{ color: 'inherit' }}
-            />
-          </ListItem>
-          <ListItem {...(members[2] && { variant: 'soft', color: 'neutral' })}>
-            <Avatar aria-hidden="true" variant="solid">
-              FP
-            </Avatar>
-            <Checkbox
-              label="Fernando Pidrillio"
-              overlay
-              color="neutral"
-              checked={members[2]}
-              onChange={toggleMember(2)}
-            />
-          </ListItem>
+          {displayStaff()}
         </List>
       </div>
     </Sheet>
