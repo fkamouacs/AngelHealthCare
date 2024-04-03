@@ -24,7 +24,7 @@ export default function Header({PAGES, currentPage, changePage}){
     }
 
     const handleOpenProcessesPage = (event, id) => {
-        alert("handleOpenProcessesPage not implemented");
+        changePage(PAGES.PROCESSES)
     }
 
     const handleOpenProceduresPage = (event, id) => {

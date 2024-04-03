@@ -4,6 +4,7 @@ import AccountPage from './account_page.js';
 import RoomPage from './room_page.jsx';
 import ResourcesPage from './resource_page.jsx'
 import HomePage from './home_page.jsx'
+import ProcessesPage from "./processes_page.jsx"
 export default function MainPage({currentPage, PAGES, setPage, handleLogin, info}){
     
     switch(currentPage){
@@ -50,7 +51,7 @@ export default function MainPage({currentPage, PAGES, setPage, handleLogin, info
         case PAGES.PROCESSES:
             return(
                 <>
-                adsad
+                <ProcessesPage/>
                 </>
             );
         case PAGES.PROCEDURES:

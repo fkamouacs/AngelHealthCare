@@ -25,7 +25,7 @@ export default function Directory(){
         PROCEDURES : "PROCEDURES"
     };
 
-    const [page,setPage] = useState(PAGES.HOME);
+    const [page,setPage] = useState(PAGES.ROOMS);
 
     const [patientToDisplay, setPatientToDisplay] = useState({
         "name" : "Paul Der",
