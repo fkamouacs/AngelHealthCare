@@ -12,8 +12,12 @@ import {
     Grid,
     Modal
 } from '@mui/material';
-import MessageCard from './account_message_card.js';
+import MessageCard from './account_message_card.jsx';
 import { Padding } from '@mui/icons-material';
+
+import { Close } from '@mui/icons-material';
+
+
 export default function PatientInfoModal({patient, closeModal}){
     
     if (!patient) {
@@ -27,15 +31,15 @@ export default function PatientInfoModal({patient, closeModal}){
         >
             <Box 
                 sx={{
-                    position: 'fixed', // Ensure it's fixed in the viewport
-                    top: '50%', // Center vertically
-                    left: '50%', // Center horizontally
-                    transform: 'translate(-50%, -50%)', // Adjust for exact centering
+                    position: 'fixed', 
+                    top: '50%', 
+                    left: '50%', 
+                    transform: 'translate(-50%, -50%)',
                     width: "50%", 
                     bgcolor: '#FFDFB9',
-                    p: 2, // Add some padding inside the box
-                    borderRadius: 2, // Optional: for rounded corners
-                    outline: 0 // Remove default focus outline
+                    p: 2, 
+                    borderRadius: 2, 
+                    outline: 1
                   }}
             >
             <Grid container>
@@ -48,6 +52,15 @@ export default function PatientInfoModal({patient, closeModal}){
                     >Delete Patient</Button>
                 </Grid>
             </Grid>
+            <Button
+                sx={{
+                    position: 'fixed', 
+                    top: '2%', 
+                    right: '2%', 
+                    // zIndex: 1
+                }}
+                onClick={() => alert("not implemented, or maybe never will")}
+                ><Close/></Button>
             <Grid container>
                 <Grid container item xs={6} >
                   <Grid item container xs={12} py={2} alignContent={'center'}>
@@ -174,7 +187,6 @@ export default function PatientInfoModal({patient, closeModal}){
                     </Grid>
                 </Grid>
             </Grid>
-            <Button onClick={closeModal}>Close Child Modal</Button>
             </Box>
         </Modal>
     </>);

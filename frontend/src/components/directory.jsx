@@ -1,10 +1,10 @@
 import {React, useState} from 'react';
 import axios from 'axios';
 
-import MainPage from './main_page.js';
-import Header from './header.js';
+import MainPage from './main_page.jsx';
+import Header from './header.jsx';
 import HomeHeader from './home_header.jsx';
-import PatientInfoModal from './patient_info_modal.js';
+import PatientInfoModal from './patient_info_modal.jsx';
 
 import { Button } from '@mui/material';
 
@@ -25,7 +25,7 @@ export default function Directory(){
         PROCEDURES : "PROCEDURES"
     };
 
-    const [page,setPage] = useState(PAGES.ROOMS);
+    const [page,setPage] = useState(PAGES.ACCOUNTS);
 
     const [patientToDisplay, setPatientToDisplay] = useState({
         "name" : "Paul Der",
@@ -164,65 +164,118 @@ export default function Directory(){
                 "emailer": "it.support@company.com",
                 "time_sent": "2024-04-03 18:30:00"
             }
+        ],
+        schedules : [
+            {
+                time: "2024-04-05 10:00",
+                title: "Spring Art Exhibition",
+                text: "An exhibition showcasing local artists and their spring-themed works."
+            },
+            {
+                time: "2024-04-12 15:00",
+                title: "Marathon for Charity",
+                text: "A city-wide marathon to raise funds for environmental causes."
+            },
+            {
+                time: "2024-04-20 09:00",
+                title: "Tech Conference 2024",
+                text: "Annual technology conference focusing on AI advancements."
+            },
+            {
+                time: "2024-04-30 20:00",
+                title: "Outdoor Movie Night",
+                text: "Free screening of classic films at the central park."
+            },
+            {
+                time: "2024-05-06 08:00",
+                title: "Community Yard Sale",
+                text: "Neighborhood yard sale event, open for all to sell or buy."
+            },
+            {
+                time: "2024-05-15 19:00",
+                title: "Local Band Concert",
+                text: "A concert featuring local bands and solo artists."
+            },
+            {
+                time: "2024-05-22 13:00",
+                title: "Book Fair",
+                text: "Annual book fair with special discounts and author meet-and-greets."
+            },
+            {
+                time: "2024-06-01 10:00",
+                title: "Children's Art Workshop",
+                text: "Art workshop for children aged 6-12, focusing on creative painting."
+            },
+            {
+                time: "2024-06-11 17:00",
+                title: "Food Festival",
+                text: "A festival celebrating diverse cuisines with food stalls and live cooking."
+            },
+            {
+                time: "2024-06-20 21:00",
+                title: "Stargazing Night",
+                text: "An evening of stargazing guided by local astronomers."
+            }
         ]
     });
     const [requiredInfo, setRequiredInfo] = useState({
-        rooms: [
-            {
-                "room#" : "134",
-                "avaliable spots" : "4/25"
-            },{
-                "room#" : "134",
-                "avaliable spots" : "4/25"
-            },{
-                "room#" : "134",
-                "avaliable spots" : "4/25"
-            },{
-                "room#" : "134",
-                "avaliable spots" : "4/25"
-            },{
-                "room#" : "134",
-                "avaliable spots" : "4/25"
-            },{
-                "room#" : "134",
-                "avaliable spots" : "4/25"
-            },
-        ],
-        patients: [
-            {
-                "name" : "John Wick",
-                "room#" : "134",
-                "id" : "624567524"
-            },{
-                "name" : "John Wick",
-                "room#" : "134",
-                "id" : "624567524"
-            },{
-                "name" : "John Wick",
-                "room#" : "134",
-                "id" : "624567524"
-            },{
-                "name" : "John Wick",
-                "room#" : "134",
-                "id" : "624567524"
-            },{
-                "name" : "John Wick",
-                "room#" : "134",
-                "id" : "624567524"
-            },{
-                "name" : "John Wick",
-                "room#" : "134",
-                "id" : "624567524"
-            },{
-                "name" : "John Wick",
-                "room#" : "134",
-                "id" : "624567524"
-            },{
-                "name" : "John Wick",
-                "room#" : "134",
-                "id" : "624567524"
-            },
-        ],
+        userInfo : currentUser
+        // rooms: [
+        //     {
+        //         "room#" : "134",
+        //         "avaliable spots" : "4/25"
+        //     },{
+        //         "room#" : "134",
+        //         "avaliable spots" : "4/25"
+        //     },{
+        //         "room#" : "134",
+        //         "avaliable spots" : "4/25"
+        //     },{
+        //         "room#" : "134",
+        //         "avaliable spots" : "4/25"
+        //     },{
+        //         "room#" : "134",
+        //         "avaliable spots" : "4/25"
+        //     },{
+        //         "room#" : "134",
+        //         "avaliable spots" : "4/25"
+        //     },
+        // ],
+        // patients: [
+        //     {
+        //         "name" : "John Wick",
+        //         "room#" : "134",
+        //         "id" : "624567524"
+        //     },{
+        //         "name" : "John Wick",
+        //         "room#" : "134",
+        //         "id" : "624567524"
+        //     },{
+        //         "name" : "John Wick",
+        //         "room#" : "134",
+        //         "id" : "624567524"
+        //     },{
+        //         "name" : "John Wick",
+        //         "room#" : "134",
+        //         "id" : "624567524"
+        //     },{
+        //         "name" : "John Wick",
+        //         "room#" : "134",
+        //         "id" : "624567524"
+        //     },{
+        //         "name" : "John Wick",
+        //         "room#" : "134",
+        //         "id" : "624567524"
+        //     },{
+        //         "name" : "John Wick",
+        //         "room#" : "134",
+        //         "id" : "624567524"
+        //     },{
+        //         "name" : "John Wick",
+        //         "room#" : "134",
+        //         "id" : "624567524"
+        //     },
+        // ],
     });
 
 

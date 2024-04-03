@@ -13,12 +13,14 @@ import {
 } from '@mui/material';
 import {Circle} from '@mui/icons-material';
 
-import MessageBox from './account_message.js';
-import NewMessageBox from './account_make_new_message.js';
+import MessageBox from './account_message.jsx';
+import NewMessageBox from './account_make_new_message.jsx';
+import Schedule from './account_schedule.jsx';
 
 export default function AccountPage({userInfo}){
 
-    const [viewContent, setViewContent] = React.useState("message");
+    const [viewContent, setViewContent] = React.useState("schedule");
+
 
     return(<>
         <Box py={1} px={3} minHeight={600} height={"75%"}>
@@ -52,31 +54,34 @@ export default function AccountPage({userInfo}){
                 </Grid>
             </Grid>
             <Grid container minHeight={400} height={"70%"}>
-                <Grid item xs={7} padding={1} height={"100%"} bgcolor={"#E8E8E8"}>
-                    <MessageBox messages={userInfo.messages}/>
+                <Grid item xs={7} padding={1} height={"100%"} bgcolor={"#E8E8E8"} minHeight={400}>
+                    {(viewContent == "message") ?
+                        <MessageBox messages={userInfo.messages}/>
+                        : <Schedule schedules={userInfo.schedules}/>}
                 </Grid>
+                
                 <Grid item xs={5} padding={1} height={"100%"}>
-                <Box display="flex" flexDirection="column" height="100%">
-                    <Box flex="0 0 auto" height="125px">
-                        <Button
-                        disabled={viewContent === "message"}
-                        onClick={() => setViewContent("message")}
-                        sx={{ padding: "10px", margin: "5px" }}
-                        >
-                        View Messages
-                        </Button>
-                        <br/>
-                        <Button
-                        disabled={viewContent === "schedule"}
-                        onClick={() => setViewContent("schedule")}
-                        sx={{ padding: "10px", margin: "5px" }}
-                        >
-                        View Schedule
-                        </Button>
-                    </Box>
-                    <Box flex="1"> 
-                        <NewMessageBox />
-                    </Box>
+                    <Box display="flex" flexDirection="column" height="100%">
+                        <Box flex="0 0 auto" height="125px">
+                            <Button
+                            disabled={viewContent === "message"}
+                            onClick={() => setViewContent("message")}
+                            sx={{ padding: "10px", margin: "5px" }}
+                            >
+                            View Messages
+                            </Button>
+                            <br/>
+                            <Button
+                            disabled={viewContent === "schedule"}
+                            onClick={() => setViewContent("schedule")}
+                            sx={{ padding: "10px", margin: "5px" }}
+                            >
+                            View Schedule
+                            </Button>
+                        </Box>
+                        <Box flex="1"> 
+                            <NewMessageBox />
+                        </Box>
                     </Box>
                 </Grid>
             </Grid>
