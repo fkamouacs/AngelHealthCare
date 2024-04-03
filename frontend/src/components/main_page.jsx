@@ -1,6 +1,6 @@
 
-import LoginPage from './login_page.js';
-import AccountPage from './account_page.js';
+import LoginPage from './login_page.jsx';
+import AccountPage from './account_page.jsx';
 import RoomPage from './room_page.jsx';
 import ResourcesPage from './resource_page.jsx'
 

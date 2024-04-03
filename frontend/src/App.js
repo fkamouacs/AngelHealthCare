@@ -25,7 +25,7 @@
 // export default App;
 
 import './App.css';
-import Directory from './components/directory.js';
+import Directory from './components/directory.jsx';
 import { Container } from '@mui/material';
 
 function App() {

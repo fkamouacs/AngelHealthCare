@@ -11,7 +11,7 @@ import {
     Box,
     Grid,
 } from '@mui/material';
-import MessageCard from './account_message_card.js';
+import MessageCard from './account_message_card.jsx';
 export default function MessageBox({messages}){
     return(<>
         <Box display="flex" flexDirection="column" height="100%">

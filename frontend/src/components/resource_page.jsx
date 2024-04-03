@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Grid, Paper, Typography, ToggleButtonGroup, ToggleButton, IconButton, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction, Box} from '@mui/material';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward.js';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward.js';
 import MoreVertIcon from '@mui/icons-material/MoreVert.js';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import DeleteIcon from '@mui/icons-material/Delete';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline.js';
+import DeleteIcon from '@mui/icons-material/Delete.js';
 
 export default function ResourcesPage(){
     const [sortBy, setSortBy] = useState('Name');

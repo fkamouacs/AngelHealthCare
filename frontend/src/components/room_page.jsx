@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, Paper, Typography, ToggleButtonGroup, ToggleButton, IconButton, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction} from '@mui/material';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward.js';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward.js';
 import MoreVertIcon from '@mui/icons-material/MoreVert.js';
 
