@@ -133,11 +133,11 @@ export default function ResourcesPage(){
             </IconButton>
             <Button
                 variant="contained"
-                color="primary"
                 sx={{
                     position: 'absolute',
                     bottom: 16, // Adjust spacing from the bottom
                     right: 16, // Adjust spacing from the right
+                    bgcolor: '#6682c4'
                 }}
                 startIcon={<AddCircleOutlineIcon />}
                 onClick={()=>alert("add Item not implemented yet")}
@@ -165,7 +165,7 @@ export default function ResourcesPage(){
     return(<>
         <Grid item xs={12} sx={{ ml: (-5), mt: (1) , mr: (-5)}}>
             {/* Sort By Name/Count, sortorder, search bar*/}
-            <Paper sx={{padding: 2, display: 'flex', alignItems: 'center', marginBottom: 1, gap: 10, borderColor: 'primary.main', borderWidth: '1', borderStyle: 'solid'}}>
+            <Paper sx={{padding: 2, display: 'flex', alignItems: 'center', marginBottom: 1, gap: 10, borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}>
                 <Typography variant="h6">Sort By</Typography>
                 <ToggleButtonGroup
                 color="primary"
@@ -173,14 +173,14 @@ export default function ResourcesPage(){
                 exclusive
                 onChange={handleSort}
                 aria-label="sort by"
-                sx={{ borderRadius: '50px', borderColor: 'primary.main', borderWidth: '1', borderStyle: 'solid'}}
+                sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}
                 >
-                <ToggleButton sx={{ borderRadius: '50px', borderColor: 'primary.main', borderWidth: '1', borderStyle: 'solid'}} value="Name">Name</ToggleButton>
-                <ToggleButton sx={{ borderRadius: '50px', borderColor: 'primary.main', borderWidth: '1', borderStyle: 'solid'}} value="Count">Count</ToggleButton>
+                <ToggleButton sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} value="Name">Name</ToggleButton>
+                <ToggleButton sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} value="Count">Count</ToggleButton>
                 </ToggleButtonGroup>
                 <IconButton onClick={handleSortOrder} color="primary">
-                    {sortOrder === 'asc' ? <ArrowUpwardIcon sx={{ borderRadius: '50px', borderColor: 'primary.main', borderWidth: '1', borderStyle: 'solid'}}/> : 
-                    <ArrowDownwardIcon sx={{ borderRadius: '50px', borderColor: 'primary.main', borderWidth: '1', borderStyle: 'solid'}}/>}
+                    {sortOrder === 'asc' ? <ArrowUpwardIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}/> : 
+                    <ArrowDownwardIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}/>}
                 </IconButton>
                 <TextField
                     label="Enter a item name or id"
@@ -189,11 +189,11 @@ export default function ResourcesPage(){
                     size="small"
                     sx={{ width: '520px' }}
                 />
-                <Button variant="contained" color="primary">Search</Button>
+                <Button variant="contained" sx={{bgcolor: '#6682c4'}}>Search</Button>
             </Paper>
         </Grid>    
         <Grid item xs={12} sx={{ ml: (-5), mt: (1) , mr: (-5)}}>
-            <Paper sx={{ padding: 2 , borderColor: 'primary.main', borderWidth: '1', borderStyle: 'solid', maxHeight: '500px', overflow: 'auto'}}>
+            <Paper sx={{ padding: 2 , borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', maxHeight: '500px', overflow: 'auto'}}>
                 <Grid container alignItems="center" sx={{ borderBottom: 1, borderColor: 'divider', pb: 1 }}>
                         <Grid item xs={4}>
                             <Typography variant="h6" sx={{ width: '20%' }}>Name</Typography>
@@ -207,7 +207,7 @@ export default function ResourcesPage(){
                         <Box sx={{ flexGrow: 1 }} />
                         <Button 
                             variant="contained" 
-                            color="primary"
+                            sx={{bgcolor: '#6682c4'}}
                             startIcon={<AddCircleOutlineIcon />}
                             onClick={handleModalOpen}
                         >

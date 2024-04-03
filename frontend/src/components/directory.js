@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import MainPage from './main_page.js';
 import Header from './header.js';
+import HomeHeader from './home_header.jsx';
 import PatientInfoModal from './patient_info_modal.js';
 
 import { Button } from '@mui/material';
@@ -24,7 +25,7 @@ export default function Directory(){
         PROCEDURES : "PROCEDURES"
     };
 
-    const [page,setPage] = useState(PAGES.ROOMS);
+    const [page,setPage] = useState(PAGES.HOME);
 
     const [patientToDisplay, setPatientToDisplay] = useState({
         "name" : "Paul Der",
@@ -309,6 +310,10 @@ export default function Directory(){
         { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page
           [PAGES.RESOURCES, PAGES.ROOMS, PAGES.ACCOUNTS, PAGES.PROCESSES, PAGES.PROCEDURES].includes(page) &&
           <Header PAGES={PAGES} currentPage={page} changePage={changePage}/>
+        }
+        { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page
+          [PAGES.HOME].includes(page) &&
+          <HomeHeader PAGES={PAGES} currentPage={page} changePage={changePage}/>
         }
         <MainPage 
             currentPage={page} 
