@@ -8,22 +8,28 @@ import ListItem from '@mui/joy/ListItem';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import {procedures, accounts, getAvailableAccounts, getProcedureById, 
-removeStaffProcedure, addStaffProcedure} from "../fakedatabase.js"
+removeStaffProcedure, addStaffProcedure, getAvailableRooms,
+addAccountSchedule, removeAccountSchedule, 
+removeRoomProcedure, addRoomProcedure, 
+removeRoomSchedule, addRoomSchedule} from "../fakedatabase.js"
 
 
  const Procedure = (props) => {
  
 const [currentProcedure, setCurrentProcedure] = useState(getProcedureById(props._id))
 
-const [availableStaff, setAvailableStaff] = useState(getAvailableAccounts(currentProcedure.date, currentProcedure._id))
+const [availableStaff, setAvailableStaff] = useState(getAvailableAccounts(currentProcedure._id,currentProcedure.date))
 const [assignedStaff, setAssignedStaff] = useState(getProcedureById(props._id).staff)
-
 const [members, setMembers] = useState([]);
+
+const [availableRooms, setAvailableRooms] = useState(getAvailableRooms(currentProcedure._id, currentProcedure.date))
+const [assignedRoom, setAssignedRoom] = useState(getProcedureById(props._id).rooms)
+const [roomMembers, setRoomMembers] = useState([]);
 
 useEffect(() => {
   const arr = [];
-
   for(let i = 0; i < availableStaff.length; i++) {
+  
     if (assignedStaff.find((el) => el === availableStaff[i]._id)) {
       arr.push({[availableStaff[i]._id]: true})
     } else {
@@ -33,6 +39,22 @@ useEffect(() => {
   setMembers(arr)
 
 },[availableStaff])
+
+
+useEffect(() => {
+  const arr = [];
+
+  for(let i = 0; i < availableRooms.length; i++) {
+    if (assignedRoom.find((el) => el === availableRooms[i]._id)) {
+      
+      arr.push({[availableRooms[i]._id]: true})
+    } else {
+      arr.push({[availableRooms[i]._id]: false});
+    }
+  }
+  setRoomMembers(arr);
+},[availableRooms])
+
  
 const toggleMember = (index, id) => (event) => {
     const newMembers = [...members];
@@ -42,12 +64,37 @@ const toggleMember = (index, id) => (event) => {
     // update fake database
     if (event.target.checked) {
       addStaffProcedure(currentProcedure._id, id)
-      console.log(assignedStaff)
+      
+      // update staff schedule
+      addAccountSchedule(id, currentProcedure.date)
     } else {
       removeStaffProcedure(currentProcedure._id, id)
+      
+      // update staff schedule
+      removeAccountSchedule(id, currentProcedure.date);
     }
-  
+
+    // update state
+    setAssignedStaff(getProcedureById(props._id).staff);
   };
+
+const toggleMemberRooms = (index, id) => (event) => {
+  const newMembers = [...roomMembers];
+  newMembers[index] = {[id]: event.target.checked};
+  setRoomMembers(newMembers);
+
+
+  // update fake database
+  if (event.target.checked) {
+    addRoomProcedure(currentProcedure._id, id);
+    // update room schedule
+    addRoomSchedule(id, currentProcedure.date)
+  } else {
+    removeRoomProcedure(currentProcedure._id, id);
+    // update room schedule
+    removeRoomSchedule(id, currentProcedure.date);
+  }
+}
 
   const displayStaff = () => {
     if (members.length >0)
@@ -68,18 +115,18 @@ const toggleMember = (index, id) => (event) => {
   
 
   const displayRooms = () => {
-    if (members.length >0)
-    return availableStaff.map((a, index )=> (
+    if (roomMembers.length >0)
+    return availableRooms.map((a, index )=> (
     <ListItem {...(a && { variant: 'soft', color: 'neutral' })}>
     <Avatar aria-hidden="true" variant="solid">
       FP
     </Avatar>
     <Checkbox
-      label={a.name}
+      label={a._id}
       overlay
       color="neutral"
-      checked={members.find((m) => Object.keys(m)[0] == a._id)[a._id]}
-      onChange={toggleMember(index, a._id)}
+      checked={roomMembers.find((m) => Object.keys(m)[0] == a._id)[a._id]}
+      onChange={toggleMemberRooms(index, a._id)}
     />
   </ListItem>))
   }
