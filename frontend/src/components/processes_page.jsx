@@ -43,7 +43,7 @@ const Processes_page = () => {
     </Button>
    </div>
    
- <Table sx={{ '& thead th:nth-child(1)': { width: '40%' } }}>
+ <Table sx={{ '& thead th:nth-of-type(1)': { width: '40%' } }}>
       <thead>
         <tr>
           <th>Column width (40%)</th>
@@ -55,7 +55,7 @@ const Processes_page = () => {
       </thead>
       <tbody>
         {processes.map((row) => (
-          <tr key={row.name} onClick={() => handleProcessClick(row)} style={{cursor: 'pointer', 
+          <tr key={row._id} onClick={() => handleProcessClick(row)} style={{cursor: 'pointer', 
           }}>
             <td>{row.name}</td>
             <td>{row.patient}</td>

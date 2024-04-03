@@ -27,6 +27,7 @@ const Process_page = (props) => {
    const displayProcedures = () => {
     return procedures.map(p => (
         <Step
+        key={p._id}
         style={{
             cursor: "pointer"
         }}
