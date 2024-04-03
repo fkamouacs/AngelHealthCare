@@ -7,52 +7,19 @@ import {
     Button,
 } from '@mui/material';
 
-export default function Header({PAGES, currentPage, changePage}){
+export default function HomeHeader({PAGES, currentPage, changePage}){
 
-    
-
-    const handleOpenAccountsPage = (event, id) => {
-        changePage(PAGES.ACCOUNTS);
+    const handleOpenHomePage = (event, id) => {
+        
     }   
 
-    const handleOpenResourcesPage = (event, id) => {
-        changePage(PAGES.RESOURCES);
+    const handleOpenLogInPage = (event, id) => {
+        
     }
-
-    const handleOpenRoomsPage = (event, id) => {
-        changePage(PAGES.ROOMS);
-    }
-
-    const handleOpenProcessesPage = (event, id) => {
-        changePage(PAGES.PROCESSES)
-    }
-
-    
 
     const pages = [
-        ['Accounts', handleOpenAccountsPage, PAGES.ACCOUNTS], 
-        ['Resources', handleOpenResourcesPage, PAGES.RESOURCES], 
-        ['Rooms', handleOpenRoomsPage, PAGES.ROOMS], 
-        ['Processes', handleOpenProcessesPage, PAGES.PROCESSES], 
-        ];
-    
-    // const [anchorElNav, setAnchorElNav] = React.useState(null);
-    // const [anchorElUser, setAnchorElUser] = React.useState(null);
-  
-    // const handleOpenNavMenu = (event) => {
-    //   setAnchorElNav(event.currentTarget);
-    // };
-    // const handleOpenUserMenu = (event) => {
-    //   setAnchorElUser(event.currentTarget);
-    // };
-  
-    // const handleCloseNavMenu = () => {
-    //   setAnchorElNav(null);
-    // };
-  
-    // const handleCloseUserMenu = () => {
-    //   setAnchorElUser(null);
-    // };
+        ['Home', handleOpenHomePage, PAGES.HOME], 
+        ['Log in', handleOpenLogInPage, PAGES.LOGIN]];
 
     return(<>
         <AppBar position="static" sx={{ bgcolor: '#6682c4' }}>
@@ -88,7 +55,6 @@ export default function Header({PAGES, currentPage, changePage}){
                             display: 'block',
                             mx: "20px"
                          }}
-                        disabled={pageNfunction[2] === currentPage}
                     >
                         <Typography
                             variant="h6"

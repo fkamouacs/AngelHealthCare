@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import MainPage from './main_page.jsx';
 import Header from './header.jsx';
+import HomeHeader from './home_header.jsx';
 import PatientInfoModal from './patient_info_modal.jsx';
 
 import { Button } from '@mui/material';
@@ -299,6 +300,9 @@ export default function Directory(){
         setPatientToDisplay(null);
     }
 
+    function changePage(newPage){
+        setPage(newPage);
+    }
 
 
     return(<>
@@ -351,11 +355,19 @@ export default function Directory(){
             width: 200, 
         }}>n/a
         </Button>
-        {/* <PatientInfoModal 
+        
+        <PatientInfoModal 
             patient={patientToDisplay}
             closeModal={closeModal}
-        /> */}
-        <Header PAGES={PAGES} currentPage={page}/>
+        />
+        { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page
+          [PAGES.RESOURCES, PAGES.ROOMS, PAGES.ACCOUNTS, PAGES.PROCESSES, PAGES.PROCEDURES].includes(page) &&
+          <Header PAGES={PAGES} currentPage={page} changePage={changePage}/>
+        }
+        { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page
+          [PAGES.HOME].includes(page) &&
+          <HomeHeader PAGES={PAGES} currentPage={page} changePage={changePage}/>
+        }
         <MainPage 
             currentPage={page} 
             PAGES={PAGES}
