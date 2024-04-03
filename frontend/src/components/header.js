@@ -7,7 +7,7 @@ import {
     Button,
 } from '@mui/material';
 
-export default function Header({PAGES, currentPage}){
+export default function Header({PAGES, currentPage, changePage}){
 
     
 
@@ -16,11 +16,11 @@ export default function Header({PAGES, currentPage}){
     }   
 
     const handleOpenResourcesPage = (event, id) => {
-        alert("handleOpenResourcesPage not implemented");
+        changePage(PAGES.RESOURCES);
     }
 
     const handleOpenRoomsPage = (event, id) => {
-        alert("handleOpenRoomsPage not implemented");
+        changePage(PAGES.ROOMS);
     }
 
     const handleOpenProcessesPage = (event, id) => {
@@ -90,7 +90,7 @@ export default function Header({PAGES, currentPage}){
                             display: 'block',
                             mx: "20px"
                          }}
-                        disabled={pageNfunction[2] == currentPage}
+                        disabled={pageNfunction[2] === currentPage}
                     >
                         <Typography
                             variant="h6"

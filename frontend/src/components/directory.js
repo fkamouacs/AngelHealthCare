@@ -246,6 +246,9 @@ export default function Directory(){
         setPatientToDisplay(null);
     }
 
+    function changePage(newPage){
+        setPage(newPage);
+    }
 
 
     return(<>
@@ -298,11 +301,15 @@ export default function Directory(){
             width: 200, 
         }}>n/a
         </Button>
+        
         <PatientInfoModal 
             patient={patientToDisplay}
             closeModal={closeModal}
         />
-        <Header PAGES={PAGES} currentPage={page}/>
+        { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page
+          [PAGES.RESOURCES, PAGES.ROOMS, PAGES.ACCOUNTS, PAGES.PROCESSES, PAGES.PROCEDURES].includes(page) &&
+          <Header PAGES={PAGES} currentPage={page} changePage={changePage}/>
+        }
         <MainPage 
             currentPage={page} 
             PAGES={PAGES}
