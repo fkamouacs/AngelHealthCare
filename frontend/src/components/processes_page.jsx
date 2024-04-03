@@ -2,24 +2,28 @@ import React, { useState } from 'react';
 import Table from '@mui/joy/Table';
 import {Button} from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import Process from "./process_page"
 
-function createData(name, patient, currStage, startDate, endDate) {
-    return { name, patient, currStage, startDate, endDate };
+function createData(_id, name, patient, currStage, startDate, endDate) {
+    return {_id, name, patient, currStage, startDate, endDate };
   }
   
   const rows = [
-    createData('Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
-    createData('Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
-    createData('Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
-    createData('Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
-    createData('Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
-    createData('Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
+    createData(1,'Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
+    createData(2,'Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
+    createData(3,'Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
+    createData(4,'Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
+    createData(5,'Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
+    createData(6,'Knee Surgery', "JohnSmith", "preop", "2/1/2024", "N/A"),
   ];
 
 const Processes_page = () => {
-    
-    const handleProcessClick = () => {
-        console.log("XD")
+    const [showProcess, setShowProcess] = useState(false);
+    const [currentProcessId, setCurrentProcessId] = useState(null);
+ 
+    const handleProcessClick = (row) => {
+        setShowProcess(true)
+        setCurrentProcessId(row._id)
     }
 
     const handleAddProcess = () => {
@@ -27,6 +31,9 @@ const Processes_page = () => {
     }
     
     return (
+   <>
+
+    {showProcess ? <Process _id={currentProcessId} showProcess={setShowProcess} currentProcess={setCurrentProcessId}/> : 
    <>
    <div style={{
                     display: 'flex',
@@ -60,7 +67,7 @@ const Processes_page = () => {
       </thead>
       <tbody>
         {rows.map((row) => (
-          <tr key={row.name} onClick={handleProcessClick} style={{cursor: 'pointer', 
+          <tr key={row.name} onClick={() => handleProcessClick(row)} style={{cursor: 'pointer', 
           }}>
             <td>{row.name}</td>
             <td>{row.patient}</td>
@@ -71,6 +78,7 @@ const Processes_page = () => {
         ))}
       </tbody>
     </Table>
+    </>}
    </>)
   
 }
