@@ -7,7 +7,8 @@ import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
-import {procedures, accounts, getAvailableAccounts, getProcedureById} from "../fakedatabase.js"
+import {procedures, accounts, getAvailableAccounts, getProcedureById, 
+removeStaffProcedure, addStaffProcedure} from "../fakedatabase.js"
 
 
  const Procedure = (props) => {
@@ -32,13 +33,20 @@ useEffect(() => {
   setMembers(arr)
 
 },[availableStaff])
-
-console.log(members)
  
 const toggleMember = (index, id) => (event) => {
     const newMembers = [...members];
     newMembers[index] = {[id]: event.target.checked };
     setMembers(newMembers);
+
+    // update fake database
+    if (event.target.checked) {
+      addStaffProcedure(currentProcedure._id, id)
+      console.log(assignedStaff)
+    } else {
+      removeStaffProcedure(currentProcedure._id, id)
+    }
+  
   };
 
   const displayStaff = () => {
@@ -58,6 +66,25 @@ const toggleMember = (index, id) => (event) => {
   </ListItem>))
   }
   
+
+  const displayRooms = () => {
+    if (members.length >0)
+    return availableStaff.map((a, index )=> (
+    <ListItem {...(a && { variant: 'soft', color: 'neutral' })}>
+    <Avatar aria-hidden="true" variant="solid">
+      FP
+    </Avatar>
+    <Checkbox
+      label={a.name}
+      overlay
+      color="neutral"
+      checked={members.find((m) => Object.keys(m)[0] == a._id)[a._id]}
+      onChange={toggleMember(index, a._id)}
+    />
+  </ListItem>))
+  }
+
+
   return (
     <div>
 <Breadcrumbs aria-label="breadcrumbs">
@@ -121,6 +148,46 @@ const toggleMember = (index, id) => (event) => {
     </Sheet>
 
 
+
+
+    <Sheet
+      variant="outlined"
+      sx={{
+        p: 2,
+        borderRadius: 'sm',
+        width: 360,
+        maxWidth: '100%',
+      }}
+    >
+      <Typography
+        id="staff"
+        sx={{
+          textTransform: 'uppercase',
+          fontSize: 'xs',
+          letterSpacing: 'lg',
+          fontWeight: 'lg',
+          color: 'text.secondary',
+          mb: 2,
+        }}
+      >
+        Available rooms
+      </Typography>
+      <div role="group" aria-labelledby="member">
+        <List
+          sx={{
+            '--ListItem-gap': '0.75rem',
+            [`& .${checkboxClasses.root}`]: {
+              mr: 'auto',
+              flexGrow: 1,
+              alignItems: 'center',
+              flexDirection: 'row-reverse',
+            },
+          }}
+        >
+          {displayRooms()}
+        </List>
+      </div>
+    </Sheet>
 </div>)
 }
 

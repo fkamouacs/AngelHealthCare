@@ -31,6 +31,16 @@ export const getProcedureById = (id) => {
     return procedures.find(isId)
 }
 
+export const removeStaffProcedure = (pid, staffId) => {
+    const currProcedure = getProcedureById(pid);
+    currProcedure.staff = currProcedure.staff.filter((e) => e !== staffId)
+}
+
+export const addStaffProcedure = (pid, staffId) => {
+    const currProcedure = getProcedureById(pid);
+    currProcedure.staff.push(staffId);
+}
+
 
   function createAccount(_id, name, status, schedule) {
     return {_id, name, status, schedule}
@@ -43,8 +53,24 @@ export const accounts = [
 ]
 
 
-export const getAvailableAccounts = (date, procedureId) => {
-    return accounts.filter((a) => !a.schedule.includes(date) || getProcedureById(procedureId).staff.includes(a._id));
+export const getAvailableAccounts = (date) => {
+    return accounts.filter((a) => !a.schedule.includes(date) );
 }
 
 
+
+function createRoom(id, available, total, type, schedule) {
+    return {id, available, total, type, schedule}
+  }
+  
+  export const rooms = [
+    createRoom(111, 15,20, "surgery", ["4/10/24"]),
+    createRoom(112, 15,20, "surgery", ["4/10/24"]),
+    createRoom(113, 15,20, "surgery", ["4/10/24"]),
+    createRoom(114, 15,20, "surgery", [""]),
+    createRoom(115, 15,20, "surgery", [""]),
+  ]
+
+  export const getAvailableRooms = (date) => {
+    
+  }
