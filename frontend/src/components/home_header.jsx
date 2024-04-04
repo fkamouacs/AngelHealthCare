@@ -10,11 +10,11 @@ import {
 export default function HomeHeader({PAGES, currentPage, changePage}){
 
     const handleOpenHomePage = (event, id) => {
-        
+        changePage(PAGES.HOME);
     }   
 
     const handleOpenLogInPage = (event, id) => {
-        
+        changePage(PAGES.LOGIN);
     }
 
     const pages = [
@@ -55,6 +55,7 @@ export default function HomeHeader({PAGES, currentPage, changePage}){
                             display: 'block',
                             mx: "20px"
                          }}
+                         disabled={pageNfunction[2] === currentPage}
                     >
                         <Typography
                             variant="h6"

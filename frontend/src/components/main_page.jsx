@@ -1,10 +1,12 @@
-
 import LoginPage from './login_page.jsx';
+import ForgotPassowrdPage from './forgot_passowrd_page.jsx'
+import ResetPassowrdPage from './reset_password_page.jsx'
 import AccountPage from './account_page.jsx';
 import RoomPage from './room_page.jsx';
 import ResourcesPage from './resource_page.jsx'
 import HomePage from './home_page.jsx'
 import ProcessesPage from "./processes_page.jsx"
+
 export default function MainPage({currentPage, PAGES, setPage, handleLogin, info}){
     
     switch(currentPage){
@@ -17,9 +19,19 @@ export default function MainPage({currentPage, PAGES, setPage, handleLogin, info
         case PAGES.LOGIN:
             return(
                 <>
-                <LoginPage
-                    handleLogin={handleLogin}
-                />
+                <LoginPage PAGES={PAGES} setPage={setPage}/>
+                </>
+            );
+        case PAGES.FORGOTPASSWORD:
+            return(
+                <>
+                <ForgotPassowrdPage PAGES={PAGES} setPage={setPage}/>
+                </>
+            );
+        case PAGES.RESETPASSWORD:
+            return(
+                <>
+                <ResetPassowrdPage PAGES={PAGES} setPage={setPage}/>
                 </>
             );
         case PAGES.RESOURCES:
