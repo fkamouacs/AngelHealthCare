@@ -16,10 +16,10 @@ function createProcesses(_id, name, patient, currStage, procedureIds, startDate,
   }
   
   export const procedures = [
-    createProcedure(1,"preop", "John Smith",1, "success", [1,2],[1],[111], "http://google.com", "4/10/24" ),
-    createProcedure(2,"Knee Surgery", "John Smith", 2, "success",[3,4],[1,2],[112], "http://google.com", "4/25/24"),
-    createProcedure(3,"postop","John Smith", 3, "primary",[1,2],[1,2],[113], "http://google.com", "4/25/24"),
-    createProcedure(4,"checkup", "John Smith", 4, "disabled", [3,4],[1,2],[114], "http://google.com", "4/25/24"),
+    createProcedure(1,"preop", "John Smith",1, "success", [1,2],[1],[111], "http://google.com", "4/10/2024" ),
+    createProcedure(2,"Knee Surgery", "John Smith", 2, "success",[3,4],[1,2],[112], "http://google.com", "4/25/2024"),
+    createProcedure(3,"postop","John Smith", 3, "primary",[1,2],[1,2],[113], "http://google.com", "4/25/2024"),
+    createProcedure(4,"checkup", "John Smith", 4, "disabled", [3,4],[1,2],[114], "http://google.com", "4/25/2024"),
   ]
 
  
@@ -41,15 +41,22 @@ export const addStaffProcedure = (pid, staffId) => {
     currProcedure.staff.push(staffId);
 }
 
+export const changeProcedureDate = (pid, date) => {
+    const currProcedure = getProcedureById(pid);
+    currProcedure.date = date
+}
+
+
+
 
   function createAccount(_id, name, status, schedule) {
     return {_id, name, status, schedule}
   }
 
 export const accounts = [
-    createAccount(1, "John Doe", "Active", ["4/10/24"]),
-    createAccount(2, "Jane Doe", "Active", ["4/10/24"]),
-    createAccount(3, "Mary Doe", "Active", ["4/10/24"]),
+    createAccount(1, "John Doe", "Active", ["4/10/2024"]),
+    createAccount(2, "Jane Doe", "Active", ["4/10/2024"]),
+    createAccount(3, "Mary Doe", "Active", ["4/10/2024"]),
 ]
 
 export const getAccountById = (id) => {
@@ -66,6 +73,7 @@ export const getAvailableAccounts = (pid, date) => {
 
 export const removeAccountSchedule = (aid, date) => {
     const currAccount = getAccountById(aid);
+    console.log(aid)
     currAccount.schedule = currAccount.schedule.filter((e) => e !== date)
 }
 
@@ -74,7 +82,27 @@ export const addAccountSchedule = (aid, date) => {
     currAccount.schedule.push(date);
 }
 
+export const updateProcedureStaffDate = (pid, date) => {
+    const currProcedure = getProcedureById(pid);
 
+    let staffIds = currProcedure.staff
+    const availableStaff = getAvailableAccounts(pid, date)
+    console.log(availableStaff)
+    for (let i = 0; i < staffIds.length; i++) {
+    
+        
+        if (availableStaff.find((s) => s._id == staffIds[i])) {
+            // keep staff in procedure array and update staff schedule
+            removeAccountSchedule(staffIds[i], currProcedure.date)
+            addAccountSchedule(staffIds[i], date)
+        } else {
+            // staff not available on new date
+            // remove staff in procedure array and remove date from staff schedule
+            removeStaffProcedure(currProcedure._id, staffIds[i]);
+            removeAccountSchedule(staffIds[i], currProcedure.date);
+        }
+    }
+}
 
 
 
@@ -84,10 +112,10 @@ function createRoom(_id, available, total, type, schedule) {
   }
   
   export const rooms = [
-    createRoom(111, 15,20, "surgery", ["4/10/24"]),
-    createRoom(112, 15,20, "surgery", ["4/11/24"]),
-    createRoom(113, 15,20, "surgery", ["4/10/24"]),
-    createRoom(114, 15,20, "surgery", ["4/10/24"]),
+    createRoom(111, 15,20, "surgery", ["4/10/2024"]),
+    createRoom(112, 15,20, "surgery", ["4/11/2024"]),
+    createRoom(113, 15,20, "surgery", ["4/10/2024"]),
+    createRoom(114, 15,20, "surgery", ["4/10/2024"]),
     createRoom(115, 15,20, "surgery", [""]),
   ]
 
@@ -130,11 +158,11 @@ function createResource(_id, name, schedule) {
   }
   
   export const resources = [
-    createResource(1, "MRI machine", ["4/10/24"]),
-    createResource(2, "MRI machine", ["4/10/24"]),
-    createResource(3, "MRI machine", ["4/11/24"]),
-    createResource(4, "MRI machine", ["4/12/24"]),
-    createResource(5, "MRI machine", ["4/13/24"]),
+    createResource(1, "MRI machine", ["4/10/2024"]),
+    createResource(2, "MRI machine", ["4/10/2024"]),
+    createResource(3, "MRI machine", ["4/11/2024"]),
+    createResource(4, "MRI machine", ["4/12/2024"]),
+    createResource(5, "MRI machine", ["4/13/2024"]),
   
   ]
 

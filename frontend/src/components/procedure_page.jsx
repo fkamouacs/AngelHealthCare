@@ -7,11 +7,14 @@ import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
+import Input from '@mui/joy/Input';
+
 import {procedures, accounts, getAvailableAccounts, getProcedureById, 
 removeStaffProcedure, addStaffProcedure, getAvailableRooms,
 addAccountSchedule, removeAccountSchedule, 
 removeRoomProcedure, addRoomProcedure, 
-removeRoomSchedule, addRoomSchedule, getAvailableResources, addResourceProcedure, addResourceSchedule, removeResourceProcedure, removeResourceSchedule} from "../fakedatabase.js"
+removeRoomSchedule, addRoomSchedule, getAvailableResources, addResourceProcedure, addResourceSchedule, removeResourceProcedure, removeResourceSchedule, changeProcedureDate,
+updateProcedureStaffDate} from "../fakedatabase.js"
 import { useTheme } from '@emotion/react';
 
 
@@ -33,7 +36,45 @@ const [assignedResources, setAssignedResources] = useState(getProcedureById(prop
 const [resourceMembers, setResourceMembers] = useState([])
 
 
+const [showEditDate, setShowEditDate] = useState(false);
+const [date, setDate] = useState();
+const [dateError, setDateError] = useState(false)
+
+function isGoodDate(dt){
+  var reGoodDate = /^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/;
+  return reGoodDate.test(dt);
+}
+
+const handleEnter = (e) => {
+  if (e.key === "Enter") {
+    if (isGoodDate(date)) {
+      
+      // update staff
+      updateProcedureStaffDate(currentProcedure._id, date);
+      
+      // change procedure date
+      changeProcedureDate(currentProcedure._id, date);
+
+      setDateError(false);
+
+      // update available staff
+       
+      const fetchAvailableStaff = getAvailableAccounts(currentProcedure._id,currentProcedure.date);
+       
+      let difference = fetchAvailableStaff.filter(x => !availableStaff.includes(x));
+       let newAvailableStaff = [...availableStaff, ...difference]
+      setAvailableStaff(newAvailableStaff);
+      
+      setAssignedStaff(getProcedureById(props._id).staff)
+      setCurrentProcedure(getProcedureById(props._id))
+    } else {
+      setDateError(true);
+    }
+  }
+}
+
 useEffect(() => {
+  console.log("hihihi")
   const arr = [];
   for(let i = 0; i < availableStaff.length; i++) {
   
@@ -135,7 +176,9 @@ const toggleMemberResources = (index, id) => (event) => {
   }
 }
   const displayStaff = () => {
-    if (members.length >0)
+    console.log(availableStaff)
+    if (members.length === availableStaff.length)
+    
     return availableStaff.map((a, index )=> (
     <ListItem {...(a && { variant: 'soft', color: 'neutral' })}>
     <Avatar aria-hidden="true" variant="solid">
@@ -195,7 +238,7 @@ const toggleMemberResources = (index, id) => (event) => {
       props.showProcess(false);
       props.currentProcess(null);
   }}>
-    procedures list
+    processes list
   </Link>
 
   <Link key={"procedures"} color="neutral" onClick={() => {
@@ -207,10 +250,17 @@ const toggleMemberResources = (index, id) => (event) => {
 <Typography>{currentProcedure.name}</Typography>
 </Breadcrumbs>
 
+<div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
+  <h1>{`${currentProcedure.patient}'s ${currentProcedure.name} - ID: ${currentProcedure._id}`}</h1>
+  
+  {showEditDate ? <Input onKeyDown={handleEnter} onChange={(e)=> setDate(e.target.value)} placeholder={currentProcedure.date} variant="solid" /> : <div onClick={() => setShowEditDate(true)}>{`${currentProcedure.date} Edit Date`}</div>}
+</div>
 
-<h1>{`${currentProcedure.patient}'s ${currentProcedure.name} - ID: ${currentProcedure._id}`}</h1>
 
+<div style={{display: 'flex'}}>
+<div style={{margin: '0 1rem 0 0'}}>
 <Sheet
+    style={{margin: '1rem 0', maxHeight: 200, overflow: 'auto'}}
       variant="outlined"
       sx={{
         p: 2,
@@ -253,6 +303,7 @@ const toggleMemberResources = (index, id) => (event) => {
 
 
     <Sheet
+      style={{margin: '1rem 0', maxHeight: 200, overflow: 'auto'}}
       variant="outlined"
       sx={{
         p: 2,
@@ -292,11 +343,14 @@ const toggleMemberResources = (index, id) => (event) => {
     </Sheet>
 
 
+    </div>
 
 
+    <div>
 
-
+      
     <Sheet
+      style={{margin: '1rem 0', maxHeight: 200, overflow: 'auto'}}
       variant="outlined"
       sx={{
         p: 2,
@@ -333,8 +387,11 @@ const toggleMemberResources = (index, id) => (event) => {
           {displayResources()}
         </List>
       </div>
-    </Sheet>
 
+
+    </Sheet>
+    </div>
+</div>
 </div>)
 }
 

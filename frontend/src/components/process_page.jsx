@@ -8,6 +8,8 @@ import Link from '@mui/joy/Link';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Procedure from "./procedure_page"
 import {processes, procedures} from "../fakedatabase.js"
+import {Button} from '@mui/material';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const Process_page = (props) => {
     const isId = (row) => {
@@ -23,6 +25,10 @@ const Process_page = (props) => {
         setCurrentProcedureId(procedure._id)
     }
 
+    const handleAddProcedure = () => {
+        console.log('hihihi')
+      }
+      
 
    const displayProcedures = () => {
     return procedures.map(p => (
@@ -64,12 +70,22 @@ const Process_page = (props) => {
         props.showProcess(false);
         props.currentProcess(null);
     }}>
-      procedures list
+      processes list
     </Link>
   <Typography>{currentProcess.name}</Typography>
 </Breadcrumbs>
 
+<div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
     <h1>{`${currentProcess.patient}'s ${currentProcess.name} - ID: ${currentProcess._id}`}</h1>
+    <Button 
+        variant="contained" 
+        sx={{bgcolor: '#6682c4'}}
+        startIcon={<AddCircleOutlineIcon />}
+        onClick={handleAddProcedure}
+    >
+        Add Procedure
+    </Button>
+</div>
 
     <Stepper
       orientation="vertical"
