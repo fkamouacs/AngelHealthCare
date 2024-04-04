@@ -10,6 +10,7 @@ import Procedure from "./procedure_page"
 import {processes, procedures} from "../fakedatabase.js"
 import {Button} from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddProcedure from "./add_procedure.jsx"
 
 const Process_page = (props) => {
     const isId = (row) => {
@@ -19,15 +20,14 @@ const Process_page = (props) => {
     const [currentProcess, setCurrentProcess] = useState(processes.find(isId))
     const [showProcedure, setShowProcedure] = useState(false);
     const [currentProcedureId, setCurrentProcedureId] = useState(null);
+    const [showAddProcedure, setShowAddProcedure] = useState(false);
 
     const handleProcedureClick = (procedure) => {
         setShowProcedure(true);
         setCurrentProcedureId(procedure._id)
     }
 
-    const handleAddProcedure = () => {
-        console.log('hihihi')
-      }
+   
       
 
    const displayProcedures = () => {
@@ -54,6 +54,9 @@ const Process_page = (props) => {
     )
    }
 
+   const handleDeleteProcedure = () => {
+
+   }
 
   return (
     <div style={{
@@ -62,7 +65,8 @@ const Process_page = (props) => {
     }}>
 
         {showProcedure ? <Procedure _id={currentProcedureId} showProcedure={setShowProcedure} 
-        currentProcedure={setCurrentProcedureId} showProcess={props.showProcess} currentProcess={props.currentProcess}/> : <>
+        currentProcedure={setCurrentProcedureId} showProcess={props.showProcess} currentProcess={props.currentProcess}/> : showAddProcedure ? <AddProcedure showAddProcedure={setShowAddProcedure}
+        currentProcess={currentProcess} setCurrentProcess={setCurrentProcess}/> : <>
 
 <Breadcrumbs aria-label="breadcrumbs">
   
@@ -77,14 +81,25 @@ const Process_page = (props) => {
 
 <div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
     <h1>{`${currentProcess.patient}'s ${currentProcess.name} - ID: ${currentProcess._id}`}</h1>
+    <div >
+    <Button 
+       style={{margin: "0 1rem"}}
+        variant="contained" 
+        sx={{bgcolor: '#6682c4'}}
+        startIcon={<AddCircleOutlineIcon />}
+        onClick={() => setShowAddProcedure(true)}
+    >
+        Add Procedure
+    </Button>
     <Button 
         variant="contained" 
         sx={{bgcolor: '#6682c4'}}
         startIcon={<AddCircleOutlineIcon />}
-        onClick={handleAddProcedure}
+        onClick={handleDeleteProcedure}
     >
-        Add Procedure
+        Delete Procedure
     </Button>
+    </div>
 </div>
 
     <Stepper

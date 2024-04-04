@@ -74,7 +74,7 @@ const handleEnter = (e) => {
 }
 
 useEffect(() => {
-  console.log("hihihi")
+
   const arr = [];
   for(let i = 0; i < availableStaff.length; i++) {
   
@@ -176,7 +176,7 @@ const toggleMemberResources = (index, id) => (event) => {
   }
 }
   const displayStaff = () => {
-    console.log(availableStaff)
+    
     if (members.length === availableStaff.length)
     
     return availableStaff.map((a, index )=> (

@@ -27,7 +27,7 @@ export default function Directory(){
         RESETPASSWORD : "RESETPASSWORD"
     };
 
-    const [page,setPage] = useState(PAGES.HOME);
+    const [page,setPage] = useState(PAGES.ROOMS);
 
     const [patientToDisplay, setPatientToDisplay] = useState({
         "name" : "Paul Der",

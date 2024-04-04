@@ -11,9 +11,18 @@ function createProcesses(_id, name, patient, currStage, procedureIds, startDate,
     createProcesses(6,'Knee Surgery', "JohnSmith", "preop", [1,2,3,4], "2/1/2024", "N/A"),
   ];
 
+  export const getProcessById = (id) => {
+    const isId = (p) => {
+      return p._id === id;
+  }
+    return processes.find(isId)
+  }
+
+
   function createProcedure(_id, name, patient, step, stage, staff, resources, rooms, documents, date) {
     return {_id, name, patient, step, stage, staff, resources, rooms, documents, date}
   }
+
   
   export const procedures = [
     createProcedure(1,"preop", "John Smith",1, "success", [1,2],[1],[111], "http://google.com", "4/10/2024" ),
@@ -21,8 +30,21 @@ function createProcesses(_id, name, patient, currStage, procedureIds, startDate,
     createProcedure(3,"postop","John Smith", 3, "primary",[1,2],[1,2],[113], "http://google.com", "4/25/2024"),
     createProcedure(4,"checkup", "John Smith", 4, "disabled", [3,4],[1,2],[114], "http://google.com", "4/25/2024"),
   ]
+ let tempPid = 5;
 
- 
+ export const addProcedure = (name, patient, date, staff, resources, rooms, processId) => {
+  const currProcess = getProcessById(processId)
+    const procedure = createProcedure(tempPid++, name, patient, currProcess.procedureIds.length+1, "disabled", staff, resources, rooms, "", date )
+    procedures.push(procedure);
+
+    // add procedure id to process
+    currProcess.procedureIds.push(tempPid);
+
+    // update staff account schedules
+    for (let i = 0; i < staff.length; i++) {
+      addAccountSchedule(staff[i], date);
+    }
+ }
 
 export const getProcedureById = (id) => {
     const isId = (p) => {
@@ -69,6 +91,11 @@ export const getAccountById = (id) => {
 export const getAvailableAccounts = (pid, date) => {
     const currProcedure = getProcedureById(pid);
     return accounts.filter((a) => !a.schedule.includes(date) || currProcedure.staff.includes(a._id));
+}
+
+export const getAvailableAccountsDate = (date) => {
+  
+  return accounts.filter((a) => !a.schedule.includes(date)) 
 }
 
 export const removeAccountSchedule = (aid, date) => {
