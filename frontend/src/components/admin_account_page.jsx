@@ -27,6 +27,10 @@ export default function AdminAccountPage({PAGES, setPage}){
         setOpenModal(false);
     };
 
+    const handLogOut = (event) => {
+        setPage(PAGES.LOGIN);
+    }
+    
     const renderModal = (
         <Modal
             open={openModal}
@@ -334,6 +338,18 @@ export default function AdminAccountPage({PAGES, setPage}){
                     ))}
                 </List>
             </Paper>
+            <Button
+                variant="contained"
+                sx={{
+                    position: 'absolute',
+                    bottom: 50,
+                    right: 345,
+                    bgcolor: '#6682c4'
+                }}
+                onClick={handLogOut}
+                >
+                    Log out
+            </Button>
             
         </Grid>
     </>);

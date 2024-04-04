@@ -26,6 +26,9 @@ export default function AccountPage({userInfo, PAGES, setPage}){
         setPage(PAGES.ADMINACCOUNTS);
     }
     
+    const handleLogOut = (event) => {
+        setPage(PAGES.LOGIN);
+    }
     return(<>
         <Box py={1} px={3} minHeight={600} height={"75%"}>
             <Grid container minHeight={100} maxHeight={120} height={"15%"}>
@@ -44,6 +47,18 @@ export default function AccountPage({userInfo, PAGES, setPage}){
                         onClick={handleTransferToAdmin}
                     >
                         Admin accounts view
+                    </Button>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            position: 'absolute',
+                            top: 180,
+                            right: 385,
+                            bgcolor: '#6682c4'
+                        }}
+                        onClick={handleLogOut}
+                    >
+                        Log out
                     </Button>
                     <Typography fontSize={20}>
                         {userInfo.userId}
