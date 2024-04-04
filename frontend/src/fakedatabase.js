@@ -44,6 +44,16 @@ function createProcesses(_id, name, patient, currStage, procedureIds, startDate,
     for (let i = 0; i < staff.length; i++) {
       addAccountSchedule(staff[i], date);
     }
+
+    // update room schedules
+    for (let i = 0; i < rooms.length; i++) {
+      addRoomSchedule(rooms[i], date);
+    }
+
+    // update resource schedules
+    for (let i = 0; i < resources.length; i++) {
+      addResourceSchedule(resources[i], date);
+    }
  }
 
 export const getProcedureById = (id) => {
@@ -158,6 +168,11 @@ function createRoom(_id, available, total, type, schedule) {
     return rooms.filter((r) =>!r.schedule.includes(date)|| currProcedure.rooms.includes(r._id))
   }
 
+  export const getAvailableRoomsDate = (date) => {
+
+    return rooms.filter((r) => !r.schedule.includes(date)) 
+  }
+
   export const removeRoomProcedure = (pid, roomId) => {
     const currProcedure = getProcedureById(pid);
     currProcedure.rooms = currProcedure.rooms.filter((e) => e !== roomId)
@@ -203,6 +218,11 @@ function createResource(_id, name, schedule) {
 export const getAvailableResources = (pid, date) => {
     const currProcedure = getProcedureById(pid);
     return resources.filter((r) =>!r.schedule.includes(date)|| currProcedure.resources.includes(r._id))
+  }
+
+  export const getAvailableResourcesDate = (date) => {
+  
+    return resources.filter((r) => !r.schedule.includes(date)) 
   }
 
   export const removeResourceProcedure = (pid, resourceId) => {

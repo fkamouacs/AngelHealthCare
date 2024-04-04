@@ -55,7 +55,7 @@ const Process_page = (props) => {
    }
 
    const handleDeleteProcedure = () => {
-
+    
    }
 
   return (
