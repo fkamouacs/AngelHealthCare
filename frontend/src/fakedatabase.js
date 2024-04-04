@@ -11,11 +11,23 @@ function createProcesses(_id, name, patient, currStage, procedureIds, startDate,
     createProcesses(6,'Knee Surgery', "JohnSmith", "preop", [1,2,3,4], "2/1/2024", "N/A"),
   ];
 
+  let tempProcessId = 7;
+
   export const getProcessById = (id) => {
     const isId = (p) => {
       return p._id === id;
   }
     return processes.find(isId)
+  }
+
+  export const getAllProcesses = () => {
+    return processes;
+  }
+
+  export const addProcess = (name, patientId) => {
+  
+    const process = createProcesses(tempProcessId++, name, getPatientById(patientId).name, "", [], "4/4/2024", "N/A" )
+    processes.push(process);
   }
 
 
@@ -280,4 +292,27 @@ export const removeResourceSchedule = (rid, date) => {
 export const addResourceSchedule = (aid, date) => {
     const currResource = getResourceById(aid);
     currResource.schedule.push(date);
+}
+
+
+function createPatient(_id, name) {
+  return {_id, name}
+}
+
+export const patients = [
+  createPatient(1, "John Smith"),
+  createPatient(2, "Jane Smith"),
+  createPatient(3, "Mary Smith"),
+]
+
+export const getAllPatients = () => {
+  return patients;
+}
+
+export const getPatientById = (id) => {
+  const isId = (p) => {
+      return p._id == id;
+  }
+
+  return patients.find(isId)
 }

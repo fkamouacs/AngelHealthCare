@@ -16,12 +16,12 @@ const Process_page = (props) => {
     const isId = (row) => {
         return row._id === props._id;
     }
-    
     const [currentProcess, setCurrentProcess] = useState(processes.find(isId))
     const [showProcedure, setShowProcedure] = useState(false);
     const [currentProcedureId, setCurrentProcedureId] = useState(null);
     const [showAddProcedure, setShowAddProcedure] = useState(false);
 
+    console.log(currentProcess)
     const handleProcedureClick = (procedure) => {
         setShowProcedure(true);
         setCurrentProcedureId(procedure._id)
@@ -31,7 +31,7 @@ const Process_page = (props) => {
       
 
    const displayProcedures = () => {
-    return procedures.map(p => (
+    return procedures.map(p => { if (currentProcess.procedureIds.includes(p._id)) return (
         <Step
         key={p._id}
         style={{
@@ -50,8 +50,8 @@ const Process_page = (props) => {
           {p.name}
         </div>
       </Step>
-    )
-    )
+    )}
+    )  
    }
 
    const handleDeleteProcedure = () => {
@@ -81,7 +81,7 @@ const Process_page = (props) => {
 
 <div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
     <h1>{`${currentProcess.patient}'s ${currentProcess.name} - ID: ${currentProcess._id}`}</h1>
-    <div >
+    <div > 
     <Button 
        style={{margin: "0 1rem"}}
         variant="contained" 

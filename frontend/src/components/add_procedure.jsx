@@ -217,6 +217,9 @@ const Add_procedure = (props) => {
         console.log(formData);
 
         addProcedure(formData.name, props.currentProcess.patient, formData.date, assignedStaff, assignedResources, assignedRoom, props.currentProcess._id)
+
+        console.log(getProcessById(props.currentProcess._id))
+        props.setCurrentProcess(getProcessById(props.currentProcess._id))
         props.showAddProcedure(false);
       };
 
