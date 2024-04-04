@@ -6,6 +6,9 @@ export default function LoginPage({PAGES, setPage}){
     const handleForgotPassword = (event) => {
         setPage(PAGES.FORGOTPASSWORD);
     }
+    const handleLogIn = (event) => {
+        setPage(PAGES.ACCOUNTS);
+    }
     return(<>
         <Box
             sx={{
@@ -35,6 +38,7 @@ export default function LoginPage({PAGES, setPage}){
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 , bgcolor: '#6682c4', height: '60px'}}
+                    onClick={handleLogIn}
                 >
                     Login
                 </Button>

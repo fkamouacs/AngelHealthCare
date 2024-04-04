@@ -19,6 +19,7 @@ export default function Directory(){
         LOGIN : "LOGIN",
         RESOURCES : "RESOURCES",
         ACCOUNTS : "ACCOUNTS",
+        ADMINACCOUNTS : "ADMINACCOUNTS",
         PATIENTS : "PATIENTS",
         ROOMS : "ROOMS",
         PROCESSES : "PROCESSES",
@@ -27,7 +28,7 @@ export default function Directory(){
         RESETPASSWORD : "RESETPASSWORD"
     };
 
-    const [page,setPage] = useState(PAGES.ROOMS);
+    const [page,setPage] = useState(PAGES.HOME);
 
     const [patientToDisplay, setPatientToDisplay] = useState({
         "name" : "Paul Der",
@@ -365,7 +366,7 @@ export default function Directory(){
         />
         */}
         { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page
-          [PAGES.RESOURCES, PAGES.ROOMS, PAGES.ACCOUNTS, PAGES.PROCESSES, PAGES.PROCEDURES].includes(page) &&
+          [PAGES.RESOURCES, PAGES.ROOMS, PAGES.ACCOUNTS, PAGES.PROCESSES, PAGES.PROCEDURES, PAGES.ADMINACCOUNTS].includes(page) &&
           <Header PAGES={PAGES} currentPage={page} changePage={changePage}/>
         }
         { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page

@@ -10,6 +10,7 @@ import {
     Button,
     Box,
     Grid,
+    
 } from '@mui/material';
 import {Circle} from '@mui/icons-material';
 
@@ -17,11 +18,14 @@ import MessageBox from './account_message.jsx';
 import NewMessageBox from './account_make_new_message.jsx';
 import Schedule from './account_schedule.jsx';
 
-export default function AccountPage({userInfo}){
+export default function AccountPage({userInfo, PAGES, setPage}){
 
     const [viewContent, setViewContent] = React.useState("schedule");
 
-
+    const handleTransferToAdmin = (event) =>{
+        setPage(PAGES.ADMINACCOUNTS);
+    }
+    
     return(<>
         <Box py={1} px={3} minHeight={600} height={"75%"}>
             <Grid container minHeight={100} maxHeight={120} height={"15%"}>
@@ -29,6 +33,18 @@ export default function AccountPage({userInfo}){
                     <Typography fontSize={40}>
                         {userInfo.username}
                     </Typography>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            position: 'absolute',
+                            top: 180,
+                            left: 650,
+                            bgcolor: '#6682c4'
+                        }}
+                        onClick={handleTransferToAdmin}
+                    >
+                        Admin accounts view
+                    </Button>
                     <Typography fontSize={20}>
                         {userInfo.userId}
                     </Typography>

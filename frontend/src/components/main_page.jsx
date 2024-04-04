@@ -2,6 +2,7 @@ import LoginPage from './login_page.jsx';
 import ForgotPassowrdPage from './forgot_passowrd_page.jsx'
 import ResetPassowrdPage from './reset_password_page.jsx'
 import AccountPage from './account_page.jsx';
+import AdminAccountPage from './admin_account_page.jsx';
 import RoomPage from './room_page.jsx';
 import ResourcesPage from './resource_page.jsx'
 import HomePage from './home_page.jsx'
@@ -45,7 +46,14 @@ export default function MainPage({currentPage, PAGES, setPage, handleLogin, info
                 <>
                 <AccountPage
                     userInfo={info.userInfo}
+                    PAGES={PAGES} setPage={setPage}
                 />
+                </>
+            );
+        case PAGES.ADMINACCOUNTS:
+            return(
+                <>
+                <AdminAccountPage PAGES={PAGES} setPage={setPage}/>
                 </>
             );
         case PAGES.PATIENTS:
