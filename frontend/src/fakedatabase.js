@@ -79,6 +79,42 @@ export const changeProcedureDate = (pid, date) => {
 }
 
 
+  export const completeProcedure = (procedureId, processId) => {
+    const currProcedure = getProcedureById(procedureId);
+    currProcedure.stage = "success";
+
+
+    //move to next procedure
+    const currProcess = getProcessById(processId);
+
+    const nextProcedure = getNextProcedureInProcess(procedureId, processId)
+
+    if (nextProcedure !== null) {
+      nextProcedure.stage = "primary"
+    } else {
+      // proceess complete set process end date
+      currProcess.endDate = currProcedure.date;
+    }
+  }
+
+  // returns the next procedure, if no next then returns null
+  export const getNextProcedureInProcess = (procedureId, processId) => {
+    const currProcedure = getProcedureById(procedureId);
+    const currProcess = getProcessById(processId);
+
+    const nextStep = currProcedure.step + 1;
+    const procedureIds = currProcess.procedureIds
+
+    for (let i = 0; i < procedureIds.length; i++) {
+      const procedure = getProcedureById(procedureIds[i])
+      if (procedure.step === nextStep) {
+        return procedure;
+      }
+    } 
+    return null;
+  }
+
+
 
 
   function createAccount(_id, name, status, schedule) {

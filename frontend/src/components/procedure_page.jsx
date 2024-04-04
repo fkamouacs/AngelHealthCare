@@ -8,13 +8,15 @@ import ListItem from '@mui/joy/ListItem';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import Input from '@mui/joy/Input';
+import {Button} from '@mui/material';
 
 import {procedures, accounts, getAvailableAccounts, getProcedureById, 
 removeStaffProcedure, addStaffProcedure, getAvailableRooms,
 addAccountSchedule, removeAccountSchedule, 
 removeRoomProcedure, addRoomProcedure, 
 removeRoomSchedule, addRoomSchedule, getAvailableResources, addResourceProcedure, addResourceSchedule, removeResourceProcedure, removeResourceSchedule, changeProcedureDate,
-updateProcedureStaffDate} from "../fakedatabase.js"
+updateProcedureStaffDate,
+completeProcedure} from "../fakedatabase.js"
 import { useTheme } from '@emotion/react';
 
 
@@ -229,6 +231,9 @@ const toggleMemberResources = (index, id) => (event) => {
   </ListItem>))
   }
 
+  const handleCompleteClick = () => {
+    completeProcedure(currentProcedure._id,props.currProcess);
+  }
 
   return (
     <div>
@@ -390,7 +395,19 @@ const toggleMemberResources = (index, id) => (event) => {
 
 
     </Sheet>
+    {currentProcedure.stage === "primary" ? 
+    (<Button 
+      style={{margin: "0 1rem"}}
+       variant="contained" 
+       sx={{bgcolor: '#6682c4'}}
+       
+       onClick={handleCompleteClick}
+   >
+       Complete Procedure
+   </Button>) : <></>}
     </div>
+
+    
 </div>
 </div>)
 }

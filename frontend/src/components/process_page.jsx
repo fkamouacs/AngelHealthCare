@@ -55,7 +55,7 @@ const Process_page = (props) => {
    }
 
    const handleDeleteProcedure = () => {
-    
+
    }
 
   return (
@@ -65,7 +65,7 @@ const Process_page = (props) => {
     }}>
 
         {showProcedure ? <Procedure _id={currentProcedureId} showProcedure={setShowProcedure} 
-        currentProcedure={setCurrentProcedureId} showProcess={props.showProcess} currentProcess={props.currentProcess}/> : showAddProcedure ? <AddProcedure showAddProcedure={setShowAddProcedure}
+        currentProcedure={setCurrentProcedureId} showProcess={props.showProcess} currentProcess={props.currentProcess} currProcess={props._id}/> : showAddProcedure ? <AddProcedure showAddProcedure={setShowAddProcedure}
         currentProcess={currentProcess} setCurrentProcess={setCurrentProcess}/> : <>
 
 <Breadcrumbs aria-label="breadcrumbs">
