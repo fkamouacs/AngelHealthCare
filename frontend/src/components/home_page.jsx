@@ -29,7 +29,7 @@ export default function HomePage(){
         style={{ minHeight: '20vh' }}
         >
             <Grid item>
-                <Typography variant="h5" gutterBottom sx={{color: '#6682c4', textIndent: '3em'}}>
+                <Typography variant="h5" gutterBottom sx={{color: '#6682c4', textAlign: 'center'}}>
                         AngelHealthCare is a healthcare process management application aiming to
                     improve patient care coordination in hospitals. Looking at the fast paced medical
                     environment today, notice that efficiency and accuracy are the key, especially
