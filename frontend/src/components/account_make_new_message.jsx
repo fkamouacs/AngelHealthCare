@@ -13,7 +13,7 @@ import {
     IconButton,
 } from '@mui/material';
 import {AddCircle} from '@mui/icons-material';
-export default function NewMessageBox({messages}){
+export default function NewMessageBox(){
 
 
     function handleClearMessageButton(event){
@@ -29,7 +29,7 @@ export default function NewMessageBox({messages}){
     }
 
     return(<>
-    <Box display="flex" flexDirection="column" height="100%">
+    {/* <Box display="flex" flexDirection="column" height="100%"> */}
         <Grid container alignItems="center" flex="0 0 auto" height="15%" maxHeight={40} borderBottom={"1px solid grey"}>
             <Grid item xs={11}>
                 <Typography
@@ -89,6 +89,6 @@ export default function NewMessageBox({messages}){
                 >Send</Button>
             </Box>
         </Grid>
-    </Box>
+    {/* </Box> */}
     </>);
 }

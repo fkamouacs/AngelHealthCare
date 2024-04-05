@@ -16,6 +16,7 @@ import {Circle} from '@mui/icons-material';
 import MessageBox from './account_message.jsx';
 import NewMessageBox from './account_make_new_message.jsx';
 import Schedule from './account_schedule.jsx';
+import NewScheduleBox from './account_make_new_schedule.jsx';
 
 export default function AccountPage({userInfo}){
 
@@ -53,11 +54,12 @@ export default function AccountPage({userInfo}){
                     </Typography>
                 </Grid>
             </Grid>
-            <Grid container minHeight={400} height={"70%"}>
-                <Grid item xs={7} padding={1} height={"100%"} bgcolor={"#E8E8E8"} minHeight={400}>
+            <Grid container height={"70%"}>
+                <Grid item xs={7} padding={1} height={"100%"} bgcolor={"#E8E8E8"} minHeight={500}>
                     {(viewContent == "message") ?
                         <MessageBox messages={userInfo.messages}/>
-                        : <Schedule schedules={userInfo.schedules}/>}
+                        : <Schedule schedules={userInfo.schedules}/>
+                    }
                 </Grid>
                 
                 <Grid item xs={5} padding={1} height={"100%"}>
@@ -79,8 +81,11 @@ export default function AccountPage({userInfo}){
                             View Schedule
                             </Button>
                         </Box>
-                        <Box flex="1"> 
-                            <NewMessageBox />
+                        <Box flex="1" minHeight={"275px"}> 
+                            {(viewContent == "message") ?
+                                <NewMessageBox/>
+                                : <NewScheduleBox/>
+                            }
                         </Box>
                     </Box>
                 </Grid>
