@@ -1,38 +1,57 @@
 import * as React from 'react';
 import {
-    List,
-    ListItem,
-    ListItemText,
-    ListItemButton,
     Typography,
     Divider,
-    TextField,
     Button,
     Box,
     Grid,
 } from '@mui/material';
-import {Circle} from '@mui/icons-material';
+
 
 import MessageBox from './account_message.jsx';
 import NewMessageBox from './account_make_new_message.jsx';
 import Schedule from './account_schedule.jsx';
 import NewScheduleBox from './account_make_new_schedule.jsx';
 
-export default function AccountPage({userInfo}){
+export default function AccountPage({userInfo, PAGES, setPage}){
 
     const [viewContent, setViewContent] = React.useState("schedule");
 
-
+    const handleTransferToAdmin = (event) =>{
+        setPage(PAGES.ADMINACCOUNTS);
+    }
+    
+    const handleLogOut = (event) => {
+        setPage(PAGES.LOGIN);
+    }
     return(<>
-        <Box py={1} px={3} minHeight={600} height={"75%"}>
-            <Grid container minHeight={100} maxHeight={120} height={"15%"}>
-                <Grid item  padding={1}>
+        <Box py={1}  minHeight={600} height={"75%"}>
+            <Grid container minHeight={100} maxHeight={120} height={"15%"} width={"100%"} maxWidth={"100%"}>
+                <Grid item  padding={1} id="123">
                     <Typography fontSize={40}>
                         {userInfo.username}
                     </Typography>
                     <Typography fontSize={20}>
                         {userInfo.userId}
                     </Typography>
+                </Grid>
+                <Grid item id="9" style={{flexGrow: 1}}>
+                    <Box display="flex" gap={4} justifyContent="flex-end">
+                        <Button
+                            variant="contained"
+                            sx={{ bgcolor: '#6682c4', marginTop: '20px'}}
+                            onClick={handleTransferToAdmin}
+                        >
+                            Admin accounts view
+                        </Button>
+                        <Button
+                            variant="contained"
+                            sx={{ bgcolor: '#6682c4' , marginTop: '20px'}}
+                            onClick={handleLogOut}
+                        >
+                            Log out
+                        </Button>
+                    </Box>
                 </Grid>
             </Grid>
             <Divider></Divider>

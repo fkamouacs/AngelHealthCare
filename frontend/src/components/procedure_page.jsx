@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+/* eslint-disable eqeqeq */
 import {React, useState, Fragment, useEffect} from 'react'
 import Link from '@mui/joy/Link';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
@@ -7,22 +10,79 @@ import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
-import {procedures, accounts, getAvailableAccounts, getProcedureById} from "../fakedatabase.js"
+import Input from '@mui/joy/Input';
+import {Button} from '@mui/material';
+
+import { getAvailableAccounts, getProcedureById, 
+removeStaffProcedure, addStaffProcedure, getAvailableRooms,
+addAccountSchedule, removeAccountSchedule, 
+removeRoomProcedure, addRoomProcedure, 
+removeRoomSchedule, addRoomSchedule, getAvailableResources, addResourceProcedure, addResourceSchedule, removeResourceProcedure, removeResourceSchedule, changeProcedureDate,
+updateProcedureStaffDate,
+completeProcedure} from "../fakedatabase.js"
+
 
 
  const Procedure = (props) => {
  
 const [currentProcedure, setCurrentProcedure] = useState(getProcedureById(props._id))
 
-const [availableStaff, setAvailableStaff] = useState(getAvailableAccounts(currentProcedure.date, currentProcedure._id))
+const [availableStaff, setAvailableStaff] = useState(getAvailableAccounts(currentProcedure._id,currentProcedure.date))
 const [assignedStaff, setAssignedStaff] = useState(getProcedureById(props._id).staff)
-
 const [members, setMembers] = useState([]);
 
-useEffect(() => {
-  const arr = [];
+const [availableRooms, setAvailableRooms] = useState(getAvailableRooms(currentProcedure._id, currentProcedure.date))
+const [assignedRoom, setAssignedRoom] = useState(getProcedureById(props._id).rooms)
+const [roomMembers, setRoomMembers] = useState([]);
 
+
+const [availableResources, setAvialableResources] = useState(getAvailableResources(currentProcedure._id, currentProcedure.date))
+const [assignedResources, setAssignedResources] = useState(getProcedureById(props._id).resources)
+const [resourceMembers, setResourceMembers] = useState([])
+
+
+const [showEditDate, setShowEditDate] = useState(false);
+const [date, setDate] = useState();
+const [dateError, setDateError] = useState(false)
+
+function isGoodDate(dt){
+  var reGoodDate = /^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/;
+  return reGoodDate.test(dt);
+}
+
+const handleEnter = (e) => {
+  if (e.key === "Enter") {
+    if (isGoodDate(date)) {
+      
+      // update staff
+      updateProcedureStaffDate(currentProcedure._id, date);
+      
+      // change procedure date
+      changeProcedureDate(currentProcedure._id, date);
+
+      setDateError(false);
+
+      // update available staff
+       
+      const fetchAvailableStaff = getAvailableAccounts(currentProcedure._id,currentProcedure.date);
+       
+      let difference = fetchAvailableStaff.filter(x => !availableStaff.includes(x));
+       let newAvailableStaff = [...availableStaff, ...difference]
+      setAvailableStaff(newAvailableStaff);
+      
+      setAssignedStaff(getProcedureById(props._id).staff)
+      setCurrentProcedure(getProcedureById(props._id))
+    } else {
+      setDateError(true);
+    }
+  }
+}
+
+useEffect(() => {
+
+  const arr = [];
   for(let i = 0; i < availableStaff.length; i++) {
+  
     if (assignedStaff.find((el) => el === availableStaff[i]._id)) {
       arr.push({[availableStaff[i]._id]: true})
     } else {
@@ -33,18 +93,99 @@ useEffect(() => {
 
 },[availableStaff])
 
-console.log(members)
+
+useEffect(() => {
+  const arr = [];
+
+  for(let i = 0; i < availableRooms.length; i++) {
+    if (assignedRoom.find((el) => el === availableRooms[i]._id)) {
+      
+      arr.push({[availableRooms[i]._id]: true})
+    } else {
+      arr.push({[availableRooms[i]._id]: false});
+    }
+  }
+  setRoomMembers(arr);
+},[availableRooms])
+
+useEffect(() => {
+  const arr = [];
+
+  for(let i = 0; i < availableResources.length; i++) {
+    if (assignedResources.find((el) => el === availableResources[i]._id)) {
+      
+      arr.push({[availableResources[i]._id]: true})
+    } else {
+      arr.push({[availableResources[i]._id]: false});
+    }
+  }
+  setResourceMembers(arr);
+},[availableResources])
+
  
 const toggleMember = (index, id) => (event) => {
     const newMembers = [...members];
     newMembers[index] = {[id]: event.target.checked };
     setMembers(newMembers);
+
+    // update fake database
+    if (event.target.checked) {
+      addStaffProcedure(currentProcedure._id, id)
+      
+      // update staff schedule
+      addAccountSchedule(id, currentProcedure.date)
+    } else {
+      removeStaffProcedure(currentProcedure._id, id)
+      
+      // update staff schedule
+      removeAccountSchedule(id, currentProcedure.date);
+    }
+
+    // update state
+    setAssignedStaff(getProcedureById(props._id).staff);
   };
 
+const toggleMemberRooms = (index, id) => (event) => {
+  const newMembers = [...roomMembers];
+  newMembers[index] = {[id]: event.target.checked};
+  setRoomMembers(newMembers);
+
+
+  // update fake database
+  if (event.target.checked) {
+    addRoomProcedure(currentProcedure._id, id);
+    // update room schedule
+    addRoomSchedule(id, currentProcedure.date)
+  } else {
+    removeRoomProcedure(currentProcedure._id, id);
+    // update room schedule
+    removeRoomSchedule(id, currentProcedure.date);
+  }
+}
+
+const toggleMemberResources = (index, id) => (event) => {
+  const newMembers = [...resourceMembers];
+  newMembers[index] = {[id]: event.target.checked};
+  setResourceMembers(newMembers);
+
+
+  // update fake database
+  if (event.target.checked) {
+   addResourceProcedure(currentProcedure._id, id);
+   //update resource schedule
+   addResourceSchedule(id, currentProcedure.date);
+  } else {
+   removeResourceProcedure(currentProcedure._id, id);
+   // update resource schedule
+   removeResourceSchedule(id, currentProcedure.date);
+  }
+}
   const displayStaff = () => {
-    if (members.length >0)
+    
+    if (members.length === availableStaff.length)
+    
     return availableStaff.map((a, index )=> (
-    <ListItem {...(a && { variant: 'soft', color: 'neutral' })}>
+    <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
     <Avatar aria-hidden="true" variant="solid">
       FP
     </Avatar>
@@ -58,6 +199,45 @@ const toggleMember = (index, id) => (event) => {
   </ListItem>))
   }
   
+
+  const displayRooms = () => {
+    if (roomMembers.length >0)
+    return availableRooms.map((a, index )=> (
+    <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
+    <Avatar aria-hidden="true" variant="solid">
+      FP
+    </Avatar>
+    <Checkbox
+      label={a._id}
+      overlay
+      color="neutral"
+      checked={roomMembers.find((m) => Object.keys(m)[0] == a._id)[a._id]}
+      onChange={toggleMemberRooms(index, a._id)}
+    />
+  </ListItem>))
+  }
+
+  const displayResources = () => {
+    if (resourceMembers.length >0)
+    return availableResources.map((a, index )=> (
+    <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
+    <Avatar aria-hidden="true" variant="solid">
+      FP
+    </Avatar>
+    <Checkbox
+      label={a.name}
+      overlay
+      color="neutral"
+      checked={resourceMembers.find((m) => Object.keys(m)[0] == a._id)[a._id]}
+      onChange={toggleMemberResources(index, a._id)}
+    />
+  </ListItem>))
+  }
+
+  const handleCompleteClick = () => {
+    completeProcedure(currentProcedure._id,props.currProcess);
+  }
+
   return (
     <div>
 <Breadcrumbs aria-label="breadcrumbs">
@@ -66,7 +246,7 @@ const toggleMember = (index, id) => (event) => {
       props.showProcess(false);
       props.currentProcess(null);
   }}>
-    procedures list
+    processes list
   </Link>
 
   <Link key={"procedures"} color="neutral" onClick={() => {
@@ -78,10 +258,17 @@ const toggleMember = (index, id) => (event) => {
 <Typography>{currentProcedure.name}</Typography>
 </Breadcrumbs>
 
+<div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
+  <h1>{`${currentProcedure.patient}'s ${currentProcedure.name} - ID: ${currentProcedure._id}`}</h1>
+  
+  {showEditDate ? <Input onKeyDown={handleEnter} onChange={(e)=> setDate(e.target.value)} placeholder={currentProcedure.date} variant="solid" /> : <div onClick={() => setShowEditDate(true)}>{`${currentProcedure.date} Edit Date`}</div>}
+</div>
 
-<h1>{`${currentProcedure.patient}'s ${currentProcedure.name} - ID: ${currentProcedure._id}`}</h1>
 
+<div style={{display: 'flex'}}>
+<div style={{margin: '0 1rem 0 0'}}>
 <Sheet
+    style={{margin: '1rem 0', maxHeight: 200, overflow: 'auto'}}
       variant="outlined"
       sx={{
         p: 2,
@@ -121,6 +308,110 @@ const toggleMember = (index, id) => (event) => {
     </Sheet>
 
 
+
+
+    <Sheet
+      style={{margin: '1rem 0', maxHeight: 200, overflow: 'auto'}}
+      variant="outlined"
+      sx={{
+        p: 2,
+        borderRadius: 'sm',
+        width: 360,
+        maxWidth: '100%',
+      }}
+    >
+      <Typography
+        id="staff"
+        sx={{
+          textTransform: 'uppercase',
+          fontSize: 'xs',
+          letterSpacing: 'lg',
+          fontWeight: 'lg',
+          color: 'text.secondary',
+          mb: 2,
+        }}
+      >
+        Available rooms
+      </Typography>
+      <div role="group" aria-labelledby="member">
+        <List
+          sx={{
+            '--ListItem-gap': '0.75rem',
+            [`& .${checkboxClasses.root}`]: {
+              mr: 'auto',
+              flexGrow: 1,
+              alignItems: 'center',
+              flexDirection: 'row-reverse',
+            },
+          }}
+        >
+          {displayRooms()}
+        </List>
+      </div>
+    </Sheet>
+
+
+    </div>
+
+
+    <div>
+
+      
+    <Sheet
+      style={{margin: '1rem 0', maxHeight: 200, overflow: 'auto'}}
+      variant="outlined"
+      sx={{
+        p: 2,
+        borderRadius: 'sm',
+        width: 360,
+        maxWidth: '100%',
+      }}
+    >
+      <Typography
+        id="staff"
+        sx={{
+          textTransform: 'uppercase',
+          fontSize: 'xs',
+          letterSpacing: 'lg',
+          fontWeight: 'lg',
+          color: 'text.secondary',
+          mb: 2,
+        }}
+      >
+        Available resources
+      </Typography>
+      <div role="group" aria-labelledby="member">
+        <List
+          sx={{
+            '--ListItem-gap': '0.75rem',
+            [`& .${checkboxClasses.root}`]: {
+              mr: 'auto',
+              flexGrow: 1,
+              alignItems: 'center',
+              flexDirection: 'row-reverse',
+            },
+          }}
+        >
+          {displayResources()}
+        </List>
+      </div>
+
+
+    </Sheet>
+    {currentProcedure.stage === "primary" ? 
+    (<Button 
+      style={{margin: "0 1rem"}}
+       variant="contained" 
+       sx={{bgcolor: '#6682c4'}}
+       
+       onClick={handleCompleteClick}
+   >
+       Complete Procedure
+   </Button>) : <></>}
+    </div>
+
+    
+</div>
 </div>)
 }
 

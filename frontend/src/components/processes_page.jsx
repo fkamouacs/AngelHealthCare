@@ -3,25 +3,25 @@ import Table from '@mui/joy/Table';
 import {Button} from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Process from "./process_page"
-import {processes} from "../fakedatabase.js"
+import {getAllProcesses} from "../fakedatabase.js"
+import AddProcess from "./add_process.jsx"
 
 const Processes_page = () => {
+    const [processes, setProcesses] = useState(getAllProcesses())
     const [showProcess, setShowProcess] = useState(false);
     const [currentProcessId, setCurrentProcessId] = useState(null);
- 
+    const [showAddProcess, setShowAddProcess] = useState(false);
+
     const handleProcessClick = (process) => {
         setShowProcess(true)
         setCurrentProcessId(process._id)
-    }
-
-    const handleAddProcess = () => {
-        console.log("hi")
     }
     
     return (
    <>
 
     {showProcess ? <Process _id={currentProcessId} showProcess={setShowProcess} currentProcess={setCurrentProcessId}/> : 
+    showAddProcess ? <AddProcess showAddProcess={setShowAddProcess} setProcesses={setProcesses}/> :
    <>
    <div style={{
                     display: 'flex',
@@ -37,7 +37,7 @@ const Processes_page = () => {
         variant="contained" 
         sx={{bgcolor: '#6682c4'}}
         startIcon={<AddCircleOutlineIcon />}
-        onClick={handleAddProcess}
+        onClick={() => setShowAddProcess(true)}
     >
         Add Item
     </Button>

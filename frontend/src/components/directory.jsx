@@ -1,16 +1,16 @@
 import {React, useState} from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 import MainPage from './main_page.jsx';
 import Header from './header.jsx';
 import HomeHeader from './home_header.jsx';
-import PatientInfoModal from './patient_info_modal.jsx';
+// import PatientInfoModal from './patient_info_modal.jsx';
 
-import { Button } from '@mui/material';
+// import { Button } from '@mui/material';
 
-const api = axios.create({
+/*const api = axios.create({
     baseURL: 'http://localhost:8000',
-});
+});*/
 
 export default function Directory(){
 
@@ -19,13 +19,16 @@ export default function Directory(){
         LOGIN : "LOGIN",
         RESOURCES : "RESOURCES",
         ACCOUNTS : "ACCOUNTS",
+        ADMINACCOUNTS : "ADMINACCOUNTS",
         PATIENTS : "PATIENTS",
         ROOMS : "ROOMS",
         PROCESSES : "PROCESSES",
-        PROCEDURES : "PROCEDURES"
+        PROCEDURES : "PROCEDURES",
+        FORGOTPASSWORD : "FORGOTPASSWORD",
+        RESETPASSWORD : "RESETPASSWORD"
     };
 
-    const [page,setPage] = useState(PAGES.ACCOUNTS);
+    const [page,setPage] = useState(PAGES.HOME);
 
     const [patientToDisplay, setPatientToDisplay] = useState({
         "name" : "Paul Der",
@@ -283,7 +286,7 @@ export default function Directory(){
         console.log("Button pressed");
     }
 
-    function openModal(){
+    /*function openModal(){
         setPatientToDisplay({
             "name" : "Paul Der",
             "id" : "gbvuiaefb",
@@ -294,11 +297,11 @@ export default function Directory(){
             "emergency contact number" : "51789674543",
             "room#" : "123"
         });
-    }
+    }*/
 
-    function closeModal(){
+    /*function closeModal(){
         setPatientToDisplay(null);
-    }
+    }*/
 
     function changePage(newPage){
         setPage(newPage);
@@ -306,6 +309,7 @@ export default function Directory(){
 
 
     return(<>
+        {/*
         <Button
             onClick={openModal}
             sx={{
@@ -360,12 +364,13 @@ export default function Directory(){
             patient={patientToDisplay}
             closeModal={closeModal}
         />
+        */}
         { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page
-          [PAGES.RESOURCES, PAGES.ROOMS, PAGES.ACCOUNTS, PAGES.PROCESSES, PAGES.PROCEDURES].includes(page) &&
+          [PAGES.RESOURCES, PAGES.ROOMS, PAGES.ACCOUNTS, PAGES.PROCESSES, PAGES.PROCEDURES, PAGES.ADMINACCOUNTS].includes(page) &&
           <Header PAGES={PAGES} currentPage={page} changePage={changePage}/>
         }
         { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page
-          [PAGES.HOME].includes(page) &&
+          [PAGES.HOME, PAGES.LOGIN].includes(page) &&
           <HomeHeader PAGES={PAGES} currentPage={page} changePage={changePage}/>
         }
         <MainPage 
