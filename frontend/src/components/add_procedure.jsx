@@ -1,4 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable eqeqeq */
 import {useState, useEffect} from 'react'
 import { TextField, Button, Container, Typography } from '@mui/material';
