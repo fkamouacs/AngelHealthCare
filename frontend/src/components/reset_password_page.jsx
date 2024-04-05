@@ -1,8 +1,14 @@
 import * as React from 'react';
 import { Button ,TextField ,Box , Typography, AppBar, Container, Toolbar} from '@mui/material';
+import PropTypes from 'prop-types';
+
+ResetPassowrdPage.propTypes = {
+    PAGES: PropTypes.object.isRequired,
+    setPage: PropTypes.func.isRequired,
+};
 
 export default function ResetPassowrdPage({PAGES, setPage}){
-    const handleBackToHome = (event) =>{
+    const handleBackToHome = () =>{
         setPage(PAGES.HOME);
     }
     

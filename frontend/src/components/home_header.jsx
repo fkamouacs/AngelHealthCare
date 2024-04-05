@@ -6,14 +6,20 @@ import {
     Container,
     Button,
 } from '@mui/material';
+import PropTypes from 'prop-types';
+HomeHeader.propTypes = {
+    currentPage: PropTypes.string.isRequired,
+    PAGES: PropTypes.object.isRequired,
+    changePage: PropTypes.func.isRequired
+};
 
 export default function HomeHeader({PAGES, currentPage, changePage}){
 
-    const handleOpenHomePage = (event, id) => {
+    const handleOpenHomePage = () => {
         changePage(PAGES.HOME);
     }   
 
-    const handleOpenLogInPage = (event, id) => {
+    const handleOpenLogInPage = () => {
         changePage(PAGES.LOGIN);
     }
 
@@ -48,7 +54,7 @@ export default function HomeHeader({PAGES, currentPage, changePage}){
                 {pages.map((pageNfunction) => (
                     <Button
                         key={pageNfunction[0] + "-header-key"}
-                        onClick={(event) => pageNfunction[1](event, pageNfunction[0] + "-header-key")}
+                        onClick={() => pageNfunction[1](event, pageNfunction[0] + "-header-key")}
                         sx={{ 
                             my: 2, 
                             color: 'white', 

@@ -7,8 +7,17 @@ import RoomPage from './room_page.jsx';
 import ResourcesPage from './resource_page.jsx'
 import HomePage from './home_page.jsx'
 import ProcessesPage from "./processes_page.jsx"
+import PropTypes from 'prop-types';
+import * as React from 'react';
 
-export default function MainPage({currentPage, PAGES, setPage, handleLogin, info}){
+MainPage.propTypes = {
+    currentPage: PropTypes.string.isRequired,
+    PAGES: PropTypes.object.isRequired,
+    setPage: PropTypes.func.isRequired,
+    info: PropTypes.object.isRequired,
+};
+
+export default function MainPage({currentPage, PAGES, setPage, info}){
     
     switch(currentPage){
         case PAGES.HOME:
@@ -83,6 +92,6 @@ export default function MainPage({currentPage, PAGES, setPage, handleLogin, info
         default:
             return(
                 <>404 not found</>
-        );
-    };
+            );
+    }
 }

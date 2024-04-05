@@ -1,4 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable eqeqeq */
 import {useState, useEffect} from 'react'
 import { TextField, Button, Container, Typography } from '@mui/material';
@@ -12,7 +13,7 @@ import { getAvailableAccountsDate, getProcessById, addProcedure, getAvailableRoo
 getAvailableResourcesDate, 
 } from '../fakedatabase';
 
-const Add_procedure = (props) => {
+const AddProcedure = (props) => {
     const [formData, setFormData] = useState({
         name: '',
    
@@ -416,4 +417,4 @@ const Add_procedure = (props) => {
   )
 }
 
-export default Add_procedure
+export default AddProcedure

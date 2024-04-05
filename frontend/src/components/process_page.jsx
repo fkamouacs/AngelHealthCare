@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
 import {useState} from 'react'
 import Stepper from '@mui/joy/Stepper';
 import Step, { stepClasses } from '@mui/joy/Step';
@@ -12,7 +14,7 @@ import {Button} from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AddProcedure from "./add_procedure.jsx"
 
-const Process_page = (props) => {
+const ProcessPage = (props) => {
     const isId = (row) => {
         return row._id === props._id;
     }
@@ -137,4 +139,4 @@ const Process_page = (props) => {
   )
 }
 
-export default Process_page
+export default ProcessPage
