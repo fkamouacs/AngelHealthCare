@@ -74,6 +74,7 @@ export default function RoomsPage(){
           open={Boolean(anchorE2)}
           onClose={handleEditMenuClose}
           elevation={3}
+          id="room-page-edit-patient-menu"
         >
           <MenuItem onClick={handleEditModalOpen} >Edit Patient</MenuItem>
         </Menu>
@@ -106,7 +107,7 @@ export default function RoomsPage(){
                         </Typography>
                     </Grid>
                     <Grid item xs={6} display="flex" justifyContent="flex-end">
-                        <IconButton 
+                        <IconButton
                             onClick={handleEditModalClose}
                         >
                             <CloseIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', color: '#6682c4'}}/>
@@ -637,11 +638,12 @@ export default function RoomsPage(){
                               <Grid item xs={2}>
                                 <ListItemSecondaryAction>
                                     <IconButton 
-                                    edge="end" 
-                                    aria-label="more"
-                                    aria-controls="long-menu"
-                                    aria-haspopup="true"
-                                    onClick={handleMenuClick}
+                                        edge="end" 
+                                        aria-label="more"
+                                        aria-controls="long-menu"
+                                        aria-haspopup="true"
+                                        onClick={handleMenuClick}
+                                        id="room-page-menu-button"
                                     >
                                         <MoreVertIcon />
                                     </IconButton>

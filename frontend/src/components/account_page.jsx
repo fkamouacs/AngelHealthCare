@@ -97,7 +97,7 @@ export default function AccountPage({userInfo, PAGES, setPage}){
                             onClick={() => setViewContent("schedule")}
                             sx={{ padding: "10px", margin: "5px" }}
                             >
-                            View Schedule
+                            View Schedules
                             </Button>
                         </Box>
                         <Box flex="1" minHeight={"275px"}> 

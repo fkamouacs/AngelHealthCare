@@ -4,6 +4,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 // import MoreVertIcon from '@mui/icons-material/MoreVert.js';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CloseIcon from '@mui/icons-material/Close';
+import PropTypes from 'prop-types';
 
 export default function AdminAccountPage({PAGES, setPage}){
     const [openModal, setOpenModal] = useState(false);
@@ -129,6 +130,7 @@ export default function AdminAccountPage({PAGES, setPage}){
                                 }}
                                 size="small"
                                 sx={{ width: '225px' }}
+                                id="admin-account-page-name"
                             />
                         </Grid>
                         <Grid item container xs={12} alignContent={'center'}>
@@ -145,6 +147,7 @@ export default function AdminAccountPage({PAGES, setPage}){
                                 }}
                                 sx={{ width: '225px' }}
                                 size="small"
+                                id="admin-account-page-id"
                             />
                         </Grid>
                         <Grid item container xs={12} alignContent={'center'}>
@@ -161,6 +164,7 @@ export default function AdminAccountPage({PAGES, setPage}){
                                 }}
                                 sx={{ width: '225px' }}
                                 size="small"
+                                id="admin-account-page-number"
                             />
                         </Grid>
                         <Grid item container xs={12} alignContent={'center'}>
@@ -177,6 +181,7 @@ export default function AdminAccountPage({PAGES, setPage}){
                                 }}
                                 size="small"
                                 sx={{ width: '225px' }}
+                                id="admin-account-page-email"
                             />
                         </Grid>
                     </Grid>
@@ -484,3 +489,8 @@ export default function AdminAccountPage({PAGES, setPage}){
         </Grid>
     </>);
 }
+
+AdminAccountPage.propTypes = {
+    PAGES: PropTypes.object.isRequired,
+    setPage: PropTypes.func.isRequired,
+};
