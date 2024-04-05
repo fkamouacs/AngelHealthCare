@@ -86,7 +86,7 @@ export default function Header({PAGES, currentPage, changePage}){
                 {pages.map((pageNfunction) => (
                     <Button
                         key={pageNfunction[0] + "-header-key"}
-                        onClick={() => pageNfunction[1](event, pageNfunction[0] + "-header-key")}
+                        onClick={() => pageNfunction[1]()}
                         sx={{ 
                             my: 2, 
                             color: 'white', 

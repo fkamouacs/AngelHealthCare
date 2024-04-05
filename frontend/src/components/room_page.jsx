@@ -74,7 +74,6 @@ export default function RoomsPage(){
           open={Boolean(anchorE2)}
           onClose={handleEditMenuClose}
           elevation={3}
-          id="room-page-edit-patient-menu"
         >
           <MenuItem onClick={handleEditModalOpen} >Edit Patient</MenuItem>
         </Menu>
@@ -597,12 +596,12 @@ export default function RoomsPage(){
                     aria-label="sort by"
                     sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}
                     >
-                    <ToggleButton sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} value="rooms">Rooms</ToggleButton>
-                    <ToggleButton sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} value="patients">Patients</ToggleButton>
+                    <ToggleButton id="sort-by-room-button" sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} value="rooms">Rooms</ToggleButton>
+                    <ToggleButton id="sort-by-patient-button" sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} value="patients">Patients</ToggleButton>
                     </ToggleButtonGroup>
                     <IconButton onClick={handleSortOrder} color="primary">
                         {sortOrder === 'asc' ? <ArrowUpwardIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}/> : 
-                        <ArrowDownwardIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}/>}
+                        <ArrowDownwardIcon id="room-page-sort-order" sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}/>}
                     </IconButton>
                 </Paper>
 
@@ -643,7 +642,6 @@ export default function RoomsPage(){
                                         aria-controls="long-menu"
                                         aria-haspopup="true"
                                         onClick={handleMenuClick}
-                                        id="room-page-menu-button"
                                     >
                                         <MoreVertIcon />
                                     </IconButton>

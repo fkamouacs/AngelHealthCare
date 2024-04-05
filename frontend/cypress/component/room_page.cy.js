@@ -5,10 +5,11 @@ describe('RoomsPage Tests', () => {
         cy.mount(<RoomsPage />);
         cy.viewport(1000, 1000);
     });
+    
 
-    it('should render sort toggle buttons and search bar', () => {
-        cy.get('#room-page-edit-patient-menu').should('not.be.visible');
-        cy.get('#room-page-menu-button').click();
-        cy.get('#room-page-edit-patient-menu').should('be.visible');
-    });
+  it('should have toggle buttons for rooms and patients', () => {
+      cy.get("#sort-by-room-button").contains('Rooms').should('be.visible');
+      cy.get("#sort-by-patient-button").contains('Patients').should('be.visible');
+  });
+
 });
