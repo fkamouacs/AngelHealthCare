@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { Button ,TextField ,Box } from '@mui/material';
+import PropTypes from 'prop-types';
 
 export default function LoginPage({PAGES, setPage}){
 
-    const handleForgotPassword = (event) => {
+    const handleForgotPassword = () => {
         setPage(PAGES.FORGOTPASSWORD);
     }
-    const handleLogIn = (event) => {
+    const handleLogIn = () => {
         setPage(PAGES.ACCOUNTS);
     }
     return(<>
@@ -24,7 +25,7 @@ export default function LoginPage({PAGES, setPage}){
                     required
                     fullWidth
                     label="Email Address"
-                    
+                    type="email"
                 />
                 <TextField
                     margin="normal"
@@ -32,7 +33,6 @@ export default function LoginPage({PAGES, setPage}){
                     fullWidth
                     label="Password"
                     type="password"
-                    
                 />
                 <Button
                     fullWidth
@@ -54,3 +54,7 @@ export default function LoginPage({PAGES, setPage}){
         </Box>
     </>);
 }
+LoginPage.propTypes = {
+    PAGES: PropTypes.object.isRequired,
+    setPage: PropTypes.func.isRequired,
+};

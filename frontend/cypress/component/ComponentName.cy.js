@@ -1,4 +1,4 @@
-import LoginPage from '../../src/components/login_page.js'
+import LoginPage from '../../src/components/login_page.jsx'
 describe('LoginPage Tests', () => {
   beforeEach(() => {
       cy.mount(<LoginPage />)
@@ -9,19 +9,26 @@ describe('LoginPage Tests', () => {
       });
   });
 
-  it('allows a user to type in username and password fields', () => {
-      cy.get('input[id="username"]').type('testuser');
-      cy.get('input[id="password"]').type('password');
-
-      cy.get('input[id="username"]').should('have.value', 'testuser');
-      cy.get('input[id="password"]').should('have.value', 'password');
+  it('should render email and password fields', () => {
+    cy.get('input[type="email"]').should('be.visible');
+    cy.get('input[type="password"]').should('be.visible');
   });
 
-  it('check if button exist', () => {
-      cy.get('#login-button').should('be.visible');
-      cy.get('#login-button').should('not.be.disabled');
-    //   cy.get('#login-button').click();
-    //   cy.get('@consoleLog').should('have.been.calledWith', "Button pressed");
+  it('should render login and forgot password buttons', () => {
+      cy.get('button').contains('Login').should('be.visible');
+      cy.get('button').contains('Forgot your password?').should('be.visible');
+  });
+
+  it('allows a user to type in email and password fields', () => {
+      cy.get('input[type="email"]').type('testuser@example.com');
+      cy.get('input[type="password"]').type('password');
+
+      cy.get('input[type="email"]').should('have.value', 'testuser@example.com');
+      cy.get('input[type="password"]').should('have.value', 'password');
+  });
+
+  it('check if login button is visible and not disabled', () => {
+      cy.get('button').contains('Login').should('be.visible').and('not.be.disabled');
   });
 });
 
