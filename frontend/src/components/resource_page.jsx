@@ -33,117 +33,116 @@ export default function ResourcesPage(){
             BackdropProps={{
                 style: { backgroundColor: 'rgba(0, 0, 0, 0.1)' } // Adjust the opacity here
             }}
+            
         >
             <Box 
                 sx={{
-                    position: 'fixed', // Ensure it's fixed in the viewport
+                    position: 'absolute', // Ensure it's fixed in the viewport
                     top: '50%', // Center vertically
                     left: '50%', // Center horizontally
                     transform: 'translate(-50%, -50%)', // Adjust for exact centering
-                    width: "30%", 
-                    height: "40%",
+                    width: 600,  // Fixed width
+                    height: 300, // Fixed height
                     bgcolor: '#F0F8FF',
-                    p: 3, // Add some padding inside the box
+                    p: 2, // Add some padding inside the box
                     borderRadius: 2, // Optional: for rounded corners
                     outline: 0 // Remove default focus outline
                   }}
             >
-            <Grid container>
-                <Grid item xs={6} fontSize={40}>
-
+                <Grid container marginBottom={2}>
+                    <Grid item xs={6} fontSize={40}>
+                        <Typography fontSize={'30px'} color={'#6682c4'} sx={{}}>
+                                Add Resource
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={6} display="flex" justifyContent="flex-end">
+                        <IconButton 
+                            onClick={handleModalClose}
+                        >
+                            <CloseIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', color: '#6682c4'}}/>
+                        </IconButton>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid container>
-                <Grid container item xs={5} >
-                  <Grid item container xs={12} py={5} alignContent={'center'}>
-                    <Typography fontSize={'30px'} >
-                        Resource Name:
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={5} alignContent={'center'}>
-                    <Typography>
-                        Resource Id:
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={5}>
-                    <Typography>
-                        Amount of Resources:
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid container item xs={6}>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Resource Name"
-                            inputProps={{
-                                style: {
+                <Grid container marginBottom={2}>
+                    <Grid container item xs={5} >
+                        <Grid item container xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Resource Name
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Resource ID
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Resource Amount
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid container item xs={6}>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Resource Name"
+                                inputProps={{
+                                    style: {
+                                        padding: 5,
+                                        backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                size="small"
+                                sx={{ width: '225px' }}
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Resource Id"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
                                     backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            sx={{ width: '225px' }}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Resource Id"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            sx={{ width: '225px' }}
-                            size="small"
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Amount of Resources"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            sx={{ width: '225px' }}
-                            size="small"
-                        />
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Resource Amount"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                            />
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-            <IconButton 
-                onClick={handleModalClose} 
-                style={{
-                    position: 'absolute',
-                    top: 8,
-                    right: 8,
-                }}
-                
-            >
-                <CloseIcon sx={{ borderRadius: '50px', borderColor: '#000000', borderWidth: '1', borderStyle: 'solid'}} />
-            </IconButton>
-            <Button
-                variant="contained"
-                sx={{
-                    position: 'absolute',
-                    bottom: 16, // Adjust spacing from the bottom
-                    right: 16, // Adjust spacing from the right
-                    bgcolor: '#6682c4'
-                }}
-                startIcon={<AddCircleOutlineIcon />}
-                onClick={()=>alert("add Item not implemented yet")}
-            >
-                Add Item
-            </Button>
+                <Box display="flex" marginTop={3} justifyContent="center">
+                    <Button
+                        variant="contained"
+                        sx={{
+                            bgcolor: '#6682c4'
+                        }}
+                        onClick={()=>alert("Add Resource not implemented yet")}
+                        >
+                            Add Item
+                    </Button>
+                </Box>
             </Box>
         </Modal>
     );

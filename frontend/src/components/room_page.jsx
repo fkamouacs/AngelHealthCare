@@ -6,7 +6,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward.js';
 import MoreVertIcon from '@mui/icons-material/MoreVert.js';
 import CloseIcon from '@mui/icons-material/Close';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+// import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 export default function RoomsPage(){
     const [sortBy, setSortBy] = useState('rooms');
@@ -87,239 +87,234 @@ export default function RoomsPage(){
         >
             <Box 
                 sx={{
-                    position: 'fixed', // Ensure it's fixed in the viewport
+                    position: 'absolute', // Ensure it's fixed in the viewport
                     top: '50%', // Center vertically
                     left: '50%', // Center horizontally
                     transform: 'translate(-50%, -50%)', // Adjust for exact centering
-                    width: "40%", 
+                    width: 600,  // Fixed width
+                    height: 600, // Fixed height
                     bgcolor: '#F0F8FF',
                     p: 2, // Add some padding inside the box
                     borderRadius: 2, // Optional: for rounded corners
                     outline: 0 // Remove default focus outline
-                  }}
+                }}
             >
-            <Grid container>
-                <Grid item xs={6} fontSize={40}>
-
+                <Grid container marginBottom={2}>
+                    <Grid item xs={6} fontSize={40}>
+                        <Typography fontSize={'30px'} color={'#6682c4'} sx={{}}>
+                                Edit Patient
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={6} display="flex" justifyContent="flex-end">
+                        <IconButton 
+                            onClick={handleEditModalClose}
+                        >
+                            <CloseIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', color: '#6682c4'}}/>
+                        </IconButton>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid container>
-                <Grid container item xs={5} >
-                  <Grid item container xs={12} py={2} alignContent={'center'}>
-                    <Typography fontSize={'30px'} >
-                        Patient Name
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2} alignContent={'center'}>
-                    <Typography>
-                        Patient Id
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Contact Number
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Email
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Insurance #
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Emergency Contact Person
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Emergency Contact Number
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Room #
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid container item xs={6}>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Patient Name"
-                            inputProps={{
-                                style: {
+                <Grid container marginBottom={2}>
+                    <Grid container item xs={5} >
+                        <Grid item container xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Patient Name
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Patient ID
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Contact Number
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Email
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Insurance #
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Emergency Contact Person
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Emergency Contact Number
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Room #
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid container item xs={6}>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Patient Name"
+                                inputProps={{
+                                    style: {
+                                        padding: 5,
+                                        backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                size="small"
+                                sx={{ width: '225px' }}
+                                value={"Paul Der"}
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Patient Id"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
                                     backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            sx={{ width: '225px' }}
-                            value={"Paul Der"}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Patient Id"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            sx={{ width: '225px' }}
-                            size="small"
-                            value={"3843505875"}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Contact Number"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            sx={{ width: '225px' }}
-                            size="small"
-                            value={"57189023467"}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Email"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            size="small"
-                            sx={{ width: '225px' }}
-                            value={"3905u0fsdmZ"}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Insurance #"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            size="small"
-                            sx={{ width: '225px' }}
-                            value={"eruiagvndjkxvndfj"}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Emergency Contact Person"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            size="small"
-                            sx={{ width: '225px' }}
-                            value={"dfasdwhbiu"}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Emergency Contact Number"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            size="small"
-                            sx={{ width: '225px' }}
-                            value={"51789674543"}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Room #"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            size="small"
-                            sx={{ width: '225px' }}
-                            value={"111"}
-                        />
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                                value={"3843505875"}
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Contact Number"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                                value={"3843554505875"}
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Email"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                                value={"3843505875"}
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Insurance #"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                                value={"3843505875"}
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Emergency Contact Person"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                                value={"3843505875"}
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Emergency Contact Number"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                                value={"3843505875"}
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Room #"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                                value={"111"}
+                            />
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-            <IconButton 
-                onClick={handleEditModalClose} 
-                style={{
-                    position: 'absolute',
-                    top: 8,
-                    right: 8,
-                }}
-            >
-                <CloseIcon sx={{ borderRadius: '50px', borderColor: '#000000', borderWidth: '1', borderStyle: 'solid'}}/>
-            </IconButton>
-            <Button
-                variant="contained"
-                color="primary"
-                sx={{
-                    position: 'absolute',
-                    bottom: 64, // Adjust spacing from the bottom
-                    right: 16, // Adjust spacing from the right
-                    bgcolor: '#6682c4'
-                }}
-                
-                onClick={()=>alert("Save patient not implemented yet")}
-            >
-                Save
-            </Button>
-            <Button
-                variant="contained"
-                color="primary"
-                sx={{
-                    position: 'absolute',
-                    bottom: 16, // Adjust spacing from the bottom
-                    right: 16, // Adjust spacing from the right
-                    bgcolor: '#6682c4'
-                }}
-                onClick={()=>alert("Delete patient not implemented yet")}
-            >
-                Delete Patient
-            </Button>
+                <Box display="flex" marginTop={3} gap={2} justifyContent="center">
+                    <Button
+                        variant="contained"
+                        sx={{
+                            bgcolor: '#6682c4'
+                        }}
+                        onClick={()=>alert("Save Patient not implemented yet")}
+                        >
+                            Save
+                    </Button>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            bgcolor: '#6682c4'
+                        }}
+                        onClick={()=>alert("Delete Patient not implemented yet")}
+                        >
+                            Delete Patient
+                    </Button>
+                </Box>
             </Box>
         </Modal>
     );
@@ -333,219 +328,217 @@ export default function RoomsPage(){
         >
             <Box 
                 sx={{
-                    position: 'fixed', // Ensure it's fixed in the viewport
+                    position: 'absolute', // Ensure it's fixed in the viewport
                     top: '50%', // Center vertically
                     left: '50%', // Center horizontally
                     transform: 'translate(-50%, -50%)', // Adjust for exact centering
-                    width: "40%", 
+                    width: 600,  // Fixed width
+                    height: 600, // Fixed height
                     bgcolor: '#F0F8FF',
                     p: 2, // Add some padding inside the box
                     borderRadius: 2, // Optional: for rounded corners
                     outline: 0 // Remove default focus outline
-                  }}
+                }}
             >
-            <Grid container>
-                <Grid item xs={6} fontSize={40}>
-
+                <Grid container marginBottom={2}>
+                    <Grid item xs={6} fontSize={40}>
+                        <Typography fontSize={'30px'} color={'#6682c4'} sx={{}}>
+                                Add Patient
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={6} display="flex" justifyContent="flex-end">
+                        <IconButton 
+                            onClick={handleModalClose}
+                        >
+                            <CloseIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', color: '#6682c4'}}/>
+                        </IconButton>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid container>
-                <Grid container item xs={5} >
-                  <Grid item container xs={12} py={2} alignContent={'center'}>
-                    <Typography fontSize={'30px'} >
-                        Patient Name
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2} alignContent={'center'}>
-                    <Typography>
-                        Patient Id
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Contact Number
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Email
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Insurance #
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Emergency Contact Person
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Emergency Contact Number
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Room #
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid container item xs={6}>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Patient Name"
-                            inputProps={{
-                                style: {
+                <Grid container marginBottom={2}>
+                    <Grid container item xs={5} >
+                        <Grid item container xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Patient Name
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Patient ID
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Contact Number
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Email
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Insurance #
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Emergency Contact Person
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Emergency Contact Number
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Room #
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid container item xs={6}>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Patient Name"
+                                inputProps={{
+                                    style: {
+                                        padding: 5,
+                                        backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                size="small"
+                                sx={{ width: '225px' }}
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Patient Id"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
                                     backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            sx={{ width: '225px' }}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Patient Id"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            sx={{ width: '225px' }}
-                            size="small"
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Contact Number"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            sx={{ width: '225px' }}
-                            size="small"
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Email"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            size="small"
-                            sx={{ width: '225px' }}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Insurance #"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            size="small"
-                            sx={{ width: '225px' }}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Emergency Contact Person"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            size="small"
-                            sx={{ width: '225px' }}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Emergency Contact Number"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            size="small"
-                            sx={{ width: '225px' }}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Room #"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            size="small"
-                            sx={{ width: '225px' }}
-                        />
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Contact Number"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Email"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Insurance #"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Emergency Contact Person"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Emergency Contact Number"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Room #"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                            />
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-            <IconButton 
-                onClick={handleModalClose} 
-                style={{
-                    position: 'absolute',
-                    top: 8,
-                    right: 8,
-                }}
-            >
-                <CloseIcon sx={{ borderRadius: '50px', borderColor: '#000000', borderWidth: '1', borderStyle: 'solid'}}/>
-            </IconButton>
-            
-            <Button
-                variant="contained"
-                color="primary"
-                sx={{
-                    position: 'absolute',
-                    bottom: 16, // Adjust spacing from the bottom
-                    right: 16, // Adjust spacing from the right
-                    bgcolor: '#6682c4'
-                }}
-                startIcon={<AddCircleOutlineIcon />}
-                onClick={()=>alert("add patient not implemented yet")}
-            >
-                Add Patient
-            </Button>
+                <Box display="flex" marginTop={3} justifyContent="center">
+                    <Button
+                        variant="contained"
+                        sx={{
+                            bgcolor: '#6682c4'
+                        }}
+                        onClick={()=>alert("Add Patient not implemented yet")}
+                        >
+                            Add Patient
+                    </Button>
+                </Box>
             </Box>
         </Modal>
     );
