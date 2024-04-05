@@ -3,7 +3,7 @@ import Table from '@mui/joy/Table';
 import {Button} from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Process from "./process_page"
-import {getAllProcesses, processes} from "../fakedatabase.js"
+import {getAllProcesses} from "../fakedatabase.js"
 import AddProcess from "./add_process.jsx"
 
 const Processes_page = () => {
