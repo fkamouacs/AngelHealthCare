@@ -46,7 +46,7 @@ const Processes_page = () => {
  <Table sx={{ '& thead th:nth-of-type(1)': { width: '40%' } }}>
       <thead>
         <tr>
-          <th>Column width (40%)</th>
+          <th>Name</th>
           <th>Patient</th>
           <th>Current Stage</th>
           <th>Start Date</th>
