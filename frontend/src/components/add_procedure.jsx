@@ -12,7 +12,7 @@ import { getAvailableAccountsDate, getProcessById, addProcedure, getAvailableRoo
 getAvailableResourcesDate, 
 } from '../fakedatabase';
 
-const Add_procedure = (props) => {
+const AddProcedure = (props) => {
     const [formData, setFormData] = useState({
         name: '',
    
@@ -416,4 +416,4 @@ const Add_procedure = (props) => {
   )
 }
 
-export default Add_procedure
+export default AddProcedure

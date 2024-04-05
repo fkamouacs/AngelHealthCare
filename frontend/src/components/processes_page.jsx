@@ -6,7 +6,7 @@ import Process from "./process_page"
 import {getAllProcesses} from "../fakedatabase.js"
 import AddProcess from "./add_process.jsx"
 
-const Processes_page = () => {
+const ProcessesPage = () => {
     const [processes, setProcesses] = useState(getAllProcesses())
     const [showProcess, setShowProcess] = useState(false);
     const [currentProcessId, setCurrentProcessId] = useState(null);
@@ -71,4 +71,4 @@ const Processes_page = () => {
   
 }
 
-export default Processes_page
+export default ProcessesPage

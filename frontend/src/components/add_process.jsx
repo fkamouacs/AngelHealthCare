@@ -6,7 +6,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-const Add_process = (props) => {
+const AddProcess = (props) => {
     const [formData, setFormData] = useState({
         name: '',
         patient: '',
@@ -109,4 +109,4 @@ const Add_process = (props) => {
   )
 }
 
-export default Add_process
+export default AddProcess
