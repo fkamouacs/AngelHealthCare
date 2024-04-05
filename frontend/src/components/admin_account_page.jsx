@@ -1,23 +1,12 @@
 import React, { useState } from 'react';
-import { Grid, Paper, Typography, ToggleButtonGroup, ToggleButton, IconButton, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction, Box, Modal} from '@mui/material';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { Grid, Paper, Typography, IconButton, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction, Box, Modal} from '@mui/material';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 // import MoreVertIcon from '@mui/icons-material/MoreVert.js';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function AdminAccountPage({PAGES, setPage}){
-    const [sortBy, setSortBy] = useState('Name');
-    const [sortOrder, setSortOrder] = useState('asc');
     const [openModal, setOpenModal] = useState(false);
-    const handleSort = (event, newSortBy) => {
-        setSortBy(newSortBy);
-    };
-    
-    const handleSortOrder = () => {
-        setSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
-    };
     
     const handleModalOpen = () => {
         setOpenModal(true);
@@ -30,252 +19,172 @@ export default function AdminAccountPage({PAGES, setPage}){
     const handLogOut = (event) => {
         setPage(PAGES.LOGIN);
     }
-    
+
     const renderModal = (
         <Modal
             open={openModal}
             BackdropProps={{
                 style: { backgroundColor: 'rgba(0, 0, 0, 0.1)' } // Adjust the opacity here
             }}
+            
         >
             <Box 
                 sx={{
-                    position: 'fixed', // Ensure it's fixed in the viewport
+                    position: 'absolute', // Ensure it's fixed in the viewport
                     top: '50%', // Center vertically
                     left: '50%', // Center horizontally
                     transform: 'translate(-50%, -50%)', // Adjust for exact centering
-                    width: "40%", 
+                    width: 600,  // Fixed width
+                    height: 350, // Fixed height
                     bgcolor: '#F0F8FF',
                     p: 2, // Add some padding inside the box
                     borderRadius: 2, // Optional: for rounded corners
                     outline: 0 // Remove default focus outline
                   }}
             >
-            <Grid container>
-                <Grid item xs={6} fontSize={40}>
-
+                <Grid container marginBottom={2}>
+                    <Grid item xs={6} fontSize={40}>
+                        <Typography fontSize={'30px'} color={'#6682c4'} sx={{}}>
+                                Create Account
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={6} display="flex" justifyContent="flex-end">
+                        <IconButton 
+                            onClick={handleModalClose}
+                        >
+                            <CloseIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', color: '#6682c4'}}/>
+                        </IconButton>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid container>
-                <Grid container item xs={5} >
-                  <Grid item container xs={12} py={2} alignContent={'center'}>
-                    <Typography fontSize={'30px'} >
-                        Provider Name
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2} alignContent={'center'}>
-                    <Typography>
-                        Provider Id
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Contact Number
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Email
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Insurance #
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Emergency Contact Person
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} py={2}>
-                    <Typography>
-                        Emergency Contact Number
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid container item xs={6}>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Provider Name"
-                            inputProps={{
-                                style: {
+                <Grid container marginBottom={2}>
+                    <Grid container item xs={5} >
+                        <Grid item container xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Provider Name
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2} alignContent={'center'}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Employee ID
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Contact Number
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} py={2}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Email
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid container item xs={6}>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Provider Name"
+                                inputProps={{
+                                    style: {
+                                        padding: 5,
+                                        backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                size="small"
+                                sx={{ width: '225px' }}
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Employee Id"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
                                     backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            sx={{ width: '225px' }}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Provider Id"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            sx={{ width: '225px' }}
-                            size="small"
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Contact Number"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            sx={{ width: '225px' }}
-                            size="small"
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Email"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            size="small"
-                            sx={{ width: '225px' }}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Insurance #"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            size="small"
-                            sx={{ width: '225px' }}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Emergency Contact Person"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            size="small"
-                            sx={{ width: '225px' }}
-                        />
-                    </Grid>
-                    <Grid item container xs={12} alignContent={'center'}>
-                        <TextField
-                            label="Emergency Contact Number"
-                            inputProps={{
-                                style: {
-                                padding: 5,
-                                backgroundColor:'white',
-                                }
-                            }}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            size="small"
-                            sx={{ width: '225px' }}
-                        />
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Contact Number"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                sx={{ width: '225px' }}
+                                size="small"
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Email"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                size="small"
+                                sx={{ width: '225px' }}
+                            />
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-            <IconButton 
-                onClick={handleModalClose} 
-                style={{
-                    position: 'absolute',
-                    top: 8,
-                    right: 8,
-                }}
-            >
-                <CloseIcon sx={{ borderRadius: '50px', borderColor: '#000000', borderWidth: '1', borderStyle: 'solid'}}/>
-            </IconButton>
-            
-            <Button
-                variant="contained"
-                color="primary"
-                sx={{
-                    position: 'absolute',
-                    bottom: 16, // Adjust spacing from the bottom
-                    right: 16, // Adjust spacing from the right
-                    bgcolor: '#6682c4'
-                }}
-                startIcon={<AddCircleOutlineIcon />}
-                onClick={()=>alert("add provider not implemented yet")}
-            >
-                Add Provider
-            </Button>
+                <Box display="flex" marginTop={3} justifyContent="center">
+                    <Button
+                        variant="contained"
+                        sx={{
+                            bgcolor: '#6682c4'
+                        }}
+                        onClick={()=>alert("Create Account not implemented yet")}
+                        >
+                            Creat Account
+                    </Button>
+                </Box>
             </Box>
         </Modal>
     );
     const resources = [
-        { name: 'Paul fder', id: 111, email: "asd45as" },
-        { name: 'Paul fder', id: 543, email: "asd45as" },
-        { name: 'Paul fder', id: 888, email: "asd45as" },
-        { name: 'Paul fder', id:123456789, email: "asd45as" },
-        { name: 'Paul fder', id: 112541, email: "asd45as" },
-        { name: 'Paul fder', id: 13541, email: "asd45as" },
-        { name: 'Paul fder', id: 11351, email: "asd45as" },
-        { name: 'Paul fder', id: 11441, email: "asd45as" },
-        { name: 'Paul fder', id: 11561, email: "asd45as" },
-        { name: 'Paul fder', id: 113231, email: "asd45as" },
-        { name: 'Paul fder', id: 1132311, email: "asd45as" },
-        { name: 'Paul fder', id: 1111221, email: "asd45as" }
+        {_id: 1, name: 'Paul fder', status: "Active", email: "asd45as" },
+        {_id: 2, name: 'Paul fder', status: "Active", email: "asd45as" },
+        {_id: 3, name: 'Paul fder', status: "Active", email: "asd45as" },
+        {_id: 4, name: 'Paul fder', status: "Active", email: "asd45as" },
+        {_id: 5, name: 'Paul fder', status: "Active", email: "asd45as" },
+        {_id: 6, name: 'Paul fder', status: "Active", email: "asd45as" },
+        {_id: 7, name: 'Paul fder', status: "Active", email: "asd45as" },
+        {_id: 8, name: 'Paul fder', status: "Active", email: "asd45as" },
+        {_id: 9, name: 'Paul fder', status: "Active", email: "asd45as" },
+        {_id: 10, name: 'Paul fder', status: "Active", email: "asd45as" },
+        {_id: 11, name: 'Paul fder', status: "Active", email: "asd45as" },
+        {_id: 12, name: 'Paul fder', status: "Active", email: "asd45as" }
     ];
 
     return(<>
         <Grid item xs={12} sx={{ ml: (-5), mt: (1) , mr: (-5)}}>
             {/* Sort By Name/Count, sortorder, search bar*/}
-            <Paper sx={{padding: 2, display: 'flex', alignItems: 'center', marginBottom: 1, gap: 10, borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}>
-                <Typography variant="h6">Sort By</Typography>
-                <ToggleButtonGroup
-                color="primary"
-                value={sortBy}
-                exclusive
-                onChange={handleSort}
-                aria-label="sort by"
-                sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}
-                >
-                <ToggleButton sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} value="Name">Name</ToggleButton>
-                <ToggleButton sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} value="Count">ID</ToggleButton>
-                </ToggleButtonGroup>
-                <IconButton onClick={handleSortOrder} color="primary">
-                    {sortOrder === 'asc' ? <ArrowUpwardIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}/> : 
-                    <ArrowDownwardIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}/>}
-                </IconButton>
+            <Paper sx={{padding: 2, display: 'flex', alignItems: 'center', justifyContent:"flex-end", marginBottom: 1, gap: 5, borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}>
                 <TextField
                     label="Enter Provider name or id"
                     variant="outlined"
                     margin="dense"
                     size="small"
-                    sx={{ width: '520px' }}
+                    sx={{ width: '100%' }}
                 />
                 <Button variant="contained" sx={{bgcolor: '#6682c4'}}>Search</Button>
             </Paper>
@@ -284,13 +193,13 @@ export default function AdminAccountPage({PAGES, setPage}){
             <Paper sx={{ padding: 2 , borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', maxHeight: '500px', overflow: 'auto'}}>
                 <Grid container alignItems="center" sx={{ borderBottom: 1, borderColor: 'divider', pb: 1 }}>
                         <Grid item xs={4}>
-                            <Typography variant="h6" sx={{ width: '20%' }}>Name</Typography>
+                            <Typography variant="h6" sx={{ width: '20%' }}>Email</Typography>
                         </Grid>
                         <Grid item xs={4}>
-                            <Typography variant="h6" sx={{ width: '20%' }}>id</Typography>
+                            <Typography variant="h6" sx={{ width: '20%' }}>Status</Typography>
                         </Grid>
                         <Grid >
-                            <Typography variant="h6" sx={{ width: '20%' }}>email</Typography>
+                            <Typography variant="h6" sx={{ width: '20%' }}>Name</Typography>
                         </Grid>
                         <Box sx={{ flexGrow: 1 }} />
                         <Button 
@@ -299,14 +208,14 @@ export default function AdminAccountPage({PAGES, setPage}){
                             startIcon={<AddCircleOutlineIcon />}
                             onClick={handleModalOpen}
                         >
-                            Add Provider
+                            Create Account
                         </Button>
                         {renderModal}
                 </Grid>
                 <List dense={true}>
                     {resources.map((resource) => (
                         <ListItem 
-                        key={resource.id} 
+                        key={resource._id} 
                         divider 
                         sx={{ 
                             borderRadius: '50px',
@@ -318,18 +227,18 @@ export default function AdminAccountPage({PAGES, setPage}){
                         }}>
                         <Grid container alignItems="center" >
                             <Grid item xs={3.9}>
-                            <ListItemText primary={resource.name} />
+                            <ListItemText primary={resource.email} />
                             </Grid>
                             <Grid item xs={4.2}>
-                            <ListItemText primary={resource.id} sx={{ textAlign: 'left' }} />
+                            <ListItemText primary={resource.status} sx={{ textAlign: 'left' }} />
                             </Grid>
                             <Grid>
-                            <ListItemText primary={resource.email}  sx={{ textAlign: 'right' }} />
+                            <ListItemText primary={resource.name}  sx={{ textAlign: 'right' }} />
                             </Grid>
                             <Grid item xs={1}>
                             <ListItemSecondaryAction>
                                 <IconButton edge="end" aria-label="details">
-                                <DeleteIcon />
+                                <PlayArrowIcon sx={{color: '#6682c4'}}/>
                                 </IconButton>
                             </ListItemSecondaryAction>
                             </Grid>
@@ -338,19 +247,17 @@ export default function AdminAccountPage({PAGES, setPage}){
                     ))}
                 </List>
             </Paper>
-            <Button
-                variant="contained"
-                sx={{
-                    position: 'absolute',
-                    bottom: 50,
-                    right: 345,
-                    bgcolor: '#6682c4'
-                }}
-                onClick={handLogOut}
-                >
-                    Log out
-            </Button>
-            
+            <Box display="flex" marginTop={1} justifyContent="flex-end">
+                <Button
+                    variant="contained"
+                    sx={{
+                        bgcolor: '#6682c4'
+                    }}
+                    onClick={handLogOut}
+                    >
+                        Log out
+                </Button>
+            </Box>
         </Grid>
     </>);
 }

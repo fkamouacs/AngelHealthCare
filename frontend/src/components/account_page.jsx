@@ -1,18 +1,12 @@
 import * as React from 'react';
 import {
-    List,
-    ListItem,
-    ListItemText,
-    ListItemButton,
     Typography,
     Divider,
-    TextField,
     Button,
     Box,
     Grid,
-    
 } from '@mui/material';
-import {Circle} from '@mui/icons-material';
+
 
 import MessageBox from './account_message.jsx';
 import NewMessageBox from './account_make_new_message.jsx';
@@ -30,39 +24,33 @@ export default function AccountPage({userInfo, PAGES, setPage}){
         setPage(PAGES.LOGIN);
     }
     return(<>
-        <Box py={1} px={3} minHeight={600} height={"75%"}>
-            <Grid container minHeight={100} maxHeight={120} height={"15%"}>
-                <Grid item  padding={1}>
+        <Box py={1}  minHeight={600} height={"75%"}>
+            <Grid container minHeight={100} maxHeight={120} height={"15%"} width={"100%"} maxWidth={"100%"}>
+                <Grid item  padding={1} id="123">
                     <Typography fontSize={40}>
                         {userInfo.username}
                     </Typography>
-                    <Button
-                        variant="contained"
-                        sx={{
-                            position: 'absolute',
-                            top: 180,
-                            left: 650,
-                            bgcolor: '#6682c4'
-                        }}
-                        onClick={handleTransferToAdmin}
-                    >
-                        Admin accounts view
-                    </Button>
-                    <Button
-                        variant="contained"
-                        sx={{
-                            position: 'absolute',
-                            top: 180,
-                            right: 385,
-                            bgcolor: '#6682c4'
-                        }}
-                        onClick={handleLogOut}
-                    >
-                        Log out
-                    </Button>
                     <Typography fontSize={20}>
                         {userInfo.userId}
                     </Typography>
+                </Grid>
+                <Grid item id="9" style={{flexGrow: 1}}>
+                    <Box display="flex" gap={4} justifyContent="flex-end">
+                        <Button
+                            variant="contained"
+                            sx={{ bgcolor: '#6682c4', marginTop: '20px'}}
+                            onClick={handleTransferToAdmin}
+                        >
+                            Admin accounts view
+                        </Button>
+                        <Button
+                            variant="contained"
+                            sx={{ bgcolor: '#6682c4' , marginTop: '20px'}}
+                            onClick={handleLogOut}
+                        >
+                            Log out
+                        </Button>
+                    </Box>
                 </Grid>
             </Grid>
             <Divider></Divider>
@@ -86,7 +74,7 @@ export default function AccountPage({userInfo, PAGES, setPage}){
             </Grid>
             <Grid container minHeight={400} height={"70%"}>
                 <Grid item xs={7} padding={1} height={"100%"} bgcolor={"#E8E8E8"} minHeight={400}>
-                    {(viewContent == "message") ?
+                    {(viewContent === "message") ?
                         <MessageBox messages={userInfo.messages}/>
                         : <Schedule schedules={userInfo.schedules}/>}
                 </Grid>
