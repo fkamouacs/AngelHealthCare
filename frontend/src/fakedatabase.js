@@ -42,11 +42,16 @@ function createProcesses(_id, name, patient, currStage, procedureIds, startDate,
     createProcedure(3,"postop","John Smith", 3, "primary",[1,2],[1,2],[113], "http://google.com", "4/25/2024"),
     createProcedure(4,"checkup", "John Smith", 4, "disabled", [3,4],[1,2],[114], "http://google.com", "4/25/2024"),
   ]
+
+  export const getAllProcedures = () => {
+    return procedures
+  }
+
  let tempPid = 5;
 
  export const addProcedure = (name, patient, date, staff, resources, rooms, processId) => {
   const currProcess = getProcessById(processId)
-    const procedure = createProcedure(tempPid++, name, patient, currProcess.procedureIds.length+1, "disabled", staff, resources, rooms, "", date )
+    const procedure = createProcedure(tempPid, name, patient, currProcess.procedureIds.length+1, "disabled", staff, resources, rooms, "", date )
     procedures.push(procedure);
 
     // add procedure id to process
@@ -66,6 +71,8 @@ function createProcesses(_id, name, patient, currStage, procedureIds, startDate,
     for (let i = 0; i < resources.length; i++) {
       addResourceSchedule(resources[i], date);
     }
+
+    tempPid++;
  }
 
 export const getProcedureById = (id) => {

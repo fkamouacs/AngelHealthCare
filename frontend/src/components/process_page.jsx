@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import Stepper from '@mui/joy/Stepper';
 import Step, { stepClasses } from '@mui/joy/Step';
 import StepIndicator, { stepIndicatorClasses } from '@mui/joy/StepIndicator';
@@ -20,14 +20,18 @@ const Process_page = (props) => {
     const [showProcedure, setShowProcedure] = useState(false);
     const [currentProcedureId, setCurrentProcedureId] = useState(null);
     const [showAddProcedure, setShowAddProcedure] = useState(false);
+    const [allProcedures, setAllProcedures] = useState(procedures);
 
-    console.log(currentProcess)
+    
     const handleProcedureClick = (procedure) => {
         setShowProcedure(true);
         setCurrentProcedureId(procedure._id)
     }
 
-   
+   useEffect(() => {
+    console.log(currentProcess)
+    console.log(procedures)
+   }, currentProcess)
       
 
    const displayProcedures = () => {
@@ -66,7 +70,7 @@ const Process_page = (props) => {
 
         {showProcedure ? <Procedure _id={currentProcedureId} showProcedure={setShowProcedure} 
         currentProcedure={setCurrentProcedureId} showProcess={props.showProcess} currentProcess={props.currentProcess} currProcess={props._id}/> : showAddProcedure ? <AddProcedure showAddProcedure={setShowAddProcedure}
-        currentProcess={currentProcess} setCurrentProcess={setCurrentProcess}/> : <>
+        currentProcess={currentProcess} setCurrentProcess={setCurrentProcess} setAllProcedures={setAllProcedures}/> : <>
 
 <Breadcrumbs aria-label="breadcrumbs">
   

@@ -7,7 +7,8 @@ import ListItem from '@mui/joy/ListItem';
 import Avatar from '@mui/joy/Avatar';
 
 import { getAvailableAccountsDate, getProcessById, addProcedure, getAvailableRoomsDate,
-getAvailableResourcesDate } from '../fakedatabase';
+getAvailableResourcesDate, 
+getAllProcedures} from '../fakedatabase';
 
 const Add_procedure = (props) => {
     const [formData, setFormData] = useState({
@@ -218,8 +219,16 @@ const Add_procedure = (props) => {
 
         addProcedure(formData.name, props.currentProcess.patient, formData.date, assignedStaff, assignedResources, assignedRoom, props.currentProcess._id)
 
-        console.log(getProcessById(props.currentProcess._id))
-        props.setCurrentProcess(getProcessById(props.currentProcess._id))
+        const newProcedureIds = getProcessById(props.currentProcess._id).procedureIds
+        
+        let difference = newProcedureIds.filter(x => !props.currentProcess.procedureIds.includes(x));
+        
+        const newState = {...props.currentProcess}
+        newState.procedureIds = [...props.currentProcess.procedureIds, ...difference]
+        
+        props.setCurrentProcess(newState)
+
+
         props.showAddProcedure(false);
       };
 
