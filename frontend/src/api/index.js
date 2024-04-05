@@ -58,7 +58,7 @@ export const createAccount = ( name, status, schedule) => {
 }
 
 export const createRoom = (_id, available, total, type, schedule) => {
-    return api.post(`/account/`, {
+    return api.post(`/room/`, {
         // SPECIFY THE PAYLOAD
         _id: _id,
         available: available,
@@ -69,7 +69,7 @@ export const createRoom = (_id, available, total, type, schedule) => {
 }
 
 export const createResource = (name, schedule) => {
-    return api.post(`/account/`, {
+    return api.post(`/resource/`, {
         // SPECIFY THE PAYLOAD
         name: name,
         schedule: schedule
@@ -77,7 +77,7 @@ export const createResource = (name, schedule) => {
 }
 
 export const createPatient = (name) => {
-    return api.post(`/process/`, {
+    return api.post(`/patient/`, {
         // SPECIFY THE PAYLOAD
         name: name
     })
