@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable eqeqeq */
 import {useState, useEffect} from 'react'
 import { TextField, Button, Container, Typography } from '@mui/material';
 import List from '@mui/joy/List';
@@ -8,7 +10,7 @@ import Avatar from '@mui/joy/Avatar';
 
 import { getAvailableAccountsDate, getProcessById, addProcedure, getAvailableRoomsDate,
 getAvailableResourcesDate, 
-getAllProcedures} from '../fakedatabase';
+} from '../fakedatabase';
 
 const Add_procedure = (props) => {
     const [formData, setFormData] = useState({
@@ -151,7 +153,7 @@ const Add_procedure = (props) => {
         if (members.length === availableStaff.length )
         
         return availableStaff.map((a, index )=> (
-        <ListItem {...(a && { variant: 'soft', color: 'neutral' })}>
+        <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
         <Avatar aria-hidden="true" variant="solid">
           FP
         </Avatar>
@@ -170,7 +172,7 @@ const Add_procedure = (props) => {
         if (roomMembers.length === availableRooms.length )
         
         return availableRooms.map((a, index )=> (
-        <ListItem {...(a && { variant: 'soft', color: 'neutral' })}>
+        <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
         <Avatar aria-hidden="true" variant="solid">
           FP
         </Avatar>
@@ -188,7 +190,7 @@ const Add_procedure = (props) => {
         if (resourceMembers.length === availableResources.length )
         
         return availableResources.map((a, index )=> (
-        <ListItem {...(a && { variant: 'soft', color: 'neutral' })}>
+        <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
         <Avatar aria-hidden="true" variant="solid">
           FP
         </Avatar>

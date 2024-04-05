@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+/* eslint-disable eqeqeq */
 import {React, useState, Fragment, useEffect} from 'react'
 import Link from '@mui/joy/Link';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
@@ -10,14 +13,14 @@ import Sheet from '@mui/joy/Sheet';
 import Input from '@mui/joy/Input';
 import {Button} from '@mui/material';
 
-import {procedures, accounts, getAvailableAccounts, getProcedureById, 
+import { getAvailableAccounts, getProcedureById, 
 removeStaffProcedure, addStaffProcedure, getAvailableRooms,
 addAccountSchedule, removeAccountSchedule, 
 removeRoomProcedure, addRoomProcedure, 
 removeRoomSchedule, addRoomSchedule, getAvailableResources, addResourceProcedure, addResourceSchedule, removeResourceProcedure, removeResourceSchedule, changeProcedureDate,
 updateProcedureStaffDate,
 completeProcedure} from "../fakedatabase.js"
-import { useTheme } from '@emotion/react';
+
 
 
  const Procedure = (props) => {
@@ -182,7 +185,7 @@ const toggleMemberResources = (index, id) => (event) => {
     if (members.length === availableStaff.length)
     
     return availableStaff.map((a, index )=> (
-    <ListItem {...(a && { variant: 'soft', color: 'neutral' })}>
+    <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
     <Avatar aria-hidden="true" variant="solid">
       FP
     </Avatar>
@@ -200,7 +203,7 @@ const toggleMemberResources = (index, id) => (event) => {
   const displayRooms = () => {
     if (roomMembers.length >0)
     return availableRooms.map((a, index )=> (
-    <ListItem {...(a && { variant: 'soft', color: 'neutral' })}>
+    <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
     <Avatar aria-hidden="true" variant="solid">
       FP
     </Avatar>
@@ -217,7 +220,7 @@ const toggleMemberResources = (index, id) => (event) => {
   const displayResources = () => {
     if (resourceMembers.length >0)
     return availableResources.map((a, index )=> (
-    <ListItem {...(a && { variant: 'soft', color: 'neutral' })}>
+    <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
     <Avatar aria-hidden="true" variant="solid">
       FP
     </Avatar>

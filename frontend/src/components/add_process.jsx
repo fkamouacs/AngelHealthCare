@@ -1,11 +1,10 @@
+/* eslint-disable no-unused-vars */
 import {useState} from 'react'
 import { TextField, Button, Container, Typography } from '@mui/material';
 import { getAllPatients, addProcess, getAllProcesses } from '../fakedatabase';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 
 const Add_process = (props) => {
     const [formData, setFormData] = useState({
@@ -46,10 +45,10 @@ const Add_process = (props) => {
       
       const displayPatients = () => {
         return patients.map((p) => (
-            <>
-            <FormControlLabel value={p._id} control={<Radio />} label={p.name} />
+            
+            <FormControlLabel key={p._id} value={p._id} control={<Radio />} label={p.name} />
            
-            </>
+            
         ))
       }
 

@@ -1,14 +1,11 @@
+/* eslint-disable eqeqeq */
 function createProcesses(_id, name, patient, currStage, procedureIds, startDate, endDate) {
     return {_id, name, patient, currStage, procedureIds, startDate, endDate };
   }
   
   export const processes = [
     createProcesses(1,'Knee Surgery', "JohnSmith", "preop", [1,2,3,4], "2/1/2024", "N/A"),
-    createProcesses(2,'Knee Surgery', "JohnSmith", "preop", [1,2,3,4], "2/1/2024", "N/A"),
-    createProcesses(3,'Knee Surgery', "JohnSmith", "preop", [1,2,3,4], "2/1/2024", "N/A"),
-    createProcesses(4,'Knee Surgery', "JohnSmith", "preop", [1,2,3,4], "2/1/2024", "N/A"),
-    createProcesses(5,'Knee Surgery', "JohnSmith", "preop", [1,2,3,4], "2/1/2024", "N/A"),
-    createProcesses(6,'Knee Surgery', "JohnSmith", "preop", [1,2,3,4], "2/1/2024", "N/A"),
+    
   ];
 
   let tempProcessId = 7;
