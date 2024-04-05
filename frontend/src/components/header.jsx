@@ -7,23 +7,28 @@ import {
     Button,
 } from '@mui/material';
 
+import PropTypes from 'prop-types';
+Header.propTypes = {
+    currentPage: PropTypes.string.isRequired,
+    PAGES: PropTypes.object.isRequired,
+    changePage: PropTypes.func.isRequired
+};
+
 export default function Header({PAGES, currentPage, changePage}){
 
-    
-
-    const handleOpenAccountsPage = (event, id) => {
+    const handleOpenAccountsPage = () => {
         changePage(PAGES.ACCOUNTS);
     }   
 
-    const handleOpenResourcesPage = (event, id) => {
+    const handleOpenResourcesPage = () => {
         changePage(PAGES.RESOURCES);
     }
 
-    const handleOpenRoomsPage = (event, id) => {
+    const handleOpenRoomsPage = () => {
         changePage(PAGES.ROOMS);
     }
 
-    const handleOpenProcessesPage = (event, id) => {
+    const handleOpenProcessesPage = () => {
         changePage(PAGES.PROCESSES)
     }
 
@@ -81,7 +86,7 @@ export default function Header({PAGES, currentPage, changePage}){
                 {pages.map((pageNfunction) => (
                     <Button
                         key={pageNfunction[0] + "-header-key"}
-                        onClick={(event) => pageNfunction[1](event, pageNfunction[0] + "-header-key")}
+                        onClick={() => pageNfunction[1](event, pageNfunction[0] + "-header-key")}
                         sx={{ 
                             my: 2, 
                             color: 'white', 

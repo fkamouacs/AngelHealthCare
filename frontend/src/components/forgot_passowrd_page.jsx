@@ -1,13 +1,19 @@
 import * as React from 'react';
 import { Button ,TextField ,Box , Typography, AppBar, Container, Toolbar} from '@mui/material';
+import PropTypes from 'prop-types';
+
+ForgotPassowrdPage.propTypes = {
+    PAGES: PropTypes.object.isRequired,
+    setPage: PropTypes.func.isRequired,
+};
 
 export default function ForgotPassowrdPage({PAGES, setPage}){
 
-    const handleBackToLogin = (event) =>{
+    const handleBackToLogin = () =>{
         setPage(PAGES.LOGIN);
     }
 
-    const handleSendLoginLink = (event) => {
+    const handleSendLoginLink = () => {
         setPage(PAGES.RESETPASSWORD);
     }
 
@@ -47,7 +53,7 @@ export default function ForgotPassowrdPage({PAGES, setPage}){
             <Box component="form" noValidate sx={{ mt: 1 , maxWidth: '400px', width: '100%'}}>
 
                 <Typography variant="body2" sx={{ color: '#6682c4', mt: 2 , textAlign: 'center', fontWeight: 'bold'}}>
-                    Enter the email address associated with your account and we'll send you a link to reset your password.
+                    Enter the email address associated with your account and we&apos;ll send you a link to reset your password.
                 </Typography>
 
                 <TextField
