@@ -51,5 +51,6 @@
     "cypress": "^13.7.1",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1"
-  }
+  },
+  "proxy": "http://localhost:3001"
 }
