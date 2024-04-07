@@ -30,11 +30,8 @@ const server = http.createServer(app);
 
 // needed for deployment
 __dirname = path.resolve();
-
     app.use(express.static(path.join(__dirname, '/frontend/build')))
-    app.get('*', (req,res) => {
-        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-    } )
+   
 
 
   
@@ -99,6 +96,11 @@ app.put("/user", (req, res) => {
     });
 })
 
+
+// deployment
+app.get('/*', (req,res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+} )
 // request(app)
 //     .get('/')
 //     .expect('Content-Type', /json/)
