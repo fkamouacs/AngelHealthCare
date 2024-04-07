@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { CardMedia, Grid , Typography } from '@mui/material';
+import {api} from "../api/index"
 export default function HomePage(){
 
 

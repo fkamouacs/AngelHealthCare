@@ -12,8 +12,14 @@
 
 import axios from 'axios'
 axios.defaults.withCredentials = true;
+
+
 const api = axios.create({
-    baseURL: 'http://localhost:4000/api',
+    baseURL: '/api',
+})
+
+api.get("/").then((res) => {
+    console.log(res);
 })
 
 // THESE ARE ALL THE REQUESTS WE`LL BE MAKING, ALL REQUESTS HAVE A

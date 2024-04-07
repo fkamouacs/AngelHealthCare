@@ -24,32 +24,40 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const server = http.createServer(app);
 
-server.listen(process.env.PORT || 3000, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// server.listen(process.env.PORT || 3000, () => {
+//     console.log(`Server is running on port ${PORT}`);
+// });
 
 // needed for deployment
 __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '/frontend/build')))
-app.get('*', (req,res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-} )
+
+    app.use(express.static(path.join(__dirname, '/frontend/build')))
+    app.get('*', (req,res) => {
+        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+    } )
+
+
   
 app.use(
     cors({
-        origin: "*",
+        origin: true,
         methods: ["GET", "POST", "PUT"],
+        credentials: true
     })
 );
 app.use(express.json());
 
-app.listen(8000, function(err){
+app.listen(process.env.PORT  || 3001, function(err){
     if (err) console.log("Error in server setup")
-    console.log("Server listening on Port", 8000);
+    console.log("Server listening on Port", 3001);
+})
+
+app.get("/api/", (req, res) => {
+    res.status(200).json({msg:"The get('/') was successful!"})
 })
 
 app.get("/", (req, res) => {
-    res.status(200).json({msg:"The get('/') was successful!"})
+    res.status(200).json({msg:"The get('/1') was successful!"})
 })
 
 app.put("/", (req, res) => {
