@@ -7,6 +7,7 @@ import RoomPage from './room_page.jsx';
 import ResourcesPage from './resource_page.jsx'
 import HomePage from './home_page.jsx'
 import ProcessesPage from "./processes_page.jsx"
+
 import PropTypes from 'prop-types';
 import * as React from 'react';
 
@@ -38,6 +39,7 @@ export default function MainPage({currentPage, PAGES, setPage, info}){
                 <ForgotPassowrdPage PAGES={PAGES} setPage={setPage}/>
                 </>
             );
+        
         case PAGES.RESETPASSWORD:
             return(
                 <>

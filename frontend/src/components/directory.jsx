@@ -1,9 +1,10 @@
-import {React, useState} from 'react';
+import {React, useState, useContext, useEffect} from 'react';
 // import axios from 'axios';
 
 import MainPage from './main_page.jsx';
 import Header from './header.jsx';
 import HomeHeader from './home_header.jsx';
+import AuthContext from '../api/auth/index.js';
 // import PatientInfoModal from './patient_info_modal.jsx';
 
 // import { Button } from '@mui/material';
@@ -17,6 +18,7 @@ export default function Directory(){
     const PAGES = {
         HOME : "HOME",
         LOGIN : "LOGIN",
+       
         RESOURCES : "RESOURCES",
         ACCOUNTS : "ACCOUNTS",
         ADMINACCOUNTS : "ADMINACCOUNTS",
@@ -27,8 +29,17 @@ export default function Directory(){
         FORGOTPASSWORD : "FORGOTPASSWORD",
         RESETPASSWORD : "RESETPASSWORD"
     };
-
+    const { auth } = useContext(AuthContext);
+    console.log("directory: " + auth.loggedIn)
     const [page,setPage] = useState(PAGES.HOME);
+
+    useEffect(() => {
+        if (auth.loggeIn) {
+            setPage(PAGES.ACCOUNTS)
+        } else {
+            setPage(PAGES.HOME)
+        }
+    },[auth.loggedIn])
 
     const [patientToDisplay, setPatientToDisplay] = useState({
         "name" : "Paul Der",

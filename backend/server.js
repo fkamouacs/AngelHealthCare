@@ -29,8 +29,8 @@ const server = http.createServer(app);
 // });
 
 // needed for deployment
-__dirname = path.resolve();
-    app.use(express.static(path.join(__dirname, '/frontend/build')))
+// __dirname = path.resolve();
+//     app.use(express.static(path.join(__dirname, '/frontend/build')))
    
 
 
@@ -43,6 +43,14 @@ app.use(
     })
 );
 app.use(express.json());
+
+// SETUP OUR OWN ROUTERS AS MIDDLEWARE
+const authRouter = require('./routes/auth-router')
+app.use('/auth', authRouter);
+
+
+
+
 
 app.listen(process.env.PORT  || 3001, function(err){
     if (err) console.log("Error in server setup")
@@ -61,40 +69,40 @@ app.put("/", (req, res) => {
     res.status(200).json({msg:"The put('/') was successful!"})
 })
 
-const userSchema = new mongoose.Schema({
-    name: String,
-    password: String,
-});
-const User = mongoose.model('User', userSchema);
+// const userSchema = new mongoose.Schema({
+//     name: String,
+//     password: String,
+// });
+// const User = mongoose.model('User', userSchema);
 
-app.get("/user", (req, res) => {
-    const userId = req.params.userId;
+// app.get("/user", (req, res) => {
+//     const userId = req.params.userId;
 
-    User.find({})
-        .then(users => {
-            if (!users) {
-                return res.status(404).send("User not found");
-            }
-            res.send(users);
-        })
-        .catch(err => {
-            res.status(500).send(err);
-    });
-})
+//     User.find({})
+//         .then(users => {
+//             if (!users) {
+//                 return res.status(404).send("User not found");
+//             }
+//             res.send(users);
+//         })
+//         .catch(err => {
+//             res.status(500).send(err);
+//     });
+// })
 
-app.put("/user", (req, res) => {
-    const newUser = new User(req.body.user);
+// app.put("/user", (req, res) => {
+//     const newUser = new User(req.body.user);
 
-    newUser.save()
-    .then(savedUser => {
-        console.log("added user");
-        res.status(201).send(savedUser);
-    })
-    .catch(err => {
-        console.log("error in adding user");
-        res.status(500).send(err);
-    });
-})
+//     newUser.save()
+//     .then(savedUser => {
+//         console.log("added user");
+//         res.status(201).send(savedUser);
+//     })
+//     .catch(err => {
+//         console.log("error in adding user");
+//         res.status(500).send(err);
+//     });
+// })
 
 
 // deployment

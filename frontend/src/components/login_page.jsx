@@ -1,13 +1,19 @@
 import * as React from 'react';
 import { Button ,TextField ,Box } from '@mui/material';
 import PropTypes from 'prop-types';
+import AuthContext from '../api/auth';
 
 export default function LoginPage({PAGES, setPage}){
+    const { auth } = React.useContext(AuthContext);
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
 
     const handleForgotPassword = () => {
         setPage(PAGES.FORGOTPASSWORD);
     }
     const handleLogIn = () => {
+      
+        auth.loginUser(email, password);
         setPage(PAGES.ACCOUNTS);
     }
     return(<>
@@ -26,6 +32,7 @@ export default function LoginPage({PAGES, setPage}){
                     fullWidth
                     label="Email Address"
                     type="email"
+                    onChange={(e) => setEmail(e.target.value)}
                 />
                 <TextField
                     margin="normal"
@@ -33,6 +40,7 @@ export default function LoginPage({PAGES, setPage}){
                     fullWidth
                     label="Password"
                     type="password"
+                    onChange={(e) => setPassword(e.target.value)}
                 />
                 <Button
                     fullWidth
