@@ -31,13 +31,16 @@ function authManager() {
     }
 
     verifyUser = (req) => {
+        console.log("hi")
         try {
+            console.log(req.cookies)
             const token = req.cookies.token;
+            
             if (!token) {
                 return null;
             }
 
-            const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+            const decodedToken = jwt.verify(token, "secret");
             return decodedToken.userId;
         } catch (err) {
             return null;
@@ -47,7 +50,7 @@ function authManager() {
     signToken = (userId) => {
         return jwt.sign({
             userId: userId
-        }, process.env.JWT_SECRET);
+        }, "secret");
     }
 
     return this;

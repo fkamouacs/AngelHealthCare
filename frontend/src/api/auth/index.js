@@ -22,6 +22,7 @@ function AuthContextProvider(props) {
     //const history = useHistory();
 
     useEffect(() => {
+        console.log("hi")
         auth.getLoggedIn();
     }, []);
 
@@ -132,6 +133,7 @@ function AuthContextProvider(props) {
     }
 
     auth.logoutUser = async function() {
+        console.log("logout")
         const response = await api.logoutUser();
         if (response.status === 200) {
             authReducer( {

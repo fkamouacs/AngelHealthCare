@@ -44,6 +44,8 @@ app.use(
 );
 app.use(express.json());
 
+app.use(cookieParser());
+
 // SETUP OUR OWN ROUTERS AS MIDDLEWARE
 const authRouter = require('./routes/auth-router')
 app.use('/auth', authRouter);

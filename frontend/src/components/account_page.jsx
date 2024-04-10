@@ -12,16 +12,20 @@ import MessageBox from './account_message.jsx';
 import NewMessageBox from './account_make_new_message.jsx';
 import Schedule from './account_schedule.jsx';
 import NewScheduleBox from './account_make_new_schedule.jsx';
+import AuthContext from "../api/auth/index"
 
 export default function AccountPage({userInfo, PAGES, setPage}){
 
     const [viewContent, setViewContent] = React.useState("schedule");
+
+    const {auth} = React.useContext(AuthContext);
 
     const handleTransferToAdmin = (event) =>{
         setPage(PAGES.ADMINACCOUNTS);
     }
     
     const handleLogOut = (event) => {
+        auth.logoutUser();
         setPage(PAGES.LOGIN);
     }
     return(<>

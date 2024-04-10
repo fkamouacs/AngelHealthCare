@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Grid, Paper, Typography, IconButton, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction, Box, Modal, Menu, MenuItem, ToggleButtonGroup, ToggleButton} from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 // import MoreVertIcon from '@mui/icons-material/MoreVert.js';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
+import AuthContext from "../api/auth/index"
 
 export default function AdminAccountPage({PAGES, setPage}){
     const [openModal, setOpenModal] = useState(false);
     const [openAccountInfoModal, setOpenAccountInfoModal] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [accountState, setAccountState] = useState('Active');
+
+    const {auth} = useContext(AuthContext);
+
+    // Create Account input fields
+    const [createName, setCreateName] = useState("");
+    const [createEmail, setCreateEmail] = useState("");
+    const [createPassword, setCreatePassword] = useState("")
+
 
     const handleState = (event, newState) => {
         setAccountState(newState);
@@ -23,7 +32,9 @@ export default function AdminAccountPage({PAGES, setPage}){
         setOpenModal(false);
     };
 
-    const handLogOut = (event) => {
+    const handleLogout = (event) => {
+        console.log("XD")
+        auth.logoutUser();
         setPage(PAGES.LOGIN);
     }
 
@@ -44,6 +55,14 @@ export default function AdminAccountPage({PAGES, setPage}){
     const handleAccountInfoModalClose = () => {
         setOpenAccountInfoModal(false);
     };
+
+    const handleCreateSubmit = () => {
+        const arr = createName.split(/ (.*)/);
+        const firstname = arr[0];
+        const lastname = arr[1];
+
+        auth.registerUser(firstname, lastname, createEmail, createPassword, createPassword);
+    }
 
     const renderMenu = (
         <Menu
@@ -114,6 +133,11 @@ export default function AdminAccountPage({PAGES, setPage}){
                                 Email
                             </Typography>
                         </Grid>
+                        <Grid item xs={12} py={2}>
+                            <Typography fontWeight={'bold'} color={'#6682c4'}>
+                                Password
+                            </Typography>
+                        </Grid>
                     </Grid>
                     <Grid container item xs={6}>
                         <Grid item container xs={12} alignContent={'center'}>
@@ -131,6 +155,7 @@ export default function AdminAccountPage({PAGES, setPage}){
                                 size="small"
                                 sx={{ width: '225px' }}
                                 id="admin-account-page-name"
+                                onChange={(e) => setCreateName(e.target.value)}
                             />
                         </Grid>
                         <Grid item container xs={12} alignContent={'center'}>
@@ -182,6 +207,25 @@ export default function AdminAccountPage({PAGES, setPage}){
                                 size="small"
                                 sx={{ width: '225px' }}
                                 id="admin-account-page-email"
+                                onChange={(e) => setCreateEmail(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid item container xs={12} alignContent={'center'}>
+                            <TextField
+                                label="Password"
+                                inputProps={{
+                                    style: {
+                                    padding: 5,
+                                    backgroundColor:'white',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                size="small"
+                                sx={{ width: '225px' }}
+                                id="admin-account-page-password"
+                                onChange={(e) => setCreatePassword(e.target.value)}
                             />
                         </Grid>
                     </Grid>
@@ -192,7 +236,7 @@ export default function AdminAccountPage({PAGES, setPage}){
                         sx={{
                             bgcolor: '#6682c4'
                         }}
-                        onClick={()=>alert("Create Account not implemented yet")}
+                        onClick={handleCreateSubmit}
                         >
                             Creat Account
                     </Button>
@@ -481,7 +525,7 @@ export default function AdminAccountPage({PAGES, setPage}){
                     sx={{
                         bgcolor: '#6682c4'
                     }}
-                    onClick={handLogOut}
+                    onClick={handleLogout}
                     >
                         Log out
                 </Button>

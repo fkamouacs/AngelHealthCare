@@ -30,11 +30,12 @@ export default function Directory(){
         RESETPASSWORD : "RESETPASSWORD"
     };
     const { auth } = useContext(AuthContext);
-    console.log("directory: " + auth.loggedIn)
+
     const [page,setPage] = useState(PAGES.HOME);
 
     useEffect(() => {
-        if (auth.loggeIn) {
+        console.log("directory: " + auth.loggedIn)
+        if (auth.loggedIn) {
             setPage(PAGES.ACCOUNTS)
         } else {
             setPage(PAGES.HOME)
