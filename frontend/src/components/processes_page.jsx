@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from '@mui/joy/Table';
 import {Button} from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Process from "./process_page"
 import {getAllProcesses} from "../fakedatabase.js"
 import AddProcess from "./add_process.jsx"
+import apis from "../api/index.js"
 
 const ProcessesPage = () => {
     const [processes, setProcesses] = useState(getAllProcesses())
     const [showProcess, setShowProcess] = useState(false);
     const [currentProcessId, setCurrentProcessId] = useState(null);
     const [showAddProcess, setShowAddProcess] = useState(false);
+
+    useEffect(() => {
+      apis.getAllProcesses().then(res => {
+        // setProcesses(res.data)
+      })
+    },[])
+
 
     const handleProcessClick = (process) => {
         setShowProcess(true)

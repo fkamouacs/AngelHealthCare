@@ -90,7 +90,7 @@ export const createPatient = (name) => {
 }
 
 export const deleteProcessById = (id) => api.delete(`/process/${id}`)
-export const getProcessById = (id) => api.get(`/process/${id}`)
+
 export const getProcessPairs = () => api.get(`/processpairs/`)
 export const updateProcessById = (id, process) => {
     return api.put(`/process/${id}`, {
@@ -98,6 +98,15 @@ export const updateProcessById = (id, process) => {
         process : process
     })
 }
+
+export const getProcessById = (id) => api.get(`/process/${id}`)
+
+export const getAllProcesses = () => api.get('/process/')
+
+export const addProcess = (name, patientId) => api.post('/process/addProcess', {name: name, patientId: patientId})
+
+
+
 
 export const deleteProcedureById = (id) => api.delete(`/procedure/${id}`)
 export const getProcedureById = (id) => api.get(`/procedure/${id}`)
@@ -119,6 +128,8 @@ export const updateAccountById = (id, account) => {
         account : account
     })
 }
+export const getAvailableAccounts = (procedureId, date) => api.post('/account/availableAccounts',{procedureId: procedureId, date: date})
+
 
 export const deleteRoomById = (id) => api.delete(`/room/${id}`)
 export const getRoomById = (id) => api.get(`/room/${id}`)
@@ -151,6 +162,8 @@ export const updatePatientById = (id, patient) => {
     })
 }
 
+
+
 const apis = {
     createProcess,
     deleteProcessById,
@@ -165,6 +178,7 @@ const apis = {
     getAccountById,
     getAccountPairs,
     updateAccountById,
+    getAvailableAccounts,
     deleteRoomById,
     getRoomById,
     getRoomPairs,
@@ -177,7 +191,7 @@ const apis = {
     getPatientById,
     getPatientPairs,
     updatePatientById,
-
+    getAllProcesses,
 }
 
 export default apis
