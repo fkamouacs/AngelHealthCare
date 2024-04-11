@@ -29,8 +29,8 @@ const server = http.createServer(app);
 // });
 
 // needed for deployment
-// __dirname = path.resolve();
-//     app.use(express.static(path.join(__dirname, '/frontend/build')))
+__dirname = path.resolve();
+    app.use(express.static(path.join(__dirname, '/frontend/build')))
    
 
 
@@ -117,9 +117,9 @@ app.get("/", (req, res) => {
 
 
 // deployment
-// app.get('/*', (req,res) => {
-//     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-// } )
+app.get('/*', (req,res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+} )
 
 // request(app)
 //     .get('/')
