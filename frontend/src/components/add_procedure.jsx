@@ -13,6 +13,8 @@ import { getAvailableAccountsDate, getProcessById, addProcedure, getAvailableRoo
 getAvailableResourcesDate, 
 } from '../fakedatabase';
 
+import apis from "../api/index.js"
+
 const AddProcedure = (props) => {
     const [formData, setFormData] = useState({
         name: '',
@@ -34,15 +36,30 @@ const AddProcedure = (props) => {
     const [assignedResources, setAssignedResources] = useState([])
     const [resourceMembers, setResourceMembers] = useState([])
 
-    useEffect(() => {
-        if(formData.date !== '') {
-            setAvailableStaff(getAvailableAccountsDate(formData.date));
-            setAvailableRooms(getAvailableRoomsDate(formData.date))
-            setAvialableResources(getAvailableResourcesDate(formData.date));
-            console.log("XD")
-        }
+    // useEffect(() => {
+    //     if(formData.date !== '') {
+    //         setAvailableStaff(getAvailableAccountsDate(formData.date));
+    //         setAvailableRooms(getAvailableRoomsDate(formData.date))
+    //         setAvialableResources(getAvailableResourcesDate(formData.date));
+    //         console.log("XD")
+    //     }
         
-    },[formData.date])
+    // },[formData.date])
+
+    useEffect(() => {
+      if(formData.date.length === 10) {
+        apis.getAvailableAccountsOnDate(formData.date).then(res => {
+          console.log(res.data)
+          setAvailableStaff(res.data);
+        })
+          //setAvailableStaff(getAvailableAccountsDate(formData.date));
+          setAvailableRooms(getAvailableRoomsDate(formData.date))
+          setAvialableResources(getAvailableResourcesDate(formData.date));
+          console.log("XD")
+      }
+      
+  },[formData.date])
+
 
 
     useEffect(() => {
@@ -159,7 +176,7 @@ const AddProcedure = (props) => {
           FP
         </Avatar>
         <Checkbox
-          label={a.name}
+          label={`${a.firstName} ${a.lastName}`}
           overlay
           color="neutral"
           checked={members.find((m) => Object.keys(m)[0] == a._id)[a._id]}
@@ -239,7 +256,7 @@ const AddProcedure = (props) => {
 
   return (
     <div>
-        <h1>{`Add Procedure to ${props.currentProcess.patient}'s ${props.currentProcess.name}`}</h1>
+        <h1>{`Add Procedure to ${props.currentPatientName}'s ${props.currentProcess.name}`}</h1>
         <Container maxWidth="sm">
       <Typography variant="h4" align="center" gutterBottom>
         Add Procedure

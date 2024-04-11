@@ -12,6 +12,7 @@ import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import Input from '@mui/joy/Input';
 import {Button} from '@mui/material';
+import apis from "../api/index.js"
 
 import { getAvailableAccounts, getProcedureById, 
 removeStaffProcedure, addStaffProcedure, getAvailableRooms,
@@ -27,7 +28,9 @@ completeProcedure} from "../fakedatabase.js"
  
 const [currentProcedure, setCurrentProcedure] = useState(getProcedureById(props._id))
 
-const [availableStaff, setAvailableStaff] = useState(getAvailableAccounts(currentProcedure._id,currentProcedure.date))
+//const [availableStaff, setAvailableStaff] = useState(getAvailableAccounts(currentProcedure._id,currentProcedure.date))
+const [availableStaff, setAvailableStaff] = useState([])
+
 const [assignedStaff, setAssignedStaff] = useState(getProcedureById(props._id).staff)
 const [members, setMembers] = useState([]);
 
@@ -44,6 +47,16 @@ const [resourceMembers, setResourceMembers] = useState([])
 const [showEditDate, setShowEditDate] = useState(false);
 const [date, setDate] = useState();
 const [dateError, setDateError] = useState(false)
+
+
+useEffect(() => {
+  apis.getAvailableAccounts(currentProcedure._id,currentProcedure.date).then(res => {
+    console.log(res.data);
+    setAvailableStaff(res.data);
+  })
+},[])
+
+
 
 function isGoodDate(dt){
   var reGoodDate = /^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/;

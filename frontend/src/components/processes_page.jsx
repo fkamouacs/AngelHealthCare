@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from '@mui/joy/Table';
 import {Button} from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Process from "./process_page"
 import {getAllProcesses} from "../fakedatabase.js"
 import AddProcess from "./add_process.jsx"
+import apis from "../api/index.js"
 
 const ProcessesPage = () => {
-    const [processes, setProcesses] = useState(getAllProcesses())
+    //const [processes, setProcesses] = useState(getAllProcesses())
+    const [processes, setProcesses] = useState([])
     const [showProcess, setShowProcess] = useState(false);
     const [currentProcessId, setCurrentProcessId] = useState(null);
     const [showAddProcess, setShowAddProcess] = useState(false);
 
-    const handleProcessClick = (process) => {
-        setShowProcess(true)
-        setCurrentProcessId(process._id)
-    }
-    
+    useEffect(() => {
+      apis.getAllProcesses().then(res => {
+         setProcesses(res.data)
+        console.log(res.data);
+      })
+    },[])
+
     return (
    <>
 
@@ -54,15 +58,8 @@ const ProcessesPage = () => {
         </tr>
       </thead>
       <tbody>
-        {processes.map((row) => (
-          <tr key={row._id} onClick={() => handleProcessClick(row)} style={{cursor: 'pointer', 
-          }}>
-            <td>{row.name}</td>
-            <td>{row.patient}</td>
-            <td>{row.currStage}</td>
-            <td>{row.startDate}</td>
-            <td>{row.endDate}</td>
-          </tr>
+        {processes.map( (row) => (
+       <ProcessesRow info={row} setCurrentProcessId={setCurrentProcessId} setShowProcess={setShowProcess}/> 
         ))}
       </tbody>
     </Table>
@@ -72,3 +69,34 @@ const ProcessesPage = () => {
 }
 
 export default ProcessesPage
+
+const ProcessesRow  = ({info, setShowProcess, setCurrentProcessId}) => {
+  const [currentPatientName, setCurrentPatientName] = useState(null);
+
+  useEffect(() => {
+    apis.getPatientById(info.patientId).then((res) => {
+        setCurrentPatientName(res.data.name)
+      })
+  },[info])
+
+  const handleProcessClick = (process) => {
+    setShowProcess(true)
+    setCurrentProcessId(process._id)
+}
+
+ const convertDate = (date) => {
+  const onlyDate = date.slice(0,10);
+  return onlyDate;
+ }
+
+  return (
+    <tr key={info._id} onClick={() => handleProcessClick(info)} style={{cursor: 'pointer', 
+          }}>
+            <td>{info.name}</td>
+            <td>{currentPatientName}</td>
+            <td>{info.currStage}</td>
+            <td>{convertDate(info.startDate)}</td>
+            <td>{info.endDate}</td>
+    </tr>
+  )
+}

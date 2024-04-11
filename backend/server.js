@@ -29,8 +29,8 @@ const server = http.createServer(app);
 // });
 
 // needed for deployment
-// __dirname = path.resolve();
-//     app.use(express.static(path.join(__dirname, '/frontend/build')))
+__dirname = path.resolve();
+    app.use(express.static(path.join(__dirname, '/frontend/build')))
    
 
 
@@ -50,8 +50,17 @@ app.use(cookieParser());
 const authRouter = require('./routes/auth-router')
 app.use('/auth', authRouter);
 
+const accountRouter = require('./routes/account-router')
+app.use('/api/account', accountRouter);
 
+const processRouter = require('./routes/process-router')
+app.use('/api/process', processRouter)
 
+const patientRouter = require('./routes/patient-router')
+app.use('/api/patient', patientRouter)
+
+const procedureRouter = require('./routes/procedure-routes')
+app.use('/api/procedure', procedureRouter)
 
 
 app.listen(process.env.PORT  || 3001, function(err){
@@ -67,9 +76,9 @@ app.get("/", (req, res) => {
     res.status(200).json({msg:"The get('/1') was successful!"})
 })
 
-app.put("/", (req, res) => {
-    res.status(200).json({msg:"The put('/') was successful!"})
-})
+// app.put("/", (req, res) => {
+//     res.status(200).json({msg:"The put('/') was successful!"})
+// })
 
 // const userSchema = new mongoose.Schema({
 //     name: String,
@@ -111,6 +120,7 @@ app.put("/", (req, res) => {
 app.get('/*', (req,res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
 } )
+
 // request(app)
 //     .get('/')
 //     .expect('Content-Type', /json/)

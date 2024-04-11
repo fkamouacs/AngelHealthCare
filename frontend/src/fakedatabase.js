@@ -171,6 +171,9 @@ export const addAccountSchedule = (aid, date) => {
     currAccount.schedule.push(date);
 }
 
+// on procedure date change, check if staff is available
+// if available update their schedule with new date
+// if not available update procedure's assigned staff and remove date from staff schedule
 export const updateProcedureStaffDate = (pid, date) => {
     const currProcedure = getProcedureById(pid);
 

@@ -9,7 +9,8 @@ const UserSchema = new Schema(
         email: {type: String, required: true},
         passwordHash: {type: String, required: true},
         status: {type: String, default: 'active'},
-        schedule: {type: [String], default: []}
+        schedule: {type: [String], default: []},
+        isArchived: {type: Boolean, default: false}
     }
 )
 
