@@ -20,6 +20,10 @@ updateProcedureStaffDate = async (req,res) => {
 
 }
 
+archiveAccount = async (req,res) => {
+
+   
+}
 
 
 module.exports = {
@@ -27,5 +31,7 @@ module.exports = {
     getAvailableAccountsOnDate,
     removeAccountSchedule,
     addAccountSchedule,
-    updateProcedureStaffDate
+    updateProcedureStaffDate,
+    archiveAccount,
+    
 }

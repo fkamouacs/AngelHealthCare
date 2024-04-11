@@ -7,5 +7,6 @@ router.get('/availableAccountsDate', AccountController.getAvailableAccountsOnDat
 router.put('/removeAccountSchedule', AccountController.removeAccountSchedule)
 router.put('/addAccountSchedule', AccountController.addAccountSchedule)
 router.put('/updateProcedureStaffDate', AccountController.updateProcedureStaffDate)
+router.post('/archiveAccount', AccountController.archiveAccount)
 
 module.exports = router

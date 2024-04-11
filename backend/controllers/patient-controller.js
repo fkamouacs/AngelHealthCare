@@ -15,6 +15,14 @@ getAllPatients = async (req,res) => {
 
 getPatientById = async (req,res) => {
 
+    const query = Patient.findOne({_id: req.params.id})
+    query.exec().then((doc) => {
+        console.log(doc)
+        res.json(doc)
+    }).catch((err) => {
+        console.log(err)
+    })
+
 }
 
 

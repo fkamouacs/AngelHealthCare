@@ -56,9 +56,11 @@ app.use('/api/account', accountRouter);
 const processRouter = require('./routes/process-router')
 app.use('/api/process', processRouter)
 
-const patientRouter = require('./routes/patient-process')
+const patientRouter = require('./routes/patient-router')
 app.use('/api/patient', patientRouter)
 
+const procedureRouter = require('./routes/procedure-routes')
+app.use('/api/procedure', procedureRouter)
 
 
 app.listen(process.env.PORT  || 3001, function(err){

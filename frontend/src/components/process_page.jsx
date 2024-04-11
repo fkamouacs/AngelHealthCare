@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import Stepper from '@mui/joy/Stepper';
 import Step, { stepClasses } from '@mui/joy/Step';
 import StepIndicator, { stepIndicatorClasses } from '@mui/joy/StepIndicator';
@@ -9,20 +9,50 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import Link from '@mui/joy/Link';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Procedure from "./procedure_page"
-import {processes, procedures} from "../fakedatabase.js"
+//import {processes, procedures} from "../fakedatabase.js"
 import {Button} from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AddProcedure from "./add_procedure.jsx"
+import apis from "../api/index.js"
+
 
 const ProcessPage = (props) => {
     const isId = (row) => {
         return row._id === props._id;
     }
-    const [currentProcess, setCurrentProcess] = useState(processes.find(isId))
+    // const [currentProcess, setCurrentProcess] = useState(processes.find(isId))
+    const [currentProcess, setCurrentProcess] = useState({})
     const [showProcedure, setShowProcedure] = useState(false);
     const [currentProcedureId, setCurrentProcedureId] = useState(null);
     const [showAddProcedure, setShowAddProcedure] = useState(false);
     
+    const [procedures, setProcedures] = useState([])
+    const [currentPatientName, setCurrentPatientName] = useState("");
+
+    useEffect(() => {
+      apis.getProcessById(props._id).then(res => {
+        console.log(res)
+        setCurrentProcess(res.data);
+        
+        // Procedures
+        apis.getAllProcedures().then(res => {
+          if (res.data != null) {
+            setProcedures(res.data);
+          }
+          
+        })
+      })
+    },[])
+
+    useEffect(() => {
+
+      apis.getPatientById(currentProcess.patientId).then(res => {
+        setCurrentPatientName(res.data.name)
+      })
+
+    }, [currentProcess])
+
+
     const handleProcedureClick = (procedure) => {
         setShowProcedure(true);
         setCurrentProcedureId(procedure._id)
@@ -79,7 +109,7 @@ const ProcessPage = (props) => {
 </Breadcrumbs>
 
 <div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
-    <h1>{`${currentProcess.patient}'s ${currentProcess.name} - ID: ${currentProcess._id}`}</h1>
+    <h1>{`${currentPatientName}'s ${currentProcess.name} - ID: ${currentProcess._id}`}</h1>
     <div > 
     <Button 
        style={{margin: "0 1rem"}}

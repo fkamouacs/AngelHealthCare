@@ -109,7 +109,7 @@ export const addProcess = (name, patientId) => api.post('/process/addProcess', {
 
 
 export const deleteProcedureById = (id) => api.delete(`/procedure/${id}`)
-export const getProcedureById = (id) => api.get(`/procedure/${id}`)
+
 export const getProcedurePairs = () => api.get(`/procedurepairs/`)
 export const updateProcedureById = (id, procedure) => {
     return api.put(`/procedure/${id}`, {
@@ -117,6 +117,20 @@ export const updateProcedureById = (id, procedure) => {
         procedure : procedure
     })
 }
+
+
+
+export const getProcedureById = (id) => api.get(`/procedure/${id}`)
+export const getAllProcedures = () => api.get('/procedure/')
+export const addProcedure = (name, patientId, staff, resources, rooms, processId) => api.get('/procedure/addProcedure', {
+    name: name,
+    patientId: patientId,
+    staff: staff,
+    resources: resources,
+    rooms: rooms,
+    processId: processId
+})
+
 
 
 export const deleteAccountById = (id) => api.delete(`/account/${id}`)
@@ -198,6 +212,11 @@ const apis = {
     getAllProcesses,
     addProcess,
     getAllPatients,
+    
+
+    getAllProcedures,
+    addProcedure
+
 }
 
 export default apis
