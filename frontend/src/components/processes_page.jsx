@@ -84,13 +84,18 @@ const ProcessesRow  = ({info, setShowProcess, setCurrentProcessId}) => {
     setCurrentProcessId(process._id)
 }
 
+ const convertDate = (date) => {
+  const onlyDate = date.slice(0,10);
+  return onlyDate;
+ }
+
   return (
     <tr key={info._id} onClick={() => handleProcessClick(info)} style={{cursor: 'pointer', 
           }}>
             <td>{info.name}</td>
             <td>{currentPatientName}</td>
             <td>{info.currStage}</td>
-            <td>{info.startDate}</td>
+            <td>{convertDate(info.startDate)}</td>
             <td>{info.endDate}</td>
     </tr>
   )

@@ -45,11 +45,12 @@ const ProcessPage = (props) => {
     },[])
 
     useEffect(() => {
-
-      apis.getPatientById(currentProcess.patientId).then(res => {
-        setCurrentPatientName(res.data.name)
-      })
-
+      if (currentProcess._id !== null) {
+        apis.getPatientById(currentProcess.patientId).then(res => {
+          setCurrentPatientName(res.data.name)
+        })
+      } 
+  
     }, [currentProcess])
 
 
@@ -95,7 +96,7 @@ const ProcessPage = (props) => {
 
         {showProcedure ? <Procedure _id={currentProcedureId} showProcedure={setShowProcedure} 
         currentProcedure={setCurrentProcedureId} showProcess={props.showProcess} currentProcess={props.currentProcess} currProcess={props._id}/> : showAddProcedure ? <AddProcedure showAddProcedure={setShowAddProcedure}
-        currentProcess={currentProcess} setCurrentProcess={setCurrentProcess} /> : <>
+        currentProcess={currentProcess} setCurrentProcess={setCurrentProcess} currentPatientName={currentPatientName} /> : <>
 
 <Breadcrumbs aria-label="breadcrumbs">
   

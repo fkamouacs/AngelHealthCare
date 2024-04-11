@@ -134,7 +134,7 @@ export const addProcedure = (name, patientId, staff, resources, rooms, processId
 
 
 export const deleteAccountById = (id) => api.delete(`/account/${id}`)
-export const getAccountById = (id) => api.get(`/account/${id}`)
+
 export const getAccountPairs = () => api.get(`/accountpairs/`)
 export const updateAccountById = (id, account) => {
     return api.put(`/account/${id}`, {
@@ -142,7 +142,16 @@ export const updateAccountById = (id, account) => {
         account : account
     })
 }
+
+
+export const getAccountById = (id) => api.get(`/account/${id}`)
+export const archiveAccount = (id) => api.get('/account/archiveAccount', {accountId: id})
+export const unarchiveAccount = (id) => api.get('/account/unarchiveAccount', {accountId: id})
+
 export const getAvailableAccounts = (procedureId, date) => api.post('/account/availableAccounts',{procedureId: procedureId, date: date})
+export const getAvailableAccountsOnDate = (date) => api.post('/account/availableAccountsDate', {date: date}) 
+
+
 
 
 export const deleteRoomById = (id) => api.delete(`/room/${id}`)
@@ -179,7 +188,10 @@ export const updatePatientById = (id, patient) => {
 
 export const getPatientById = (id) => api.get(`/patient/${id}`)
 export const getAllPatients = () => api.get('/patient/')
+export const addPatient = (name) => api.post('/patient/addPatient', {name: name})
+export const archivePatient = (id) => api.post('/patient/archivePatient', {patientId: id})
 
+export const unarchivePatient = (id) => api.post('/patient/unarchivePatient', {patientId: id})
 
 
 const apis = {
@@ -197,6 +209,7 @@ const apis = {
     getAccountPairs,
     updateAccountById,
     getAvailableAccounts,
+    getAvailableAccountsOnDate,
     deleteRoomById,
     getRoomById,
     getRoomPairs,
@@ -212,7 +225,9 @@ const apis = {
     getAllProcesses,
     addProcess,
     getAllPatients,
-    
+    addPatient,
+    archiveAccount,
+    unarchiveAccount,
 
     getAllProcedures,
     addProcedure

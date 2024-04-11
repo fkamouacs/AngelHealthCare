@@ -8,7 +8,7 @@ const ProcessSchema = new Schema(
         patientId: {type: ObjectId, required: true},
         currStage: {type: String, default: ""},
         procedureIds: {type: [ObjectId], default: []},
-        startDate: {type: Date, default: new Date()},
+        startDate: {type: Date, default: Date()},
         endDate: {type: Date, default: null}
     }
 )
