@@ -11,6 +11,12 @@ getAllProcesses = async (req,res) => {
 addProcess = async (req,res) => {
     console.log(req.body.patientId)
     console.log(req.body.name)
+    let newProcess = {
+        name: req.body.name,
+        patientId: req.body.patientId,
+    }
+    newProcess = await Process.create(newProcess);
+    res.send(newProcess);
 }
 
 module.exports = {

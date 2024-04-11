@@ -5,7 +5,7 @@ const ObjectId = Schema.Types.ObjectId
 const ProcessSchema = new Schema(
     {
         name: {type: String, required: true},
-        patient: {type: ObjectId, required: true},
+        patientId: {type: ObjectId, required: true},
         currStage: {type: String, default: ""},
         procedureIds: {type: [ObjectId], default: []},
         startDate: {type: Date, default: new Date()},

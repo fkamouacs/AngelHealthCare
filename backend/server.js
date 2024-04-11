@@ -29,8 +29,8 @@ const server = http.createServer(app);
 // });
 
 // needed for deployment
-__dirname = path.resolve();
-    app.use(express.static(path.join(__dirname, '/frontend/build')))
+// __dirname = path.resolve();
+//     app.use(express.static(path.join(__dirname, '/frontend/build')))
    
 
 
@@ -56,6 +56,8 @@ app.use('/api/account', accountRouter);
 const processRouter = require('./routes/process-router')
 app.use('/api/process', processRouter)
 
+const patientRouter = require('./routes/patient-process')
+app.use('/api/patient', patientRouter)
 
 
 
@@ -113,9 +115,9 @@ app.get("/", (req, res) => {
 
 
 // deployment
-app.get('/*', (req,res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-} )
+// app.get('/*', (req,res) => {
+//     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+// } )
 
 // request(app)
 //     .get('/')

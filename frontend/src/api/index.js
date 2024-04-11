@@ -153,7 +153,7 @@ export const updateResourceById = (id, resource) => {
 
 
 export const deletePatientById = (id) => api.delete(`/patient/${id}`)
-export const getPatientById = (id) => api.get(`/patient/${id}`)
+
 export const getPatientPairs = () => api.get(`/patientpairs/`)
 export const updatePatientById = (id, patient) => {
     return api.put(`/patient/${id}`, {
@@ -161,6 +161,10 @@ export const updatePatientById = (id, patient) => {
         patient : patient
     })
 }
+
+
+export const getPatientById = (id) => api.get(`/patient/${id}`)
+export const getAllPatients = () => api.get('/patient/')
 
 
 
@@ -192,6 +196,8 @@ const apis = {
     getPatientPairs,
     updatePatientById,
     getAllProcesses,
+    addProcess,
+    getAllPatients,
 }
 
 export default apis

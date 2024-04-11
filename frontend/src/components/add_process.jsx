@@ -1,11 +1,12 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable no-unused-vars */
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { TextField, Button, Container, Typography } from '@mui/material';
 import { getAllPatients, addProcess, getAllProcesses } from '../fakedatabase';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import apis from "../api/index.js"
 
 const AddProcess = (props) => {
     const [formData, setFormData] = useState({
@@ -15,8 +16,14 @@ const AddProcess = (props) => {
       });
       const [value, setValue] = useState('');
 
-      const [patients, setPatients] = useState(getAllPatients())
+      // const [patients, setPatients] = useState(getAllPatients())
+      const [patients, setPatients] = useState([])
 
+      useEffect(() => {
+        apis.getAllPatients().then(res => {
+          setPatients(res.data)
+          })
+      },[])
 
       const handleChange = (e) => {
         const { name, value } = e.target;
@@ -37,7 +44,11 @@ const AddProcess = (props) => {
 
         console.log(formData);
         console.log(value)
-        addProcess(formData.name, value);
+        //addProcess(formData.name, value);
+
+        apis.addProcess(formData.name, value).then(res =>
+        console.log(res))
+
         console.log(getAllProcesses())
         props.setProcesses(getAllProcesses())
         props.showAddProcess(false);
@@ -100,7 +111,7 @@ const AddProcess = (props) => {
           style={{ marginTop: '1rem' }}
           onClick={() => props.showAddProcess(false)}
         >
-          Cancle
+          Cancel
         </Button>
 
         </form>
