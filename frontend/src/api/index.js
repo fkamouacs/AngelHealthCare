@@ -177,7 +177,6 @@ const apis = {
     getPatientById,
     getPatientPairs,
     updatePatientById,
-
 }
 
 export default apis
