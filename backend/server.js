@@ -159,7 +159,7 @@ async function main() {
       to: "ferid.kamoua@stonybrook.edu", // list of receivers
       subject: "Hello ✔", // Subject line
       text: "Hello world?", // plain text body
-      html: "<b>Hello world?</b>", // html body
+      html: "<html><body>Hello and welcome</body></html>", // html body
     });
   
     console.log("Message sent: %s", info.messageId);
