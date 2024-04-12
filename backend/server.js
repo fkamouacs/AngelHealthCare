@@ -14,6 +14,8 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
+
+
 mongoose.connect('mongodb+srv://feridkamoua:test@cluster0.tlfbqfv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 const db = mongoose.connection;
@@ -46,6 +48,11 @@ app.use(express.json());
 
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+    console.log(`${req.method} request to ${req.path}`);
+    next();
+});
+
 // SETUP OUR OWN ROUTERS AS MIDDLEWARE
 const authRouter = require('./routes/auth-router')
 app.use('/auth', authRouter);
@@ -59,8 +66,12 @@ app.use('/api/process', processRouter)
 const patientRouter = require('./routes/patient-router')
 app.use('/api/patient', patientRouter)
 
-const procedureRouter = require('./routes/procedure-routes')
+const procedureRouter = require('./routes/procedure-router')
 app.use('/api/procedure', procedureRouter)
+
+const resourceRouter = require('./routes/resource-router')
+app.use('/api/resource', resourceRouter)
+
 
 
 app.listen(process.env.PORT  || 3001, function(err){
@@ -76,45 +87,6 @@ app.get("/", (req, res) => {
     res.status(200).json({msg:"The get('/1') was successful!"})
 })
 
-// app.put("/", (req, res) => {
-//     res.status(200).json({msg:"The put('/') was successful!"})
-// })
-
-// const userSchema = new mongoose.Schema({
-//     name: String,
-//     password: String,
-// });
-// const User = mongoose.model('User', userSchema);
-
-// app.get("/user", (req, res) => {
-//     const userId = req.params.userId;
-
-//     User.find({})
-//         .then(users => {
-//             if (!users) {
-//                 return res.status(404).send("User not found");
-//             }
-//             res.send(users);
-//         })
-//         .catch(err => {
-//             res.status(500).send(err);
-//     });
-// })
-
-// app.put("/user", (req, res) => {
-//     const newUser = new User(req.body.user);
-
-//     newUser.save()
-//     .then(savedUser => {
-//         console.log("added user");
-//         res.status(201).send(savedUser);
-//     })
-//     .catch(err => {
-//         console.log("error in adding user");
-//         res.status(500).send(err);
-//     });
-// })
-
 
 // deployment
 app.get('/*', (req,res) => {
@@ -122,12 +94,11 @@ app.get('/*', (req,res) => {
 } )
 
 // request(app)
-//     .get('/')
-//     .expect('Content-Type', /json/)
-//     .expect('Content-Length', '38')
+//     .get('/api/resource/resourcepairs/')
 //     .expect(200)
-//     .catch(err => {
-//     if (err) throw err;
+//     .end((err, res) => {
+//         if (err) throw err;
+//         console.log('Response Body:', res.body);  // Log the response body to the console
 //     });
 
 // request(app)

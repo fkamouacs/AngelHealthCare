@@ -231,15 +231,16 @@ export default function Directory(){
 
     function getAllPatients(){
         async function getAllPatientsAsync(){
-            const response = await apis.getAllPatients();
-            console.log(response.data);
+            const response = await apis.getResourcePairs()
+            .then(()=>{console.log(response.data);})
+            .catch(err=> {});
         }
         getAllPatientsAsync();
     }
 
 
     return(<>
-        <Button
+        {/* <Button
             onClick={getAllPatients}
             sx={{
             position: 'fixed',
@@ -247,7 +248,7 @@ export default function Directory(){
             right: 0,
             width: 200,
         }}>test button
-        </Button>
+        </Button> */}
         { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page
           [PAGES.RESOURCES, PAGES.ROOMS, PAGES.ACCOUNTS, PAGES.PROCESSES, PAGES.PROCEDURES, PAGES.ADMINACCOUNTS].includes(page) &&
           <Header PAGES={PAGES} currentPage={page} changePage={changePage}/>

@@ -6,7 +6,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
-import apis from "../api";
+import apis from "../api/index.js"
 export default function ResourcesPage(){
     const [sortBy, setSortBy] = useState('Name');
     const [sortOrder, setSortOrder] = useState('asc');
@@ -165,6 +165,7 @@ export default function ResourcesPage(){
     useEffect(() => {
         apis.getResourcePairs().then(res=>{
             console.log(res);
+            setResources(res.data);
         }).catch(err => {
             console.error('Failed to fetch resources:', err.message); // Log more specific error information
         });

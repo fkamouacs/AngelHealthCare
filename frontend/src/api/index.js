@@ -166,7 +166,7 @@ export const updateRoomById = (id, room) => {
 
 export const deleteResourceById = (id) => api.delete(`/resource/${id}`)
 export const getResourceById = (id) => api.get(`/resource/${id}`)
-export const getResourcePairs = () => api.get(`/resourcepairs/`)
+export const getResourcePairs = () => api.get(`/resource/resourcepairs/`)
 export const updateResourceById = (id, resource) => {
     return api.put(`/resource/${id}`, {
         // SPECIFY THE PAYLOAD
@@ -228,7 +228,6 @@ const apis = {
     addPatient,
     archiveAccount,
     unarchiveAccount,
-
     getAllProcedures,
     addProcedure
 

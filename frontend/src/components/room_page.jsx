@@ -7,7 +7,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward.js';
 import MoreVertIcon from '@mui/icons-material/MoreVert.js';
 import CloseIcon from '@mui/icons-material/Close';
 // import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import apis from "../api";
+import apis from "../api/index.js"
 
 export default function RoomsPage(){
     const [sortBy, setSortBy] = useState('rooms');
@@ -585,16 +585,17 @@ export default function RoomsPage(){
     const [patients, setPatients] = useState([]);
     useEffect(() => {
         apis.getRoomPairs().then(res=>{
-            console.log(res);
+            // setRooms(res.data);
         }).catch(err => {
             console.error('Failed to fetch room pairs:', err.message); // Log more specific error information
         });
         apis.getAllPatients().then(res=>{
-            console.log(res);
+            setPatients(res.data)
         }).catch(err => {
             console.error('Failed to fetch patients:', err.message); // Log more specific error information
         });
     },[]);
+
 
     return(<>
         <Grid container spacing={1} >
