@@ -9,14 +9,27 @@ getAvailableAccounts = async (req,res) => {
 
 getAvailableAccountsOnDate = async (req,res) => {
     console.log(req.body.date)
-    const query = Account.find({})
 
-    query.exec().then(docs => {
-        const filter = docs.filter((d) => !d.schedule.includes(req.body.date))
+    try {
+        const accounts = await Account.find({});
+        const filter = accounts.filter((account) => !account.schedule.includes(req.body.date));
         res.json(filter);
-    }).catch(err => {
-        console.error(err);
-    })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    //Commented this code out to ensure that the Account.find({}) method is returning a 
+    //valid Mongoose query object that can be executed using the .exec() method
+    
+    //const query = Account.find({})
+
+    //query.exec().then(docs => {
+    //    const filter = docs.filter((d) => !d.schedule.includes(req.body.date))
+    //    res.json(filter);
+    //}).catch(err => {
+    //    console.error(err);
+    //})
 }
 removeAccountSchedule = async (req,res) => {
 
