@@ -69,6 +69,7 @@ export default function AccountPage({PAGES, setPage}){
                 <Grid item id="9" style={{flexGrow: 1}}>
                     <Box display="flex" gap={4} justifyContent="flex-end">
                         <Button
+                            id="admin-account-view-button"
                             variant="contained"
                             sx={{ bgcolor: '#6682c4', marginTop: '20px'}}
                             onClick={handleTransferToAdmin}
@@ -76,6 +77,7 @@ export default function AccountPage({PAGES, setPage}){
                             Admin accounts view
                         </Button>
                         <Button
+                            id="log-out-button"
                             variant="contained"
                             sx={{ bgcolor: '#6682c4' , marginTop: '20px'}}
                             onClick={handleLogOut}

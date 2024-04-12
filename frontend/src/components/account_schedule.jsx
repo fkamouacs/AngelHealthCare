@@ -67,12 +67,14 @@ export default function Schedule({schedules}){
                     >
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DateField 
+                                id="start-date-input"
                                 label="Start Date" 
                                 sx={{width:130}} 
                                 onChange={newValue => setStartDate(newValue)}
                                 defaultValue={startDate} 
                             />
                             <DateField 
+                                id="end-date-input"
                                 label="End Date" 
                                 sx={{width:130}} 
                                 onChange={newValue => setEndDate(newValue)}
@@ -82,7 +84,7 @@ export default function Schedule({schedules}){
                     </Box>
                 </Grid>
             </Grid>
-            <Box flex="1" overflow="auto" bgcolor="#E8E8E8" borderRadius={1}>
+            <Box id="schedule-box" flex="1" overflow="auto" bgcolor="#E8E8E8" borderRadius={1}>
                 {scheduleDisplay.map((schedule)=><ScheduleCard schedule={schedule}/>)}
             </Box>
         </Box>
