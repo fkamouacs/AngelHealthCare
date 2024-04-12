@@ -7,18 +7,46 @@ import {
     Grid,
 } from '@mui/material';
 
-
 import MessageBox from './account_message.jsx';
 import NewMessageBox from './account_make_new_message.jsx';
 import Schedule from './account_schedule.jsx';
 import NewScheduleBox from './account_make_new_schedule.jsx';
 import AuthContext from "../api/auth/index"
 
-export default function AccountPage({userInfo, PAGES, setPage}){
+export default function AccountPage({PAGES, setPage}){
 
     const [viewContent, setViewContent] = React.useState("schedule");
+    const [userInfo, setUserInfo] = React.useState({
+        username: "",
+        userId: "",
+        phone_number: "",
+        status: "",
+        messages: [],
+        schedules: [],
+    });
 
-    const {auth} = React.useContext(AuthContext);
+    const {auth} = React.useContext(AuthContext) || {};
+    React.useEffect(() => {
+            console.log("in account page");
+            auth.getLoggedIn().then(res => {
+            if (res != null) {
+                console.log(res);
+
+                const user = {
+                    username: `${res.user.firstName} ${res.user.lastName}`,
+                    userId: "",
+                    phone_number: "",
+                    status: "Active",
+                    messages: [],
+                    schedules: [],
+                }
+
+                setUserInfo(user);
+            }else{
+                console.log("no user");
+            }
+        })
+    },[])
 
     const handleTransferToAdmin = (event) =>{
         setPage(PAGES.ADMINACCOUNTS);

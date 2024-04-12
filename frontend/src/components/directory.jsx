@@ -218,18 +218,11 @@ export default function Directory(){
             }
         ]
     });
-    const [requiredInfo, setRequiredInfo] = useState({
-        userInfo : currentUser
-    });
     
     function changePage(newPage){
         setPage(newPage);
     }
 
-    function printRequiredInfo(){
-        console.log(requiredInfo);
-    }
-    
     function handleLogin(event){
         console.log("Button pressed");
     }
@@ -269,7 +262,6 @@ export default function Directory(){
             PAGES={PAGES}
             setPage={setPage}
             handleLogin={handleLogin}
-            requiredInfo={requiredInfo}
         />
     </>);
 };
