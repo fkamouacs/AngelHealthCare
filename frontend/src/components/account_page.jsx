@@ -29,8 +29,7 @@ export default function AccountPage({PAGES, setPage}){
     React.useEffect(() => {
             console.log("in account page");
             auth.getLoggedIn().then(res => {
-            if (res != null) {
-                console.log(res);
+            if (res.user != null) {
 
                 const user = {
                     username: `${res.user.firstName} ${res.user.lastName}`,
