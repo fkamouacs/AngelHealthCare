@@ -42,7 +42,7 @@ export default function MainPage({currentPage, PAGES, setPage}){
         case PAGES.RESETPASSWORD:
             return(
                 <>
-                <ResetPassowrdPage PAGES={PAGES} setPage={setPage}/>
+                <ResetPassowrdPage/>
                 </>
             );
         case PAGES.RESOURCES:
@@ -54,15 +54,13 @@ export default function MainPage({currentPage, PAGES, setPage}){
         case PAGES.ACCOUNTS:
             return(
                 <>
-                <AccountPage
-                    PAGES={PAGES} setPage={setPage}
-                />
+                <AccountPage/>
                 </>
             );
         case PAGES.ADMINACCOUNTS:
             return(
                 <>
-                <AdminAccountPage PAGES={PAGES} setPage={setPage}/>
+                <AdminAccountPage/>
                 </>
             );
         case PAGES.PATIENTS:
