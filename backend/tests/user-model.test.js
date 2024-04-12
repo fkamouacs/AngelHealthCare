@@ -1,4 +1,3 @@
-// user-model.test.js
 const mongoose = require('mongoose');
 const UserModel = require('../models/user-model');
 
