@@ -13,7 +13,7 @@ export default function AdminAccountPage({PAGES, setPage}){
     const [anchorEl, setAnchorEl] = useState(null);
     const [accountState, setAccountState] = useState('Active');
 
-    const {auth} = useContext(AuthContext);
+    const {auth} = useContext(AuthContext) || {};
 
     // Create Account input fields
     const [createName, setCreateName] = useState("");

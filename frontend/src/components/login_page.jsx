@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import AuthContext from '../api/auth';
 
 export default function LoginPage({PAGES, setPage}){
-    const { auth } = React.useContext(AuthContext);
+    const { auth } = React.useContext(AuthContext) || {};
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
 
