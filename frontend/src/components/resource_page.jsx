@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Paper, Typography, ToggleButtonGroup, ToggleButton, IconButton, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction, Box, Modal} from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -6,7 +6,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
-
+import apis from "../api";
 export default function ResourcesPage(){
     const [sortBy, setSortBy] = useState('Name');
     const [sortOrder, setSortOrder] = useState('asc');
@@ -146,20 +146,27 @@ export default function ResourcesPage(){
             </Box>
         </Modal>
     );
-    const resources = [
-        { name: 'Wheelchair', id: 111, count: 11 },
-        { name: 'dog', id: 543, count: 566 },
-        { name: 'cat', id: 888, count: 523 },
-        { name: 'Wheelchair', id:123456789, count: 15 },
-        { name: 'Wheelchair', id: 112541, count: 15 },
-        { name: 'Wheelchair', id: 13541, count: 15 },
-        { name: 'Wheelchair', id: 11351, count: 15 },
-        { name: 'Wheelchair', id: 11441, count: 15 },
-        { name: 'Wheelchair', id: 11561, count: 15 },
-        { name: 'Wheelchair', id: 113231, count: 15 },
-        { name: 'Wheelchair', id: 1132311, count: 15 },
-        { name: 'Wheelchair', id: 1111221, count: 15 }
-    ];
+    // const resources = [
+    //     { name: 'Wheelchair', id: 111, count: 11 },
+    //     { name: 'dog', id: 543, count: 566 },
+    //     { name: 'cat', id: 888, count: 523 },
+    //     { name: 'Wheelchair', id:123456789, count: 15 },
+    //     { name: 'Wheelchair', id: 112541, count: 15 },
+    //     { name: 'Wheelchair', id: 13541, count: 15 },
+    //     { name: 'Wheelchair', id: 11351, count: 15 },
+    //     { name: 'Wheelchair', id: 11441, count: 15 },
+    //     { name: 'Wheelchair', id: 11561, count: 15 },
+    //     { name: 'Wheelchair', id: 113231, count: 15 },
+    //     { name: 'Wheelchair', id: 1132311, count: 15 },
+    //     { name: 'Wheelchair', id: 1111221, count: 15 }
+    // ];
+
+    const [resources, setResources] = useState([]);
+    useEffect(() => {
+        apis.getResourcePairs().then(res=>{
+            console.log(res);
+        });
+    },[]);
 
     return(<>
         <Grid item xs={12} sx={{ ml: (-5), mt: (1) , mr: (-5)}}>
