@@ -9,7 +9,7 @@ const RoomSchema = new Schema(
         patients: {type: [ObjectId], default: []},
         resource:{type:[ObjectId], default: []},
         special_note: {type:String, default:""}
-    }
+    },{timestamps: true}
 )
 
 

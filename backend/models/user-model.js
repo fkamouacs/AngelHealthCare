@@ -11,7 +11,7 @@ const UserSchema = new Schema(
         status: {type: String, default: 'active'},
         schedule: {type: [String], default: []},
         isArchived: {type: Boolean, default: false}
-    }
+    },{timestamps: true}
 )
 
 

@@ -15,10 +15,10 @@ MainPage.propTypes = {
     currentPage: PropTypes.string.isRequired,
     PAGES: PropTypes.object.isRequired,
     setPage: PropTypes.func.isRequired,
-    info: PropTypes.object.isRequired,
+    requiredInfo: PropTypes.object.isRequired,
 };
 
-export default function MainPage({currentPage, PAGES, setPage, info}){
+export default function MainPage({currentPage, PAGES, setPage, requiredInfo}){
     
     switch(currentPage){
         case PAGES.HOME:
@@ -56,7 +56,7 @@ export default function MainPage({currentPage, PAGES, setPage, info}){
             return(
                 <>
                 <AccountPage
-                    userInfo={info.userInfo}
+                    userInfo={requiredInfo.userInfo}
                     PAGES={PAGES} setPage={setPage}
                 />
                 </>
