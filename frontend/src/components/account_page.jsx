@@ -11,7 +11,7 @@ import MessageBox from './account_message.jsx';
 import NewMessageBox from './account_make_new_message.jsx';
 import Schedule from './account_schedule.jsx';
 import NewScheduleBox from './account_make_new_schedule.jsx';
-import AuthContext from "../api/auth/index"
+import AuthContext from "../api/auth/index.js"
 
 export default function AccountPage({PAGES, setPage}){
 
@@ -25,27 +25,42 @@ export default function AccountPage({PAGES, setPage}){
         schedules: [],
     });
 
-    const {auth} = React.useContext(AuthContext) || {};
+    const {auth} = React.useContext(AuthContext);
     React.useEffect(() => {
             console.log("in account page");
-            auth.getLoggedIn().then(res => {
-            if (res.user != null) {
-
+            console.log(auth)
+            if (auth !== undefined && auth.loggedIn) {
                 const user = {
-                    username: `${res.user.firstName} ${res.user.lastName}`,
+                    username: `${auth.user.firstName} ${auth.user.lastName}`,
                     userId: "",
                     phone_number: "",
                     status: "Active",
                     messages: [],
                     schedules: [],
                 }
-
                 setUserInfo(user);
-            }else{
+            }
+            else{
                 console.log("no user");
             }
-        })
-    },[])
+        //     auth.getLoggedIn().then(res => {
+        //     if (res.user != null) {
+
+        //         const user = {
+        //             username: `${res.user.firstName} ${res.user.lastName}`,
+        //             userId: "",
+        //             phone_number: "",
+        //             status: "Active",
+        //             messages: [],
+        //             schedules: [],
+        //         }
+
+        //         setUserInfo(user);
+        //     }else{
+        //         console.log("no user");
+        //     }
+        // })
+    },[auth.loggedIn])
 
     const handleTransferToAdmin = (event) =>{
         setPage(PAGES.ADMINACCOUNTS);

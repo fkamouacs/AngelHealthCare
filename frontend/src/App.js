@@ -28,14 +28,13 @@ import './App.css';
 import React from 'react';
 import Directory from './components/directory.jsx';
 import { Container } from '@mui/material';
-import { AuthContextProvider } from './api/auth/index.js';
+
 
 function App() {
   return (
     <Container id="app-container" sx={{height:'100%', width:"100%", minWidth:"1200px"}}>
-      <AuthContextProvider>
+  
         <Directory/>
-      </AuthContextProvider>
     </Container>
   );
 }
