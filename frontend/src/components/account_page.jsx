@@ -11,7 +11,7 @@ import MessageBox from './account_message.jsx';
 import NewMessageBox from './account_make_new_message.jsx';
 import Schedule from './account_schedule.jsx';
 import NewScheduleBox from './account_make_new_schedule.jsx';
-import AuthContext from "../api/auth/index"
+import {AuthContext} from "../api/auth/index.js"
 
 export default function AccountPage({PAGES, setPage}){
 
