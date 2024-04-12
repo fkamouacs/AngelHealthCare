@@ -13,6 +13,7 @@ createResource = async (req, res) => {
 }
 
 getResourceById = async (req, res) => {
+    console.log(`getResourceById`);
     try {
         const resource = await Resource.findById(req.params.id);
         if (!resource) {
