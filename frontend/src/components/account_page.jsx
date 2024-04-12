@@ -25,42 +25,27 @@ export default function AccountPage({PAGES, setPage}){
         schedules: [],
     });
 
-    const {auth} = React.useContext(AuthContext);
+    const {auth} = React.useContext(AuthContext) || {};
     React.useEffect(() => {
-            console.log("in account page");
-            console.log(auth)
-            if (auth !== undefined && auth.loggedIn) {
-                const user = {
-                    username: `${auth.user.firstName} ${auth.user.lastName}`,
-                    userId: "",
-                    phone_number: "",
-                    status: "Active",
-                    messages: [],
-                    schedules: [],
-                }
-                setUserInfo(user);
+        console.log("in account page");
+        console.log(auth)
+        if (auth !== undefined && auth.loggedIn) {
+            const user = {
+                username: `${auth.user.firstName} ${auth.user.lastName}`,
+                userId: "",
+                phone_number: "",
+                status: "Active",
+                messages: [],
+                schedules: [],
             }
-            else{
-                console.log("no user");
-            }
-        //     auth.getLoggedIn().then(res => {
-        //     if (res.user != null) {
+            setUserInfo(user);
+        }
+        else{
+            console.log("no user");
+        }
+    },[auth])
 
-        //         const user = {
-        //             username: `${res.user.firstName} ${res.user.lastName}`,
-        //             userId: "",
-        //             phone_number: "",
-        //             status: "Active",
-        //             messages: [],
-        //             schedules: [],
-        //         }
-
-        //         setUserInfo(user);
-        //     }else{
-        //         console.log("no user");
-        //     }
-        // })
-    },[auth.loggedIn])
+    
 
     const handleTransferToAdmin = (event) =>{
         setPage(PAGES.ADMINACCOUNTS);

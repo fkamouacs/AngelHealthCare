@@ -2,7 +2,7 @@ import Header from '../../src/components/header.jsx';
 
 describe('Header Tests', () => {
     beforeEach(() => {
-        cy.mount(<AdminAccountPage />)
+        cy.mount(<Header />)
         cy.viewport(1000, 1000)
     });
   
