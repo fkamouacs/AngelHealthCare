@@ -80,12 +80,14 @@ export default function NewMessageBox(){
         </Grid>
         <Grid container justifyContent="flex-end"  height="15%" maxHeight={40} borderTop={"1px solid grey"}>
             <Box margin="1px">
-                <Button
+                <Button 
+                    id="account-make-new-message-clear-button"
                     onClick={handleClearMessageButton}
                 >Clear</Button>
             </Box>
             <Box margin="1px">
                 <Button
+                    id="account-make-new-message-send-button"
                     onClick={handleSendMessageButton}
                 >Send</Button>
             </Box>
