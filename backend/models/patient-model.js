@@ -6,7 +6,7 @@ const PatientSchema = new Schema(
     {
         name: {type: String, required: true},
         isArchived: {type: Boolean, default: false}
-    }
+    },{timestamps: true}
 )
 
 

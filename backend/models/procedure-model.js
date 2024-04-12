@@ -12,7 +12,7 @@ const ProcedureSchema = new Schema(
         resources: {type: [ObjectId], default: []},
         rooms: {type: [ObjectId], default: []},
         date: {type: Date, default: null}
-    }
+    },{timestamps: true}
 )
 
 

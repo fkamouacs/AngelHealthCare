@@ -3,14 +3,20 @@ const Patient = require('../models/patient-model.js')
 
 
 getAllPatients = async (req,res) => {
-   const query = Patient.find({})
+    const sortField = req.query.sortField || 'name';  
+    const sortOrder = req.query.sortOrder === 'desc' ? -1 : 1;  
 
-   query.exec().then((docs) => {
-    console.log(docs)
-    res.json(docs);
-   }).catch((err) => {
-    console.error(err)
-   })
+    Patient.find({})
+        .sort({ [sortField]: sortOrder }) 
+        .exec()
+        .then((docs) => {
+            console.log(docs);
+            res.json(docs);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send(err);
+        });
 }
 
 getPatientById = async (req,res) => {

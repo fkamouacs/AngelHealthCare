@@ -10,7 +10,7 @@ const ProcessSchema = new Schema(
         procedureIds: {type: [ObjectId], default: []},
         startDate: {type: Date, default: Date()},
         endDate: {type: Date, default: null}
-    }
+    },{timestamps: true}
 )
 
 

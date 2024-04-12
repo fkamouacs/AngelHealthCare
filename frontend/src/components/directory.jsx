@@ -1,17 +1,12 @@
 import {React, useState, useContext, useEffect} from 'react';
-// import axios from 'axios';
+import apis from "../api";
 
 import MainPage from './main_page.jsx';
 import Header from './header.jsx';
 import HomeHeader from './home_header.jsx';
 import AuthContext from '../api/auth/index.js';
-// import PatientInfoModal from './patient_info_modal.jsx';
+import { Button } from '@mui/material';
 
-// import { Button } from '@mui/material';
-
-/*const api = axios.create({
-    baseURL: 'http://localhost:8000',
-});*/
 
 export default function Directory(){
 
@@ -41,17 +36,6 @@ export default function Directory(){
             setPage(PAGES.HOME)
         }
     },[auth.loggedIn])
-
-    const [patientToDisplay, setPatientToDisplay] = useState({
-        "name" : "Paul Der",
-        "id" : "gbvuiaefb",
-        "contact number" : "57189023467",
-        "email" : "3905u0fsdmZ",
-        "insurance #" : "eruiagvndjkxvndfj",
-        "emergency contact person" : "dfasdwhbiu",
-        "emergency contact number" : "51789674543",
-        "room#" : "123"
-    });
 
     const [currentUser, setCurrentUser] = useState({
         username : "Adam Lee",
@@ -235,148 +219,42 @@ export default function Directory(){
     });
     const [requiredInfo, setRequiredInfo] = useState({
         userInfo : currentUser
-        // rooms: [
-        //     {
-        //         "room#" : "134",
-        //         "avaliable spots" : "4/25"
-        //     },{
-        //         "room#" : "134",
-        //         "avaliable spots" : "4/25"
-        //     },{
-        //         "room#" : "134",
-        //         "avaliable spots" : "4/25"
-        //     },{
-        //         "room#" : "134",
-        //         "avaliable spots" : "4/25"
-        //     },{
-        //         "room#" : "134",
-        //         "avaliable spots" : "4/25"
-        //     },{
-        //         "room#" : "134",
-        //         "avaliable spots" : "4/25"
-        //     },
-        // ],
-        // patients: [
-        //     {
-        //         "name" : "John Wick",
-        //         "room#" : "134",
-        //         "id" : "624567524"
-        //     },{
-        //         "name" : "John Wick",
-        //         "room#" : "134",
-        //         "id" : "624567524"
-        //     },{
-        //         "name" : "John Wick",
-        //         "room#" : "134",
-        //         "id" : "624567524"
-        //     },{
-        //         "name" : "John Wick",
-        //         "room#" : "134",
-        //         "id" : "624567524"
-        //     },{
-        //         "name" : "John Wick",
-        //         "room#" : "134",
-        //         "id" : "624567524"
-        //     },{
-        //         "name" : "John Wick",
-        //         "room#" : "134",
-        //         "id" : "624567524"
-        //     },{
-        //         "name" : "John Wick",
-        //         "room#" : "134",
-        //         "id" : "624567524"
-        //     },{
-        //         "name" : "John Wick",
-        //         "room#" : "134",
-        //         "id" : "624567524"
-        //     },
-        // ],
     });
-
-
-    function handleLogin(event){
-        console.log("Button pressed");
-    }
-
-    /*function openModal(){
-        setPatientToDisplay({
-            "name" : "Paul Der",
-            "id" : "gbvuiaefb",
-            "contact number" : "57189023467",
-            "email" : "3905u0fsdmZ",
-            "insurance #" : "eruiagvndjkxvndfj",
-            "emergency contact person" : "dfasdwhbiu",
-            "emergency contact number" : "51789674543",
-            "room#" : "123"
-        });
-    }*/
-
-    /*function closeModal(){
-        setPatientToDisplay(null);
-    }*/
-
+    
     function changePage(newPage){
         setPage(newPage);
     }
 
+    function printRequiredInfo(){
+        console.log(requiredInfo);
+    }
+    
+    function handleLogin(event){
+        console.log("Button pressed");
+    }
+
+
+
+
+    function getAllPatients(){
+        async function getAllPatientsAsync(){
+            const response = await apis.getAllPatients();
+            console.log(response.data);
+        }
+        getAllPatientsAsync();
+    }
+
 
     return(<>
-        {/*
         <Button
-            onClick={openModal}
+            onClick={getAllPatients}
             sx={{
             position: 'fixed',
             bottom: 0,
             right: 0,
             width: 200,
-        }}>open patient Modal
+        }}>test button
         </Button>
-        <Button
-            sx={{
-            position: 'fixed',
-            bottom: 0, 
-            right: 200, 
-            width: 200
-        }}>n/a
-        </Button>
-        <Button
-            sx={{
-            position: 'fixed',
-            bottom: 0, 
-            right: 400,
-            width: 200, 
-        }}>n/a
-        </Button>
-        <Button
-            sx={{
-            position: 'fixed',
-            bottom: 0, 
-            right: 600,
-            width: 200, 
-        }}>n/a
-        </Button>
-        <Button
-            sx={{
-            position: 'fixed',
-            bottom: 0, 
-            right: 800,
-            width: 200, 
-        }}>n/a
-        </Button>
-        <Button
-            sx={{
-            position: 'fixed',
-            bottom: 0, 
-            right: 1000,
-            width: 200, 
-        }}>n/a
-        </Button>
-        
-        <PatientInfoModal 
-            patient={patientToDisplay}
-            closeModal={closeModal}
-        />
-        */}
         { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page
           [PAGES.RESOURCES, PAGES.ROOMS, PAGES.ACCOUNTS, PAGES.PROCESSES, PAGES.PROCEDURES, PAGES.ADMINACCOUNTS].includes(page) &&
           <Header PAGES={PAGES} currentPage={page} changePage={changePage}/>
@@ -390,7 +268,7 @@ export default function Directory(){
             PAGES={PAGES}
             setPage={setPage}
             handleLogin={handleLogin}
-            info={requiredInfo}
+            requiredInfo={requiredInfo}
         />
     </>);
 };
