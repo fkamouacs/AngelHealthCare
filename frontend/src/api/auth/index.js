@@ -24,7 +24,7 @@ function AuthContextProvider(props) {
 
     useEffect(() => {
         console.log("hi")
-        auth.getLoggedIn();
+        auth.getLoggedIn()
     }, []);
 
     const authReducer = (action) => {

@@ -31,6 +31,7 @@ export default function Directory(){
     useEffect(() => {
         console.log("directory: " + auth.loggedIn)
         if (auth.loggedIn) {
+            
             setPage(PAGES.ACCOUNTS)
         } else {
             setPage(PAGES.HOME)
