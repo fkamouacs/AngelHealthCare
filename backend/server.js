@@ -93,6 +93,12 @@ app.get('/*', (req,res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
 } )
 
+app.put('/*', (req,res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+} )
+
+
+
 
 // request(app)
 //     .get('/api/resource/resourcepairs/')
@@ -104,13 +110,13 @@ app.get('/*', (req,res) => {
 
 
 
-request(app)
-    .get('/api/resource/resource/66198e8a477f346a2e45e81f/')
-    .expect(200)
-    .end((err, res) => {
-        if (err) throw err;
-        console.log('Response Body:', res.body);  // Log the response body to the console
-    });
+// request(app)
+//     .get('/api/resource/resource/66198e8a477f346a2e45e81f/')
+//     .expect(200)
+//     .end((err, res) => {
+//         if (err) throw err;
+//         console.log('Response Body:', res.body);  // Log the response body to the console
+//     });
 
 // request(app)
 //     .put('/')
