@@ -75,6 +75,7 @@ const ProcessesRow  = ({info, setShowProcess, setCurrentProcessId}) => {
 
   useEffect(() => {
     apis.getPatientById(info.patientId).then((res) => {
+      if(res.data != null)
         setCurrentPatientName(res.data.name)
       })
   },[info])

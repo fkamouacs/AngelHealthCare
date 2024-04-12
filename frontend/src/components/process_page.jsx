@@ -41,14 +41,19 @@ const ProcessPage = (props) => {
           }
           
         })
-      })
+      }).catch(err => {
+        console.error('Failed to fetch process:', err.message); // Log more specific error information
+    })
     },[])
 
     useEffect(() => {
       if (currentProcess._id !== null) {
         apis.getPatientById(currentProcess.patientId).then(res => {
-          setCurrentPatientName(res.data.name)
-        })
+          if(res.data != null)
+            setCurrentPatientName(res.data.name)
+        }).catch(err => {
+          console.error('Failed to fetch current process:', err.message); // Log more specific error information
+      })
       } 
   
     }, [currentProcess])

@@ -586,9 +586,13 @@ export default function RoomsPage(){
     useEffect(() => {
         apis.getRoomPairs().then(res=>{
             console.log(res);
+        }).catch(err => {
+            console.error('Failed to fetch room pairs:', err.message); // Log more specific error information
         });
         apis.getAllPatients().then(res=>{
             console.log(res);
+        }).catch(err => {
+            console.error('Failed to fetch patients:', err.message); // Log more specific error information
         });
     },[]);
 

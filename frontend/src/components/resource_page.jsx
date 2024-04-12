@@ -165,6 +165,8 @@ export default function ResourcesPage(){
     useEffect(() => {
         apis.getResourcePairs().then(res=>{
             console.log(res);
+        }).catch(err => {
+            console.error('Failed to fetch resources:', err.message); // Log more specific error information
         });
     },[]);
 
