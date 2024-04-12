@@ -36,6 +36,7 @@ const ProcessPage = (props) => {
         
         // Procedures
         apis.getAllProcedures().then(res => {
+          console.log(res.data)
           if (res.data != null) {
             setProcedures(res.data);
           }
@@ -66,6 +67,7 @@ const ProcessPage = (props) => {
    
 
    const displayProcedures = () => {
+    console.log(procedures)
     return procedures.map(p => { if (currentProcess.procedureIds.includes(p._id)) {return (
         <Step
         key={p._id}

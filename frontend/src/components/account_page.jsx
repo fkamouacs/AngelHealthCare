@@ -25,7 +25,7 @@ export default function AccountPage({PAGES, setPage}){
         schedules: [],
     });
 
-    const {auth} = React.useContext(AuthContext) || {};
+    const {auth} = React.useContext(AuthContext);
     React.useEffect(() => {
             console.log("in account page");
             console.log(auth)

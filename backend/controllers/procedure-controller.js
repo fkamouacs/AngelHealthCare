@@ -4,7 +4,7 @@ const ProcessController = require('../controllers/process-controller.js')
 const Procedure = require('../models/procedure-model.js')
 
 getAllProcedures = async (req,res) => {
-   const query = Procedure.findOne({})
+   const query = Procedure.find({})
 
    query.exec().then((docs) => {
     console.log(docs)
