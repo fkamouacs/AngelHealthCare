@@ -63,22 +63,23 @@ export const createAccount = ( name, status, schedule) => {
     })
 }
 
-export const createRoom = (_id, available, total, type, schedule) => {
+export const createRoom = (number, max_capacity, empty_capacity, patients, resources, special_note) => {
     return api.post(`/room/`, {
         // SPECIFY THE PAYLOAD
-        _id: _id,
-        available: available,
-        total: total,
-        type: type,
-        schedule: schedule
+        number: number,
+        max_capacity: max_capacity,
+        empty_capacity: empty_capacity,
+        patients: patients,
+        resources: resources,
+        special_note: special_note,
     })
 }
 
-export const createResource = (name, schedule) => {
+export const createResource = (name, count) => {
     return api.post(`/resource/`, {
         // SPECIFY THE PAYLOAD
         name: name,
-        schedule: schedule
+        count: count
     })
 }
 
@@ -156,7 +157,7 @@ export const getAvailableAccountsOnDate = (date) => api.post('/account/available
 
 export const deleteRoomById = (id) => api.delete(`/room/${id}`)
 export const getRoomById = (id) => api.get(`/room/${id}`)
-export const getRoomPairs = () => api.get(`/roompairs/`)
+export const getRoomPairs = () => api.get(`/room/`)
 export const updateRoomById = (id, room) => {
     return api.put(`/room/${id}`, {
         // SPECIFY THE PAYLOAD
@@ -166,7 +167,7 @@ export const updateRoomById = (id, room) => {
 
 export const deleteResourceById = (id) => api.delete(`/resource/${id}`)
 export const getResourceById = (id) => api.get(`/resource/${id}`)
-export const getResourcePairs = () => api.get(`/resource/resourcepairs/`)
+export const getResourcePairs = () => api.get(`/resource/`)
 export const updateResourceById = (id, resource) => {
     return api.put(`/resource/${id}`, {
         // SPECIFY THE PAYLOAD
@@ -177,7 +178,7 @@ export const updateResourceById = (id, resource) => {
 
 export const deletePatientById = (id) => api.delete(`/patient/${id}`)
 
-export const getPatientPairs = () => api.get(`/patientpairs/`)
+export const getPatientPairs = () => api.get(`/`)
 export const updatePatientById = (id, patient) => {
     return api.put(`/patient/${id}`, {
         // SPECIFY THE PAYLOAD
@@ -229,7 +230,8 @@ const apis = {
     archiveAccount,
     unarchiveAccount,
     getAllProcedures,
-    addProcedure
+    addProcedure,
+    createResource
 
 }
 

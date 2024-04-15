@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const faker = require('faker');
 const ObjectId = mongoose.Types.ObjectId;
 
-const User = require('./models/user-model.js'); // Adjust the path as necessary
 const Patient = require('./models/patient-model.js');
 const Procedure = require('./models/procedure-model.js');
 const Process = require('./models/process-model.js');
@@ -21,19 +20,22 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
+
+
 async function createDummyData() {
     try {
         //await mongoose.connection.dropDatabase();  // Clears the entire database. Use with caution!
 
-        for (let i = 0; i < 20; i++) {
-            await User.create({
-                firstName: faker.name.firstName(),
-                lastName: faker.name.lastName(),
-                email: faker.internet.email(),
-                passwordHash: faker.internet.password(),
-                status: 'active',
-                isArchived: false
-            });
+        // await Patient.deleteMany({});
+        // await Procedure.deleteMany({});
+        // await Process.deleteMany({});
+        // await Resource.deleteMany({});
+        await Room.deleteMany({});
+        // await Schedule.deleteMany({});
+        // await Email.deleteMany({});
+
+
+        for (let i = 0; i < 30; i++) {
 
             await Patient.create({
                 name: faker.name.findName(),

@@ -2,8 +2,8 @@ const Resource = require('../models/resource-model.js')
 
 createResource = async (req, res) => {
     try {
-        const { name, count, special_note } = req.body;
-        const newResource = new Resource({ name, count, special_note });
+        const { name, count } = req.body;
+        const newResource = new Resource({ name, count });
         await newResource.save();
         res.status(201).json(newResource);
     } catch (err) {

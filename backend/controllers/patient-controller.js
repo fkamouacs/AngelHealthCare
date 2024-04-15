@@ -10,7 +10,7 @@ getAllPatients = async (req,res) => {
         .sort({ [sortField]: sortOrder }) 
         .exec()
         .then((docs) => {
-            console.log(docs);
+            // console.log(docs);
             res.json(docs);
         })
         .catch((err) => {

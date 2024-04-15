@@ -11,6 +11,12 @@ export default function ResourcesPage(){
     const [sortBy, setSortBy] = useState('Name');
     const [sortOrder, setSortOrder] = useState('asc');
     const [openModal, setOpenModal] = useState(false);
+
+    const [resourceName, setResourceName] = useState('');
+    const [resourceId, setResourceId] = useState('');
+    const [resourceAmount, setResourceAmount] = useState('');
+
+
     const handleSort = (event, newSortBy) => {
         setSortBy(newSortBy);
     };
@@ -26,6 +32,11 @@ export default function ResourcesPage(){
     const handleModalClose = () => {
         setOpenModal(false);
     };
+
+    const handleAddResource = () => {
+        console.log(resourceName, resourceId, resourceAmount);
+        apis.createResource(resourceName, resourceAmount)
+    }
 
     const renderModal = (
         <Modal
@@ -70,11 +81,11 @@ export default function ResourcesPage(){
                                 Resource Name
                             </Typography>
                         </Grid>
-                        <Grid item xs={12} py={2} alignContent={'center'}>
+                        {/* <Grid item xs={12} py={2} alignContent={'center'}>
                             <Typography fontWeight={'bold'} color={'#6682c4'}>
                                 Resource ID
                             </Typography>
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={12} py={2}>
                             <Typography fontWeight={'bold'} color={'#6682c4'}>
                                 Resource Amount
@@ -85,6 +96,7 @@ export default function ResourcesPage(){
                         <Grid item container xs={12} alignContent={'center'}>
                             <TextField
                                 label="Resource Name"
+                                onChange={(event)=>setResourceName(event.target.value)}
                                 inputProps={{
                                     style: {
                                         padding: 5,
@@ -98,9 +110,10 @@ export default function ResourcesPage(){
                                 sx={{ width: '225px' }}
                             />
                         </Grid>
-                        <Grid item container xs={12} alignContent={'center'}>
+                        {/* <Grid item container xs={12} alignContent={'center'}>
                             <TextField
                                 label="Resource Id"
+                                onChange={(event)=>setResourceId(event.target.value)}
                                 inputProps={{
                                     style: {
                                     padding: 5,
@@ -113,10 +126,11 @@ export default function ResourcesPage(){
                                 sx={{ width: '225px' }}
                                 size="small"
                             />
-                        </Grid>
+                        </Grid> */}
                         <Grid item container xs={12} alignContent={'center'}>
                             <TextField
                                 label="Resource Amount"
+                                onChange={(event)=>setResourceAmount(event.target.value)}
                                 inputProps={{
                                     style: {
                                     padding: 5,
@@ -138,7 +152,7 @@ export default function ResourcesPage(){
                         sx={{
                             bgcolor: '#6682c4'
                         }}
-                        onClick={()=>alert("Add Resource not implemented yet")}
+                        onClick={handleAddResource}
                         >
                             Add Item
                     </Button>
@@ -146,20 +160,6 @@ export default function ResourcesPage(){
             </Box>
         </Modal>
     );
-    // const resources = [
-    //     { name: 'Wheelchair', id: 111, count: 11 },
-    //     { name: 'dog', id: 543, count: 566 },
-    //     { name: 'cat', id: 888, count: 523 },
-    //     { name: 'Wheelchair', id:123456789, count: 15 },
-    //     { name: 'Wheelchair', id: 112541, count: 15 },
-    //     { name: 'Wheelchair', id: 13541, count: 15 },
-    //     { name: 'Wheelchair', id: 11351, count: 15 },
-    //     { name: 'Wheelchair', id: 11441, count: 15 },
-    //     { name: 'Wheelchair', id: 11561, count: 15 },
-    //     { name: 'Wheelchair', id: 113231, count: 15 },
-    //     { name: 'Wheelchair', id: 1132311, count: 15 },
-    //     { name: 'Wheelchair', id: 1111221, count: 15 }
-    // ];
 
     const [resources, setResources] = useState([]);
     useEffect(() => {

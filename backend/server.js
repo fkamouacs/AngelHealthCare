@@ -33,9 +33,6 @@ const server = http.createServer(app);
 // needed for deployment
 __dirname = path.resolve();
     app.use(express.static(path.join(__dirname, '/frontend/build')))
-   
-
-
   
 app.use(
     cors({
@@ -72,6 +69,8 @@ app.use('/api/procedure', procedureRouter)
 const resourceRouter = require('./routes/resource-router')
 app.use('/api/resource', resourceRouter)
 
+const roomRouter = require('./routes/room-router')
+app.use('/api/room', roomRouter)
 
 
 app.listen(process.env.PORT  || 3001, function(err){
@@ -97,37 +96,6 @@ app.put('/*', (req,res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
 } )
 
-
-
-
-// request(app)
-//     .get('/api/resource/resourcepairs/')
-//     .expect(200)
-//     .end((err, res) => {
-//         if (err) throw err;
-//         console.log('Response Body:', res.body);  // Log the response body to the console
-//     });
-
-
-
-// request(app)
-//     .get('/api/resource/resource/66198e8a477f346a2e45e81f/')
-//     .expect(200)
-//     .end((err, res) => {
-//         if (err) throw err;
-//         console.log('Response Body:', res.body);  // Log the response body to the console
-//     });
-
-// request(app)
-//     .put('/')
-//     .expect('Content-Type', /json/)
-//     .expect('Content-Length', '38')
-//     .expect(200)
-//     .catch(err => {
-//     if (err) throw err;
-//     });
-
-
 // var nodemailer = require('nodemailer');
 // const transporter = nodemailer.createTransport({
 //     name: 'angle health care', // <= Add this
@@ -152,7 +120,7 @@ app.put('/*', (req,res) => {
   
 //     console.log("Message sent: %s", info.messageId);
 //     // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
-//   }
+// }
   
 // main().catch(console.error);
 

@@ -585,7 +585,8 @@ export default function RoomsPage(){
     const [patients, setPatients] = useState([]);
     useEffect(() => {
         apis.getRoomPairs().then(res=>{
-            // setRooms(res.data);
+            console.log(res.data)
+            setRooms(res.data);
         }).catch(err => {
             console.error('Failed to fetch room pairs:', err.message); // Log more specific error information
         });
@@ -633,7 +634,7 @@ export default function RoomsPage(){
                     </Grid>
                     <List dense={true}>
                         {rooms.map((room) => (
-                            <ListItem key={room.id} 
+                            <ListItem key={room._id} 
                              divider 
                              sx={{ 
                                 borderRadius: '50px',
@@ -645,10 +646,10 @@ export default function RoomsPage(){
                             }}>
                             <Grid container wrap="nowrap" sx={{ width: '100%' }}>
                               <Grid item xs={6}>
-                                <ListItemText primary={room.id} />
+                                <ListItemText primary={room.number} />
                               </Grid>
                               <Grid item xs={4} sx={{ textAlign: 'right' }}>
-                                <ListItemText primary={`${room.available}/${room.total}`} />
+                                <ListItemText primary={`${room.empty_capacity}/${room.max_capacity}`} />
                               </Grid>
                               <Grid item xs={2}>
                                 <ListItemSecondaryAction>

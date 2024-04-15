@@ -6,7 +6,7 @@ import Header from './header.jsx';
 import HomeHeader from './home_header.jsx';
 import AuthContext from '../api/auth/index.js';
 import { Button } from '@mui/material';
-
+import AdminToolbar from './admin_toolbar.jsx';
 
 export default function Directory(){
 
@@ -51,6 +51,7 @@ export default function Directory(){
 
 
     return(<>
+        <AdminToolbar/>
         { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page
           [PAGES.RESOURCES, PAGES.ROOMS, PAGES.ACCOUNTS, PAGES.PROCESSES, PAGES.PROCEDURES, PAGES.ADMINACCOUNTS].includes(page) &&
           <Header PAGES={PAGES} currentPage={page} changePage={changePage}/>
