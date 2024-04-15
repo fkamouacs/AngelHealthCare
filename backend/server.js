@@ -72,6 +72,8 @@ app.use('/api/procedure', procedureRouter)
 const resourceRouter = require('./routes/resource-router')
 app.use('/api/resource', resourceRouter)
 
+const roomRouter = require('./routes/room-router')
+app.use('/api/room', roomRouter)
 
 
 app.listen(process.env.PORT  || 3001, function(err){

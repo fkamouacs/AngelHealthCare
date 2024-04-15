@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const AccountController = require('../controllers/account-controller')
 
+router.post('/', AccountController.getAllAccounts)
 router.post('/availableAccounts', AccountController.getAvailableAccounts)
 router.post('/availableAccountsDate', AccountController.getAvailableAccountsOnDate)
 router.put('/removeAccountSchedule', AccountController.removeAccountSchedule)

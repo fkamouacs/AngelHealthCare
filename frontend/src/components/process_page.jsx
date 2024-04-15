@@ -49,12 +49,22 @@ const ProcessPage = (props) => {
 
     useEffect(() => {
       if (currentProcess._id !== null) {
+        console.log(currentProcess)
         apis.getPatientById(currentProcess.patientId).then(res => {
           if(res.data != null)
             setCurrentPatientName(res.data.name)
         }).catch(err => {
           console.error('Failed to fetch current process:', err.message); // Log more specific error information
       })
+
+      apis.getAllProcedures().then(res => {
+        console.log(res.data)
+        if (res.data != null) {
+          setProcedures(res.data);
+        }
+        
+      })
+      
       } 
   
     }, [currentProcess])
