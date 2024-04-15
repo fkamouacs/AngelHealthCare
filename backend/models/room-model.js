@@ -9,7 +9,8 @@ const RoomSchema = new Schema(
         empty_capacity: {type:Number, default:0},
         patients: {type: [ObjectId], default: []},
         resource:{type:[ObjectId], default: []},
-        special_note: {type:String, default:""}
+        special_note: {type:String, default:""},
+        schedule:{type: [String], default: []}
     },{timestamps: true}
 )
 

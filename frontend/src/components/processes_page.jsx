@@ -16,8 +16,10 @@ const ProcessesPage = () => {
 
     useEffect(() => {
       apis.getAllProcesses().then(res => {
-         setProcesses(res.data)
+        const reversed = res.data.reverse()
+         setProcesses(reversed)
         console.log(res.data);
+        console.log(reversed)
       })
     },[])
 

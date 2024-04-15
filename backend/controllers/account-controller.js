@@ -1,6 +1,18 @@
 const Account = require('../models/user-model.js')
 
 
+getAllAccounts = async (req,res) => {
+    Account.find({})
+    .exec()
+    .then((docs) => {
+        console.log(docs);
+        res.json(docs);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send(err);
+    });
+}
 
 getAvailableAccounts = async (req,res) => {
     console.log("procedure id " + req.body.procedureId)
@@ -59,6 +71,7 @@ unarchiveAccount = async (req,res) => {
 
 
 module.exports = {
+    getAllAccounts,
     getAvailableAccounts,
     getAvailableAccountsOnDate,
     removeAccountSchedule,

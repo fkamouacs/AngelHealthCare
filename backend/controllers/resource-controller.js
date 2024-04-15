@@ -67,10 +67,29 @@ updateResourceById = async (req, res) => {
     }
 }
 
+getAvailableResources = (req,res) => {
+
+}
+
+getAvailableResourcesOnDate = async (req,res) => {
+    console.log(req.body.date)
+    console.log("XD")
+    try {
+        const resources = await Resource.find({});
+        const filter = resources.filter((resource) => !resource.schedule.includes(req.body.date));
+        res.json(filter);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
 module.exports = {
     createResource,
     getResourceById,
     deleteResourceById,
     getResourcePairs,
-    updateResourceById
+    updateResourceById,
+    getAvailableResources,
+    getAvailableResourcesOnDate
 }

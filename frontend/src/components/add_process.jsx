@@ -53,7 +53,8 @@ const AddProcess = (props) => {
         // console.log(getAllProcesses())
         // props.setProcesses(getAllProcesses())
         await apis.getAllProcesses().then(res => {
-          props.setProcesses(res.data)
+          let reversed = res.data.reverse()
+          props.setProcesses(reversed)
          console.log(res.data);
        })
        

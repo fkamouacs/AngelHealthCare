@@ -48,13 +48,25 @@ const AddProcedure = (props) => {
 
     useEffect(() => {
       if(formData.date.length === 10) {
+        
         apis.getAvailableAccountsOnDate(formData.date).then(res => {
           console.log(res.data)
           setAvailableStaff(res.data);
         })
+
+        apis.getAvailableRoomsOnDate(formData.date).then(res => {
+          console.log("XD")
+          console.log(res.data);
+          setAvailableRooms(res.data);
+        })
+
+        apis.getAvailableResourcesOnDate(formData.date).then(res => {
+          console.log(res.data)
+          setAvialableResources(res.data);
+        }) 
           //setAvailableStaff(getAvailableAccountsDate(formData.date));
-          setAvailableRooms(getAvailableRoomsDate(formData.date))
-          setAvialableResources(getAvailableResourcesDate(formData.date));
+          //setAvailableRooms(getAvailableRoomsDate(formData.date))
+          //setAvialableResources(getAvailableResourcesDate(formData.date));
           console.log("XD")
       }
       
@@ -195,7 +207,7 @@ const AddProcedure = (props) => {
           FP
         </Avatar>
         <Checkbox
-          label={a._id}
+          label={a.number}
           overlay
           color="neutral"
           checked={roomMembers.find((m) => Object.keys(m)[0] == a._id)[a._id]}
@@ -237,16 +249,30 @@ const AddProcedure = (props) => {
 
         console.log(formData);
 
-        addProcedure(formData.name, props.currentProcess.patient, formData.date, assignedStaff, assignedResources, assignedRoom, props.currentProcess._id)
+        //addProcedure(formData.name, props.currentProcess.patient, formData.date, assignedStaff, assignedResources, assignedRoom, props.currentProcess._id)
+        
+        console.log(props.currentProcess._id)
+        apis.addProcedure(formData.name, props.currentProcess.patientId, formData.date, assignedStaff, assignedResources, assignedRoom, props.currentProcess._id).then(res => {
+          console.log(res.data.procedureIds)
+          const newProcedureIds = res.data.procedureIds
+          console.log(props.currentProcess.procedureIds)
+          let difference = newProcedureIds.filter(x => !props.currentProcess.procedureIds.includes(x)) 
 
-        const newProcedureIds = getProcessById(props.currentProcess._id).procedureIds
+          console.log(difference)
+          const newState = {...props.currentProcess}
+          newState.procedureIds = [...props.currentProcess.procedureIds, ...difference]
+
+          props.setCurrentProcess(newState);
+        })
+
+        // const newProcedureIds = getProcessById(props.currentProcess._id).procedureIds
         
-        let difference = newProcedureIds.filter(x => !props.currentProcess.procedureIds.includes(x));
+        // let difference = newProcedureIds.filter(x => !props.currentProcess.procedureIds.includes(x));
         
-        const newState = {...props.currentProcess}
-        newState.procedureIds = [...props.currentProcess.procedureIds, ...difference]
+        // const newState = {...props.currentProcess}
+        // newState.procedureIds = [...props.currentProcess.procedureIds, ...difference]
         
-        props.setCurrentProcess(newState)
+        // props.setCurrentProcess(newState)
 
 
         props.showAddProcedure(false);
