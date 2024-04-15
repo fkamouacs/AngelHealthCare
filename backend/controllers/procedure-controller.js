@@ -60,6 +60,8 @@ addProcedure = async (req,res) => {
                 Resource.findOneAndUpdate({_id: req.body.resources[i]}, {$push: {schedule: req.body.date}}).exec()
               }
 
+              
+
           newProcedure = Procedure.create(newProcedure).then((p) => {
             // add procedure id to process
                console.log("pid " + currentProcess._id)

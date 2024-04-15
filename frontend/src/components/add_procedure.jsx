@@ -59,9 +59,14 @@ const AddProcedure = (props) => {
           console.log(res.data);
           setAvailableRooms(res.data);
         })
+
+        apis.getAvailableResourcesOnDate(formData.date).then(res => {
+          console.log(res.data)
+          setAvialableResources(res.data);
+        }) 
           //setAvailableStaff(getAvailableAccountsDate(formData.date));
           //setAvailableRooms(getAvailableRoomsDate(formData.date))
-          setAvialableResources(getAvailableResourcesDate(formData.date));
+          //setAvialableResources(getAvailableResourcesDate(formData.date));
           console.log("XD")
       }
       
