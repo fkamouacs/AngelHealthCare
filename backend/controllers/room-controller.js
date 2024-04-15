@@ -1,6 +1,22 @@
 const Room = require('../models/room-model.js')
 
 
+createRoom = async (req,res) => {
+    let newRoom = {
+        number: req.body.number,
+        max_capacity: req.body.max_capacity,
+        empty_capacity: req.body.empty_capacity,
+        patients: req.body.patients,
+        resources: req.body.resources,
+        special_note: req.body.special_note
+    } 
+
+    Room.create(newRoom).then(r => {
+        res.json(r);
+    })
+
+}
+
 getAllRooms = async (req,res) => {
     Room.find({})
     .exec()

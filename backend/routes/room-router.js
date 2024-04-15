@@ -3,6 +3,7 @@ const router = express.Router()
 const RoomController = require('../controllers/room-controller')
 
 router.get('/', RoomController.getAllRooms)
+router.post('/', RoomController.createRoom)
 router.post('/availableRooms', RoomController.getAvailableRooms)
 router.post('/availableRoomsDate', RoomController.getAvailableRoomsOnDate)
 router.put('/removeRoomSchedule', RoomController.removeRoomSchedule)
