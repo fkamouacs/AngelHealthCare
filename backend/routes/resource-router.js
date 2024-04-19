@@ -20,9 +20,9 @@ router.put('/:id', ResourceController.updateResourceById)
 // router.delete('/:id', ResourceController.deleteResourceById)
 // router.get('/resourcepairs/', ResourceController.getResourcePairs)
 // router.put('/:id', ResourceController.updateResourceById)
-// router.post('/availableResources', ResourceController.getAvailableResources)
-// router.post('/availableResourceDate', ResourceController.getAvailableResourcesOnDate)
-// router.post('/addResourceSchedule', ResourceController.addResourceSchedule)
-// router.post('/removeResourceSchedule', ResourceController.removeResourceSchedule)
+router.post('/availableResources', ResourceController.getAvailableResources)
+router.post('/availableResourceDate', ResourceController.getAvailableResourcesOnDate)
+router.post('/addResourceSchedule', ResourceController.addResourceSchedule)
+router.post('/removeResourceSchedule', ResourceController.removeResourceSchedule)
 
 module.exports = router
