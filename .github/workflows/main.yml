@@ -57,9 +57,9 @@ jobs:
       run: npx cypress run
       working-directory: ./frontend
     
-    - name: Kill Server
-      if: always()
-      run: kill $SERVER_PID
+    # - name: Kill Server
+    #   if: always()
+    #   run: kill $SERVER_PID
 
     - name: Use Node.js ${{ matrix.node-version }} for Backend
       uses: actions/setup-node@v3
