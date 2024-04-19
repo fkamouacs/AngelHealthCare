@@ -45,6 +45,10 @@ jobs:
     #   run: npm run build --if-present
     #   working-directory: ./frontend
 
+    - name: npx cypress run
+      run: nodemon server.js
+      working-directory: ./backend
+
     - name: npx cypress run --component
       run: npx cypress run --component
       working-directory: ./frontend
@@ -52,6 +56,10 @@ jobs:
     - name: npx cypress run
       run: npx cypress run
       working-directory: ./frontend
+    
+    - name: Kill Server
+      if: always()
+      run: kill $SERVER_PID
 
     - name: Use Node.js ${{ matrix.node-version }} for Backend
       uses: actions/setup-node@v3
