@@ -81,6 +81,10 @@ jobs:
       working-directory: ./backend
 
     - name: npx cypress run
+      run: npm install
+      working-directory: ./backend
+
+    - name: npx cypress run
       run: node server.js
       working-directory: ./backend
 
