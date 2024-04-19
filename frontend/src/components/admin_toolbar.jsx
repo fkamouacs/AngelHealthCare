@@ -32,7 +32,7 @@ export default function AdminToolbar({
 
 
     const handleAddUser = (firstname, lastname, email, password) => {
-        apis.createAccount(`${firstname} ${lastname}`, "active", []);
+        apis.createAccount(firstname, lastname, email, password);
     };
 
     const handleAddPatient = (firstName, lastName, email, password) => {

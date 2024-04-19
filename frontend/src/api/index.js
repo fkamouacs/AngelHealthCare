@@ -54,12 +54,13 @@ export const createProcedure = (name, patient, step, stage, staff, resources, ro
     })
 }
 
-export const createAccount = ( name, status, schedule) => {
+export const createAccount = ( firstname, lastname, email, password) => {
     return api.post(`/account/`, {
         // SPECIFY THE PAYLOAD
-        name: name,
-        status: status,
-        schedule: schedule
+        firstname: firstname,
+        lastname : lastname,
+        email: email,
+        password: password
     })
 }
 

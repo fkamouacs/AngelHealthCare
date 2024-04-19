@@ -1,8 +1,28 @@
 const Account = require('../models/user-model.js')
 const Procedure = require('../models/procedure-model.js')
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 addAccount = async (req, res) => {
-    
+
+    const { firstname, lastname, email, password } = req.body;
+
+    try {
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const newAccount = new Account({
+            firstName: firstname,
+            lastName: lastname,
+            email: email,
+            passwordHash: hashedPassword
+        });
+
+        await newAccount.save();
+        res.status(201).send('Account created successfully');
+    } catch (error) {
+
+        console.error('Error creating account:', error);
+        res.status(500).send('Error creating account');
+    }
 }
 
 getAllAccounts = async (req,res) => {
@@ -105,5 +125,6 @@ module.exports = {
     updateProcedureStaffDate,
     archiveAccount,
     unarchiveAccount,
+    addAccount
     
 }
