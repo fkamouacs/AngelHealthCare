@@ -54,12 +54,13 @@ export const createProcedure = (name, patient, step, stage, staff, resources, ro
     })
 }
 
-export const createAccount = ( name, status, schedule) => {
+export const createAccount = ( firstname, lastname, email, password) => {
     return api.post(`/account/`, {
         // SPECIFY THE PAYLOAD
-        name: name,
-        status: status,
-        schedule: schedule
+        firstname: firstname,
+        lastname : lastname,
+        email: email,
+        password: password
     })
 }
 
@@ -209,10 +210,12 @@ export const getAvailableRoomsOnDate = (date) => api.post('/room/availableRoomsD
 export const deleteResourceById = (id) => api.delete(`/resource/${id}`)
 export const getResourceById = (id) => api.get(`/resource/${id}`)
 export const getResourcePairs = () => api.get(`/resource/`)
-export const updateResourceById = (id, resource) => {
+export const updateResourceById = (id, name, count, special_note) => {
     return api.put(`/resource/${id}`, {
         // SPECIFY THE PAYLOAD
-        resource : resource
+        name : name,
+        count : count,
+        special_note : special_note
     })
 }
 

@@ -7,6 +7,7 @@ const EmailSchema = new Schema(
         title: { type: String, required: true},
         text: {type: String, required: true},
         sender: {type: ObjectId, required: true},
+        hidden: {type: Boolean, default: false}
     },{timestamps: true}
 )
 
