@@ -46,7 +46,7 @@ jobs:
     #   working-directory: ./frontend
 
     - name: npx cypress run
-      run: nodemon server.js
+      run: node server.js
       working-directory: ./backend
 
     - name: npx cypress run --component
