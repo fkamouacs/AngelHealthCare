@@ -55,7 +55,7 @@ const [date, setDate] = useState();
 const [dateError, setDateError] = useState(false)
 
 
-useEffect( () => {
+useEffect(() => {
 
   async function fetchData() {
 
@@ -141,7 +141,7 @@ useEffect(() => {
   }
   setMembers(arr)
 
-},[availableStaff])
+},[availableStaff, assignedStaff])
 
 
 useEffect(() => {
@@ -156,7 +156,7 @@ useEffect(() => {
     }
   }
   setRoomMembers(arr);
-},[availableRooms])
+},[availableRooms, assignedRoom])
 
 useEffect(() => {
   const arr = [];
@@ -170,7 +170,7 @@ useEffect(() => {
     }
   }
   setResourceMembers(arr);
-},[availableResources])
+},[availableResources, assignedResources])
 
  
 const toggleMember = (index, id) => (event) => {
