@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { 
     Box, 
     Grid, 
@@ -12,20 +12,40 @@ import {
 
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function NewUserModal({openModal, handleModalClose, handleAdd}){
+
+export default function EditResourceModal({id, openModal, handleModalClose, handleEdit, handleFetch}){
 
     // const [openModal, setOpenModal] = useState(false);
-    const [firstName, setFirstname] = useState('');
-    const [lastName, setLastname] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [count, setCount] = useState(0);
+    const [special_note, setSpecialNote] = useState('');
 
-    const lables = ["Firstname", "Lastname", "Email", "Password"];
-    const handlers = [setFirstname, setLastname, setEmail, setPassword];
+    const lables = ["Name", "Count", "Special Note"];
+    const handlers = [setName, setCount, setSpecialNote];
+    const values = [name, count, special_note];
 
-    function handleAddItem(){
-        handleAdd(firstName, lastName, email, password);
+    function handleEditItem(){
+        handleEdit(name, count, special_note);
     }
+    
+    useEffect(() => {
+        if (openModal) {
+            handleFetch(id).then(response => {
+                console.log(response.data);
+                if (response.data) {
+                    setName(response.data.name || '');
+                    setCount(response.data.count || 0);
+                    setSpecialNote(response.data.special_note || '');
+                }
+            });
+        } else {
+            // Reset values if there is no id
+            setName('');
+            setCount(0);
+            setSpecialNote('');
+        }
+    }, [openModal]);
+    
 
 
     
@@ -51,7 +71,7 @@ export default function NewUserModal({openModal, handleModalClose, handleAdd}){
             <Grid container marginBottom={2}>
                 <Grid item xs={6} fontSize={40}>
                     <Typography fontSize={'30px'} color={'#6682c4'} sx={{}}>
-                            Add User
+                            Add Resource
                     </Typography>
                 </Grid>
                 <Grid item xs={6} display="flex" justifyContent="flex-end">
@@ -65,8 +85,8 @@ export default function NewUserModal({openModal, handleModalClose, handleAdd}){
             <Grid container marginBottom={2}>
                 <Grid container item xs={5} >
                     {lables.map((lable, index) => (
-                        <Grid key={`new-user-label-${index}`} item container xs={12} py={2} alignContent={'center'}>
-                        <Typography key={`new-user-modal-${index}`} fontWeight={'bold'} color={'#6682c4'}>
+                        <Grid key={`edit-resource-label-${index}`} item container xs={12} py={2} alignContent={'center'}>
+                        <Typography key={`edit-resource-label-${index}`} fontWeight={'bold'} color={'#6682c4'}>
                             {lable}
                         </Typography>
                     </Grid>
@@ -74,9 +94,8 @@ export default function NewUserModal({openModal, handleModalClose, handleAdd}){
                 </Grid>
                 <Grid container item xs={6}>
                     {handlers.map((handler, index) => (
-                        <Grid key={`new-user-handler-${index}`} item container xs={12} alignContent={'center'}>
-                        <TextField
-                            key={`new-user-modal-${index}`} 
+                        <Grid key={`edit-resource-handler-${index}`} item container xs={12} alignContent={'center'}>
+                        <TextField key={`edit-resource-handler-${index}`}
                             onChange={(event)=>handler(event.target.value)}
                             inputProps={{
                                 style: {
@@ -89,6 +108,7 @@ export default function NewUserModal({openModal, handleModalClose, handleAdd}){
                             }}
                             size="small"
                             sx={{ width: '225px' }}
+                            value={values[index]}
                         />
                     </Grid>
                     ))}
@@ -100,9 +120,9 @@ export default function NewUserModal({openModal, handleModalClose, handleAdd}){
                     sx={{
                         bgcolor: '#6682c4'
                     }}
-                    onClick={handleAddItem}
+                    onClick={handleEditItem}
                     >
-                        Add User
+                        Change Resource
                 </Button>
             </Box>
         </Box>

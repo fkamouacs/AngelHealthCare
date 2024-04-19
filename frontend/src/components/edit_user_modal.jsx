@@ -12,7 +12,7 @@ import {
 
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function NewUserModal({openModal, handleModalClose, handleAdd}){
+export default function EditUserModal({openModal, handleModalClose, handleAdd}){
 
     // const [openModal, setOpenModal] = useState(false);
     const [firstName, setFirstname] = useState('');
@@ -65,8 +65,8 @@ export default function NewUserModal({openModal, handleModalClose, handleAdd}){
             <Grid container marginBottom={2}>
                 <Grid container item xs={5} >
                     {lables.map((lable, index) => (
-                        <Grid key={`new-user-label-${index}`} item container xs={12} py={2} alignContent={'center'}>
-                        <Typography key={`new-user-modal-${index}`} fontWeight={'bold'} color={'#6682c4'}>
+                        <Grid key={`edit-user-label-${index}`} item container xs={12} py={2} alignContent={'center'}>
+                        <Typography key={`edit-user-modal-${index}`} fontWeight={'bold'} color={'#6682c4'}>
                             {lable}
                         </Typography>
                     </Grid>
@@ -74,9 +74,9 @@ export default function NewUserModal({openModal, handleModalClose, handleAdd}){
                 </Grid>
                 <Grid container item xs={6}>
                     {handlers.map((handler, index) => (
-                        <Grid key={`new-user-handler-${index}`} item container xs={12} alignContent={'center'}>
+                        <Grid key={`edit-user-handler-${index}`} item container xs={12} alignContent={'center'}>
                         <TextField
-                            key={`new-user-modal-${index}`} 
+                            key={`edit-user-modal-${index}`} 
                             onChange={(event)=>handler(event.target.value)}
                             inputProps={{
                                 style: {
@@ -102,7 +102,7 @@ export default function NewUserModal({openModal, handleModalClose, handleAdd}){
                     }}
                     onClick={handleAddItem}
                     >
-                        Add User
+                        Change User
                 </Button>
             </Box>
         </Box>

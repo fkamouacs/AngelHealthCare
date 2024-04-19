@@ -11,7 +11,8 @@ const ProcedureSchema = new Schema(
         staff: {type: [ObjectId], default: []},
         resources: {type: [ObjectId], default: []},
         rooms: {type: [ObjectId], default: []},
-        date: {type: Date, default: null}
+        date: {type: Date, default: null},
+        hidden: {type: Boolean, default: false}
     },{timestamps: true}
 )
 

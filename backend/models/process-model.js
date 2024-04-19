@@ -9,7 +9,8 @@ const ProcessSchema = new Schema(
         currStage: {type: String, default: ""},
         procedureIds: {type: [ObjectId], default: []},
         startDate: {type: Date, default: Date()},
-        endDate: {type: Date, default: null}
+        endDate: {type: Date, default: null},
+        hidden: {type: Boolean, default: false}
     },{timestamps: true}
 )
 

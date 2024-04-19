@@ -3,6 +3,7 @@ const router = express.Router()
 const AccountController = require('../controllers/account-controller')
 
 router.get('/', AccountController.getAllAccounts)
+router.get('/:id', AccountController.getAccountById)
 router.get('/availableAccounts', AccountController.getAvailableAccounts)
 router.get('/availableAccountsDate', AccountController.getAvailableAccountsOnDate)
 router.get('/removeAccountSchedule', AccountController.removeAccountSchedule)
