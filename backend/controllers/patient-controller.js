@@ -36,7 +36,7 @@ addPatient = async (req,res) => {
         name: req.body.name,
     } 
 
-    newPatient = Procedure.create(newProcedure)
+    newPatient = Patient.create(newPatient)
     res.json(newPatient)
 }
 

@@ -239,7 +239,6 @@ export const getPatientById = (id) => api.get(`/patient/${id}`)
 export const getAllPatients = () => api.get('/patient/')
 export const addPatient = (name) => api.post('/patient/addPatient', {name: name})
 export const archivePatient = (id) => api.post('/patient/archivePatient', {patientId: id})
-
 export const unarchivePatient = (id) => api.post('/patient/unarchivePatient', {patientId: id})
 
 
@@ -296,7 +295,10 @@ const apis = {
     addRoomProcedure,
     addRoomSchedule,
     removeRoomProcedure,
-    removeRoomSchedule 
+    removeRoomSchedule,
+    createRoom,
+    createAccount,
+    createPatient,
 
 }
 
