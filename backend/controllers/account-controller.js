@@ -1,6 +1,10 @@
 const Account = require('../models/user-model.js')
 const Procedure = require('../models/procedure-model.js')
 
+addAccount = async (req, res) => {
+    
+}
+
 getAllAccounts = async (req,res) => {
     Account.find({})
     .exec()
