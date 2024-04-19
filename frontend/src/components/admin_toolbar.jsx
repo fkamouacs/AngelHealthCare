@@ -36,14 +36,15 @@ export default function AdminToolbar({
     };
 
     const handleAddPatient = (firstName, lastName, email, password) => {
-        apis.createPatient(`${firstName} ${lastName}`)
+        apis.addPatient(`${firstName} ${lastName}`)
     };
 
     const handleAddRoom = (number, max_capacity, empty_capacity, patients, resources, special_note) => {
         if(empty_capacity == -1){
             empty_capacity = max_capacity;
         }
-        apis.createRoom(number, max_capacity, empty_capacity, patients, resources, special_note);
+        // apis.createRoom(number, max_capacity, empty_capacity, patients, resources, special_note);
+        apis.createRoom(number, max_capacity, empty_capacity, [], [], special_note);
     };
 
     const handleAddResource = (name, count, special_note) => {
