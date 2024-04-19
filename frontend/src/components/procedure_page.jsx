@@ -55,14 +55,21 @@ const [date, setDate] = useState();
 const [dateError, setDateError] = useState(false)
 
 
-useEffect(() => {
-  apis.getProcedureById(props._id).then(res => {
-    console.log(res.data)
-    setCurrentProcedure(res.data)
-    setAssignedStaff(res.data.staff)
-    setAssignedResources(res.data.resources)
-    setAssignedRoom(res.data.rooms)
-  })
+useEffect( () => {
+
+  async function fetchData() {
+    // You can await here
+    apis.getProcedureById(props._id).then(res => {
+      console.log(res.data)
+      setCurrentProcedure(res.data)
+      setAssignedStaff(res.data.staff)
+      setAssignedResources(res.data.resources)
+      setAssignedRoom(res.data.rooms)
+    })
+  }
+  fetchData();
+
+  
 
 
   apis.getAvailableAccounts(currentProcedure._id,currentProcedure.date).then(res => {
