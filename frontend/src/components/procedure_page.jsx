@@ -141,7 +141,7 @@ useEffect(() => {
   }
   setMembers(arr)
 
-},[availableStaff, assignedStaff])
+},[availableStaff])
 
 
 useEffect(() => {
@@ -156,7 +156,7 @@ useEffect(() => {
     }
   }
   setRoomMembers(arr);
-},[availableRooms, assignedRoom])
+},[availableRooms])
 
 useEffect(() => {
   const arr = [];
@@ -170,7 +170,7 @@ useEffect(() => {
     }
   }
   setResourceMembers(arr);
-},[availableResources, assignedResources])
+},[availableResources])
 
  
 const toggleMember = (index, id) => (event) => {
