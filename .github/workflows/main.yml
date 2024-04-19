@@ -45,16 +45,8 @@ jobs:
     #   run: npm run build --if-present
     #   working-directory: ./frontend
 
-    - name: npx cypress run
-      run: node server.js
-      working-directory: ./backend
-
     - name: npx cypress run --component
       run: npx cypress run --component
-      working-directory: ./frontend
-    
-    - name: npx cypress run
-      run: npx cypress run
       working-directory: ./frontend
     
     # - name: Kill Server
@@ -87,5 +79,13 @@ jobs:
     - name: Run Backend Tests
       run: npm test
       working-directory: ./backend
+
+    - name: npx cypress run
+      run: node server.js
+      working-directory: ./backend
+
+    - name: npx cypress run
+      run: npx cypress run
+      working-directory: ./frontend
   
 
