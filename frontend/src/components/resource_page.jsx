@@ -152,7 +152,7 @@ export default function ResourcesPage(){
                     </Grid>
                 </Grid>
                 <Box display="flex" marginTop={3} justifyContent="center">
-                    <Button
+                    {/* <Button
                         variant="contained"
                         sx={{
                             bgcolor: '#6682c4'
@@ -160,7 +160,7 @@ export default function ResourcesPage(){
                         onClick={handleAddResource}
                         >
                             Add Item
-                    </Button>
+                    </Button> */}
                 </Box>
             </Box>
         </Modal>

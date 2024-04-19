@@ -56,6 +56,7 @@ export default function AdminToolbar({
 
     const handleAddResource = (name, count, special_note) => {
         apis.createResource(name, count);
+        setOpenResourceModal(false);
     };
 
 
