@@ -41,6 +41,7 @@
     "supertest": "^6.3.4",
     "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
+    
   },
   "proxy": "http://localhost:3001"
 }
