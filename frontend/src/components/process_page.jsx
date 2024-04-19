@@ -111,7 +111,7 @@ const ProcessPage = (props) => {
         marginTop: '2rem'
     }}>
 
-        {showProcedure ? <Procedure _id={currentProcedureId} showProcedure={setShowProcedure} 
+        {showProcedure ? <Procedure _id={currentProcedureId} showProcedure={setShowProcedure} currentPatientName={currentPatientName}
         currentProcedure={setCurrentProcedureId} showProcess={props.showProcess} currentProcess={props.currentProcess} currProcess={props._id}/> : showAddProcedure ? <AddProcedure showAddProcedure={setShowAddProcedure}
         currentProcess={currentProcess} setCurrentProcess={setCurrentProcess} currentPatientName={currentPatientName} /> : <>
 

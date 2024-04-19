@@ -12,7 +12,9 @@ router.get('/resource/:id', ResourceController.getResourceById)
 router.delete('/resource/:id', ResourceController.deleteResourceById)
 router.get('/resourcepairs/', ResourceController.getResourcePairs)
 router.put('/resource/:id', ResourceController.updateResourceById)
-router.post('/availableResource', ResourceController.getAvailableResources)
+router.post('/availableResources', ResourceController.getAvailableResources)
 router.post('/availableResourceDate', ResourceController.getAvailableResourcesOnDate)
+router.post('/addResourceSchedule', ResourceController.addResourceSchedule)
+router.post('/removeResourceSchedule', ResourceController.removeResourceSchedule)
 
 module.exports = router

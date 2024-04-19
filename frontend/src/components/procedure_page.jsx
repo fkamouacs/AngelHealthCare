@@ -25,22 +25,28 @@ completeProcedure} from "../fakedatabase.js"
 
 
  const Procedure = (props) => {
- 
-const [currentProcedure, setCurrentProcedure] = useState(getProcedureById(props._id))
+
+// const [currentProcedure, setCurrentProcedure] = useState(getProcedureById(props._id))
+const [currentProcedure, setCurrentProcedure]  = useState([]);
 
 //const [availableStaff, setAvailableStaff] = useState(getAvailableAccounts(currentProcedure._id,currentProcedure.date))
 const [availableStaff, setAvailableStaff] = useState([])
 
-const [assignedStaff, setAssignedStaff] = useState(getProcedureById(props._id).staff)
+// const [assignedStaff, setAssignedStaff] = useState(getProcedureById(props._id).staff)
+const [assignedStaff, setAssignedStaff] = useState([])
 const [members, setMembers] = useState([]);
 
-const [availableRooms, setAvailableRooms] = useState(getAvailableRooms(currentProcedure._id, currentProcedure.date))
-const [assignedRoom, setAssignedRoom] = useState(getProcedureById(props._id).rooms)
+// const [availableRooms, setAvailableRooms] = useState(getAvailableRooms(currentProcedure._id, currentProcedure.date))
+const [availableRooms, setAvailableRooms] = useState([])
+// const [assignedRoom, setAssignedRoom] = useState(getProcedureById(props._id).rooms)
+const [assignedRoom, setAssignedRoom] = useState([])
 const [roomMembers, setRoomMembers] = useState([]);
 
 
-const [availableResources, setAvialableResources] = useState(getAvailableResources(currentProcedure._id, currentProcedure.date))
-const [assignedResources, setAssignedResources] = useState(getProcedureById(props._id).resources)
+// const [availableResources, setAvialableResources] = useState(getAvailableResources(currentProcedure._id, currentProcedure.date))
+const [availableResources, setAvialableResources] = useState([])
+//const [assignedResources, setAssignedResources] = useState(getProcedureById(props._id).resources)
+const [assignedResources, setAssignedResources] = useState([])
 const [resourceMembers, setResourceMembers] = useState([])
 
 
@@ -50,11 +56,34 @@ const [dateError, setDateError] = useState(false)
 
 
 useEffect(() => {
+  apis.getProcedureById(props._id).then(res => {
+    console.log(res.data)
+    setCurrentProcedure(res.data)
+    setAssignedStaff(res.data.staff)
+    setAssignedResources(res.data.resources)
+    setAssignedRoom(res.data.rooms)
+  })
+
+
   apis.getAvailableAccounts(currentProcedure._id,currentProcedure.date).then(res => {
     console.log(res.data);
     setAvailableStaff(res.data);
   })
+
+  apis.getAvailableResources(currentProcedure._id, currentProcedure.date).then(res =>{
+    console.log(res.data)
+    setAvialableResources(res.data)
+  })
+
+  apis.getAvailableRooms(currentProcedure._id, currentProcedure.date).then(res => {
+    console.log(res.data)
+    setAvailableRooms(res.data)
+  })
+
 },[])
+
+
+
 
 
 
@@ -140,22 +169,39 @@ const toggleMember = (index, id) => (event) => {
     const newMembers = [...members];
     newMembers[index] = {[id]: event.target.checked };
     setMembers(newMembers);
+  
 
-    // update fake database
+
     if (event.target.checked) {
-      addStaffProcedure(currentProcedure._id, id)
-      
-      // update staff schedule
-      addAccountSchedule(id, currentProcedure.date)
+        apis.addStaffProcedure(currentProcedure._id, id)
+
+        // update staff schedule 
+        apis.addAccountSchedule(id, currentProcedure.date)
     } else {
-      removeStaffProcedure(currentProcedure._id, id)
-      
-      // update staff schedule
-      removeAccountSchedule(id, currentProcedure.date);
+        apis.removeStaffProcedure(currentProcedure._id, id)
+
+        //update staff schedule
+        apis.removeAccountSchedule(id, currentProcedure.date);
     }
 
+    // update fake database
+    // if (event.target.checked) {
+    //   addStaffProcedure(currentProcedure._id, id)
+      
+    //   // update staff schedule
+    //   addAccountSchedule(id, currentProcedure.date)
+    // } else {
+    //   removeStaffProcedure(currentProcedure._id, id)
+      
+    //   // update staff schedule
+    //   removeAccountSchedule(id, currentProcedure.date);
+    // }
+
     // update state
-    setAssignedStaff(getProcedureById(props._id).staff);
+    //setAssignedStaff(getProcedureById(props._id).staff);
+    apis.getProcedureById(props._id).then(res => {
+      setAssignedStaff(res.data._id.staff)  
+    })
   };
 
 const toggleMemberRooms = (index, id) => (event) => {
@@ -165,14 +211,24 @@ const toggleMemberRooms = (index, id) => (event) => {
 
 
   // update fake database
+  // if (event.target.checked) {
+  //   addRoomProcedure(currentProcedure._id, id);
+  //   // update room schedule
+  //   addRoomSchedule(id, currentProcedure.date)
+  // } else {
+  //   removeRoomProcedure(currentProcedure._id, id);
+  //   // update room schedule
+  //   removeRoomSchedule(id, currentProcedure.date);
+  // }
+
   if (event.target.checked) {
-    addRoomProcedure(currentProcedure._id, id);
+    apis.addRoomProcedure(currentProcedure._id, id)
     // update room schedule
-    addRoomSchedule(id, currentProcedure.date)
+    apis.addRoomSchedule(id, currentProcedure.date)
   } else {
-    removeRoomProcedure(currentProcedure._id, id);
+    apis.removeRoomProcedure(currentProcedure._id, id)
     // update room schedule
-    removeRoomSchedule(id, currentProcedure.date);
+    apis.removeRoomSchedule(id, currentProcedure.date)
   }
 }
 
@@ -182,16 +238,28 @@ const toggleMemberResources = (index, id) => (event) => {
   setResourceMembers(newMembers);
 
 
-  // update fake database
+  //update fake database
+  // if (event.target.checked) {
+  //  addResourceProcedure(currentProcedure._id, id);
+  //  //update resource schedule
+  //  addResourceSchedule(id, currentProcedure.date);
+  // } else {
+  //  removeResourceProcedure(currentProcedure._id, id);
+  //  // update resource schedule
+  //  removeResourceSchedule(id, currentProcedure.date);
+  // }
+
+
   if (event.target.checked) {
-   addResourceProcedure(currentProcedure._id, id);
-   //update resource schedule
-   addResourceSchedule(id, currentProcedure.date);
+    apis.addResourceProcedure(currentProcedure._id, id)
+    //update resource schedule
+    apis.addResourceSchedule(id, currentProcedure.date)
   } else {
-   removeResourceProcedure(currentProcedure._id, id);
-   // update resource schedule
-   removeResourceSchedule(id, currentProcedure.date);
+    apis.removeResourceProcedure(currentProcedure._id, id)
+    // update resource schedule
+    apis.removeResourceSchedule(id, currentProcedure.date)
   }
+
 }
   const displayStaff = () => {
     
@@ -203,7 +271,7 @@ const toggleMemberResources = (index, id) => (event) => {
       FP
     </Avatar>
     <Checkbox
-      label={a.name}
+      label={`${a.firstName} ${a.lastName}`}
       overlay
       color="neutral"
       checked={members.find((m) => Object.keys(m)[0] == a._id)[a._id]}
@@ -221,7 +289,7 @@ const toggleMemberResources = (index, id) => (event) => {
       FP
     </Avatar>
     <Checkbox
-      label={a._id}
+      label={a.number}
       overlay
       color="neutral"
       checked={roomMembers.find((m) => Object.keys(m)[0] == a._id)[a._id]}
@@ -272,7 +340,7 @@ const toggleMemberResources = (index, id) => (event) => {
 </Breadcrumbs>
 
 <div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
-  <h1>{`${currentProcedure.patient}'s ${currentProcedure.name} - ID: ${currentProcedure._id}`}</h1>
+  <h1>{`${props.currentPatientName}'s ${currentProcedure.name} - ID: ${currentProcedure._id}`}</h1>
   
   {showEditDate ? <Input onKeyDown={handleEnter} onChange={(e)=> setDate(e.target.value)} placeholder={currentProcedure.date} variant="solid" /> : <div onClick={() => setShowEditDate(true)}>{`${currentProcedure.date} Edit Date`}</div>}
 </div>

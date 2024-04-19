@@ -80,7 +80,7 @@ const ProcessesRow  = ({info, setShowProcess, setCurrentProcessId}) => {
       if(res.data != null)
         setCurrentPatientName(res.data.name)
       })
-  },[info])
+  },[])
 
   const handleProcessClick = (process) => {
     setShowProcess(true)

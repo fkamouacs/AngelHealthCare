@@ -70,7 +70,7 @@
     // }
     
 const Room = require('../models/room-model.js')
-
+const Procedure = require('../models/procedure-model.js')
 
 createRoom = async (req,res) => {
     let newRoom = {
@@ -102,7 +102,17 @@ getAllRooms = async (req,res) => {
 }
 
 getAvailableRooms = async (req,res) => {
-    console.log("procedure id " + req.body.procedureId)
+    try {
+        const procedure = await Procedure.find({_id: req.body.procedureId})
+
+        const rooms = await Room.find({})
+        const filter = rooms.filter((room) =>  !room.schedule.includes(req.body.date) || procedure.rooms.includes(room._id))
+      
+        res.json(filter)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({error: 'Internal Server Error'})
+    }
     
 }
 
@@ -120,10 +130,21 @@ getAvailableRoomsOnDate = async (req,res) => {
 
 }
 removeRoomSchedule = async (req,res) => {
-
+    Room.findOneAndUpdate({_id: req.body.rid}, {$pull: {schedule: req.body.date}}).exec().then((doc) => {
+        console.log(doc)
+        res.json(doc)
+    }).catch((err) => {
+        console.log(err)
+    })
 }
-addRoomSchedule = async (req,res) => {
 
+addRoomSchedule = async (req,res) => {
+    Room.findOneAndUpdate({_id: req.body.rid}, {$push: {schedule: req.body.date}}).exec().then((doc) => {
+        console.log(doc)
+        res.json(doc)
+    }).catch((err) => {
+        console.log(err)
+    })
 }
 
 archiveRoom = async (req,res) => {
@@ -157,6 +178,7 @@ module.exports = {
     addRoomSchedule,
     archiveRoom,
     unarchiveRoom,
+    createRoom
     
 
 };

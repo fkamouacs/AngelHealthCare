@@ -132,8 +132,36 @@ export const addProcedure = (name, patientId,date,  staff, resources, rooms, pro
     rooms: rooms,
     processId: processId
 })
+export const addStaffProcedure = (pid, staffId) => api.post('/procedure/addStaffProcedure', {
+    pid: pid,
+    staffId: staffId
+})
+export const removeStaffProcedure = (pid, staffId) => api.post('/procedure/removeStaffProcedure', {
+    pid: pid,
+    staffId: staffId
+})
 
 
+export const addResourceProcedure = (pid, resourceId) => api.post("/procedure/addResourceProcedure", {
+    pid: pid,
+    resourceId: resourceId
+})
+
+
+export const removeResourceProcedure = (pid, resourceId) => api.post('/procedure/removeResourceProcedure', {
+    pid: pid,
+    reousrceId: resourceId
+})
+
+export const addRoomProcedure = (pid, roomId) => api.post('/procedure/addRoomProcedure', {
+    pid: pid,
+    roomId: roomId
+})
+
+export const removeRoomProcedure = (pid, roomId) => api.post('/procedure/removeRoomProcedure', {
+    pid: pid,
+    roomId: roomId
+})
 
 export const deleteAccountById = (id) => api.delete(`/account/${id}`)
 
@@ -152,9 +180,14 @@ export const unarchiveAccount = (id) => api.get('/account/unarchiveAccount', {ac
 
 export const getAvailableAccounts = (procedureId, date) => api.post('/account/availableAccounts',{procedureId: procedureId, date: date})
 export const getAvailableAccountsOnDate = (date) => api.post('/account/availableAccountsDate', {date: date}) 
+export const addAccountSchedule = (aid, date) => api.post('/account/addAccountSchedule', {aid: aid, date: date})
+export const removeAccountSchedule = (aid, date) => api.post('/account/removeAccountSchedule', {aid: aid, date: date})
 
+export const addRoomSchedule = (rid, date) => api.post('/room/addRoomSchedule', {rid: rid, date: date})
 
+export const removeResourceSchedule = (rid, date) => api.post('/resource/removeResourceSchedule', {rid: rid, date: date})
 
+export const removeRoomSchedule = (rid, date) => api.post('/room/removeRoomSchedule', {rid: rid, date: date})
 
 export const deleteRoomById = (id) => api.delete(`/room/${id}`)
 export const getRoomById = (id) => api.get(`/room/${id}`)
@@ -184,9 +217,9 @@ export const updateResourceById = (id, resource) => {
 }
 
 
-export const getAvailableResources = (procedureId, date) => api.post('/resource/availableResource',{procedureId: procedureId, date: date})
+export const getAvailableResources = (procedureId, date) => api.post('/resource/availableResources',{procedureId: procedureId, date: date})
 export const getAvailableResourcesOnDate = (date) => api.post('/resource/availableResourceDate', {date: date}) 
-
+export const addResourceSchedule = (rid, date) =>  api.post('/resource/addResourceSchedule', {rid: rid, date: date})
 
 
 
@@ -251,7 +284,19 @@ const apis = {
     getAvailableRooms,
     getAvailableRoomsOnDate,
     getAvailableResourcesOnDate,
-    getAvailableResources
+    getAvailableResources,
+    addStaffProcedure,
+    addAccountSchedule,
+    removeStaffProcedure,
+    removeAccountSchedule,
+    addResourceSchedule,
+    addResourceProcedure,
+    removeResourceProcedure,
+    removeResourceSchedule,
+    addRoomProcedure,
+    addRoomSchedule,
+    removeRoomProcedure,
+    removeRoomSchedule 
 
 }
 

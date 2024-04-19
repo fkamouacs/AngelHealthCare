@@ -71,17 +71,75 @@ addProcedure = async (req,res) => {
                
             })
         
-    })
-
-
-
-    
-    
+    })   
 
 }
+
+addStaffProcedure = async (req,res) => {
+  Procedure.findOneAndUpdate({_id: req.body.pid},{$push: {staff: req.body.staffId}}).exec().then((doc) => {
+    console.log(doc)
+    res.json(doc)
+}).catch((err) => {
+    console.log(err)
+})
+}
+
+removeStaffProcedure = async (req, res) => {
+  Procedure.findOneAndUpdate({_id: req.body.pid}, {$pull: {staff: req.body.staffId}}).exec().then((doc) => {
+    console.log(doc)
+    res.json(doc)
+}).catch((err) => {
+    console.log(err)
+})
+}
+
+
+addResourceProcedure = async (req,res) => {
+  Procedure.findOneAndUpdate({_id: req.body.pid}, {$push: {resources: req.body.resourceId}}).exec().then((doc) => {
+    console.log(doc)
+    res.json(doc)
+}).catch((err) => {
+    console.log(err)
+})
+}
+
+removeResourceProcedure = async (req, res) => {
+  Procedure.findOneAndUpdate({_id: req.body.pid}, {$pull: {resources: req.body.resourceId}}).exec().then((doc) => {
+    console.log(doc)
+    res.json(doc)
+}).catch((err) => {
+    console.log(err)
+})
+}
+
+
+addRoomProcedure = async (req, res) => {
+  Procedure.findOneAndUpdate({_id: req.body.pid}, {$push: {rooms: req.body.roomId}}).exec().then((doc) => {
+    console.log(doc)
+    res.json(doc)
+}).catch((err) => {
+    console.log(err)
+})
+}
+
+removeRoomProcedure = async (req, res) => {
+  Procedure.findOneAndUpdate({_id: req.body.pid}, {$pull: {rooms: req.body.roomId}}).exec().then((doc) => {
+    console.log(doc)
+    res.json(doc)
+}).catch((err) => {
+    console.log(err)
+})
+}
+
 
 module.exports = {
     getAllProcedures,
     getProcedureById,
     addProcedure,
+    addStaffProcedure,
+    removeStaffProcedure,
+    addResourceProcedure,
+    removeResourceProcedure,
+    addRoomProcedure,
+    removeRoomProcedure
 }

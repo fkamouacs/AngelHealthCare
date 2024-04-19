@@ -1,4 +1,6 @@
+
 const Resource = require('../models/resource-model.js')
+const Procedure = require('../models/procedure-model.js')
 
 createResource = async (req, res) => {
     try {
@@ -67,9 +69,19 @@ updateResourceById = async (req, res) => {
     }
 }
 
-getAvailableResources = (req,res) => {
+getAvailableResources = async (req,res) => {
+    try {
+        const procedure = await Procedure.find({_id: req.body.procedureId})
 
+        const resources = await Resource.find({})
+        const filter = resources.filter((resource) =>  !resource.schedule.includes(req.body.date) || procedure.resources.includes(resource._id))
+        res.json(filter)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({error: 'Internal Server Error'})
+    }
 }
+
 
 getAvailableResourcesOnDate = async (req,res) => {
     console.log(req.body.date)
@@ -84,6 +96,26 @@ getAvailableResourcesOnDate = async (req,res) => {
     }
 }
 
+
+addResourceSchedule = async (req,res) => {
+    Resource.findOneAndUpdate({_id: req.body.rid}, {$push: {schedule: req.body.date}}).exec().then((doc) => {
+        console.log(doc)
+        res.json(doc)
+    }).catch((err) => {
+        console.log(err)
+    })
+}
+
+removeResourceSchedule = async (req,res) => {
+    Resource.findOneAndUpdate({_id: req.body.rid}, {$pull: {schedule: req.body.date}}).exec().then((doc) => {
+        console.log(doc)
+        res.json(doc)
+    }).catch((err) => {
+        console.log(err)
+    })
+}
+
+
 module.exports = {
     createResource,
     getResourceById,
@@ -91,5 +123,7 @@ module.exports = {
     getResourcePairs,
     updateResourceById,
     getAvailableResources,
-    getAvailableResourcesOnDate
+    getAvailableResourcesOnDate,
+    addResourceSchedule,
+    removeResourceSchedule
 }

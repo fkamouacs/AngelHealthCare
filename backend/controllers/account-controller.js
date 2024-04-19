@@ -1,5 +1,5 @@
 const Account = require('../models/user-model.js')
-
+const Procedure = require('../models/procedure-model.js')
 
 getAllAccounts = async (req,res) => {
     Account.find({})
@@ -16,6 +16,16 @@ getAllAccounts = async (req,res) => {
 
 getAvailableAccounts = async (req,res) => {
     console.log("procedure id " + req.body.procedureId)
+    try {
+        const procedure = await Procedure.find({_id: req.body.procedureId})
+
+        const accounts = await Account.find({});
+        const filter = accounts.filter((account) => !account.schedule.includes(req.body.date) || procedure.staff.includes(account._id))
+        res.json(filter)
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({error: 'Internal Server Error'})
+    }
     
 }
 
@@ -44,11 +54,23 @@ getAvailableAccountsOnDate = async (req,res) => {
     //})
 }
 removeAccountSchedule = async (req,res) => {
-
+    Account.findOneAndUpdate({_id: req.body.aid}, {$pull: {schedule: req.body.date}}).exec().then((doc) => {
+        console.log(doc)
+        res.json(doc)
+    }).catch((err) => {
+        console.log(err)
+    })
 }
+
 addAccountSchedule = async (req,res) => {
-
+    Account.findOneAndUpdate({_id: req.body.aid}, {$push: {schedule : req.body.date}}).exec().then((doc) => {
+        console.log(doc)
+        res.json(doc)
+    }).catch((err) => {
+        console.log(err)
+    })
 }
+
 updateProcedureStaffDate = async (req,res) => {
 
 }
