@@ -58,9 +58,9 @@ const [dateError, setDateError] = useState(false)
 useEffect( () => {
 
   async function fetchData() {
-    
+
     // You can await here
-    apis.getProcedureById(props._id).then(res => {
+    await apis.getProcedureById(props._id).then(res => {
       console.log(res.data)
       setCurrentProcedure(res.data)
       setAssignedStaff(res.data.staff)
