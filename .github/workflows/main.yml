@@ -10,6 +10,21 @@ on:
     branches: [ "main" ]
 
 jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install backend dependencies
+        run: npm install
+        working-directory: ./backend
+      - name: Start backend server
+        run: node server.js
+        working-directory: ./backend
+
   build:
 
     runs-on: ubuntu-latest
@@ -78,14 +93,6 @@ jobs:
 
     - name: Run Backend Tests
       run: npm test
-      working-directory: ./backend
-
-    - name: npx cypress run
-      run: npm install
-      working-directory: ./backend
-
-    - name: npx cypress run
-      run: node server.js
       working-directory: ./backend
 
     - name: npx cypress run
