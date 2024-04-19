@@ -48,6 +48,10 @@ jobs:
     - name: npx cypress run --component
       run: npx cypress run --component
       working-directory: ./frontend
+    
+    - name: npx cypress run
+      run: npx cypress run
+      working-directory: ./frontend
 
     - name: Use Node.js ${{ matrix.node-version }} for Backend
       uses: actions/setup-node@v3
