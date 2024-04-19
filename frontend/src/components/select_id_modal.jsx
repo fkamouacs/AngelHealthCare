@@ -12,22 +12,10 @@ import {
 
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function NewUserModal({openModal, handleModalClose, handleAdd}){
+export default function SelectIdModal({openModal, handleModalClose, setId, handleSelectId}){
 
-    // const [openModal, setOpenModal] = useState(false);
-    const [firstName, setFirstname] = useState('');
-    const [lastName, setLastname] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const lables = ["Firstname", "Lastname", "Email", "Password"];
-    const handlers = [setFirstname, setLastname, setEmail, setPassword];
-
-    function handleAddItem(){
-        handleAdd(firstName, lastName, email, password);
-    }
-
-
+    const lables = ["Id"];
+    const handlers = [setId];
     
     return (<Modal
         open={openModal}
@@ -51,7 +39,7 @@ export default function NewUserModal({openModal, handleModalClose, handleAdd}){
             <Grid container marginBottom={2}>
                 <Grid item xs={6} fontSize={40}>
                     <Typography fontSize={'30px'} color={'#6682c4'} sx={{}}>
-                            Add User
+                            Select Id First
                     </Typography>
                 </Grid>
                 <Grid item xs={6} display="flex" justifyContent="flex-end">
@@ -65,8 +53,8 @@ export default function NewUserModal({openModal, handleModalClose, handleAdd}){
             <Grid container marginBottom={2}>
                 <Grid container item xs={5} >
                     {lables.map((lable, index) => (
-                        <Grid key={`new-user-label-${index}`} item container xs={12} py={2} alignContent={'center'}>
-                        <Typography key={`new-user-modal-${index}`} fontWeight={'bold'} color={'#6682c4'}>
+                        <Grid key={`new-resource-label-${index}`} item container xs={12} py={2} alignContent={'center'}>
+                        <Typography key={`new-resource-label-${index}`} fontWeight={'bold'} color={'#6682c4'}>
                             {lable}
                         </Typography>
                     </Grid>
@@ -74,9 +62,8 @@ export default function NewUserModal({openModal, handleModalClose, handleAdd}){
                 </Grid>
                 <Grid container item xs={6}>
                     {handlers.map((handler, index) => (
-                        <Grid key={`new-user-handler-${index}`} item container xs={12} alignContent={'center'}>
-                        <TextField
-                            key={`new-user-modal-${index}`} 
+                        <Grid key={`new-resource-handler-${index}`} item container xs={12} alignContent={'center'}>
+                        <TextField key={`new-resource-handler-${index}`}
                             onChange={(event)=>handler(event.target.value)}
                             inputProps={{
                                 style: {
@@ -100,9 +87,9 @@ export default function NewUserModal({openModal, handleModalClose, handleAdd}){
                     sx={{
                         bgcolor: '#6682c4'
                     }}
-                    onClick={handleAddItem}
+                    onClick={handleSelectId}
                     >
-                        Add User
+                        Edit
                 </Button>
             </Box>
         </Box>

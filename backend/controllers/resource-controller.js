@@ -48,7 +48,7 @@ getResourcePairs = async (req, res) => {
         const pairs = resources.map(resource => {
             return { id: resource._id, name: resource.name };
         });
-        res.json(pairs);
+        res.json(resources);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: err.message });

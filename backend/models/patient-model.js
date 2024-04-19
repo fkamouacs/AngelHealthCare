@@ -5,7 +5,8 @@ const ObjectId = Schema.Types.ObjectId
 const PatientSchema = new Schema(
     {
         name: {type: String, required: true},
-        isArchived: {type: Boolean, default: false}
+        isArchived: {type: Boolean, default: false},
+        hidden: {type: Boolean, default: false}
     },{timestamps: true}
 )
 

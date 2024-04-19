@@ -6,6 +6,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
+import EditIcon from '@mui/icons-material/Edit';
 import apis from "../api/index.js"
 export default function ResourcesPage(){
     const [sortBy, setSortBy] = useState('Name');
@@ -36,6 +37,10 @@ export default function ResourcesPage(){
     const handleAddResource = () => {
         console.log(resourceName, resourceId, resourceAmount);
         apis.createResource(resourceName, resourceAmount)
+    }
+
+    const handleEditResource = (id) => {
+        console.log(id);
     }
 
     const renderModal = (
@@ -147,7 +152,7 @@ export default function ResourcesPage(){
                     </Grid>
                 </Grid>
                 <Box display="flex" marginTop={3} justifyContent="center">
-                    <Button
+                    {/* <Button
                         variant="contained"
                         sx={{
                             bgcolor: '#6682c4'
@@ -155,7 +160,7 @@ export default function ResourcesPage(){
                         onClick={handleAddResource}
                         >
                             Add Item
-                    </Button>
+                    </Button> */}
                 </Box>
             </Box>
         </Modal>
@@ -225,9 +230,9 @@ export default function ResourcesPage(){
                         {renderModal}
                 </Grid>
                 <List dense={true}>
-                    {resources.map((resource) => (
+                    {resources.map((resource, index) => (
                         <ListItem 
-                        key={resource.id} 
+                        key={`resource-card-${index}`} 
                         divider 
                         sx={{ 
                             borderRadius: '50px',
@@ -239,21 +244,23 @@ export default function ResourcesPage(){
                         }}>
                         <Grid container alignItems="center" >
                             <Grid item xs={3.9}>
-                            <ListItemText primary={resource.name} />
+                                <ListItemText primary={resource.name} />
                             </Grid>
                             <Grid item xs={4.2}>
-                            <ListItemText primary={resource.id} sx={{ textAlign: 'left' }} />
+                                <ListItemText primary={resource._id} sx={{ textAlign: 'left' }} />
                             </Grid>
                             <Grid>
-                            <ListItemText primary={resource.count}  sx={{ textAlign: 'right' }} />
+                                <ListItemText primary={resource.count}  sx={{ textAlign: 'right' }} />
                             </Grid>
                             <Grid item xs={1}>
-                            <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="details">
-                                <DeleteIcon />
-                                </IconButton>
-                            </ListItemSecondaryAction>
-                            </Grid>
+                                <ListItemSecondaryAction>
+                                    <IconButton edge="end" aria-label="details">
+                                    <EditIcon 
+                                        onClick={() => handleEditResource(resource._id)}
+                                    />
+                                    </IconButton>
+                                </ListItemSecondaryAction>
+                            </Grid> 
                         </Grid>
                         </ListItem>
                     ))}
