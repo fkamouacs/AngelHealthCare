@@ -14,8 +14,8 @@ describe('usage test 1', () => {
         // Find any button that contains the text "LOG IN"
         cy.get('button').contains('log in', {matchCase: false}).should('be.visible').click({ force: true });
 
-        cy.get('input[type="email"]').should('be.visible').type("jr@gmail.com");
-        cy.get('input[type="password"]').should('be.visible').type("12345678");
+        cy.get('input[type="email"]').should('be.visible').type("jr@gmail.com", { force: true });
+        cy.get('input[type="password"]').should('be.visible').type("12345678", { force: true });
 
         cy.get('button').contains('login', {matchCase: false}).should('be.visible').click({ force: true });
 
@@ -32,7 +32,7 @@ describe('usage test 1', () => {
         const inputValues = ['mask', Math.floor(Math.random() * (100000 - 1000 + 1) + 1000), 'These are for staff memebers only!'];
         cy.get('input').each((element, index) => {
             // Use `cy.wrap()` to convert the yielded jQuery element back into a Cypress chainable object
-            cy.wrap(element).type(inputValues[index]);
+            cy.wrap(element).type(inputValues[index], { force: true });
           });
         cy.get('button').contains('add resource', {matchCase: false}).should('be.visible').click({ force: true });
         cy.get('button').contains('resources', {matchCase: false}).should('be.visible').click({ force: true });
