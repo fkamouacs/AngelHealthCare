@@ -6,8 +6,27 @@ describe('usage test 1', () => {
         Cypress.env('DISABLE_WDS_OVERLAY', 'true');
     });
 
-    const getIframeBody = () => cy.get('iframe[data-cy="the-frame"]').its('0.contentDocument').should('exist').its('body').should('not.be.undefined').then(cy.wrap);
-
+    const findElementInFrame = (elementType, searchText) => {
+        return cy.get('iframe').then($iframes => {
+          // Iterate over each iframe
+          const iframeElements = [];
+          $iframes.each((index, iframe) => {
+            const $iframeBody = cy.wrap(iframe.contentDocument).find('body').should('not.be.undefined');
+            iframeElements.push({$iframeBody, iframe});
+          });
+          // Wait for all iframe bodies to resolve
+          return Cypress.Promise.all(iframeElements.map(({ $iframeBody }) => $iframeBody)).then($iframeBodies => {
+            for (let i = 0; i < $iframeBodies.length; i++) {
+              const $iframeBody = $iframeBodies[i];
+              const $element = $iframeBody.find(`${elementType}:contains("${searchText}")`, { matchCase: false });
+              if ($element.length > 0) {
+                return {$element, iframe: iframeElements[i].iframe};
+              }
+            }
+            return null;
+          });
+        });
+      };
 
     it('should check if "Angel Health Care" is visible to the user', () => {
         // Using `cy.contains()` to find an element containing the specific text
@@ -31,7 +50,7 @@ describe('usage test 1', () => {
 
         // cy.get('button').contains('open drawer', {matchCase: false}).should('be.visible').click({ force: true });
 
-        getIframeBody().find('button:contains("open drawer")', {matchCase: false}).should('be.visible').click({ force: true });
+        findElementInFrame('button', 'click me').should('be.visible').click({ force: true });
 
         // cy.get('.MuiDrawer-root > .MuiPaper-root').contains('Add New Resource', {matchCase: false}).should('be.visible');
         // cy.get('span').contains('Add New Resource', {matchCase: false}).should('be.visible').click({ force: true });
