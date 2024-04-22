@@ -66,11 +66,11 @@ useEffect(() => {
       setAssignedStaff(res.data.staff)
       setAssignedResources(res.data.resources)
       setAssignedRoom(res.data.rooms)
+     
     })
   }
   fetchData();
 
-  
 
 
   apis.getAvailableAccounts(currentProcedure._id,currentProcedure.date).then(res => {
