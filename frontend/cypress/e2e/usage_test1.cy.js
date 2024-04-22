@@ -12,15 +12,17 @@ describe('usage test 1', () => {
           const iframeElements = [];
           $iframes.each((index, iframe) => {
             const $iframeBody = cy.wrap(iframe.contentDocument).find('body').should('not.be.undefined');
-            iframeElements.push({$iframeBody, iframe});
+            iframeElements.push({ $iframeBody, iframe });
           });
           // Wait for all iframe bodies to resolve
           return Cypress.Promise.all(iframeElements.map(({ $iframeBody }) => $iframeBody)).then($iframeBodies => {
             for (let i = 0; i < $iframeBodies.length; i++) {
               const $iframeBody = $iframeBodies[i];
-              const $element = $iframeBody.find(`${elementType}:contains("${searchText}")`, { matchCase: false });
-              if ($element.length > 0) {
-                return {$element, iframe: iframeElements[i].iframe};
+              if ($iframeBody) {
+                const $element = $iframeBody.find(`${elementType}:contains("${searchText}")`, { matchCase: false });
+                if ($element.length > 0) {
+                  return { $element, iframe: iframeElements[i].iframe };
+                }
               }
             }
             return null;
