@@ -52,10 +52,10 @@ describe('usage test 1', () => {
 
         // cy.get('button').contains('open drawer', {matchCase: false}).should('be.visible').click({ force: true });
 
-        findElementInFrame('button', 'click me').should('be.visible').click({ force: true });
+        findElementInFrame('button', 'open drawer').should('be.visible').click({ force: true });
 
-        // cy.get('.MuiDrawer-root > .MuiPaper-root').contains('Add New Resource', {matchCase: false}).should('be.visible');
-        // cy.get('span').contains('Add New Resource', {matchCase: false}).should('be.visible').click({ force: true });
+        findElementInFrame('.MuiDrawer-root > .MuiPaper-root','Add New Resource').should('be.visible');
+        findElementInFrame('span','Add New Resource').should('be.visible').click({ force: true });
 
         // const inputValues = ['mask', Math.floor(Math.random() * (100000 - 1000 + 1) + 1000), 'These are for staff memebers only!'];
         // cy.get('input').each((element, index) => {
