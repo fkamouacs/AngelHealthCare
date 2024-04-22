@@ -10,35 +10,6 @@ on:
     branches: [ "main" ]
 
 jobs:
-  backend:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 21.x
-      - name: Install backend dependencies
-        run: npm install
-        working-directory: ./backend
-      - name: Start backend server
-        run: node server.js
-        working-directory: ./backend
-
-  frontend:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 21.x
-      - name: Install frontend dependencies
-        run: npm install
-        working-directory: ./frontend
-      - name: Start frontend server
-        run: npm start
-        working-directory: ./frontend
 
   build:
 
@@ -110,8 +81,32 @@ jobs:
       run: npm test
       working-directory: ./backend
 
+
+    - name: Install backend dependencies
+      run: npm install
+      working-directory: ./backend
+
+    - name: Start backend server
+      run: nodemon server.js &
+      working-directory: ./backend
+
+    - name: Install frontend dependencies
+      run: npm install
+      working-directory: ./frontend
+
+    - name: Start frontend server
+      run: npm start &
+      working-directory: ./frontend
+
+    - name: Run Cypress tests
+      run: npx cypress run
+      working-directory: ./frontend
+
     - name: npx cypress run
       run: npx cypress run
       working-directory: ./frontend
-  
+
+    - name: Kill all node processes
+      if: always()
+      run: killall node || true
 
