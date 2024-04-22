@@ -2,7 +2,7 @@
 describe('usage test 1', () => {
     beforeEach(() => {
         cy.visit("http://localhost:3000");
-        cy.viewport(1908,1080);
+        cy.viewport(2560, 1440);
     });
 
     it('should check if "Angel Health Care" is visible to the user', () => {
