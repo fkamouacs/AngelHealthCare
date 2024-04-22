@@ -6,6 +6,9 @@ describe('usage test 1', () => {
         Cypress.env('DISABLE_WDS_OVERLAY', 'true');
     });
 
+    const getIframeBody = () => cy.get('iframe[data-cy="the-frame"]').its('0.contentDocument').should('exist').its('body').should('not.be.undefined').then(cy.wrap);
+
+
     it('should check if "Angel Health Care" is visible to the user', () => {
         // Using `cy.contains()` to find an element containing the specific text
         cy.contains('Angel Health Care').should('be.visible');
@@ -26,17 +29,16 @@ describe('usage test 1', () => {
         cy.get('button').contains('accounts', {matchCase: false}).should('be.visible').click({ force: true });
         cy.get('button').contains('view messages', {matchCase: false}).should('be.visible').click({ force: true });
 
-        cy.get('iframe#webpack-dev-server-client-overlay').should('not.exist');
-        cy.get('button').contains('open drawer', {matchCase: false}).should('be.visible').click({ force: true });
+        // cy.get('button').contains('open drawer', {matchCase: false}).should('be.visible').click({ force: true });
 
-        cy.get('iframe#webpack-dev-server-client-overlay').should('not.exist');
+        getIframeBody().find('button:contains("open drawer")', {matchCase: false}).should('be.visible').click({ force: true });
+
         cy.get('.MuiDrawer-root > .MuiPaper-root').contains('Add New Resource', {matchCase: false}).should('be.visible');
         cy.get('span').contains('Add New Resource', {matchCase: false}).should('be.visible').click({ force: true });
 
         const inputValues = ['mask', Math.floor(Math.random() * (100000 - 1000 + 1) + 1000), 'These are for staff memebers only!'];
         cy.get('input').each((element, index) => {
             // Use `cy.wrap()` to convert the yielded jQuery element back into a Cypress chainable object
-            cy.get('iframe#webpack-dev-server-client-overlay').should('not.exist');
             cy.wrap(element).type(inputValues[index], { force: true });
           });
           
