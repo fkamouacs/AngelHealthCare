@@ -3,6 +3,8 @@ describe('usage test 1', () => {
     beforeEach(() => {
         cy.visit("http://localhost:3000");
         cy.viewport(2560, 1440);
+        cy.env('DISABLE_WDS_OVERLAY', 'true');
+        Cypress.env('DISABLE_WDS_OVERLAY', 'true');
     });
 
     it('should check if "Angel Health Care" is visible to the user', () => {
