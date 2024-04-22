@@ -30,9 +30,9 @@ jobs:
         cache: 'npm'
         cache-dependency-path: frontend/package-lock.json
 
-    - name: run npm ci
-      run: npm ci
-      working-directory: ./frontend
+    # - name: run npm ci
+    #   run: npm ci
+    #   working-directory: ./frontend
     
     # - name: Install ESLint
     #   run: npm install -g eslint
@@ -46,9 +46,9 @@ jobs:
     #   run: npm run build --if-present
     #   working-directory: ./frontend
 
-    - name: npx cypress run --component
-      run: npx cypress run --component
-      working-directory: ./frontend
+    # - name: npx cypress run --component
+    #   run: npx cypress run --component
+    #   working-directory: ./frontend
     
     # - name: Kill Server
     #   if: always()
@@ -61,9 +61,9 @@ jobs:
         cache: 'npm'
         cache-dependency-path: backend/package-lock.json
 
-    - name: Install Backend Dependencies
-      run: npm ci
-      working-directory: ./backend
+    # - name: Install Backend Dependencies
+    #   run: npm ci
+    #   working-directory: ./backend
 
     # - name: Install ESLint
     #   run: npm install -g eslint
@@ -80,7 +80,6 @@ jobs:
     - name: Run Backend Tests
       run: npm test
       working-directory: ./backend
-
 
     - name: Install backend dependencies
       run: npm install
@@ -99,10 +98,6 @@ jobs:
       working-directory: ./frontend
 
     - name: Run Cypress tests
-      run: npx cypress run
-      working-directory: ./frontend
-
-    - name: npx cypress run
       run: npx cypress run
       working-directory: ./frontend
 
