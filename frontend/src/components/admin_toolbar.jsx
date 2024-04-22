@@ -225,7 +225,6 @@ export default function AdminToolbar({
 
         <Button 
             sx={{
-                position: 'fixed',
                 left: `10px`,
                 top: `10px`,
                 zIndex: 1000,
