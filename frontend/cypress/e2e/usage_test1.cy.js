@@ -25,6 +25,7 @@ describe('usage test 1', () => {
         cy.get('button').contains('accounts', {matchCase: false}).should('be.visible').click({ force: true });
         cy.get('button').contains('view messages', {matchCase: false}).should('be.visible').click({ force: true });
 
+        cy.get('iframe#webpack-dev-server-client-overlay', { timeout: 10000 }).should('not.exist');
         cy.get('button').contains('open drawer', {matchCase: false}).should('be.visible').click({ force: true });
         cy.get('.MuiDrawer-root > .MuiPaper-root').contains('Add New Resource', {matchCase: false}).should('be.visible');
         cy.get('span').contains('Add New Resource', {matchCase: false}).should('be.visible').click({ force: true });
