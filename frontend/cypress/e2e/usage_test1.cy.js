@@ -3,7 +3,6 @@ describe('usage test 1', () => {
     beforeEach(() => {
         cy.visit("http://localhost:3000");
         cy.viewport(2560, 1440);
-        cy.env('DISABLE_WDS_OVERLAY', 'true');
         Cypress.env('DISABLE_WDS_OVERLAY', 'true');
     });
 
