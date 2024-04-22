@@ -25,6 +25,21 @@ jobs:
         run: node server.js
         working-directory: ./backend
 
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 21.x
+      - name: Install frontend dependencies
+        run: npm install
+        working-directory: ./frontend
+      - name: Start frontend server
+        run: npm start
+        working-directory: ./frontend
+
   build:
 
     runs-on: ubuntu-latest
