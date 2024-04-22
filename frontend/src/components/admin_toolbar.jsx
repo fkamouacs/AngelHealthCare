@@ -227,7 +227,6 @@ export default function AdminToolbar({
             sx={{
                 left: `10px`,
                 top: `10px`,
-                zIndex: 1000,
             }}
             onClick={toggleDrawer(true)}
         >Open drawer</Button>
