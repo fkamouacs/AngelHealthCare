@@ -30,18 +30,25 @@ describe('usage test 1', () => {
         });
       };
 
-      const typeValuesIntoInputs = (inputValues) => {
-        return cy.get('input').then($inputs => {
-          // Create a list to hold each input and the corresponding typing promise
-          const inputTypingPromises = [];
-          $inputs.each((index, input) => {
-            // Wrap the input to make it a Cypress chainable object
-            const $input = cy.wrap(input);
-            // Push the typing action into the list
-            inputTypingPromises.push($input.type(inputValues[index], { force: true }));
+      const findAllElementsInIframes = (element) => {
+        return cy.get('iframe').then($iframes => {
+          // Iterate over each iframe
+          const inputsList = [];
+          const iframePromises = $iframes.map((index, iframe) => {
+            // Using Cypress to wrap the iframe's document body
+            return cy.wrap(iframe.contentDocument.body).find(element).then($inputs => {
+              // Iterate over found inputs and add them to the list
+              $inputs.each((_, input) => {
+                inputsList.push(input);
+              });
+            });
           });
-          // Wait for all typing actions to complete
-          return Cypress.Promise.all(inputTypingPromises);
+      
+          // Wait for all promises from each iframe to resolve
+          return Cypress.Promise.all(iframePromises).then(() => {
+            // Return the collected list of inputs
+            return inputsList;
+          });
         });
       };
 
@@ -73,11 +80,11 @@ describe('usage test 1', () => {
         findElementInFrame('span','Add New Resource').should('be.visible').click({ force: true });
 
         const inputValues = ['mask', Math.floor(Math.random() * (100000 - 1000 + 1) + 1000), 'These are for staff memebers only!'];
-        // cy.get('input').each((element, index) => {
-        //     // Use `cy.wrap()` to convert the yielded jQuery element back into a Cypress chainable object
-        //     cy.wrap(element).type(inputValues[index], { force: true });
-        //   });
-        typeValuesIntoInputs(inputValues);
+        findAllElementsInIframes("input").each((element, index) => {
+            // Use `cy.wrap()` to convert the yielded jQuery element back into a Cypress chainable object
+            cy.wrap(element).type(inputValues[index], { force: true });
+          });
+          
         findElementInFrame('button', 'add resource').should('be.visible').click({ force: true });
         cy.get('button').contains('resources').should('be.visible').click({ force: true });
         cy.contains(inputValues[0]).should('exist');
