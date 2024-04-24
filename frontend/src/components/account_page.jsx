@@ -13,6 +13,8 @@ import Schedule from './account_schedule.jsx';
 import NewScheduleBox from './account_make_new_schedule.jsx';
 import AuthContext from "../api/auth/index.js"
 
+import apis from '../api';
+
 export default function AccountPage({PAGES, setPage}){
 
     const [viewContent, setViewContent] = React.useState("schedule");
@@ -27,22 +29,27 @@ export default function AccountPage({PAGES, setPage}){
 
     const {auth} = React.useContext(AuthContext) || {};
     React.useEffect(() => {
-        console.log("in account page");
-        console.log(auth)
-        if (auth !== undefined && auth.loggedIn) {
-            const user = {
-                username: `${auth.user.firstName} ${auth.user.lastName}`,
-                userId: "",
-                phone_number: "",
-                status: "Active",
-                messages: [],
-                schedules: [],
+
+        async function getUpdatedUser(){
+            console.log("in account page");
+            console.log(auth)
+            if (auth !== undefined && auth.loggedIn) {
+                const user = {
+                    username: `${auth.user.firstName} ${auth.user.lastName}`,
+                    userId: auth.user._id,
+                    phone_number: "",
+                    status: "Active",
+                    messages: (await apis.getAllEmailByUser(auth.user.email)).data,
+                    schedules: [],
+                }
+                setUserInfo(user);
             }
-            setUserInfo(user);
+            else{
+                console.log("no user");
+            }
         }
-        else{
-            console.log("no user");
-        }
+        getUpdatedUser();
+        
     },[auth])
 
     
@@ -55,6 +62,13 @@ export default function AccountPage({PAGES, setPage}){
         auth.logoutUser();
         setPage(PAGES.LOGIN);
     }
+
+    const handleSendEmail = (email, receivers) => {
+        email.sender = auth.user.email;
+        console.log(email);
+        apis.sendEmail(email, receivers, auth.user.email);
+    }
+
     return(<>
         <Box py={1}  minHeight={600} height={"75%"}>
             <Grid container minHeight={100} maxHeight={120} height={"15%"} width={"100%"} maxWidth={"100%"}>
@@ -135,7 +149,7 @@ export default function AccountPage({PAGES, setPage}){
                         </Box>
                         <Box flex="1" minHeight={"275px"}> 
                             {(viewContent == "message") ?
-                                <NewMessageBox/>
+                                <NewMessageBox handleSendEmail={handleSendEmail}/>
                                 : <NewScheduleBox/>
                             }
                         </Box>

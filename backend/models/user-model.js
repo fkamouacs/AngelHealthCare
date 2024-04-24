@@ -10,8 +10,10 @@ const UserSchema = new Schema(
         passwordHash: {type: String, required: true},
         status: {type: String, default: 'active'},
         schedule: {type: [String], default: []},
+        emails: {type: [ObjectId], default: []},
         isArchived: {type: Boolean, default: false},
-        hidden: {type: Boolean, default: false}
+        hidden: {type: Boolean, default: false},
+        
     },{timestamps: true}
 )
 

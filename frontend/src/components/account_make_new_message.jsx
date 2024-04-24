@@ -14,15 +14,50 @@ import {
     IconButton,
 } from '@mui/material';
 import {AddCircle} from '@mui/icons-material';
-export default function NewMessageBox(){
+export default function NewMessageBox({handleSendEmail}){
 
+    const [receivers, setReceivers] = React.useState("");
+    const [message, setMessage] = React.useState("");
+    const [error, setError] = React.useState("");
+    
+
+    const regex = new RegExp('^(?=[a-zA-Z0-9@.!#$%&\'*+/=?^_`{|}~-]{6,254}$)([a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@)(?:(?=[a-zA-Z0-9-.]{1,253}$)([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,63}|(?=[a-zA-Z0-9-]{1,63}$)[a-zA-Z0-9-]+\\.[a-zA-Z]{2,63})$');
 
     function handleClearMessageButton(event){
         alert("handleClearMessageButton not implemented");
     }
     
     function handleSendMessageButton(event){
-        alert("handleSendMessageButton not implemented");
+        const receiverList = receivers.split(',');
+        let newError = "";
+        for(let receiver of receiverList){
+            receiver = receiver.replace(" ", '');
+            if(!regex.test(receiver) && receiver.length > 0){
+                newError += (`${receiver}, `);
+            }
+        }
+
+        if(newError.length > 0){
+            newError += " not formated correctly!";
+            setError(newError);
+            return;
+        }
+        setError("");
+
+        const email = {
+            title:"no title yet ( not implemented )",
+            text : message
+        }
+
+        handleSendEmail(email, receiverList, (error, result) => {
+            if (error) {
+              console.error('Error sending email:', error);
+              // Handle the error, e.g., show an error message to the user
+            } else {
+                setReceivers("");
+                setMessage("");
+            }
+          });
     }
 
     function handleAddReceiverButton(event){
@@ -36,7 +71,35 @@ export default function NewMessageBox(){
                 <Typography
                     fontSize={20}
                 >
-                    To : {"john, boss"}
+                    To : <TextField 
+                        onChange={(event) => setReceivers(event.target.value)}
+                        sx={{
+                            width:"90%",
+                            height:"100%",
+                            fontSize:"20px",
+                            '& .MuiOutlinedInput-root': {
+                                height:"100%",
+                            '& fieldset': {
+                                border: 'none'
+                            },
+                            '&:hover fieldset': {
+                                border: 'none',
+                            },
+                            '&.Mui-focused fieldset': {
+                                border: 'none',
+                                display: 'none',
+                            },
+                            '& textarea': {
+                                height: '100% !important', // This forces the textarea to fill the container
+                                overflow: 'auto',
+                            },
+                            '& .MuiInputBase-input': { 
+                                padding: '1px'
+                              }
+                            },
+                        }}
+                        value={receivers}
+                    />
                 </Typography>
             </Grid>
             <Grid item xs={1}>
@@ -51,9 +114,11 @@ export default function NewMessageBox(){
                 </Grid>
             </Grid>
         </Grid>
-        <Grid container width="100%" height="70%" flex='1'>
+        <Grid container width="100%" height="70%" minHeight={300} flex='1'>
             <TextField 
                 multiline
+                onChange={(event) => setMessage(event.target.value)}
+                value={message}
                 sx={{
                     width:"100%",
                     height:"100%",
@@ -63,7 +128,7 @@ export default function NewMessageBox(){
                         border: 'none'
                       },
                       '&:hover fieldset': {
-                        border: 'none'
+                        border: 'none',
                       },
                       '&.Mui-focused fieldset': {
                         border: 'none',
@@ -71,7 +136,11 @@ export default function NewMessageBox(){
                       },
                       '& textarea': {
                         height: '100% !important', // This forces the textarea to fill the container
+                        minHeight: "250px",
                         overflow: 'auto'
+                      },
+                      '& .MuiInputBase-input': { 
+                        padding: '1px'
                       }
                     },
                   }}
@@ -92,6 +161,8 @@ export default function NewMessageBox(){
                 >Send</Button>
             </Box>
         </Grid>
-    {/* </Box> */}
+        <Typography style={{ color: 'red' }}>
+        {error}
+        </Typography>
     </>);
 }

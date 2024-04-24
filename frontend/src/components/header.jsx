@@ -35,10 +35,10 @@ export default function Header({PAGES, currentPage, changePage}){
     
 
     const pages = [
-        ['Accounts', handleOpenAccountsPage, PAGES.ACCOUNTS], 
-        ['Resources', handleOpenResourcesPage, PAGES.RESOURCES], 
-        ['Rooms', handleOpenRoomsPage, PAGES.ROOMS], 
-        ['Processes', handleOpenProcessesPage, PAGES.PROCESSES], 
+            ['Accounts', handleOpenAccountsPage, PAGES.ACCOUNTS], 
+            ['Resources', handleOpenResourcesPage, PAGES.RESOURCES], 
+            ['Rooms', handleOpenRoomsPage, PAGES.ROOMS], 
+            ['Processes', handleOpenProcessesPage, PAGES.PROCESSES], 
         ];
     
     // const [anchorElNav, setAnchorElNav] = React.useState(null);

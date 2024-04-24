@@ -244,6 +244,8 @@ export const addPatient = (name) => api.post('/patient/addPatient', {name: name}
 export const archivePatient = (id) => api.post('/patient/archivePatient', {patientId: id})
 export const unarchivePatient = (id) => api.post('/patient/unarchivePatient', {patientId: id})
 
+export const getAllEmailByUser = (email) => api.get("/email/" + email);
+export const sendEmail = (email, receivers, sender) => api.post("/email/", {email:email, receivers:receivers, sender:sender});
 
 const apis = {
     createProcess,
@@ -302,6 +304,8 @@ const apis = {
     createRoom,
     createAccount,
     createPatient,
+    sendEmail,
+    getAllEmailByUser,
 
 }
 

@@ -183,7 +183,7 @@ export default function AdminToolbar({
 
     return (
     <div>
-        {/* <NewUserModal handleAdd={handleAddUser} openModal={OpenUserModal && id.length == 0} handleModalClose={() => {setOpenUserModal(false); resetParams()}}/> */}
+        <NewUserModal handleAdd={handleAddUser} openModal={OpenUserModal && id.length == 0} handleModalClose={() => {setOpenUserModal(false); resetParams()}}/>
         <NewPatientModal handleAdd={handleAddPatient} openModal={OpenPatientModal && id.length == 0} handleModalClose={() => {setOpenPatientModal(false); resetParams()}}/>
         <NewResourceModal handleAdd={handleAddResource} openModal={OpenResourceModal && id.length == 0} handleModalClose={() => {setOpenResourceModal(false); resetParams()}}/>
         <NewRoomModal handleAdd={handleAddRoom} openModal={OpenRoomModal && id.length == 0} handleModalClose={() => {setOpenRoomModal(false); resetParams()}}/>

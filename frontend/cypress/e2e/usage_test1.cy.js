@@ -46,7 +46,7 @@ describe('usage test 1', () => {
         cy.get('button').contains('view messages', {matchCase: false}).should('be.visible').click({ force: true });
 
         cy.get('button').contains('open drawer', {matchCase: false}).should('be.visible').click({ force: true });
-
+        
         const inputValues = ['mask', Math.floor(Math.random() * (100000 - 1000 + 1) + 1000), 'These are for staff memebers only!'];
         cy.get('input').each((element, index) => {
             // Use `cy.wrap()` to convert the yielded jQuery element back into a Cypress chainable object
