@@ -30,6 +30,21 @@ describe('usage test 1', () => {
         });
       };
 
+      const typeValuesIntoInputs = (inputValues) => {
+        return cy.get('input').then($inputs => {
+          // Create a list to hold each input and the corresponding typing promise
+          const inputTypingPromises = [];
+          $inputs.each((index, input) => {
+            // Wrap the input to make it a Cypress chainable object
+            const $input = cy.wrap(input);
+            // Push the typing action into the list
+            inputTypingPromises.push($input.type(inputValues[index], { force: true }));
+          });
+          // Wait for all typing actions to complete
+          return Cypress.Promise.all(inputTypingPromises);
+        });
+      };
+
     it('should check if "Angel Health Care" is visible to the user', () => {
         // Using `cy.contains()` to find an element containing the specific text
         cy.contains('Angel Health Care').should('be.visible');
@@ -58,11 +73,11 @@ describe('usage test 1', () => {
         findElementInFrame('span','Add New Resource').should('be.visible').click({ force: true });
 
         const inputValues = ['mask', Math.floor(Math.random() * (100000 - 1000 + 1) + 1000), 'These are for staff memebers only!'];
-        cy.get('input').each((element, index) => {
-            // Use `cy.wrap()` to convert the yielded jQuery element back into a Cypress chainable object
-            cy.wrap(element).type(inputValues[index], { force: true });
-          });
-          
+        // cy.get('input').each((element, index) => {
+        //     // Use `cy.wrap()` to convert the yielded jQuery element back into a Cypress chainable object
+        //     cy.wrap(element).type(inputValues[index], { force: true });
+        //   });
+        typeValuesIntoInputs(inputValues);
         findElementInFrame('button', 'add resource').should('be.visible').click({ force: true });
         cy.get('button').contains('resources').should('be.visible').click({ force: true });
         cy.contains(inputValues[0]).should('exist');
