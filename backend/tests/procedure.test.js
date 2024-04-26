@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const Procedure = require('../models/procedure-model');
 
-describe('GET /api/procedure/addProcedure', () => {
+describe('GET /api/procedure/:id', () => {
     let createdProcedureId;
     var id = mongoose.Types.ObjectId();
 

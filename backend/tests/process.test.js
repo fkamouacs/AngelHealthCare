@@ -1,9 +1,9 @@
 // Assuming you have a file structure where the server can be required like this:
 const mongoose = require('mongoose');
-const Procedure = require('../models/procedure-model');
+const Process = require('../models/process-model');
 
-describe('GET /api/procedure/', () => {
-    let createdProcedureId;
+describe('GET /api/process/:id', () => {
+    let createdProcessId;
     var id = mongoose.Types.ObjectId();
 
     beforeAll(async () => {
@@ -12,29 +12,25 @@ describe('GET /api/procedure/', () => {
 
     afterAll(async () => {
         // Delete the created user
-        if (createdProcedureId) {
-            await Procedure.findByIdAndDelete(createdProcedureId);
+        if (createdProcessId) {
+            await Process.findByIdAndDelete(createdProcessId);
         }
 
         await mongoose.disconnect();
     });
 
-    it('should create and save a new procedure', async () => {
-        const procedureData = {
-            name: 'test procedure',
+    it('should create and save a new process', async () => {
+        const processData = {
+            name: 'test process',
             patientId: id,
-            step: 0,
-            stage: "test"
         };
 
-        const procedure1 = new Procedure(procedureData);
-        const savedProcedure = await procedure1.save();
-        createdProcedureId = savedProcedure._id; // Store the created user's ID
+        const process1 = new Process(processData);
+        const savedProcess = await process1.save();
+        createdProcessId = savedProcess._id; // Store the created user's ID
 
-        expect(savedProcedure._id).toBeDefined();
-        expect(savedProcedure.name).toBe(procedureData.name);
-        expect(savedProcedure.patientId).toBe(procedureData.patientId);
-        expect(savedProcedure.step).toBe(procedureData.step);
-        expect(savedProcedure.stage).toBe(procedureData.stage);
+        expect(savedProcess._id).toBeDefined();
+        expect(savedProcess.name).toBe(processData.name);
+        expect(savedProcess.patientId).toBe(processData.patientId);
     });
 });
