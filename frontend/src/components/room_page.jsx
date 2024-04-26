@@ -16,8 +16,11 @@ export default function RoomsPage(){
     const [anchorE2, setAnchorE2] = useState(null);
     const [openModal, setOpenModal] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
+
     const handleSort = (event, newSortBy) => {
-        setSortBy(newSortBy);
+        if(newSortBy != null){
+            setSortBy(newSortBy);
+        }
     };
     
     const handleSortOrder = () => {
@@ -544,21 +547,67 @@ export default function RoomsPage(){
         </Modal>
     );
 
+
+
     const [rooms, setRooms] = useState([]);
     const [patients, setPatients] = useState([]);
+
     useEffect(() => {
-        apis.getRoomPairs().then(res=>{
-            console.log(res.data)
-            setRooms(res.data);
-        }).catch(err => {
-            console.error('Failed to fetch room pairs:', err.message); // Log more specific error information
-        });
         apis.getAllPatients().then(res=>{
             setPatients(res.data)
         }).catch(err => {
             console.error('Failed to fetch patients:', err.message); // Log more specific error information
         });
     },[]);
+
+    useEffect(() => {
+        console.log(sortOrder, sortBy);
+        apis.getRoomPairs().then(res=>{
+
+            if(sortBy == "rooms"){
+                res.data.sort((a, b) => {return a.number - b.number});
+            }else{
+                res.data.sort((a, b) => {return b.empty_capacity - a.empty_capacity});
+            }
+
+            if(sortOrder != "asc"){
+                res.data.reverse();
+            }
+
+            console.log(res.data.map((item) => {console.log(item.number)}));
+            setRooms(res.data);
+            
+        }).catch(err => {
+            console.error('Failed to fetch patients:', err.message); // Log more specific error information
+        });
+    }, [sortOrder, sortBy])
+
+    const handleSearchBarChange = (event) => {
+        try{
+            const input = event.target.value;
+            const [name, room] = input.split("#");
+            if(name.length == 0){
+                apis.getAllPatients().then(res=>{
+                    setPatients(res.data)
+                }).catch(err => {
+                    console.error('Failed to fetch patients:', err.message); // Log more specific error information
+                });
+                return;
+            }
+            apis.getAllPatients().then(res=>{
+                setPatients(res.data.filter(patient =>
+                    patient.name.toLowerCase().includes(name.toLowerCase())))
+            }).catch(err => {
+                console.error('Failed to fetch patients:', err.message); // Log more specific error information
+            });
+        }catch(error){
+            apis.getAllPatients().then(res=>{
+                setPatients(res.data)
+            }).catch(err => {
+                console.error('Failed to fetch patients:', err.message); // Log more specific error information
+            });
+        }
+    }
 
 
     return(<>
@@ -612,7 +661,7 @@ export default function RoomsPage(){
                                 <ListItemText primary={room.number} />
                               </Grid>
                               <Grid item xs={4} sx={{ textAlign: 'right' }}>
-                                <ListItemText primary={`${room.empty_capacity}/${room.max_capacity}`} />
+                                <ListItemText primary={room.empty_capacity} style={{ color: room.empty_capacity === 0 ? 'red' : 'inherit' }}/>
                               </Grid>
                               <Grid item xs={2}>
                                 <ListItemSecondaryAction>
@@ -646,6 +695,7 @@ export default function RoomsPage(){
                     fullWidth
                     margin="dense"
                     size="small"
+                    onChange={handleSearchBarChange}
                     />
                     <Button variant="contained" sx={{bgcolor: '#6682c4'}}>Search</Button>
                 </Paper>
@@ -660,7 +710,7 @@ export default function RoomsPage(){
                             <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>Room #</Typography>
                         </Grid>
                         <Grid item xs={3}>
-                            <Typography variant="subtitle1" sx={{ textAlign: 'right', pr: 8 }}>Patient Id</Typography>
+                            <Typography variant="subtitle1" sx={{ textAlign: 'right', pr: 8 }}>{/*Patient Id*/}</Typography>
                         </Grid>
                     </Grid>
                     <List dense={true}>
@@ -682,7 +732,7 @@ export default function RoomsPage(){
                                 <ListItemText primary={`Room #${patient.room}`} />
                                 </Grid>
                                 <Grid item xs={2} sx={{ textAlign: 'right' }}>
-                                <ListItemText primary={patient._id} />
+                                {/* <ListItemText primary={patient._id} /> */}
                                 </Grid>
                                 <Grid item xs={1}>
                                 <ListItemSecondaryAction>
