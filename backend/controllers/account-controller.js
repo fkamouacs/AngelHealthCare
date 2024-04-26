@@ -18,11 +18,11 @@ const transporter = nodemailer.createTransport({
 async function sendVerifyLink(key, email) {
     // send mail with defined transport object
     
-    const verifyLink = `http://localhost:3001/api/account/verify/${email}/${key}`;
+    const verifyLink = `http://localhost:3001/api/account/verify/${encodeURIComponent(email)}/${encodeURIComponent(key)}`;
 
     transporter.sendMail({
       from: 'stks01201@gmail.com', // sender address
-      to: "huifuli15@gmail.com", // list of receivers
+      to: email, // list of receivers
       subject: "Verifcation link", // Subject line
       text: `Please click on the link to get verified : ${verifyLink}`, // plain text body
       html: `Please click on the link to get verified : ${verifyLink}`, // html body
@@ -33,6 +33,23 @@ async function sendVerifyLink(key, email) {
           console.log("Email sent: ", info.response);
         }
       });
+}
+
+verifyAccount = async (req, res) => {
+    const email = req.params.email;
+    const key = req.params.key;
+
+    Account.findOneAndUpdate(
+        { email: email, verifyKey: key }, 
+        { $set: { verifyKey: null } }, 
+        { new: true }
+    )
+    .then(updatedUser => {
+        console.log("Updated User:", updatedUser);
+    })
+    .catch(err => {
+        console.error("Error updating user:", err);
+    });
 }
 
 addAccount = async (req, res) => {
@@ -157,11 +174,6 @@ unarchiveAccount = async (req,res) => {
     res.json(doc);
 }
 
-verifyAccount = async (req, res) => {
-    const username = req.params.user;
-    const key = req.params.key;
-    console.log(username, key);
-}
 
 
 module.exports = {
@@ -174,6 +186,7 @@ module.exports = {
     archiveAccount,
     unarchiveAccount,
     addAccount,
-    getAccountById
+    getAccountById,
+    verifyAccount
     
 }
