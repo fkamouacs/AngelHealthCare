@@ -108,23 +108,26 @@ const transporter = nodemailer.createTransport({
     port: 587,
     secure: false, // Use `true` for port 465, `false` for all other ports
     auth: {
-      user: "lukas.klein74@ethereal.email",
-      pass: "ccWR1bNs8dA9shsyNd",
+      user: "stks01201@gmail.com",
+      pass: "fsme avwz aohg ccry",
     },
   });
 // async..await is not allowed in global scope, must use a wrapper
 async function main() {
     // send mail with defined transport object
     const info = await transporter.sendMail({
-      from: '"Lukas Klein" <lukas.klein74@ethereal.email>', // sender address
+      from: 'stks01201@gmail.com', // sender address
       to: "huifuli15@gmail.com", // list of receivers
       subject: "Hello ✔", // Subject line
       text: "Hello world?", // plain text body
       html: "<html><body>Hello and welcome</body></html>", // html body
-    });
-  
-    console.log("Message sent: %s", info.messageId);
-    // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
+    }, (error, info) => {
+        if (error) {
+          console.error("Error sending email: ", error);
+        } else {
+          console.log("Email sent: ", info.response);
+        }
+      });
 }
   
 main().catch(console.error);
