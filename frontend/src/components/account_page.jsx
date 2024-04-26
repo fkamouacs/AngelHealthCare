@@ -37,7 +37,7 @@ export default function AccountPage({PAGES, setPage}){
                 const user = {
                     username: `${auth.user.firstName} ${auth.user.lastName}`,
                     userId: auth.user._id,
-                    role: auth.user.role,
+                    isAdmin: auth.user.isAdmin,
                     phone_number: "",
                     status: "Active",
                     messages: (await apis.getAllEmailByUser(auth.user.email)).data,

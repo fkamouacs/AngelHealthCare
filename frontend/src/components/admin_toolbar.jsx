@@ -52,8 +52,8 @@ export default function AdminToolbar({PAGES, setPage}) {
       };
 
     
-    const handleAddUser = (firstname, lastname, email, password, role) => {
-        apis.createAccount(firstname, lastname, email, password, role);
+    const handleAddUser = (firstname, lastname, email, password, isAdmin) => {
+        apis.createAccount(firstname, lastname, email, password, isAdmin);
     };
 
     const handleAddPatient = (firstName, lastName, email, password) => {

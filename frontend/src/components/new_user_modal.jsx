@@ -7,6 +7,7 @@ import {
     Typography,
     IconButton,
     Button,
+    Checkbox 
 
  } from "@mui/material";
 
@@ -19,13 +20,12 @@ export default function NewUserModal({handleAdd}){
     const [lastName, setLastname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState('');
-
-    const lables = ["Firstname", "Lastname", "Email", "Password", "Role"];
-    const handlers = [setFirstname, setLastname, setEmail, setPassword, setRole];
+    const [isAdmin, setIsAminChecked] = useState(false);
+    const lables = ["Firstname", "Lastname", "Email", "Password"];
+    const handlers = [setFirstname, setLastname, setEmail, setPassword];
 
     function handleAddItem(){
-        handleAdd(firstName, lastName, email, password, role);
+        handleAdd(firstName, lastName, email, password, isAdmin);
     }
 
 
@@ -60,6 +60,11 @@ export default function NewUserModal({handleAdd}){
                         </Typography>
                     </Grid>
                     ))}
+                    <Grid key={`new-user-label-4`} item container xs={12} py={2} alignContent={'center'}>
+                        <Typography key={`new-user-modal-4`} fontWeight={'bold'} color={'#6682c4'}>
+                            IsAdmin
+                        </Typography>
+                    </Grid>
                 </Grid>
                 <Grid container item xs={6}>
                     {handlers.map((handler, index) => (
@@ -81,6 +86,17 @@ export default function NewUserModal({handleAdd}){
                         />
                     </Grid>
                     ))}
+                    <Grid key={`new-user-handler-4`} item container xs={12} alignContent={'center'}>
+                        <Checkbox
+                            size="small" 
+                            checked={isAdmin}
+                            onChange={(event) => setIsAminChecked(event.target.checked)}
+                            inputProps={{
+                                'aria-label': 'controlled'
+                            }}
+                            
+                        />
+                    </Grid>
                 </Grid>
             </Grid>
             <Box display="flex" marginTop={3} justifyContent="center">

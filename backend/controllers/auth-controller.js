@@ -23,7 +23,7 @@ getLoggedIn = async (req, res) => {
                 firstName: loggedInUser.firstName,
                 lastName: loggedInUser.lastName,
                 email: loggedInUser.email,
-                role: loggedInUser.role
+                isAdmin: loggedInUser.isAdmin
             }
         })
     } catch (err) {
@@ -78,7 +78,7 @@ loginUser = async (req, res) => {
                 firstName: existingUser.firstName,
                 lastName: existingUser.lastName,  
                 email: existingUser.email,
-                role: existingUser.role              
+                isAdmin: existingUser.isAdmin             
             }
         })
 

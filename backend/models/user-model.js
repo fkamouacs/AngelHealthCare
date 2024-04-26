@@ -18,7 +18,7 @@ const UserSchema = new Schema(
         lastName: {type: String, required: true},
         email: {type: String, required: true},
         passwordHash: {type: String, required: true},
-        role: {type: String, required: true},
+        isAdmin: {type: Boolean, required: true},
         status: {type: String, default: 'active'},
         schedule: {type: [String], default: []},
         emails: {type: [ObjectId], default: []},

@@ -45,7 +45,7 @@ export default function Header({PAGES, currentPage, changePage}){
             ['Processes', handleOpenProcessesPage, PAGES.PROCESSES], 
     ];
     
-    if(auth.user.role === "admin"){
+    if(auth.user.isAdmin == true){
         pages = [
             ['Account', handleOpenAccountsPage, PAGES.ACCOUNTS], 
             ['AdminToolBar', handleOpenAdminToolBar, PAGES.ADMINTOOLBAR],
