@@ -1,8 +1,7 @@
 
 describe('usage test 1', () => {
     beforeEach(() => {
-        cy.visit("http://localhost:3000");
-        cy.viewport(2560, 1440);
+        cy.visit('https://angelhealthcare-6befd2c18f64.herokuapp.com/');
     });
 
     const wait = () => cy.wait(1000);
