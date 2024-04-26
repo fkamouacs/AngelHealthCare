@@ -12,7 +12,7 @@ import {
 
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function NewPatientModal({openModal, handleModalClose, handleAdd}){
+export default function NewPatientModal({handleAdd}){
 
     // const [openModal, setOpenModal] = useState(false);
     const [firstName, setFirstname] = useState('');
@@ -29,12 +29,7 @@ export default function NewPatientModal({openModal, handleModalClose, handleAdd}
 
 
     
-    return (<Modal
-        open={openModal}
-        BackdropProps={{
-            style: { backgroundColor: 'rgba(0, 0, 0, 0.1)' } 
-        }}  
-    >
+    return (
         <Box
             sx={{
                 position: 'absolute', 
@@ -53,13 +48,6 @@ export default function NewPatientModal({openModal, handleModalClose, handleAdd}
                     <Typography fontSize={'30px'} color={'#6682c4'} sx={{}}>
                             Add Patient
                     </Typography>
-                </Grid>
-                <Grid item xs={6} display="flex" justifyContent="flex-end">
-                    <IconButton 
-                        onClick={handleModalClose}
-                    >
-                        <CloseIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', color: '#6682c4'}}/>
-                    </IconButton>
                 </Grid>
             </Grid>
             <Grid container marginBottom={2}>
@@ -105,5 +93,5 @@ export default function NewPatientModal({openModal, handleModalClose, handleAdd}
                 </Button>
             </Box>
         </Box>
-    </Modal>);
+    );
 }

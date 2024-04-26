@@ -43,7 +43,7 @@ loginUser = async (req, res) => {
                 .json({ errorMessage: "Please enter all required fields." });
         }
 
-        const existingUser = await User.findOne({ email: email });
+        const existingUser = await User.findOne({ email: email , verifyKey: null});
         console.log("existingUser: " + existingUser);
         if (!existingUser) {
             return res

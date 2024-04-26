@@ -50,6 +50,20 @@ app.use((req, res, next) => {
     next();
 });
 
+// app.get('/api/account/verify/:email/:key', (req, res) => {
+//     try {
+//         const { email, key } = req.params;
+//         console.log('Decoded Email:', email);
+//         console.log('Decoded Key:', key);
+
+//         // Additional validation logic can go here
+
+//         res.send(`Verifying ${email} with key ${key}`);
+//     } catch (error) {
+//         res.status(400).send('Invalid request parameters');
+//     }
+// });
+
 // SETUP OUR OWN ROUTERS AS MIDDLEWARE
 const authRouter = require('./routes/auth-router')
 app.use('/auth', authRouter);
