@@ -38,8 +38,8 @@ export default function AdminToolbar({
     const [OpenResourceModal, setOpenResourceModal] = useState(false);
 
 
-    const handleAddUser = (firstname, lastname, email, password) => {
-        apis.createAccount(firstname, lastname, email, password);
+    const handleAddUser = (firstname, lastname, email, password, role) => {
+        apis.createAccount(firstname, lastname, email, password, role);
     };
 
     const handleAddPatient = (firstName, lastName, email, password) => {
@@ -56,6 +56,7 @@ export default function AdminToolbar({
 
     const handleAddResource = (name, count, special_note) => {
         apis.createResource(name, count);
+        setOpenResourceModal(false);
     };
 
 
@@ -182,7 +183,7 @@ export default function AdminToolbar({
 
     return (
     <div>
-        {/* <NewUserModal handleAdd={handleAddUser} openModal={OpenUserModal && id.length == 0} handleModalClose={() => {setOpenUserModal(false); resetParams()}}/> */}
+        <NewUserModal handleAdd={handleAddUser} openModal={OpenUserModal && id.length == 0} handleModalClose={() => {setOpenUserModal(false); resetParams()}}/>
         <NewPatientModal handleAdd={handleAddPatient} openModal={OpenPatientModal && id.length == 0} handleModalClose={() => {setOpenPatientModal(false); resetParams()}}/>
         <NewResourceModal handleAdd={handleAddResource} openModal={OpenResourceModal && id.length == 0} handleModalClose={() => {setOpenResourceModal(false); resetParams()}}/>
         <NewRoomModal handleAdd={handleAddRoom} openModal={OpenRoomModal && id.length == 0} handleModalClose={() => {setOpenRoomModal(false); resetParams()}}/>

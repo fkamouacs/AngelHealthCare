@@ -4,8 +4,8 @@ const ObjectId = Schema.Types.ObjectId
 
 const EmailSchema = new Schema(
     {
-        title: { type: String, required: true},
-        text: {type: String, required: true},
+        title: { type: String, default: "no title"},
+        text: {type: String, default: "no text"},
         sender: {type: ObjectId, required: true},
         hidden: {type: Boolean, default: false}
     },{timestamps: true}

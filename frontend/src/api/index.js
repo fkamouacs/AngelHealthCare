@@ -54,13 +54,14 @@ export const createProcedure = (name, patient, step, stage, staff, resources, ro
     })
 }
 
-export const createAccount = ( firstname, lastname, email, password) => {
+export const createAccount = ( firstname, lastname, email, password, role) => {
     return api.post(`/account/`, {
         // SPECIFY THE PAYLOAD
         firstname: firstname,
         lastname : lastname,
         email: email,
-        password: password
+        password: password,
+        role: role
     })
 }
 
@@ -244,6 +245,8 @@ export const addPatient = (name) => api.post('/patient/addPatient', {name: name}
 export const archivePatient = (id) => api.post('/patient/archivePatient', {patientId: id})
 export const unarchivePatient = (id) => api.post('/patient/unarchivePatient', {patientId: id})
 
+export const getAllEmailByUser = (email) => api.get("/email/" + email);
+export const sendEmail = (email, receivers, sender) => api.post("/email/", {email:email, receivers:receivers, sender:sender});
 
 const apis = {
     createProcess,
@@ -302,6 +305,8 @@ const apis = {
     createRoom,
     createAccount,
     createPatient,
+    sendEmail,
+    getAllEmailByUser,
 
 }
 
