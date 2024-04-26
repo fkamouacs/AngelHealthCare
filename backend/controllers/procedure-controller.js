@@ -3,6 +3,7 @@ const Process = require('../models/process-model.js')
 const Procedure = require('../models/procedure-model.js')
 const Room = require('../models/room-model.js')
 const Resource = require('../models/resource-model.js')
+const Schedule = require('../models/schedule-model.js')
 
 getAllProcedures = async (req,res) => {
    const query = Procedure.find({})
