@@ -18,12 +18,7 @@ export default function Header({PAGES, currentPage, changePage}){
     const { auth } = useContext(AuthContext);
 
     const handleOpenAccountsPage = () => {
-        if(auth.user.role === "admin"){
-            changePage(PAGES.ADMINACCOUNTS)
-        }
-        else{
-            changePage(PAGES.ACCOUNTS)
-        }
+        changePage(PAGES.ACCOUNTS);
     }   
 
     const handleOpenResourcesPage = () => {
@@ -35,7 +30,11 @@ export default function Header({PAGES, currentPage, changePage}){
     }
 
     const handleOpenProcessesPage = () => {
-        changePage(PAGES.PROCESSES)
+        changePage(PAGES.PROCESSES);
+    }
+
+    const handleOpenAdminToolBar = () => {
+        changePage(PAGES.ADMINTOOLBAR);
     }
 
     
@@ -48,7 +47,8 @@ export default function Header({PAGES, currentPage, changePage}){
     
     if(auth.user.role === "admin"){
         pages = [
-            ['AdminAccount', handleOpenAccountsPage, PAGES.ADMINACCOUNTS], 
+            ['AdminAccount', handleOpenAccountsPage, PAGES.ACCOUNTS], 
+            ['AdminToolBar', handleOpenAdminToolBar, PAGES.ADMINTOOLBAR],
             ['Resources', handleOpenResourcesPage, PAGES.RESOURCES], 
             ['Rooms', handleOpenRoomsPage, PAGES.ROOMS], 
             ['Processes', handleOpenProcessesPage, PAGES.PROCESSES], 

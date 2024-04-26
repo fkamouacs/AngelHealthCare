@@ -6,7 +6,6 @@ import Header from './header.jsx';
 import HomeHeader from './home_header.jsx';
 import AuthContext from '../api/auth/index.js';
 import { Button } from '@mui/material';
-import AdminToolbar from './admin_toolbar.jsx';
 
 export default function Directory(){
 
@@ -21,7 +20,8 @@ export default function Directory(){
         PROCESSES : "PROCESSES",
         PROCEDURES : "PROCEDURES",
         FORGOTPASSWORD : "FORGOTPASSWORD",
-        RESETPASSWORD : "RESETPASSWORD"
+        RESETPASSWORD : "RESETPASSWORD",
+        ADMINTOOLBAR : "ADMINTOOLBAR"
     };
     const { auth } = useContext(AuthContext);
 
@@ -31,13 +31,7 @@ export default function Directory(){
         console.log("directory: " + auth.loggedIn)
         if (auth.loggedIn) {
             console.log("\ndirectory.jsx, auth.loggedIn is true\n");
-            console.log("directory.jsx auth print",auth);
-            if(auth.user.role === "admin"){
-                setPage(PAGES.ADMINACCOUNTS)
-            }
-            else{
-                setPage(PAGES.ACCOUNTS)
-            }
+            setPage(PAGES.ACCOUNTS);
         } else {
             setPage(PAGES.HOME)
         }
@@ -56,11 +50,8 @@ export default function Directory(){
 
 
     return(<>
-        {
-            [PAGES.ADMINACCOUNTS].includes(page) && <AdminToolbar/>
-        }
         { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page
-          [PAGES.RESOURCES, PAGES.ROOMS, PAGES.ACCOUNTS, PAGES.PROCESSES, PAGES.PROCEDURES, PAGES.ADMINACCOUNTS].includes(page) &&
+          [PAGES.RESOURCES, PAGES.ROOMS, PAGES.ACCOUNTS, PAGES.PROCESSES, PAGES.PROCEDURES, PAGES.ADMINACCOUNTS, PAGES.ADMINTOOLBAR].includes(page) &&
           <Header PAGES={PAGES} currentPage={page} changePage={changePage}/>
         }
         { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page
