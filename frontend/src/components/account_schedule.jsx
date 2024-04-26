@@ -33,7 +33,7 @@ export default function Schedule({schedules}){
         console.log("Start Date:", startDate);
         console.log("End Date:", endDate);
         updateScheduleDisplay();
-    }, [startDate, endDate]);
+    }, [startDate, endDate, schedules]);
 
     function updateScheduleDisplay() {
         const filteredSchedules = schedules.filter(schedule => {
