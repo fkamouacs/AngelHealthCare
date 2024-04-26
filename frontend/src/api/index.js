@@ -180,8 +180,8 @@ export const getAccountById = (id) => api.get(`/account/${id}`)
 export const archiveAccount = (id) => api.post('/account/archiveAccount', {accountId: id})
 export const unarchiveAccount = (id) => api.post('/account/unarchiveAccount', {accountId: id})
 
-export const getAvailableAccounts = (procedureId, date) => api.get('/account/availableAccounts',{procedureId: procedureId, date: date})
-export const getAvailableAccountsOnDate = (date) => api.get('/account/availableAccountsDate', {date: date}) 
+export const getAvailableAccounts = (procedureId, date) => api.post('/account/availableAccounts',{procedureId: procedureId, date: date})
+export const getAvailableAccountsOnDate = (date) => api.post('/account/availableAccountsDate', {date: date}) 
 export const addAccountSchedule = (aid, date) => api.post('/account/addAccountSchedule', {aid: aid, date: date})
 export const removeAccountSchedule = (aid, date) => api.post('/account/removeAccountSchedule', {aid: aid, date: date})
 
