@@ -19,12 +19,13 @@ export default function NewUserModal({openModal, handleModalClose, handleAdd}){
     const [lastName, setLastname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState('');
 
-    const lables = ["Firstname", "Lastname", "Email", "Password"];
-    const handlers = [setFirstname, setLastname, setEmail, setPassword];
+    const lables = ["Firstname", "Lastname", "Email", "Password", "Role"];
+    const handlers = [setFirstname, setLastname, setEmail, setPassword, setRole];
 
     function handleAddItem(){
-        handleAdd(firstName, lastName, email, password);
+        handleAdd(firstName, lastName, email, password, role);
     }
 
 

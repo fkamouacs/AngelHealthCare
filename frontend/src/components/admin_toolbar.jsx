@@ -38,8 +38,8 @@ export default function AdminToolbar({
     const [OpenResourceModal, setOpenResourceModal] = useState(false);
 
 
-    const handleAddUser = (firstname, lastname, email, password) => {
-        apis.createAccount(firstname, lastname, email, password);
+    const handleAddUser = (firstname, lastname, email, password, role) => {
+        apis.createAccount(firstname, lastname, email, password, role);
     };
 
     const handleAddPatient = (firstName, lastName, email, password) => {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {React, useContext} from 'react';
 import {
     AppBar,
     Toolbar,
@@ -6,7 +6,7 @@ import {
     Container,
     Button,
 } from '@mui/material';
-
+import AuthContext from '../api/auth/index.js';
 import PropTypes from 'prop-types';
 Header.propTypes = {
     currentPage: PropTypes.string.isRequired,
@@ -15,9 +15,15 @@ Header.propTypes = {
 };
 
 export default function Header({PAGES, currentPage, changePage}){
+    const { auth } = useContext(AuthContext);
 
     const handleOpenAccountsPage = () => {
-        changePage(PAGES.ACCOUNTS);
+        if(auth.user.role === "admin"){
+            changePage(PAGES.ADMINACCOUNTS)
+        }
+        else{
+            changePage(PAGES.ACCOUNTS)
+        }
     }   
 
     const handleOpenResourcesPage = () => {
@@ -33,14 +39,21 @@ export default function Header({PAGES, currentPage, changePage}){
     }
 
     
-
-    const pages = [
-            ['Accounts', handleOpenAccountsPage, PAGES.ACCOUNTS], 
+    let pages = [
+            ['Account', handleOpenAccountsPage, PAGES.ACCOUNTS], 
+            ['Resources', handleOpenResourcesPage, PAGES.RESOURCES], 
+            ['Rooms', handleOpenRoomsPage, PAGES.ROOMS], 
+            ['Processes', handleOpenProcessesPage, PAGES.PROCESSES], 
+    ];
+    
+    if(auth.user.role === "admin"){
+        pages = [
+            ['AdminAccount', handleOpenAccountsPage, PAGES.ADMINACCOUNTS], 
             ['Resources', handleOpenResourcesPage, PAGES.RESOURCES], 
             ['Rooms', handleOpenRoomsPage, PAGES.ROOMS], 
             ['Processes', handleOpenProcessesPage, PAGES.PROCESSES], 
         ];
-    
+    }
     // const [anchorElNav, setAnchorElNav] = React.useState(null);
     // const [anchorElUser, setAnchorElUser] = React.useState(null);
   

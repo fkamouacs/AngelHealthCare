@@ -5,7 +5,7 @@ const saltRounds = 10;
 
 addAccount = async (req, res) => {
 
-    const { firstname, lastname, email, password } = req.body;
+    const { firstname, lastname, email, password, role} = req.body;
 
     try {
         const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -13,7 +13,8 @@ addAccount = async (req, res) => {
             firstName: firstname,
             lastName: lastname,
             email: email,
-            passwordHash: hashedPassword
+            passwordHash: hashedPassword,
+            role: role
         });
 
         await newAccount.save();

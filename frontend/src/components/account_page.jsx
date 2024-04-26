@@ -21,6 +21,7 @@ export default function AccountPage({PAGES, setPage}){
     const [userInfo, setUserInfo] = React.useState({
         username: "",
         userId: "",
+        role: "",
         phone_number: "",
         status: "",
         messages: [],
@@ -29,7 +30,6 @@ export default function AccountPage({PAGES, setPage}){
 
     const {auth} = React.useContext(AuthContext) || {};
     React.useEffect(() => {
-
         async function getUpdatedUser(){
             console.log("in account page");
             console.log(auth)
@@ -37,6 +37,7 @@ export default function AccountPage({PAGES, setPage}){
                 const user = {
                     username: `${auth.user.firstName} ${auth.user.lastName}`,
                     userId: auth.user._id,
+                    role: auth.user.role,
                     phone_number: "",
                     status: "Active",
                     messages: (await apis.getAllEmailByUser(auth.user.email)).data,
@@ -53,12 +54,6 @@ export default function AccountPage({PAGES, setPage}){
         
     },[auth])
 
-    
-
-    const handleTransferToAdmin = (event) =>{
-        setPage(PAGES.ADMINACCOUNTS);
-    }
-    
     const handleLogOut = (event) => {
         auth.logoutUser();
         setPage(PAGES.LOGIN);
@@ -87,14 +82,6 @@ export default function AccountPage({PAGES, setPage}){
                 </Grid>
                 <Grid item id="9" style={{flexGrow: 1}}>
                     <Box display="flex" gap={4} justifyContent="flex-end">
-                        <Button
-                            id="admin-account-view-button"
-                            variant="contained"
-                            sx={{ bgcolor: '#6682c4', marginTop: '20px'}}
-                            onClick={handleTransferToAdmin}
-                        >
-                            Admin accounts view
-                        </Button>
                         <Button
                             id="log-out-button"
                             variant="contained"

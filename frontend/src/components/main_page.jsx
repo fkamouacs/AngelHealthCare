@@ -54,13 +54,13 @@ export default function MainPage({currentPage, PAGES, setPage}){
         case PAGES.ACCOUNTS:
             return(
                 <>
-                <AccountPage/>
+                <AccountPage PAGES={PAGES} setPage={setPage}/>
                 </>
             );
         case PAGES.ADMINACCOUNTS:
             return(
                 <>
-                <AdminAccountPage/>
+                <AdminAccountPage PAGES={PAGES} setPage={setPage}/>
                 </>
             );
         case PAGES.PATIENTS:
