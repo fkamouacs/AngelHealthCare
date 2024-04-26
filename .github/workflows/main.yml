@@ -77,10 +77,6 @@ jobs:
     #   run: npm run build --if-present
     #   working-directory: ./backend
 
-    - name: Run Backend Tests
-      run: npm test
-      working-directory: ./backend
-
     - name: Install backend dependencies
       run: npm install
       working-directory: ./backend
@@ -100,6 +96,10 @@ jobs:
     - name: Run Cypress tests
       run: npx cypress run
       working-directory: ./frontend
+
+    - name: Run Backend Tests
+      run: npm test
+      working-directory: ./backend
 
     - name: Kill all node processes
       if: always()
