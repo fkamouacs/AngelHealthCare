@@ -104,7 +104,6 @@ app.put('/*', (req,res) => {
 
 var nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
-    name: 'angle health care', // <= Add this
     host: "smtp.ethereal.email",
     port: 587,
     secure: false, // Use `true` for port 465, `false` for all other ports
@@ -129,6 +128,7 @@ async function main() {
 }
   
 main().catch(console.error);
+
 
 module.exports = server;
 
