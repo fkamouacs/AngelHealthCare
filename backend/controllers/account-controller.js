@@ -3,6 +3,38 @@ const Procedure = require('../models/procedure-model.js')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+
+var nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // Use `true` for port 465, `false` for all other ports
+    auth: {
+      user: "stks01201@gmail.com",
+      pass: "fsme avwz aohg ccry",
+    },
+  });
+// async..await is not allowed in global scope, must use a wrapper
+async function sendVerifyLink(key, email) {
+    // send mail with defined transport object
+    
+    const verifyLink = `http://localhost:3001/api/account/verify/${email}/${key}`;
+
+    transporter.sendMail({
+      from: 'stks01201@gmail.com', // sender address
+      to: "huifuli15@gmail.com", // list of receivers
+      subject: "Verifcation link", // Subject line
+      text: `Please click on the link to get verified : ${verifyLink}`, // plain text body
+      html: `Please click on the link to get verified : ${verifyLink}`, // html body
+    }, (error, info) => {
+        if (error) {
+          console.error("Error sending email: ", error);
+        } else {
+          console.log("Email sent: ", info.response);
+        }
+      });
+}
+
 addAccount = async (req, res) => {
 
     const { firstname, lastname, email, password, role} = req.body;
@@ -17,7 +49,11 @@ addAccount = async (req, res) => {
             role: role
         });
 
-        await newAccount.save();
+        const unverifiedAccount = await newAccount.save();
+
+        sendVerifyLink(unverifiedAccount.verifyKey, unverifiedAccount.email)
+
+
         res.status(201).send('Account created successfully');
     } catch (error) {
 
@@ -119,6 +155,12 @@ unarchiveAccount = async (req,res) => {
 
     let doc = await Account.findOneAndUpdate(filter, update);
     res.json(doc);
+}
+
+verifyAccount = async (req, res) => {
+    const username = req.params.user;
+    const key = req.params.key;
+    console.log(username, key);
 }
 
 

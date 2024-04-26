@@ -14,6 +14,7 @@
     "supertest": "^6.3.4"
   },
   "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
@@ -23,6 +24,7 @@
     "express": "^4.19.2",
     "faker": "^5.5.3",
     "fs": "^0.0.1-security",
+    "googleapis": "^105.0.0",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.4",

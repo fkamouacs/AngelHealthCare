@@ -101,37 +101,7 @@ app.get('/*', (req,res) => {
 app.put('/*', (req,res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
 } )
-
-var nodemailer = require('nodemailer');
-const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: false, // Use `true` for port 465, `false` for all other ports
-    auth: {
-      user: "stks01201@gmail.com",
-      pass: "fsme avwz aohg ccry",
-    },
-  });
-// async..await is not allowed in global scope, must use a wrapper
-async function main() {
-    // send mail with defined transport object
-    const info = await transporter.sendMail({
-      from: 'stks01201@gmail.com', // sender address
-      to: "huifuli15@gmail.com", // list of receivers
-      subject: "Hello ✔", // Subject line
-      text: "Hello world?", // plain text body
-      html: "<html><body>Hello and welcome</body></html>", // html body
-    }, (error, info) => {
-        if (error) {
-          console.error("Error sending email: ", error);
-        } else {
-          console.log("Email sent: ", info.response);
-        }
-      });
-}
   
-main().catch(console.error);
-
 
 module.exports = server;
 
