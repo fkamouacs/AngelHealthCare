@@ -40,8 +40,9 @@ export default function AccountPage({PAGES, setPage}){
                     phone_number: "",
                     status: "Active",
                     messages: (await apis.getAllEmailByUser(auth.user.email)).data,
-                    schedules: [],
+                    schedules: (await apis.getAllScheduleByUser(auth.user.email)).data,
                 }
+                console.log("updated user info ",user);
                 setUserInfo(user);
             }
             else{
@@ -67,6 +68,10 @@ export default function AccountPage({PAGES, setPage}){
         email.sender = auth.user.email;
         console.log(email);
         apis.sendEmail(email, receivers, auth.user.email);
+    }
+
+    const handleAcceptSchedule = (id) => {
+        apis.acceptSchedule(id, auth.user.email);
     }
 
     return(<>
@@ -123,7 +128,7 @@ export default function AccountPage({PAGES, setPage}){
             <Grid container height={"70%"}>
                 <Grid item xs={7} padding={1} height={"100%"} bgcolor={"#E8E8E8"} minHeight={500}>
                     {(viewContent == "message") ?
-                        <MessageBox messages={userInfo.messages}/>
+                        <MessageBox messages={userInfo.messages} handleAcceptSchedule={handleAcceptSchedule}/>
                         : <Schedule schedules={userInfo.schedules}/>
                     }
                 </Grid>

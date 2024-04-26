@@ -247,7 +247,12 @@ export const unarchivePatient = (id) => api.post('/patient/unarchivePatient', {p
 export const getAllEmailByUser = (email) => api.get("/email/" + email);
 export const sendEmail = (email, receivers, sender) => api.post("/email/", {email:email, receivers:receivers, sender:sender});
 
+export const getAllScheduleByUser = (email) => api.get('/schedule/' + email);
+export const acceptSchedule = (id,email) => api.put("/schedule/accept/" + id, {email: email});
+
 const apis = {
+    getAllScheduleByUser,
+    acceptSchedule,
     createProcess,
     deleteProcessById,
     getProcessById,

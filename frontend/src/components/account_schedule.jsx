@@ -16,10 +16,12 @@ import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import ScheduleCard from './account_schedule_card.jsx';
 
+import apis from '../api'
+
 export default function Schedule({schedules}){
 
     const [startDate, setStartDate] = React.useState(dayjs('2022-04-17'));
-    const [endDate, setEndDate] = React.useState(dayjs('2024-04-17'));
+    const [endDate, setEndDate] = React.useState(dayjs('2025-04-17'));
     const [scheduleDisplay, setScheduleDisplay] = React.useState([]);
 
     React.useEffect(() => {

@@ -75,6 +75,9 @@ app.use('/api/room', roomRouter)
 const emailRouter = require('./routes/email-router')
 app.use('/api/email', emailRouter)
 
+const scheduleRouter = require('./routes/schedule-router')
+app.use('/api/schedule', scheduleRouter)
+
 
 app.listen(process.env.PORT  || 3001, function(err){
     if (err) console.log("Error in server setup")
