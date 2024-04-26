@@ -39,25 +39,34 @@ describe('usage test 1', () => {
 
         cy.get('button').contains('login', {matchCase: false}).should('be.visible').click({ force: true });
 
-        cy.get('button').contains('rooms', {matchCase: false}).should('be.visible').click({ force: true });
-        cy.get('button').contains('resources', {matchCase: false}).should('be.visible').click({ force: true });
-        cy.get('button').contains('processes', {matchCase: false}).should('be.visible').click({ force: true });
         cy.get('button').contains('account', {matchCase: false}).should('be.visible').click({ force: true });
         cy.get('button').contains('view messages', {matchCase: false}).should('be.visible').click({ force: true });
 
-        cy.get('button').contains('admintoolbar', {matchCase: false}).should('be.visible').click({ force: true });
-        cy.get('span').contains('add new resource', {matchCase: false}).should('be.visible').click({ force: true });
+        cy.get('input[name="receivers"]').type("huifu.li@stonybrook.edu");
+        cy.get('textarea[name="messageInput"]').type("fhuisdag");
         
-        const inputValues = ['mask', Math.floor(Math.random() * (100000 - 1000 + 1) + 1000), 'These are for staff memebers only!'];
-        cy.get('input').each((element, index) => {
-            // Use `cy.wrap()` to convert the yielded jQuery element back into a Cypress chainable object
-            cy.wrap(element).type(inputValues[index], { force: true });
-          });
-          
-        cy.get('button').contains('add resource', {matchCase: false}).should('be.visible').click({ force: true });
+        // cy.get('button').contains("send", {matchCase: false}).should('be.visible').click({ force: true });
+
+
+        // no socket
         cy.get('button').contains('resources', {matchCase: false}).should('be.visible').click({ force: true });
-        cy.contains(inputValues[0]).should('exist');
-        cy.contains(inputValues[1]).should('exist');
+        cy.get('button').contains('account', {matchCase: false}).should('be.visible').click({ force: true });
+        cy.get('button').contains('view messages', {matchCase: false}).should('be.visible').click({ force: true });
+        // end
+
+        cy.contains("wentao he", {matchCase: false}).click({ force: true });
+        cy.contains("hi message", {matchCase: false}).should('be.visible');
+
+
+        // cy.contains("Accept", {matchCase: false}).should('be.visible').click({ force: true });
+
+        cy.get('button').contains('resources', {matchCase: false}).should('be.visible').click({ force: true });
+        cy.get('button').contains('account', {matchCase: false}).should('be.visible').click({ force: true });
+        cy.get('button').contains('view schedule', {matchCase: false}).should('be.visible').click({ force: true });
+
+
+
+
     });
 
 });

@@ -24,7 +24,7 @@ export default function NewMessageBox({handleSendEmail}){
     const regex = new RegExp('^(?=[a-zA-Z0-9@.!#$%&\'*+/=?^_`{|}~-]{6,254}$)([a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@)(?:(?=[a-zA-Z0-9-.]{1,253}$)([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,63}|(?=[a-zA-Z0-9-]{1,63}$)[a-zA-Z0-9-]+\\.[a-zA-Z]{2,63})$');
 
     function handleClearMessageButton(event){
-        alert("handleClearMessageButton not implemented");
+        setMessage("");
     }
     
     function handleSendMessageButton(event){
@@ -99,6 +99,7 @@ export default function NewMessageBox({handleSendEmail}){
                             },
                         }}
                         value={receivers}
+                        name={"receivers"}
                     />
                 </Typography>
             </Grid>
@@ -119,6 +120,7 @@ export default function NewMessageBox({handleSendEmail}){
                 multiline
                 onChange={(event) => setMessage(event.target.value)}
                 value={message}
+                
                 sx={{
                     width:"100%",
                     height:"100%",
@@ -144,6 +146,7 @@ export default function NewMessageBox({handleSendEmail}){
                       }
                     },
                   }}
+                  name={"messageInput"}
                 // overflow={'auto'}
             />
         </Grid>

@@ -52,10 +52,10 @@ export default function MessageCard({message, handleAcceptSchedule}){
                 {message.schedule == null ? <></> : 
                     <>
                         <Button onClick={handleAccept}>
-                            <CheckCircleOutlineIcon/>
+                            <CheckCircleOutlineIcon/> Accept
                         </Button>
-                        <Button onClick={handleDeny}>
-                            <DoDisturbIcon/>
+                        <Button onClick={handleDeny}> 
+                            <DoDisturbIcon/>Deny
                         </Button>
                     </>
                 }
