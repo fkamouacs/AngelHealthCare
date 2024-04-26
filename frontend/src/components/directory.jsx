@@ -13,7 +13,6 @@ export default function Directory(){
     const PAGES = {
         HOME : "HOME",
         LOGIN : "LOGIN",
-       
         RESOURCES : "RESOURCES",
         ACCOUNTS : "ACCOUNTS",
         ADMINACCOUNTS : "ADMINACCOUNTS",
@@ -31,8 +30,14 @@ export default function Directory(){
     useEffect(() => {
         console.log("directory: " + auth.loggedIn)
         if (auth.loggedIn) {
-            
-            setPage(PAGES.ACCOUNTS)
+            console.log("\ndirectory.jsx, auth.loggedIn is true\n");
+            console.log("directory.jsx auth print",auth);
+            if(auth.user.role === "admin"){
+                setPage(PAGES.ADMINACCOUNTS)
+            }
+            else{
+                setPage(PAGES.ACCOUNTS)
+            }
         } else {
             setPage(PAGES.HOME)
         }
@@ -51,7 +56,9 @@ export default function Directory(){
 
 
     return(<>
-        <AdminToolbar/>
+        {
+            [PAGES.ADMINACCOUNTS].includes(page) && <AdminToolbar/>
+        }
         { // Render Header only for Resource, Room, Accounts, Processes, and Procedures page
           [PAGES.RESOURCES, PAGES.ROOMS, PAGES.ACCOUNTS, PAGES.PROCESSES, PAGES.PROCEDURES, PAGES.ADMINACCOUNTS].includes(page) &&
           <Header PAGES={PAGES} currentPage={page} changePage={changePage}/>

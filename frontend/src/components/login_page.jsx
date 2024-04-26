@@ -12,9 +12,9 @@ export default function LoginPage({PAGES, setPage}){
         setPage(PAGES.FORGOTPASSWORD);
     }
     const handleLogIn = () => {
-      
         auth.loginUser(email, password);
-        setPage(PAGES.ACCOUNTS);
+        console.log("\nlogin_page.jsx auth print: \n", auth);
+        // setPage(PAGES.ACCOUNTS);
     }
     return(<>
         <Box

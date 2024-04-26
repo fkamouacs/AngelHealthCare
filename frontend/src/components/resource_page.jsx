@@ -11,12 +11,6 @@ import apis from "../api/index.js"
 export default function ResourcesPage(){
     const [sortBy, setSortBy] = useState('Name');
     const [sortOrder, setSortOrder] = useState('asc');
-    const [openModal, setOpenModal] = useState(false);
-
-    const [resourceName, setResourceName] = useState('');
-    const [resourceId, setResourceId] = useState('');
-    const [resourceAmount, setResourceAmount] = useState('');
-
 
     const handleSort = (event, newSortBy) => {
         setSortBy(newSortBy);
@@ -26,145 +20,8 @@ export default function ResourcesPage(){
         setSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
     };
     
-    const handleModalOpen = () => {
-        setOpenModal(true);
-    };
-      
-    const handleModalClose = () => {
-        setOpenModal(false);
-    };
+   
 
-    const handleAddResource = () => {
-        console.log(resourceName, resourceId, resourceAmount);
-        apis.createResource(resourceName, resourceAmount)
-    }
-
-    const handleEditResource = (id) => {
-        console.log(id);
-    }
-
-    const renderModal = (
-        <Modal
-            open={openModal}
-            BackdropProps={{
-                style: { backgroundColor: 'rgba(0, 0, 0, 0.1)' } // Adjust the opacity here
-            }}
-            
-        >
-            <Box 
-                sx={{
-                    position: 'absolute', // Ensure it's fixed in the viewport
-                    top: '50%', // Center vertically
-                    left: '50%', // Center horizontally
-                    transform: 'translate(-50%, -50%)', // Adjust for exact centering
-                    width: 600,  // Fixed width
-                    height: 300, // Fixed height
-                    bgcolor: '#F0F8FF',
-                    p: 2, // Add some padding inside the box
-                    borderRadius: 2, // Optional: for rounded corners
-                    outline: 0 // Remove default focus outline
-                  }}
-            >
-                <Grid container marginBottom={2}>
-                    <Grid item xs={6} fontSize={40}>
-                        <Typography fontSize={'30px'} color={'#6682c4'} sx={{}}>
-                                Add Resource
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={6} display="flex" justifyContent="flex-end">
-                        <IconButton 
-                            onClick={handleModalClose}
-                        >
-                            <CloseIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', color: '#6682c4'}}/>
-                        </IconButton>
-                    </Grid>
-                </Grid>
-                <Grid container marginBottom={2}>
-                    <Grid container item xs={5} >
-                        <Grid item container xs={12} py={2} alignContent={'center'}>
-                            <Typography fontWeight={'bold'} color={'#6682c4'}>
-                                Resource Name
-                            </Typography>
-                        </Grid>
-                        {/* <Grid item xs={12} py={2} alignContent={'center'}>
-                            <Typography fontWeight={'bold'} color={'#6682c4'}>
-                                Resource ID
-                            </Typography>
-                        </Grid> */}
-                        <Grid item xs={12} py={2}>
-                            <Typography fontWeight={'bold'} color={'#6682c4'}>
-                                Resource Amount
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container item xs={6}>
-                        <Grid item container xs={12} alignContent={'center'}>
-                            <TextField
-                                label="Resource Name"
-                                onChange={(event)=>setResourceName(event.target.value)}
-                                inputProps={{
-                                    style: {
-                                        padding: 5,
-                                        backgroundColor:'white',
-                                    }
-                                }}
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                                size="small"
-                                sx={{ width: '225px' }}
-                            />
-                        </Grid>
-                        {/* <Grid item container xs={12} alignContent={'center'}>
-                            <TextField
-                                label="Resource Id"
-                                onChange={(event)=>setResourceId(event.target.value)}
-                                inputProps={{
-                                    style: {
-                                    padding: 5,
-                                    backgroundColor:'white',
-                                    }
-                                }}
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                                sx={{ width: '225px' }}
-                                size="small"
-                            />
-                        </Grid> */}
-                        <Grid item container xs={12} alignContent={'center'}>
-                            <TextField
-                                label="Resource Amount"
-                                onChange={(event)=>setResourceAmount(event.target.value)}
-                                inputProps={{
-                                    style: {
-                                    padding: 5,
-                                    backgroundColor:'white',
-                                    }
-                                }}
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                                sx={{ width: '225px' }}
-                                size="small"
-                            />
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Box display="flex" marginTop={3} justifyContent="center">
-                    {/* <Button
-                        variant="contained"
-                        sx={{
-                            bgcolor: '#6682c4'
-                        }}
-                        onClick={handleAddResource}
-                        >
-                            Add Item
-                    </Button> */}
-                </Box>
-            </Box>
-        </Modal>
-    );
 
     const [resources, setResources] = useState([]);
     useEffect(() => {
@@ -219,15 +76,6 @@ export default function ResourcesPage(){
                             <Typography variant="h6" sx={{ width: '20%' }}>count</Typography>
                         </Grid>
                         <Box sx={{ flexGrow: 1 }} />
-                        <Button 
-                            variant="contained" 
-                            sx={{bgcolor: '#6682c4'}}
-                            startIcon={<AddCircleOutlineIcon />}
-                            onClick={handleModalOpen}
-                        >
-                        Add Item
-                        </Button>
-                        {renderModal}
                 </Grid>
                 <List dense={true}>
                     {resources.map((resource, index) => (
@@ -252,15 +100,6 @@ export default function ResourcesPage(){
                             <Grid>
                                 <ListItemText primary={resource.count}  sx={{ textAlign: 'right' }} />
                             </Grid>
-                            <Grid item xs={1}>
-                                <ListItemSecondaryAction>
-                                    <IconButton edge="end" aria-label="details">
-                                    <EditIcon 
-                                        onClick={() => handleEditResource(resource._id)}
-                                    />
-                                    </IconButton>
-                                </ListItemSecondaryAction>
-                            </Grid> 
                         </Grid>
                         </ListItem>
                     ))}
