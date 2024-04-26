@@ -5,8 +5,7 @@ describe('usage test 1', () => {
         cy.viewport(2560, 1440);
     });
 
-    const wait = () => {cy.wait(1000);
-      };
+    const wait = () => cy.wait(1000);
 
     it('login test and navigate different tabs and add a resource item', () => {
 
@@ -39,3 +38,4 @@ describe('usage test 1', () => {
         cy.contains(inputValues[1]).should('exist');
 
 });
+})
