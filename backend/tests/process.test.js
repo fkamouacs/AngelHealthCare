@@ -1,36 +1,42 @@
-// Assuming you have a file structure where the server can be required like this:
-const mongoose = require('mongoose');
-const Process = require('../models/process-model');
+const request = require('supertest');
+const express = require('express');
+const processController = require('../controllers/process-controller');
 
-describe('GET /api/process/:id', () => {
-    let createdProcessId;
-    var id = mongoose.Types.ObjectId();
 
-    beforeAll(async () => {
-        await mongoose.connect('mongodb+srv://feridkamoua:test@cluster0.tlfbqfv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+// Mock the Procedure model
+jest.mock('../models/process-model.js');
+const Process = require('../models/process-model.js');
+
+// Create an Express app to use for testing
+const app = express();
+app.use(express.json());
+
+// Mock request and response objects
+const mockRequest = {};
+const mockResponse = {
+    json: jest.fn(),
+    status: jest.fn().mockReturnThis(),
+};
+
+
+describe('Process Controller', () => {
+    describe('GET /api/process/', () => {
+        it('should return all processes', async () => {
+            
+            var id = mongoose.Types.ObjectId();
+       
+            const mockProcesses = [
+                { _id: '1', name: 'Process 1',patientId: id, curStage: "1", procedureIds: [], startDate: null, endDate: null, staff: [], hidden: false },
+                { _id: '2', name: 'Process 2',patientId: id,  curStage: "1", procedureIds: [], startDate: null, endDate: null, staff: [], hidden: false  },
+            ];
+            Process.find.mockResolvedValue(mockProcesses);
+
+            // Call the controller method
+            await processController.getAllProcesses(mockRequest, mockResponse);
+
+            // Verify that the response is correct
+            expect(mockResponse.json).toHaveBeenCalledWith();
+        });
     });
 
-    afterAll(async () => {
-        // Delete the created user
-        if (createdProcessId) {
-            await Process.findByIdAndDelete(createdProcessId);
-        }
-
-        await mongoose.disconnect();
-    });
-
-    it('should create and save a new process', async () => {
-        const processData = {
-            name: 'test process',
-            patientId: id,
-        };
-
-        const process1 = new Process(processData);
-        const savedProcess = await process1.save();
-        createdProcessId = savedProcess._id; // Store the created user's ID
-
-        expect(savedProcess._id).toBeDefined();
-        expect(savedProcess.name).toBe(processData.name);
-        expect(savedProcess.patientId).toBe(processData.patientId);
-    });
 });
