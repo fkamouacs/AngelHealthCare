@@ -13,7 +13,7 @@ describe('LoginPage to Account Page Tests', () => {
         cy.get('input[type="password"]').should('have.value', '12345678');
         
         cy.get('button').contains('Login').click();
-        cy.get('button').contains('Accounts').should('be.visible');
+        cy.get('button').contains('Account').should('be.visible');
 
         cy.get('button').contains('Resources').click();
     });
