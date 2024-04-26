@@ -47,6 +47,13 @@ export default function Directory(){
         console.log("Button pressed");
     }
 
+    function handleMessages(message, error=false){
+        console.log(message);
+        if(error){
+            alert(message)
+        }
+    }
+
 
 
     return(<>

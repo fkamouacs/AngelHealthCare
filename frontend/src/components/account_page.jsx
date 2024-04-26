@@ -62,7 +62,14 @@ export default function AccountPage({PAGES, setPage}){
     const handleSendEmail = (email, receivers) => {
         email.sender = auth.user.email;
         console.log(email);
-        apis.sendEmail(email, receivers, auth.user.email);
+        apis.sendEmail(email, receivers, auth.user.email).then(response => {
+            console.log("Email sent successfully:", response);
+            alert("Email sent successfully!");
+        })
+        .catch(error => {
+            console.error("Failed to send email:", error);
+            alert(`Failed to send email: ${error.message}`);
+        });
     }
 
     const handleAcceptSchedule = (id) => {

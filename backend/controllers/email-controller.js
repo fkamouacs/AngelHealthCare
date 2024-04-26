@@ -33,7 +33,7 @@ getAllEmailByUser = async (req,res) => {
 
 
 sendEmail = async (req,res) => {
-
+    console.log("sendEmail");
     const sender = await User.findOne({email:req.body.sender});
     const customEmail = {
         title:req.body.email.title, 
@@ -51,11 +51,13 @@ sendEmail = async (req,res) => {
                 { $push: { emails: emailId }},  
                 { new: true }  
             );
+
             if (!updatedUser) {
+                console.log("not found : ", receiver)
                 return res.status(500).send("User not found");
             }
         }
-
+        console.log("done")
         res.send("Email added successfully");
     } catch (err) {
         console.error(err);
