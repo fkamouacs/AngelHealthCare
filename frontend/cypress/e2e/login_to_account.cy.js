@@ -6,16 +6,15 @@ describe('LoginPage to Account Page Tests', () => {
 
     it('Homepage to login page to account page to resource page', () => {
         cy.get('button').contains('Log in').click();
-        cy.get('input[type="email"]').type('js@gmail.com');
-        cy.get('input[type="password"]').type('12345678');
+        cy.get('input[type="email"]').type('wentao.he.1@stonybrook.edu');
+        cy.get('input[type="password"]').type('123456789');
   
-        cy.get('input[type="email"]').should('have.value', 'js@gmail.com');
-        cy.get('input[type="password"]').should('have.value', '12345678');
+        cy.get('input[type="email"]').should('have.value', 'wentao.he.1@stonybrook.edu');
+        cy.get('input[type="password"]').should('have.value', '123456789');
         
         cy.get('button').contains('Login').click();
         cy.get('button').contains('Account').should('be.visible');
-
-        cy.get('button').contains('Resources').click();
+        cy.get('button').contains('AdminToolBar').should('be.visible');
     });
 
 });
