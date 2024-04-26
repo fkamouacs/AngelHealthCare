@@ -3,7 +3,6 @@ const Process = require('../models/process-model.js')
 const Procedure = require('../models/procedure-model.js')
 const Room = require('../models/room-model.js')
 const Resource = require('../models/resource-model.js')
-const Schedule = require('../models/schedule-model.js')
 
 getAllProcedures = async (req,res) => {
    const query = Procedure.find({})
@@ -30,7 +29,7 @@ getProcedureById = async (req,res) => {
 
 addProcedure = async (req,res) => {
     console.log("processId " + req.body.processId + " hello")
-    Process.findOne({_id: req.body.processId}).exec().then(async currentProcess => {
+    Process.findOne({_id: req.body.processId}).exec().then(currentProcess => {
 
         let newProcedure = {
             name: req.body.name,
@@ -47,13 +46,7 @@ addProcedure = async (req,res) => {
     
           // update staff account schedules
           for (let i = 0; i < req.body.staff.length; i++) {
-            const newEmail = {
-              title: "Procedure Invite Request",
-              text: "Something",
-              sender: await Account.findOne({email:"lee@gmail.com"}),
-              schedule: await Schedule.findOne({_id:"66198e8a477f346a2e45e823"})
-            }
-            Account.findOneAndUpdate({_id: req.body.staff[i]}, {$push: {emails: newEmail}}).exec()
+            Account.findOneAndUpdate({_id: req.body.staff[i]}, {$push: {schedule: req.body.date}}).exec()
           }
 
 
