@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import MessageCard from './account_message_card.jsx';
 export default function MessageBox({messages, handleAcceptSchedule}){
-    console.log("messages : ",messages);
     return(<>
         <Box display="flex" flexDirection="column" height="100%">
             <Box flex="0 0 auto" height={"10%"} maxHeight={40}>

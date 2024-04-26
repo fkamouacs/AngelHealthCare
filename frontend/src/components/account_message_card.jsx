@@ -29,7 +29,6 @@ export default function MessageCard({message, handleAcceptSchedule}){
         alert("not implemented yet, should one be able to deny a request or should that be handled in person?");
     }
 
-    console.log(message);
     return(<>
         <Box paddingBottom={1}>
             <Accordion elevation={0} >

@@ -14,7 +14,7 @@ export default function Directory(){
         LOGIN : "LOGIN",
         RESOURCES : "RESOURCES",
         ACCOUNTS : "ACCOUNTS",
-        ADMINACCOUNTS : "ADMINACCOUNTS",
+        ADMINACCOUNTS : "ACCOUNTS",
         PATIENTS : "PATIENTS",
         ROOMS : "ROOMS",
         PROCESSES : "PROCESSES",
