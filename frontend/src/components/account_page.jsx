@@ -140,10 +140,10 @@ export default function AccountPage({PAGES, setPage}){
                             </Button>
                         </Box>
                         <Box flex="1" minHeight={"275px"}> 
-                            {(viewContent == "message") ?
+                            {/* {(viewContent == "message") ? */}
                                 <NewMessageBox handleSendEmail={handleSendEmail}/>
-                                : <NewScheduleBox/>
-                            }
+                                {/* : <NewScheduleBox/>
+                            } */}
                         </Box>
                     </Box>
                 </Grid>

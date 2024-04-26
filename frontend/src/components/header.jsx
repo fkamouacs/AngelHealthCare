@@ -47,7 +47,7 @@ export default function Header({PAGES, currentPage, changePage}){
     
     if(auth.user.role === "admin"){
         pages = [
-            ['AdminAccount', handleOpenAccountsPage, PAGES.ACCOUNTS], 
+            ['Account', handleOpenAccountsPage, PAGES.ACCOUNTS], 
             ['AdminToolBar', handleOpenAdminToolBar, PAGES.ADMINTOOLBAR],
             ['Resources', handleOpenResourcesPage, PAGES.RESOURCES], 
             ['Rooms', handleOpenRoomsPage, PAGES.ROOMS], 

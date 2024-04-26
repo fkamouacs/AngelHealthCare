@@ -26,13 +26,10 @@ export default function Schedule({schedules}){
 
     React.useEffect(() => {
         if(dayjs(startDate).isValid() && dayjs(endDate).isValid()){
-            console.log("valid");
+            updateScheduleDisplay();
         }else{
-            console.log("invalid");
+            alert("Date entered is not valid!");
         }
-        console.log("Start Date:", startDate);
-        console.log("End Date:", endDate);
-        updateScheduleDisplay();
     }, [startDate, endDate, schedules]);
 
     function updateScheduleDisplay() {
@@ -40,7 +37,6 @@ export default function Schedule({schedules}){
             const scheduleTime = dayjs(schedule.time);
             const startDay = startDate.startOf('day');
             const endDay = endDate.endOf('day');
-            console.log(startDay, scheduleTime, endDay);
 
             return scheduleTime.isAfter(startDay) && scheduleTime.isBefore(endDay);
         });
