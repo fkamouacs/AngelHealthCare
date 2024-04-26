@@ -9,6 +9,10 @@ import Sheet from '@mui/joy/Sheet';
 import ListItem from '@mui/joy/ListItem';
 import Avatar from '@mui/joy/Avatar';
 
+import { LocalizationProvider ,DateField } from '@mui/x-date-pickers';
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+
 import { getAvailableAccountsDate, getProcessById, addProcedure, getAvailableRoomsDate,
 getAvailableResourcesDate, 
 } from '../fakedatabase';
@@ -35,42 +39,41 @@ const AddProcedure = (props) => {
     const [availableResources, setAvialableResources] = useState([])
     const [assignedResources, setAssignedResources] = useState([])
     const [resourceMembers, setResourceMembers] = useState([])
+    const [date, setDate] = useState(dayjs('2022-04-17'));
 
     // useEffect(() => {
-    //     if(formData.date !== '') {
-    //         setAvailableStaff(getAvailableAccountsDate(formData.date));
-    //         setAvailableRooms(getAvailableRoomsDate(formData.date))
-    //         setAvialableResources(getAvailableResourcesDate(formData.date));
+    //     if(date !== '') {
+    //         setAvailableStaff(getAvailableAccountsDate(date));
+    //         setAvailableRooms(getAvailableRoomsDate(date))
+    //         setAvialableResources(getAvailableResourcesDate(date));
     //         console.log("XD")
     //     }
         
-    // },[formData.date])
+    // },[date])
 
     useEffect(() => {
-      if(formData.date.length === 10) {
         
-        apis.getAvailableAccountsOnDate(formData.date).then(res => {
+        apis.getAvailableAccountsOnDate(date).then(res => {
           console.log(res.data)
           setAvailableStaff(res.data);
         })
 
-        apis.getAvailableRoomsOnDate(formData.date).then(res => {
+        apis.getAvailableRoomsOnDate(date).then(res => {
           console.log("XD")
           console.log(res.data);
           setAvailableRooms(res.data);
         })
 
-        apis.getAvailableResourcesOnDate(formData.date).then(res => {
+        apis.getAvailableResourcesOnDate(date).then(res => {
           console.log(res.data)
           setAvialableResources(res.data);
         }) 
-          //setAvailableStaff(getAvailableAccountsDate(formData.date));
-          //setAvailableRooms(getAvailableRoomsDate(formData.date))
-          //setAvialableResources(getAvailableResourcesDate(formData.date));
+          //setAvailableStaff(getAvailableAccountsDate(date));
+          //setAvailableRooms(getAvailableRoomsDate(date))
+          //setAvialableResources(getAvailableResourcesDate(date));
           console.log("XD")
-      }
       
-  },[formData.date])
+  },[date])
 
 
 
@@ -249,10 +252,10 @@ const AddProcedure = (props) => {
 
         console.log(formData);
 
-        //addProcedure(formData.name, props.currentProcess.patient, formData.date, assignedStaff, assignedResources, assignedRoom, props.currentProcess._id)
+        //addProcedure(formData.name, props.currentProcess.patient, date, assignedStaff, assignedResources, assignedRoom, props.currentProcess._id)
         
         console.log(props.currentProcess._id)
-        apis.addProcedure(formData.name, props.currentProcess.patientId, formData.date, assignedStaff, assignedResources, assignedRoom, props.currentProcess._id).then(res => {
+        apis.addProcedure(formData.name, props.currentProcess.patientId, date, assignedStaff, assignedResources, assignedRoom, props.currentProcess._id).then(res => {
           console.log(res.data.procedureIds)
           const newProcedureIds = res.data.procedureIds
           console.log(props.currentProcess.procedureIds)
@@ -297,15 +300,15 @@ const AddProcedure = (props) => {
           value={formData.name}
           onChange={handleChange}
         />
-        <TextField
-          label="Date"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
-        />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateField 
+              id="start-date-input"
+              label="Start Date" 
+              sx={{width:130}} 
+              onChange={newValue => setDate(newValue)}
+              defaultValue={date} 
+          />
+        </LocalizationProvider>
         
 <Sheet
     style={{margin: '1rem 0', maxHeight: 200, overflow: 'auto'}}

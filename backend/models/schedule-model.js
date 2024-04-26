@@ -6,7 +6,12 @@ const ScheduleSchema = new Schema(
     {
         title: { type: String, required: true},
         text: {type: String, required: true},
-        hidden: {type: Boolean, default: false}
+        hidden: {type: Boolean, default: false},
+        isDone: {type: Boolean, default: false},
+        date: {type:Date, required:true},
+        acceptedBy : {type: [ObjectId], default:[]},
+        deniedBy : {type: [ObjectId], default:[]},
+        // pending : {type: [ObjectId], require:true}
     },{timestamps: true}
 )
 

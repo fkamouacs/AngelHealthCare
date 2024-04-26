@@ -1,6 +1,6 @@
 const Email = require('../models/email-model.js')
 const User = require('../models/user-model.js')
-
+const Schedule = require('../models/schedule-model.js')
 
 getAllEmailByUser = async (req,res) => {
     const email = req.params.user;  
@@ -9,13 +9,16 @@ getAllEmailByUser = async (req,res) => {
         .then(async (user) => {
             const emailIds = user.emails;
             const output = [];
+            console.log(emailIds.length);
             for(let id of emailIds){
                 const email = await Email.findOne({_id:id});
                 const sender = await User.findOne({_id:email.sender});
                 const formatedEmail = {
+                    _id: email._id,
                     title:email.title,
                     text:email.text,
-                    sender: `${sender.firstName} ${sender.lastName}`
+                    sender: `${sender.firstName} ${sender.lastName}`,
+                    schedule: email.schedule
                 }
                 output.push(formatedEmail);
             }
@@ -32,7 +35,12 @@ getAllEmailByUser = async (req,res) => {
 sendEmail = async (req,res) => {
 
     const sender = await User.findOne({email:req.body.sender});
-    const customEmail = {title:req.body.email.title, text: req.body.email.title.text, sender:sender};
+    const customEmail = {
+        title:req.body.email.title, 
+        text: req.body.email.text, 
+        sender:sender,
+        schedule: await Schedule.findOne({title:"quo architecto reiciendis"})
+    };
     const receivers = req.body.receivers;
     const emailId = await Email.create(customEmail);
 

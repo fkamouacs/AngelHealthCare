@@ -75,6 +75,9 @@ app.use('/api/room', roomRouter)
 const emailRouter = require('./routes/email-router')
 app.use('/api/email', emailRouter)
 
+const scheduleRouter = require('./routes/schedule-router')
+app.use('/api/schedule', scheduleRouter)
+
 
 app.listen(process.env.PORT  || 3001, function(err){
     if (err) console.log("Error in server setup")
@@ -99,33 +102,33 @@ app.put('/*', (req,res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
 } )
 
-// var nodemailer = require('nodemailer');
-// const transporter = nodemailer.createTransport({
-//     name: 'angle health care', // <= Add this
-//     host: "smtp.ethereal.email",
-//     port: 587,
-//     secure: false, // Use `true` for port 465, `false` for all other ports
-//     auth: {
-//       user: "lukas.klein74@ethereal.email",
-//       pass: "ccWR1bNs8dA9shsyNd",
-//     },
-//   });
-// // async..await is not allowed in global scope, must use a wrapper
-// async function main() {
-//     // send mail with defined transport object
-//     const info = await transporter.sendMail({
-//       from: '"Lukas Klein" <lukas.klein74@ethereal.email>', // sender address
-//       to: "ferid.kamoua@stonybrook.edu", // list of receivers
-//       subject: "Hello ✔", // Subject line
-//       text: "Hello world?", // plain text body
-//       html: "<html><body>Hello and welcome</body></html>", // html body
-//     });
+var nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+    name: 'angle health care', // <= Add this
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false, // Use `true` for port 465, `false` for all other ports
+    auth: {
+      user: "lukas.klein74@ethereal.email",
+      pass: "ccWR1bNs8dA9shsyNd",
+    },
+  });
+// async..await is not allowed in global scope, must use a wrapper
+async function main() {
+    // send mail with defined transport object
+    const info = await transporter.sendMail({
+      from: '"Lukas Klein" <lukas.klein74@ethereal.email>', // sender address
+      to: "huifuli15@gmail.com", // list of receivers
+      subject: "Hello ✔", // Subject line
+      text: "Hello world?", // plain text body
+      html: "<html><body>Hello and welcome</body></html>", // html body
+    });
   
-//     console.log("Message sent: %s", info.messageId);
-//     // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
-// }
+    console.log("Message sent: %s", info.messageId);
+    // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
+}
   
-// main().catch(console.error);
+main().catch(console.error);
 
 module.exports = server;
 
