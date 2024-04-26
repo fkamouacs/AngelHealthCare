@@ -6,6 +6,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 import AuthContext from "../api/auth/index"
+import AdminToolbar from './admin_toolbar.jsx';
 
 export default function AdminAccountPage({PAGES, setPage}){
     
@@ -17,6 +18,7 @@ export default function AdminAccountPage({PAGES, setPage}){
         auth.logoutUser();
         setPage(PAGES.LOGIN);
     }
+
 
     const resources = [
         {_id: 1, name: 'Paul fder', status: "Active", email: "asd45as" },

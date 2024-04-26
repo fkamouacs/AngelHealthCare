@@ -7,7 +7,7 @@ import RoomPage from './room_page.jsx';
 import ResourcesPage from './resource_page.jsx'
 import HomePage from './home_page.jsx'
 import ProcessesPage from "./processes_page.jsx"
-
+import AdminToolbar from "./admin_toolbar.jsx"
 import PropTypes from 'prop-types';
 import * as React from 'react';
 
@@ -63,6 +63,12 @@ export default function MainPage({currentPage, PAGES, setPage}){
                 <AdminAccountPage PAGES={PAGES} setPage={setPage}/>
                 </>
             );
+        case PAGES.ADMINTOOLBAR:
+            return(
+                <>
+                <AdminToolbar />
+                </>
+            );
         case PAGES.PATIENTS:
             return(
                 <>
@@ -89,7 +95,7 @@ export default function MainPage({currentPage, PAGES, setPage}){
             );
         default:
             return(
-                <>404 not found</>
+                <></>
             );
     }
 }

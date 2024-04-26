@@ -21,14 +21,9 @@ import EditRoomModal from './edit_room_modal';
 
 import apis from '../api';
 
-export default function AdminToolbar({
-
-}) {
+export default function AdminToolbar({PAGES, setPage}) {
 
     const [open, setOpen] = useState(false);
-    const toggleDrawer = (newOpen) => () => {
-        setOpen(newOpen);
-    };
 
 
 
@@ -153,7 +148,7 @@ export default function AdminToolbar({
 
 
 
-
+/*
     const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
         <List>
@@ -176,14 +171,14 @@ export default function AdminToolbar({
     </Box>
     );
 
-
+*/
     const resetParams = () => {
         setId("");
     }
 
     return (
     <div>
-        <NewUserModal handleAdd={handleAddUser} openModal={OpenUserModal && id.length == 0} handleModalClose={() => {setOpenUserModal(false); resetParams()}}/>
+        {/*<NewUserModal handleAdd={handleAddUser} openModal={OpenUserModal && id.length == 0} handleModalClose={() => {setOpenUserModal(false); resetParams()}}/>
         <NewPatientModal handleAdd={handleAddPatient} openModal={OpenPatientModal && id.length == 0} handleModalClose={() => {setOpenPatientModal(false); resetParams()}}/>
         <NewResourceModal handleAdd={handleAddResource} openModal={OpenResourceModal && id.length == 0} handleModalClose={() => {setOpenResourceModal(false); resetParams()}}/>
         <NewRoomModal handleAdd={handleAddRoom} openModal={OpenRoomModal && id.length == 0} handleModalClose={() => {setOpenRoomModal(false); resetParams()}}/>
@@ -214,28 +209,34 @@ export default function AdminToolbar({
             openModal={OpenUserModal && id.length != 0} 
             handleModalClose={() => {setOpenUserModal(false); resetParams()}}
             handleFetch={apis.getAccountById}
-        /> */}
+        /> 
         <EditResourceModal 
             handleEdit={handleEditResource} 
             id={id} 
             openModal={OpenResourceModal && id.length != 0} 
             handleModalClose={() => {setOpenResourceModal(false); resetParams()}}
             handleFetch={apis.getResourceById}
-        />
+        />*/}
 
-        <Button 
-            sx={{
-                position: 'fixed',
-                left: `10px`,
-                top: `10px`,
-                zIndex: 1000,
-                cursor: 'move'
-            }}
-            onClick={toggleDrawer(true)}
-        >Open drawer</Button>
-        <Drawer open={open} onClose={toggleDrawer(false)}>
-        {DrawerList}
-        </Drawer>
+        <Box sx={{ width: 250 }} role="presentation" >
+                <List>
+                    {addFunctions.map((f) => (
+                        <ListItem key={f.name} disablePadding>
+                        <ListItemButton>
+                            <ListItemText primary={f.name} onClick={f.function}/>
+                        </ListItemButton>
+                        </ListItem>
+                    ))}
+                    <Divider/>
+                    {editFunctions.map((f) => (
+                        <ListItem key={f.name} disablePadding>
+                        <ListItemButton>
+                            <ListItemText primary={f.name} onClick={f.function}/>
+                        </ListItemButton>
+                        </ListItem>
+                    ))}
+                </List>
+            </Box>
     </div>
     );
 }
