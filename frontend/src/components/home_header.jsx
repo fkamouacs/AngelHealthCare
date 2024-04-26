@@ -45,7 +45,7 @@ export default function HomeHeader({PAGES, currentPage, changePage}){
                     justifyContent: "center"
                 }}
             >
-                Angel Health Care1
+                Angel Health Care123
             </Typography>
             <Container maxWidth="xl">
                 <Toolbar disableGutters sx={{justifyContent: 'center'}}
