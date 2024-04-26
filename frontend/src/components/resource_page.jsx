@@ -9,8 +9,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import apis from "../api/index.js"
 export default function ResourcesPage(){
-    const [sortBy, setSortBy] = useState('Name');
+    const [sortBy, setSortBy] = useState('name');
     const [sortOrder, setSortOrder] = useState('asc');
+    const [name, setName] = useState("");
 
     const handleSort = (event, newSortBy) => {
         setSortBy(newSortBy);
@@ -20,18 +21,30 @@ export default function ResourcesPage(){
         setSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
     };
     
-   
-
 
     const [resources, setResources] = useState([]);
+
     useEffect(() => {
+
         apis.getResourcePairs().then(res=>{
-            console.log(res);
-            setResources(res.data);
+            console.log(res.data[0].name);
+            if(sortBy == "name"){
+                res.data.sort((a, b) => {return a.name.localeCompare(b.name)});
+            }else{
+                res.data.sort((a, b) => {return a.count - b.count});
+            }
+
+            if(sortOrder != "asc"){
+                res.data.reverse();
+            }
+
+            console.log(res.data.map((item) => {console.log(item)}));
+            setResources(res.data.filter(patient => patient.name.toLowerCase().includes(name.toLowerCase())));
+            
         }).catch(err => {
-            console.error('Failed to fetch resources:', err.message); // Log more specific error information
+            console.error('Failed to fetch patients:', err.message); // Log more specific error information
         });
-    },[]);
+    }, [sortOrder, sortBy, name])
 
     return(<>
         <Grid item xs={12} sx={{ ml: (-5), mt: (1) , mr: (-5)}}>
@@ -39,15 +52,15 @@ export default function ResourcesPage(){
             <Paper sx={{padding: 2, display: 'flex', alignItems: 'center', marginBottom: 1, gap: 10, borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}>
                 <Typography variant="h6">Sort By</Typography>
                 <ToggleButtonGroup
-                color="primary"
-                value={sortBy}
-                exclusive
-                onChange={handleSort}
-                aria-label="sort by"
-                sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}
+                    color="primary"
+                    value={sortBy}
+                    exclusive
+                    onChange={handleSort}
+                    aria-label="sort by"
+                    sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}
                 >
-                <ToggleButton sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} value="Name">Name</ToggleButton>
-                <ToggleButton sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} value="Count">Count</ToggleButton>
+                <ToggleButton sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} value="name">Name</ToggleButton>
+                <ToggleButton sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} value="count">Count</ToggleButton>
                 </ToggleButtonGroup>
                 <IconButton onClick={handleSortOrder} color="primary">
                     {sortOrder === 'asc' ? <ArrowUpwardIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}/> : 
@@ -59,6 +72,7 @@ export default function ResourcesPage(){
                     margin="dense"
                     size="small"
                     sx={{ width: '520px' }}
+                    onChange={(event) => setName(event.target.value)}
                 />
                 <Button variant="contained" sx={{bgcolor: '#6682c4'}}>Search</Button>
             </Paper>
