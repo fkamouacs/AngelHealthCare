@@ -7,7 +7,12 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-
+import Grid from '@mui/material/Grid';
+import { 
+    TextField, 
+    Typography,
+    IconButton,
+ } from "@mui/material";
 import NewUserModal from './new_user_modal';
 import NewPatientModal from './new_patient_modal';
 import NewResourceModal from './new_resource_modal';
@@ -23,16 +28,30 @@ import apis from '../api';
 
 export default function AdminToolbar({PAGES, setPage}) {
 
+    const [activeFeature, setActiveFeature] = useState(null);
     const [open, setOpen] = useState(false);
-
-
-
     const [OpenUserModal, setOpenUserModal] = useState(false);
     const [OpenPatientModal, setOpenPatientModal] = useState(false);
     const [OpenRoomModal, setOpenRoomModal] = useState(false);
     const [OpenResourceModal, setOpenResourceModal] = useState(false);
 
+    const renderFeature = () => {
+        switch (activeFeature) {
+            case 'addNewRoom':
+                return <NewRoomModal handleAdd={handleAddRoom} />;
+          // Add other cases for each feature
+            case 'addNewUser':
+                return <NewUserModal handleAdd={handleAddUser} />;
+            case 'addNewPatient':
+                return <NewPatientModal handleAdd={handleAddPatient} />;
+            case 'addNewResource':
+                return <NewResourceModal handleAdd={handleAddResource} />;
+            default:
+                return <NewRoomModal handleAdd={handleAddRoom} />;
+        }
+      };
 
+    
     const handleAddUser = (firstname, lastname, email, password, role) => {
         apis.createAccount(firstname, lastname, email, password, role);
     };
@@ -57,16 +76,16 @@ export default function AdminToolbar({PAGES, setPage}) {
 
     const addFunctions = [{
             name:"Add New Room",
-            function : () => setOpenRoomModal(true)
+            function : () => setActiveFeature("addNewRoom")
         },{
             name:"Add New User",
-            function : () => setOpenUserModal(true)
+            function : () => setActiveFeature("addNewUser")
         },{
             name:"Add New Patient",
-            function : () => setOpenPatientModal(true)
+            function : () => setActiveFeature("addNewPatient")
         },{
             name:"Add New Resource",
-            function : () => setOpenResourceModal(true)
+            function : () => setActiveFeature("addNewResource")
         }
     ];
 
@@ -146,32 +165,6 @@ export default function AdminToolbar({PAGES, setPage}) {
         }
     }
 
-
-
-/*
-    const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-        <List>
-            {addFunctions.map((f) => (
-                <ListItem key={f.name} disablePadding>
-                <ListItemButton>
-                    <ListItemText primary={f.name} onClick={f.function}/>
-                </ListItemButton>
-                </ListItem>
-            ))}
-            <Divider/>
-            {editFunctions.map((f) => (
-                <ListItem key={f.name} disablePadding>
-                <ListItemButton>
-                    <ListItemText primary={f.name} onClick={f.function}/>
-                </ListItemButton>
-                </ListItem>
-            ))}
-        </List>
-    </Box>
-    );
-
-*/
     const resetParams = () => {
         setId("");
     }
@@ -218,25 +211,33 @@ export default function AdminToolbar({PAGES, setPage}) {
             handleFetch={apis.getResourceById}
         />*/}
 
-        <Box sx={{ width: 250 }} role="presentation" >
+        <Grid container spacing={2} marginTop={5}>
+            <Grid item xs={12} sm={6} md={4} >
+                <Box sx={{ width: 250 , borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} role="presentation">
                 <List>
                     {addFunctions.map((f) => (
-                        <ListItem key={f.name} disablePadding>
-                        <ListItemButton>
-                            <ListItemText primary={f.name} onClick={f.function}/>
+                    <ListItem key={f.name} disablePadding >
+                        <ListItemButton onClick={f.function}>
+                        <ListItemText primary={f.name} />
                         </ListItemButton>
-                        </ListItem>
+                    </ListItem>
                     ))}
-                    <Divider/>
+                    <Divider />
                     {editFunctions.map((f) => (
-                        <ListItem key={f.name} disablePadding>
-                        <ListItemButton>
-                            <ListItemText primary={f.name} onClick={f.function}/>
+                    <ListItem key={f.name} disablePadding>
+                        <ListItemButton onClick={f.function}>
+                        <ListItemText primary={f.name} />
                         </ListItemButton>
-                        </ListItem>
+                    </ListItem>
                     ))}
                 </List>
-            </Box>
+                </Box>
+            </Grid>
+            <Grid item xs={12} sm={6} md={8}>
+                {/* Feature display area */}
+                {renderFeature()}
+            </Grid>
+        </Grid>
     </div>
     );
 }
