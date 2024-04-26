@@ -1,5 +1,5 @@
 
-describe('usage test 1', () => {
+describe('usage test 2', () => {
     beforeEach(() => {
         cy.visit('https://angelhealthcare-6befd2c18f64.herokuapp.com/');
     });

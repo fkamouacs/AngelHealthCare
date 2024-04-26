@@ -42,13 +42,13 @@ jobs:
     #   run: eslint . --max-warnings=0
     #   working-directory: ./frontend
 
-    # - name: run npm run build --if-present
-    #   run: npm run build --if-present
-    #   working-directory: ./frontend
+    - name: run npm run build --if-present
+      run: npm run build --if-present
+      working-directory: ./frontend
 
-    # - name: npx cypress run --component
-    #   run: npx cypress run --component
-    #   working-directory: ./frontend
+    - name: npx cypress run --component
+      run: npx cypress run --component
+      working-directory: ./frontend
     
     # - name: Kill Server
     #   if: always()
@@ -73,13 +73,13 @@ jobs:
     #   run: eslint . --max-warnings=0
     #   working-directory: ./backend
 
-    # - name: Build Backend (if necessary)
-    #   run: npm run build --if-present
-    #   working-directory: ./backend
+    - name: Build Backend (if necessary)
+      run: npm run build --if-present
+      working-directory: ./backend
 
-    # - name: Run Backend Tests
-    #   run: npm test
-    #   working-directory: ./backend
+    - name: Run Backend Tests
+      run: npm test
+      working-directory: ./backend
 
     - name: Install backend dependencies
       run: npm install
