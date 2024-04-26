@@ -46,7 +46,7 @@ describe('usage test 1', () => {
         cy.get('button').contains('view messages', {matchCase: false}).should('be.visible').click({ force: true });
 
         cy.get('button').contains('admintoolbar', {matchCase: false}).should('be.visible').click({ force: true });
-        cy.get('button').contains('admintoolbar', {matchCase: false}).should('be.visible').click({ force: true });
+        cy.get('span').contains('add new resource', {matchCase: false}).should('be.visible').click({ force: true });
         
         const inputValues = ['mask', Math.floor(Math.random() * (100000 - 1000 + 1) + 1000), 'These are for staff memebers only!'];
         cy.get('input').each((element, index) => {
