@@ -38,7 +38,7 @@ async function sendVerifyLink(key, email) {
 verifyAccount = async (req, res) => {
     const email = req.params.email;
     const key = req.params.key;
-
+    console.log("info : ", email, key);
     Account.findOneAndUpdate(
         { email: email, verifyKey: key }, 
         { $set: { verifyKey: null } }, 

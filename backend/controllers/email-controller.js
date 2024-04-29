@@ -9,7 +9,7 @@ getAllEmailByUser = async (req,res) => {
         .then(async (user) => {
             const emailIds = user.emails;
             const output = [];
-            console.log(emailIds.length);
+            // console.log(emailIds.length);
             for(let id of emailIds){
                 const email = await Email.findOne({_id:id});
                 const sender = await User.findOne({_id:email.sender});
@@ -22,7 +22,7 @@ getAllEmailByUser = async (req,res) => {
                 }
                 output.push(formatedEmail);
             }
-            console.log(output);
+            // console.log(output);
             res.status(200).json(output);
         })
         .catch((err) => {
@@ -33,7 +33,7 @@ getAllEmailByUser = async (req,res) => {
 
 
 sendEmail = async (req,res) => {
-    console.log("sendEmail");
+    // console.log("sendEmail");
     const sender = await User.findOne({email:req.body.sender});
     const customEmail = {
         title:req.body.email.title, 
@@ -53,11 +53,11 @@ sendEmail = async (req,res) => {
             );
 
             if (!updatedUser) {
-                console.log("not found : ", receiver)
+                // console.log("not found : ", receiver)
                 return res.status(500).send("User not found");
             }
         }
-        console.log("done")
+        // console.log("done")
         res.send("Email added successfully");
     } catch (err) {
         console.error(err);

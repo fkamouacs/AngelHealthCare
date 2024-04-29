@@ -10,11 +10,9 @@ const readline = require('readline');
 const express = require('express');
 const request = require('supertest');
 const path = require('path');
-
+const socketIO = require("socket.io");
 const app = express();
 const PORT = 3000;
-
-
 
 mongoose.connect('mongodb+srv://feridkamoua:test@cluster0.tlfbqfv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
@@ -26,9 +24,26 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const server = http.createServer(app);
 
-// server.listen(process.env.PORT || 3000, () => {
-//     console.log(`Server is running on port ${PORT}`);
-// });
+const io = socketIO(server, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"],
+    },
+  });
+
+
+io.on("connection", socket => {
+    console.log("connected with client");
+    socket.emit("connected");
+    socket.on("notifyUpdate", () => io.emit("updated"));
+    socket.on("logged in", () => {
+        console.log("user logged in");
+    });
+})
+
+server.listen(5000, () => {
+    console.log('Listening on *:5000');
+});
 
 // needed for deployment
 __dirname = path.resolve();

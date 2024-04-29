@@ -19,7 +19,7 @@ import {
 
 export default function ScheduleCard({schedule}){
     return(<>
-        <Box key={schedule.title}>
+        <Box key={schedule.title} paddingBottom={1}>
             <Accordion elevation={0} >
                 <AccordionSummary>
                 <Grid container>

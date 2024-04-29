@@ -84,7 +84,7 @@ jobs:
     - name: Start backend server
       run: nodemon server.js &
       working-directory: ./backend
-
+      
     - name: Install frontend dependencies
       run: npm install
       working-directory: ./frontend
@@ -94,7 +94,7 @@ jobs:
       working-directory: ./frontend
 
     - name: Run Cypress tests
-      run: npx cypress run
+      run: npx cypress run 
       working-directory: ./frontend
 
     - name: Run Backend Tests

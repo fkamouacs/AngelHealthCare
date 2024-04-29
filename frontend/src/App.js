@@ -33,7 +33,6 @@ import { Container } from '@mui/material';
 function App() {
   return (
     <Container id="app-container" sx={{height:'100%', width:"100%", minWidth:"1200px"}}>
-  
         <Directory/>
     </Container>
   );

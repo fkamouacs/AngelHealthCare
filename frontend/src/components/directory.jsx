@@ -5,7 +5,7 @@ import MainPage from './main_page.jsx';
 import Header from './header.jsx';
 import HomeHeader from './home_header.jsx';
 import AuthContext from '../api/auth/index.js';
-import { Button } from '@mui/material';
+import { useSocket } from "../SocketContext.jsx";
 
 export default function Directory(){
 
@@ -26,19 +26,25 @@ export default function Directory(){
     const { auth } = useContext(AuthContext);
 
     const [page,setPage] = useState(PAGES.HOME);
+    
+    const socket = useSocket();
 
     useEffect(() => {
         console.log("directory: " + auth.loggedIn)
         if (auth.loggedIn) {
-            console.log("\ndirectory.jsx, auth.loggedIn is true\n");
+            socket.emit("logged in");
             setPage(PAGES.ACCOUNTS);
+            socket.on("connected", (respond) => {
+                console.log("connected to socket!");
+            })
         } else {
             setPage(PAGES.HOME)
         }
+
+        
     },[auth.loggedIn])
 
 
-    
     function changePage(newPage){
         setPage(newPage);
     }

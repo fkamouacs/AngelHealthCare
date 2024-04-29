@@ -8,7 +8,7 @@ getScheduleByUser = async (req,res) => {
         .then(async (user) => {
             const ScheduleIds = user.schedule;
             const output = [];
-            console.log(ScheduleIds.length);
+            // console.log(ScheduleIds.length);
             for(let id of ScheduleIds){
                 const schedule = await Schedule.findOne({_id:id});
                 if(schedule.hidden){
@@ -22,7 +22,7 @@ getScheduleByUser = async (req,res) => {
                 }
                 output.push(formatedSchedule);
             }
-            console.log(output);
+            // console.log(output);
             res.status(200).json(output);
         })
         .catch((err) => {
