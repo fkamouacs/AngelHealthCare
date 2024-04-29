@@ -53,11 +53,19 @@ export default function AdminToolbar({PAGES, setPage}) {
 
     
     const handleAddUser = (firstname, lastname, email, password, isAdmin) => {
-        apis.createAccount(firstname, lastname, email, password, isAdmin);
+        apis.createAccount(firstname, lastname, email, password, isAdmin).then(() => 
+            alert("Add complete")
+        ).catch(() => 
+            alert("Unable to Add")
+        );
     };
 
     const handleAddPatient = (firstName, lastName, email, password) => {
-        apis.addPatient(`${firstName} ${lastName}`)
+        apis.addPatient(`${firstName} ${lastName}`).then(() => 
+            alert("Add complete")
+        ).catch(() => 
+            alert("Unable to Add")
+        );
     };
 
     const handleAddRoom = (number, max_capacity, empty_capacity, patients, resources, special_note) => {
@@ -65,12 +73,19 @@ export default function AdminToolbar({PAGES, setPage}) {
             empty_capacity = max_capacity;
         }
         // apis.createRoom(number, max_capacity, empty_capacity, patients, resources, special_note);
-        apis.createRoom(number, max_capacity, empty_capacity, [], [], special_note);
+        apis.createRoom(number, max_capacity, empty_capacity, [], [], special_note).then(() => 
+            alert("Add complete")
+        ).catch(() => 
+            alert("Unable to Add")
+        );
     };
 
     const handleAddResource = (name, count, special_note) => {
-        apis.createResource(name, count);
-        setOpenResourceModal(false);
+        apis.createResource(name, count).then(() => 
+            alert("Add complete")
+        ).catch(() => 
+            alert("Unable to Add")
+        );
     };
 
 
@@ -171,46 +186,6 @@ export default function AdminToolbar({PAGES, setPage}) {
 
     return (
     <div>
-        {/*<NewUserModal handleAdd={handleAddUser} openModal={OpenUserModal && id.length == 0} handleModalClose={() => {setOpenUserModal(false); resetParams()}}/>
-        <NewPatientModal handleAdd={handleAddPatient} openModal={OpenPatientModal && id.length == 0} handleModalClose={() => {setOpenPatientModal(false); resetParams()}}/>
-        <NewResourceModal handleAdd={handleAddResource} openModal={OpenResourceModal && id.length == 0} handleModalClose={() => {setOpenResourceModal(false); resetParams()}}/>
-        <NewRoomModal handleAdd={handleAddRoom} openModal={OpenRoomModal && id.length == 0} handleModalClose={() => {setOpenRoomModal(false); resetParams()}}/>
-        
-        <SelectIdModal 
-            openModal={OpenSelectIdModal} 
-            setId={setId} 
-            handleSelectId={handleSelectId} 
-            handleModalClose={() => setOpenSelectIdModal(false)}
-        />
-        <EditPatientModal 
-            handleEdit={handleEditPatient} 
-            id={id} 
-            openModal={OpenPatientModal && id.length != 0} 
-            handleModalClose={() => {setOpenPatientModal(false); resetParams()}}
-            handleFetch={apis.getPatientById}
-        />
-        <EditRoomModal 
-            handleEdit={handleEditRoom} 
-            id={id} 
-            openModal={OpenRoomModal && id.length != 0} 
-            handleModalClose={() => {setOpenRoomModal(false); resetParams()}}
-            handleFetch={apis.getRoomById}
-        />
-        {/* <EditUserModal 
-            handleEdit={handleEditUser} 
-            id={id} 
-            openModal={OpenUserModal && id.length != 0} 
-            handleModalClose={() => {setOpenUserModal(false); resetParams()}}
-            handleFetch={apis.getAccountById}
-        /> 
-        <EditResourceModal 
-            handleEdit={handleEditResource} 
-            id={id} 
-            openModal={OpenResourceModal && id.length != 0} 
-            handleModalClose={() => {setOpenResourceModal(false); resetParams()}}
-            handleFetch={apis.getResourceById}
-        />*/}
-
         <Grid container spacing={2} marginTop={5}>
             <Grid item xs={12} sm={6} md={4} >
                 <Box sx={{ width: 250 , borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} role="presentation">

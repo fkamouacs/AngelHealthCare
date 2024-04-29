@@ -8,6 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import apis from "../api/index.js"
+import { useSocket } from "../SocketContext.jsx";
 export default function ResourcesPage(){
     const [sortBy, setSortBy] = useState('name');
     const [sortOrder, setSortOrder] = useState('asc');
@@ -24,8 +25,9 @@ export default function ResourcesPage(){
 
     const [resources, setResources] = useState([]);
 
-    useEffect(() => {
+    const socket = useSocket();
 
+    const updateResources = () => {
         apis.getResourcePairs().then(res=>{
             console.log(res.data[0].name);
             if(sortBy == "name"){
@@ -43,8 +45,19 @@ export default function ResourcesPage(){
             
         }).catch(err => {
             console.error('Failed to fetch patients:', err.message); // Log more specific error information
-        });
+        });}
+
+    useEffect(() => {
+        updateResources();
     }, [sortOrder, sortBy, name])
+
+    useEffect(() => {
+        if(socket.connected){
+            socket.on("resource updated", () => {
+                updateResources();
+            });
+        }
+    }, [socket])
 
     return(<>
         <Grid item xs={12} sx={{ ml: (-5), mt: (1) , mr: (-5)}}>

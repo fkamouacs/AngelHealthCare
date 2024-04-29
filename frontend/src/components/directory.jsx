@@ -35,7 +35,7 @@ export default function Directory(){
             socket.emit("logged in");
             setPage(PAGES.ACCOUNTS);
             socket.on("connected", (respond) => {
-                console.log("connected to socket!");
+                console.log("connected to socket!",socket.connected);
             })
         } else {
             setPage(PAGES.HOME)

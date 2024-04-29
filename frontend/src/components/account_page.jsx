@@ -12,6 +12,7 @@ import NewMessageBox from './account_make_new_message.jsx';
 import Schedule from './account_schedule.jsx';
 import NewScheduleBox from './account_make_new_schedule.jsx';
 import AuthContext from "../api/auth/index.js"
+import { useSocket } from "../SocketContext.jsx";
 
 import apis from '../api';
 
@@ -29,6 +30,9 @@ export default function AccountPage({PAGES, setPage}){
     });
 
     const {auth} = React.useContext(AuthContext) || {};
+
+    const socket = useSocket();
+
     React.useEffect(() => {
         async function getUpdatedUser(){
             // console.log("in account page");
@@ -53,6 +57,28 @@ export default function AccountPage({PAGES, setPage}){
         getUpdatedUser();
         
     },[auth])
+
+    React.useEffect(() => {
+        if(socket.connected){
+            socket.on("message updated", () => {
+                apis.getAllEmailByUser(auth.user.email).then((respond)=> {
+                    setUserInfo(prevInfo => ({
+                        ...prevInfo,
+                        messages: respond.data
+                    }));
+                })
+            });
+
+            socket.on("schedule updated", () => {
+                apis.getAllScheduleByUser(auth.user.email).then((respond)=> {
+                    setUserInfo(prevInfo => ({
+                        ...prevInfo,
+                        schedules: respond.data
+                    }));
+                })
+            });
+        }
+    }, [socket])
 
     const handleLogOut = (event) => {
         auth.logoutUser();

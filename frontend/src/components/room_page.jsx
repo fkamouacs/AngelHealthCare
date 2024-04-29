@@ -8,6 +8,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert.js';
 import CloseIcon from '@mui/icons-material/Close';
 // import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import apis from "../api/index.js"
+import { useSocket } from "../SocketContext.jsx";
 
 export default function RoomsPage(){
     const [sortBy, setSortBy] = useState('rooms');
@@ -552,16 +553,19 @@ export default function RoomsPage(){
     const [rooms, setRooms] = useState([]);
     const [patients, setPatients] = useState([]);
 
-    useEffect(() => {
+    const updatePatient = () => {
         apis.getAllPatients().then(res=>{
             setPatients(res.data)
         }).catch(err => {
             console.error('Failed to fetch patients:', err.message); // Log more specific error information
         });
-    },[]);
+    }
 
     useEffect(() => {
-        console.log(sortOrder, sortBy);
+        updatePatient();
+    },[]);
+
+    const updateRoom = () => {
         apis.getRoomPairs().then(res=>{
 
             if(sortBy == "rooms"){
@@ -580,7 +584,23 @@ export default function RoomsPage(){
         }).catch(err => {
             console.error('Failed to fetch patients:', err.message); // Log more specific error information
         });
+    }
+
+    useEffect(() => {
+        updateRoom();
     }, [sortOrder, sortBy])
+
+    useEffect(() => {
+        if(socket.connected){
+            socket.on("room updated", () => {
+                updateRoom();
+            });
+
+            socket.on("patient updated", () => {
+                updatePatient();
+            });
+        }
+    }, [socket])
 
     const handleSearchBarChange = (event) => {
         try{
