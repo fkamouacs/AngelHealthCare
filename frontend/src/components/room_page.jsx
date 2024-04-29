@@ -18,6 +18,8 @@ export default function RoomsPage(){
     const [openModal, setOpenModal] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
 
+    const socket = useSocket();
+
     const handleSort = (event, newSortBy) => {
         if(newSortBy != null){
             setSortBy(newSortBy);
