@@ -68,10 +68,14 @@ export default function NewMessageBox({handleSendEmail}){
     {/* <Box display="flex" flexDirection="column" height="100%"> */}
         <Grid container alignItems="center" flex="0 0 auto" height="15%" maxHeight={40} borderBottom={"1px solid grey"}>
             <Grid item xs={11}>
-                <Typography
-                    fontSize={20}
-                >
-                    To : <TextField 
+                    <Typography
+                        fontSize={20}
+                        display={"inline-grid"}
+                    >
+                        To : 
+                    </Typography>
+                    <TextField 
+                        display={"inline-grid"}
                         onChange={(event) => setReceivers(event.target.value)}
                         sx={{
                             width:"90%",
@@ -95,13 +99,12 @@ export default function NewMessageBox({handleSendEmail}){
                             },
                             '& .MuiInputBase-input': { 
                                 padding: '1px'
-                              }
+                                }
                             },
                         }}
                         value={receivers}
                         name={"receivers"}
                     />
-                </Typography>
             </Grid>
             <Grid item xs={1}>
                 <Grid container justifyContent="flex-end">

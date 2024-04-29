@@ -31,8 +31,8 @@ export default function AccountPage({PAGES, setPage}){
     const {auth} = React.useContext(AuthContext) || {};
     React.useEffect(() => {
         async function getUpdatedUser(){
-            console.log("in account page");
-            console.log(auth)
+            // console.log("in account page");
+            // console.log(auth)
             if (auth !== undefined && auth.loggedIn) {
                 const user = {
                     username: `${auth.user.firstName} ${auth.user.lastName}`,
@@ -43,7 +43,7 @@ export default function AccountPage({PAGES, setPage}){
                     messages: (await apis.getAllEmailByUser(auth.user.email)).data,
                     schedules: (await apis.getAllScheduleByUser(auth.user.email)).data,
                 }
-                console.log("updated user info ",user);
+                // console.log("updated user info ",user);
                 setUserInfo(user);
             }
             else{
@@ -61,9 +61,9 @@ export default function AccountPage({PAGES, setPage}){
 
     const handleSendEmail = (email, receivers) => {
         email.sender = auth.user.email;
-        console.log(email);
+        // console.log(email);
         apis.sendEmail(email, receivers, auth.user.email).then(response => {
-            console.log("Email sent successfully:", response);
+            // console.log("Email sent successfully:", response);
             alert("Email sent successfully!");
         })
         .catch(error => {

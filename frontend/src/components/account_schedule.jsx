@@ -72,7 +72,7 @@ export default function Schedule({schedules}){
                                 defaultValue={startDate} 
                             />
                             <DateField 
-                                id="end-date-input"
+                                id="end-date-input" 
                                 label="End Date" 
                                 sx={{width:130}} 
                                 onChange={newValue => setEndDate(newValue)}
@@ -83,7 +83,7 @@ export default function Schedule({schedules}){
                 </Grid>
             </Grid>
             <Box id="schedule-box" flex="1" overflow="auto" bgcolor="#E8E8E8" borderRadius={1}>
-                {scheduleDisplay.map((schedule)=><ScheduleCard schedule={schedule}/>)}
+                {scheduleDisplay.map((schedule, index)=><ScheduleCard key={"schedule-" + index} schedule={schedule}/>)}
             </Box>
         </Box>
     </>);
