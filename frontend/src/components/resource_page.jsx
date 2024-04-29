@@ -40,7 +40,7 @@ export default function ResourcesPage(){
                 res.data.reverse();
             }
 
-            console.log(res.data.map((item) => {console.log(item)}));
+            // console.log(res.data.map((item) => {console.log(item)}));
             setResources(res.data.filter(patient => patient.name.toLowerCase().includes(name.toLowerCase())));
             
         }).catch(err => {

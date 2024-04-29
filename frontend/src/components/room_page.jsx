@@ -667,40 +667,42 @@ export default function RoomsPage(){
                         </Grid>
                     </Grid>
                     <List dense={true}>
-                        {rooms.map((room) => (
-                            <ListItem key={room._id} 
-                             divider 
-                             sx={{ 
-                                borderRadius: '50px',
-                                borderWidth: '1px',
-                                borderStyle: 'solid',
-                                borderColor: 'divider',
-                                
-                                padding: '10px'
-                            }}>
-                            <Grid container wrap="nowrap" sx={{ width: '100%' }}>
-                              <Grid item xs={6}>
-                                <ListItemText primary={room.number} />
-                              </Grid>
-                              <Grid item xs={4} sx={{ textAlign: 'right' }}>
-                                <ListItemText primary={room.empty_capacity} style={{ color: room.empty_capacity === 0 ? 'red' : 'inherit' }}/>
-                              </Grid>
-                              <Grid item xs={2}>
-                                <ListItemSecondaryAction>
-                                    <IconButton 
-                                        edge="end" 
-                                        aria-label="more"
-                                        aria-controls="long-menu"
-                                        aria-haspopup="true"
-                                        onClick={handleMenuClick}
-                                    >
-                                        <MoreVertIcon />
-                                    </IconButton>
-                                    {renderMenu}
-                                    {renderModal}
-                                </ListItemSecondaryAction>
-                              </Grid>
-                            </Grid>
+                        {rooms.map((room, index) => (
+                            <ListItem
+                                key={"room-" + index} 
+                                id={room._id} 
+                                divider 
+                                sx={{ 
+                                    borderRadius: '50px',
+                                    borderWidth: '1px',
+                                    borderStyle: 'solid',
+                                    borderColor: 'divider',
+                                    
+                                    padding: '10px'
+                                }}>
+                                <Grid container wrap="nowrap" sx={{ width: '100%' }}>
+                                    <Grid item xs={6}>
+                                        <ListItemText primary={room.number} />
+                                    </Grid>
+                                    <Grid item xs={4} sx={{ textAlign: 'right' }}>
+                                        <ListItemText primary={room.empty_capacity} style={{ color: room.empty_capacity === 0 ? 'red' : 'inherit' }}/>
+                                    </Grid>
+                                    <Grid item xs={2}>
+                                        <ListItemSecondaryAction>
+                                            <IconButton 
+                                                edge="end" 
+                                                aria-label="more"
+                                                aria-controls="long-menu"
+                                                aria-haspopup="true"
+                                                onClick={handleMenuClick}
+                                            >
+                                                <MoreVertIcon />
+                                            </IconButton>
+                                            {renderMenu}
+                                            {renderModal}
+                                        </ListItemSecondaryAction>
+                                    </Grid>
+                                </Grid>
                             </ListItem>
                         ))}
                     </List>
@@ -736,41 +738,43 @@ export default function RoomsPage(){
                         </Grid>
                     </Grid>
                     <List dense={true}>
-                        {patients.map((patient) => (
-                            <ListItem key={patient.id}
-                            divider 
-                            sx={{ 
-                                borderRadius: '50px',
-                                borderWidth: '1px',
-                                borderStyle: 'solid',
-                                borderColor: 'divider',
-                                padding: '10px'
-                            }}>
-                            <Grid container spacing={2} alignItems="center">
-                                <Grid item xs={6}>
-                                <ListItemText primary={patient.name} />
+                        {patients.map((patient,index) => (
+                            <ListItem 
+                                key={"patient-" + index}
+                                id={patient.id}
+                                divider 
+                                sx={{ 
+                                    borderRadius: '50px',
+                                    borderWidth: '1px',
+                                    borderStyle: 'solid',
+                                    borderColor: 'divider',
+                                    padding: '10px'
+                                }}>
+                                <Grid container spacing={2} alignItems="center">
+                                    <Grid item xs={6}>
+                                    <ListItemText primary={patient.name} />
+                                    </Grid>
+                                    <Grid item xs={3} sx={{ textAlign: 'center' }}>
+                                    <ListItemText primary={`Room #${patient.room}`} />
+                                    </Grid>
+                                    <Grid item xs={2} sx={{ textAlign: 'right' }}>
+                                    {/* <ListItemText primary={patient._id} /> */}
+                                    </Grid>
+                                    <Grid item xs={1}>
+                                    <ListItemSecondaryAction>
+                                        <IconButton 
+                                        aria-label="more"
+                                        aria-controls="long-menu"
+                                        aria-haspopup="true"
+                                        onClick={handleEditMenuClick}
+                                        >
+                                        <MoreVertIcon />
+                                        </IconButton>
+                                        {renderMenuEdit}
+                                        {renderEditModal}
+                                    </ListItemSecondaryAction>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={3} sx={{ textAlign: 'center' }}>
-                                <ListItemText primary={`Room #${patient.room}`} />
-                                </Grid>
-                                <Grid item xs={2} sx={{ textAlign: 'right' }}>
-                                {/* <ListItemText primary={patient._id} /> */}
-                                </Grid>
-                                <Grid item xs={1}>
-                                <ListItemSecondaryAction>
-                                    <IconButton 
-                                    aria-label="more"
-                                    aria-controls="long-menu"
-                                    aria-haspopup="true"
-                                    onClick={handleEditMenuClick}
-                                    >
-                                    <MoreVertIcon />
-                                    </IconButton>
-                                    {renderMenuEdit}
-                                    {renderEditModal}
-                                </ListItemSecondaryAction>
-                                </Grid>
-                            </Grid>
                             </ListItem>
                         ))}
                     </List>

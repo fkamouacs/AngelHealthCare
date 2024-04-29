@@ -34,10 +34,11 @@ const io = socketIO(server, {
 
 io.on("connection", socket => {
     console.log("connected with client");
-    socket.emit("connected");
+    
     socket.on("notifyUpdate", () => io.emit("updated"));
     socket.on("logged in", () => {
         console.log("user logged in");
+        socket.emit("connected");
     });
 })
 

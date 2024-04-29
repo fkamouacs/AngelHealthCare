@@ -13,7 +13,7 @@ export default function LoginPage({PAGES, setPage}){
     }
     const handleLogIn = () => {
         auth.loginUser(email, password);
-        console.log("\nlogin_page.jsx auth print: \n", auth);
+        // console.log("login_page.jsx auth print: ", auth);
         // setPage(PAGES.ACCOUNTS);
     }
     return(<>
