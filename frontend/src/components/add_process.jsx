@@ -52,6 +52,7 @@ const AddProcess = (props) => {
             let reversed = res.data.reverse()
             props.setProcesses(reversed)
            console.log(res.data);
+           props.showAddProcess(false);
          })
         }
        )
@@ -61,7 +62,7 @@ const AddProcess = (props) => {
         // props.setProcesses(getAllProcesses())
         
        
-        props.showAddProcess(false);
+       
       
       
       };
