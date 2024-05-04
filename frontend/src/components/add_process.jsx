@@ -38,7 +38,7 @@ const AddProcess = (props) => {
 
       };
 
-      const handleSubmit = async (e) => {
+      const handleSubmit = (e) => {
         e.preventDefault();
         
 
