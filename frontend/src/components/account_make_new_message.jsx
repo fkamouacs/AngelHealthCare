@@ -14,12 +14,16 @@ import {
     IconButton,
 } from '@mui/material';
 import {AddCircle} from '@mui/icons-material';
+import { useSocket } from "../SocketContext.jsx";
+
 export default function NewMessageBox({handleSendEmail}){
 
     const [receivers, setReceivers] = React.useState("");
+    const [title, setTitle] = React.useState("");
     const [message, setMessage] = React.useState("");
     const [error, setError] = React.useState("");
-    
+
+    const socket = useSocket();
 
     const regex = new RegExp('^(?=[a-zA-Z0-9@.!#$%&\'*+/=?^_`{|}~-]{6,254}$)([a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@)(?:(?=[a-zA-Z0-9-.]{1,253}$)([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,63}|(?=[a-zA-Z0-9-]{1,63}$)[a-zA-Z0-9-]+\\.[a-zA-Z]{2,63})$');
 
@@ -42,10 +46,20 @@ export default function NewMessageBox({handleSendEmail}){
             setError(newError);
             return;
         }
+
+        if(message.length == 0){
+            setError("message can't be empty!");
+            return;
+        }
+
         setError("");
 
+        if(title.length == 0){
+            title = "no title";
+        }
+
         const email = {
-            title:"no title yet ( not implemented )",
+            title: title,
             text : message
         }
 
@@ -56,6 +70,7 @@ export default function NewMessageBox({handleSendEmail}){
             } else {
                 setReceivers("");
                 setMessage("");
+                socket.emit("message updated");
             }
           });
     }
@@ -79,7 +94,7 @@ export default function NewMessageBox({handleSendEmail}){
                         onChange={(event) => setReceivers(event.target.value)}
                         sx={{
                             width:"90%",
-                            height:"100%",
+                            height:"80%",
                             fontSize:"20px",
                             '& .MuiOutlinedInput-root': {
                                 height:"100%",
@@ -106,7 +121,7 @@ export default function NewMessageBox({handleSendEmail}){
                         name={"receivers"}
                     />
             </Grid>
-            <Grid item xs={1}>
+            {/* <Grid item xs={1}>
                 <Grid container justifyContent="flex-end">
                     <IconButton
                         size='small'
@@ -116,36 +131,66 @@ export default function NewMessageBox({handleSendEmail}){
                     </IconButton>
                     
                 </Grid>
-            </Grid>
+            </Grid> */}
         </Grid>
         <Grid container width="100%" height="70%" minHeight={300} flex='1'>
             <TextField 
                 multiline
-                onChange={(event) => setMessage(event.target.value)}
-                value={message}
-                
+                onChange={(event) => setTitle(event.target.value)}
+                value={title}
                 sx={{
                     width:"100%",
-                    height:"100%",
+                    height:"20%",
+                    '& .MuiInputBase-root': {
+                        padding: 1,
+                      },
                     '& .MuiOutlinedInput-root': {
-                        height:"100%",
+                        height:"20%",
+                        margin:"2px",
+                      '& textarea': {
+                        height: '20% !important', // This forces the textarea to fill the container
+                        maxHeight: "20px",
+                        overflow: 'auto',
+                        padding: '1px'
+                      },
+                      '& .MuiInputBase-input': { 
+                        padding: '1px'
+                      }
+                    },
+                  }}
+                  name={"messageInput"}
+                // overflow={'auto'}
+            />
+            <TextField 
+                multiline
+                onChange={(event) => setMessage(event.target.value)}
+                value={message}
+                sx={{
+                    width:"100%",
+                    height:"80%",
+                    '& .MuiOutlinedInput-root': {
+                        height:"80%",
                       '& fieldset': {
-                        border: 'none'
+                        border: 'none',
+                        overflow: 'auto'
                       },
                       '&:hover fieldset': {
                         border: 'none',
+                        overflow: 'auto'
                       },
                       '&.Mui-focused fieldset': {
                         border: 'none',
                         display: 'none',
-                      },
-                      '& textarea': {
-                        height: '100% !important', // This forces the textarea to fill the container
-                        minHeight: "250px",
                         overflow: 'auto'
                       },
+                      '& textarea': {
+                        height: '80% !important', // This forces the textarea to fill the container
+                        minHeight: "220px",
+                        overflow: 'scroll'
+                      },
                       '& .MuiInputBase-input': { 
-                        padding: '1px'
+                        padding: '1px',
+                        textOverflow: "ellipsis"
                       }
                     },
                   }}

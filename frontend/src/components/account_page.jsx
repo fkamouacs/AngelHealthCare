@@ -18,7 +18,7 @@ import apis from '../api';
 
 export default function AccountPage({PAGES, setPage}){
 
-    const [viewContent, setViewContent] = React.useState("schedule");
+    const [viewContent, setViewContent] = React.useState("message");
     const [userInfo, setUserInfo] = React.useState({
         username: "",
         userId: "",
@@ -33,49 +33,40 @@ export default function AccountPage({PAGES, setPage}){
 
     const socket = useSocket();
 
-    React.useEffect(() => {
-        async function getUpdatedUser(){
-            // console.log("in account page");
-            // console.log(auth)
-            if (auth !== undefined && auth.loggedIn) {
-                const user = {
-                    username: `${auth.user.firstName} ${auth.user.lastName}`,
-                    userId: auth.user._id,
-                    isAdmin: auth.user.isAdmin,
-                    phone_number: "",
-                    status: "Active",
-                    messages: (await apis.getAllEmailByUser(auth.user.email)).data,
-                    schedules: (await apis.getAllScheduleByUser(auth.user.email)).data,
-                }
-                // console.log("updated user info ",user);
-                setUserInfo(user);
+    async function getUpdatedUser(){
+        // console.log("in account page");
+        // console.log(auth)
+        if (auth !== undefined && auth.loggedIn) {
+            const user = {
+                username: `${auth.user.firstName} ${auth.user.lastName}`,
+                userId: auth.user._id,
+                isAdmin: auth.user.isAdmin,
+                phone_number: "",
+                status: "Active",
+                messages: (await apis.getAllEmailByUser(auth.user.email)).data,
+                schedules: (await apis.getAllScheduleByUser(auth.user.email)).data,
             }
-            else{
-                console.log("no user");
-            }
+            // console.log("updated user info ",user);
+            setUserInfo(user);
+            console.log("updated");
         }
+        else{
+            console.log("no user");
+        }
+    }
+
+    React.useEffect(() => {
         getUpdatedUser();
-        
     },[auth])
 
     React.useEffect(() => {
         if(socket.connected){
             socket.on("message updated", () => {
-                apis.getAllEmailByUser(auth.user.email).then((respond)=> {
-                    setUserInfo(prevInfo => ({
-                        ...prevInfo,
-                        messages: respond.data
-                    }));
-                })
+                getUpdatedUser();
             });
 
             socket.on("schedule updated", () => {
-                apis.getAllScheduleByUser(auth.user.email).then((respond)=> {
-                    setUserInfo(prevInfo => ({
-                        ...prevInfo,
-                        schedules: respond.data
-                    }));
-                })
+                getUpdatedUser();
             });
         }
     }, [socket])
@@ -89,8 +80,7 @@ export default function AccountPage({PAGES, setPage}){
         email.sender = auth.user.email;
         // console.log(email);
         apis.sendEmail(email, receivers, auth.user.email).then(response => {
-            // console.log("Email sent successfully:", response);
-            alert("Email sent successfully!");
+            socket.emit("message updated");
         })
         .catch(error => {
             console.error("Failed to send email:", error);
@@ -99,8 +89,27 @@ export default function AccountPage({PAGES, setPage}){
     }
 
     const handleAcceptSchedule = (id) => {
-        apis.acceptSchedule(id, auth.user.email);
+        apis.acceptSchedule(id, auth.user.email).then(response => {
+            socket.emit("message updated");
+            socket.emit("schedule updated");
+        })
+        .catch(error => {
+            console.error("Failed to accept schedule:", error);
+            alert(`Failed to accept schedule: ${error.message}`);
+        });
     }
+
+    const handleDenySchedule = (id) => {
+        apis.denySchedule(id, auth.user.email).then(response => {
+            socket.emit("message updated");
+            socket.emit("schedule updated");
+        })
+        .catch(error => {
+            console.error("Failed to deny schedule:", error);
+            alert(`Failed to deny schedule: ${error.message}`);
+        });
+    }
+
 
     return(<>
         <Box py={1}  minHeight={600} height={"75%"}>
@@ -146,9 +155,9 @@ export default function AccountPage({PAGES, setPage}){
                 </Grid>
             </Grid>
             <Grid container height={"70%"}>
-                <Grid item xs={7} padding={1} height={"100%"} bgcolor={"#E8E8E8"} minHeight={500}>
+                <Grid item xs={7} padding={1} bgcolor={"#E8E8E8"} minHeight={450} maxHeight={500}>
                     {(viewContent == "message") ?
-                        <MessageBox messages={userInfo.messages} handleAcceptSchedule={handleAcceptSchedule}/>
+                        <MessageBox messages={userInfo.messages} handleDenySchedule={handleDenySchedule} handleAcceptSchedule={handleAcceptSchedule}/>
                         : <Schedule schedules={userInfo.schedules}/>
                     }
                 </Grid>
