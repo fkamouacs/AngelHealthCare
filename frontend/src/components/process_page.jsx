@@ -77,7 +77,7 @@ const ProcessPage = (props) => {
    
 
    const displayProcedures = () => {
-    console.log(procedures)
+   if (currentProcess.procedureIds)
     return procedures.map(p => { if (currentProcess.procedureIds.includes(p._id)) {return (
         <Step
         key={p._id}
