@@ -46,17 +46,20 @@ const AddProcess = (props) => {
         console.log(value)
         //addProcess(formData.name, value);
 
-        apis.addProcess(formData.name, value).then(res =>
-        console.log(res))
+        apis.addProcess(formData.name, value).then(res => {
+          console.log(res)
+          apis.getAllProcesses().then(res => {
+            let reversed = res.data.reverse()
+            props.setProcesses(reversed)
+           console.log(res.data);
+         })
+        }
+       )
 
 
         // console.log(getAllProcesses())
         // props.setProcesses(getAllProcesses())
-        apis.getAllProcesses().then(res => {
-          let reversed = res.data.reverse()
-          props.setProcesses(reversed)
-         console.log(res.data);
-       })
+        
        
         props.showAddProcess(false);
       
