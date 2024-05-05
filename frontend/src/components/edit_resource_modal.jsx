@@ -13,12 +13,12 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 
 
-export default function EditResourceModal({id, openModal, handleModalClose, handleEdit, handleFetch}){
+export default function EditResourceModal({editData, handleEdit}){
 
     // const [openModal, setOpenModal] = useState(false);
-    const [name, setName] = useState('');
-    const [count, setCount] = useState(0);
-    const [special_note, setSpecialNote] = useState('');
+    const [name, setName] = useState(editData.name);
+    const [count, setCount] = useState(editData.count);
+    const [special_note, setSpecialNote] = useState(editData.special_note);
 
     const lables = ["Name", "Count", "Special Note"];
     const handlers = [setName, setCount, setSpecialNote];
@@ -28,33 +28,7 @@ export default function EditResourceModal({id, openModal, handleModalClose, hand
         handleEdit(name, count, special_note);
     }
     
-    useEffect(() => {
-        if (openModal) {
-            handleFetch(id).then(response => {
-                console.log(response.data);
-                if (response.data) {
-                    setName(response.data.name || '');
-                    setCount(response.data.count || 0);
-                    setSpecialNote(response.data.special_note || '');
-                }
-            });
-        } else {
-            // Reset values if there is no id
-            setName('');
-            setCount(0);
-            setSpecialNote('');
-        }
-    }, [openModal]);
-    
-
-
-    
-    return (<Modal
-        open={openModal}
-        BackdropProps={{
-            style: { backgroundColor: 'rgba(0, 0, 0, 0.1)' } 
-        }}  
-    >
+    return (
         <Box
             sx={{
                 position: 'absolute', 
@@ -71,15 +45,8 @@ export default function EditResourceModal({id, openModal, handleModalClose, hand
             <Grid container marginBottom={2}>
                 <Grid item xs={6} fontSize={40}>
                     <Typography fontSize={'30px'} color={'#6682c4'} sx={{}}>
-                            Add Resource
+                            Edit Resource
                     </Typography>
-                </Grid>
-                <Grid item xs={6} display="flex" justifyContent="flex-end">
-                    <IconButton 
-                        onClick={handleModalClose}
-                    >
-                        <CloseIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', color: '#6682c4'}}/>
-                    </IconButton>
                 </Grid>
             </Grid>
             <Grid container marginBottom={2}>
@@ -126,5 +93,5 @@ export default function EditResourceModal({id, openModal, handleModalClose, hand
                 </Button>
             </Box>
         </Box>
-    </Modal>);
+    );
 }
