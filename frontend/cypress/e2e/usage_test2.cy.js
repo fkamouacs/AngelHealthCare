@@ -20,7 +20,8 @@ describe('usage test 2', () => {
         cy.get('button').contains('view messages', {matchCase: false}).should('be.visible').click({ force: true });wait();
 
         cy.get('input[name="receivers"]').type("huifu.li@stonybrook.edu");wait();
-        cy.get('textarea[name="messageInput"]').type("fhuisdag");wait();
+        cy.get('textarea[name="titleInput"]').type("title 1");wait();
+        cy.get('textarea[name="messageInput"]').type("message 1");wait();
         
         // cy.get('button').contains("send", {matchCase: false}).should('be.visible').click({ force: true });
 

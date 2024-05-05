@@ -158,7 +158,7 @@ export default function NewMessageBox({handleSendEmail}){
                       }
                     },
                   }}
-                  name={"messageInput"}
+                  name={"titleInput"}
                 // overflow={'auto'}
             />
             <TextField 
