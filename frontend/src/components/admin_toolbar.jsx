@@ -34,6 +34,7 @@ export default function AdminToolbar({PAGES, setPage}) {
     const [OpenPatientModal, setOpenPatientModal] = useState(false);
     const [OpenRoomModal, setOpenRoomModal] = useState(false);
     const [OpenResourceModal, setOpenResourceModal] = useState(false);
+    const [resourceData, setResourceData] = useState(null);
 
     const renderFeature = () => {
         switch (activeFeature) {
@@ -46,6 +47,13 @@ export default function AdminToolbar({PAGES, setPage}) {
                 return <NewPatientModal handleAdd={handleAddPatient} />;
             case 'addNewResource':
                 return <NewResourceModal handleAdd={handleAddResource} />;
+            case 'editRoom':
+                return <SelectIdModal setId={setId} handleSelectId={handleSelectId}/>;
+            case 'editResource':
+                return <SelectIdModal setId={setId} handleSelectId={handleSelectId}/>;
+            case 'actualEditResource':
+                console.log(resourceData);
+                return <EditResourceModal editData={resourceData} handleEdit={handleEditResource} />;
             default:
                 return <NewRoomModal handleAdd={handleAddRoom} />;
         }
@@ -110,7 +118,7 @@ export default function AdminToolbar({PAGES, setPage}) {
 
     const editFunctions = [{
             name:"Edit Room",
-            function : () => {setItemType("room"); setOpenSelectIdModal(true)}
+            function : () => {setItemType("room"); setActiveFeature("editRoom")}
         },{
             name:"Edit User",
             function : () => {setItemType("user"); setOpenSelectIdModal(true)}
@@ -119,7 +127,7 @@ export default function AdminToolbar({PAGES, setPage}) {
             function : () => {setItemType("patient"); setOpenSelectIdModal(true)}
         },{
             name:"Edit Resource",
-            function : () => {setItemType("resource"); setOpenSelectIdModal(true)}
+            function : () => {setItemType("resource"); setActiveFeature("editResource")}
         }
     ];
 
@@ -152,6 +160,9 @@ export default function AdminToolbar({PAGES, setPage}) {
     };
 
     const handleEditResource = async (name, count, special_note) => {
+        console.log(name);
+        console.log(count);
+        console.log(special_note);
         await apis.updateResourceById(id, name, count, special_note).then(() => 
             alert("Edit complete")
         ).catch(() => 
@@ -159,17 +170,26 @@ export default function AdminToolbar({PAGES, setPage}) {
         );
     };
 
-    const handleSelectId = () => {
+    const handleSelectId = async () => {
         console.log(id);
         console.log(itemType);
-        setOpenSelectIdModal(false);
 
         switch(itemType){
             case "resource":
-                setOpenResourceModal(true)
+                console.log("Switch to add new resource page");
+                const resourceById = (await apis.getResourceById(id)).data;
+                setResourceData({name : resourceById.name, count : resourceById.count, special_note : resourceById.special_note});
+                console.log(resourceById);
+                setActiveFeature("actualEditResource");
                 break;
             case "room":
-                setOpenRoomModal(true)
+                console.log("Switch to add new room page");
+                await apis.getRoomById(id).then(() => 
+                    alert("get Room by Id complete")
+                ).catch(() => 
+                    alert("Unable get Room by Id")
+                );
+                setActiveFeature("addNewRoom");
                 break;
             case "user":
                 setOpenUserModal(true)
