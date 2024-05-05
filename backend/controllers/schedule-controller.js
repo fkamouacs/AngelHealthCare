@@ -22,6 +22,7 @@ getScheduleByUser = async (req,res) => {
                 }
                 output.push(formatedSchedule);
             }
+            output.reverse();
             // console.log(output);
             res.status(200).json(output);
         })
@@ -39,12 +40,8 @@ acceptSchedule = async (req, res) => {
         if(user.schedule.includes(schedule)){
             res.statu(400).send("The user have already accepted this request.");
         }
-        schedule.date = Date();
-        schedule.acceptedBy.push(user._id);
-        user.schedule.push(schedule._id);
 
-        await schedule.save();
-        await user.save();
+        await User.updateOne({ email: req.body.email }, { $push: { schedule: schedule._id } });
         
         res.status(200).send("Schedule accepted successfully.");
     } catch (error) {
@@ -54,8 +51,17 @@ acceptSchedule = async (req, res) => {
 }
 
 denySchedule = async (req, res) => {
-    const schedule = await Schedule.findOne({_id:req.params.id});
-    const user = await User.findOne({email:req.body.email});
+    try {
+        const schedule = await Schedule.findOne({_id:req.params.id});
+        const user = await User.findOne({email:req.body.email});
+
+        await User.updateOne({ email: req.body.email }, { $pull: { schedule: schedule._id } });
+
+        res.status(200).send("Schedule denied successfully.");
+    } catch (error) {
+        console.log("An error occurred: " + error.message);
+        res.status(500).send("An error occurred: " + error.message);
+}
 }
 
 module.exports = {

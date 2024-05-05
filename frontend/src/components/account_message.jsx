@@ -12,7 +12,10 @@ import {
     Grid,
 } from '@mui/material';
 import MessageCard from './account_message_card.jsx';
-export default function MessageBox({messages, handleAcceptSchedule}){
+export default function MessageBox({messages, handleAcceptSchedule, handleDenySchedule}){
+
+
+
     return(<>
         <Box display="flex" flexDirection="column" height="100%">
             <Box flex="0 0 auto" height={"10%"} maxHeight={40}>
@@ -22,7 +25,7 @@ export default function MessageBox({messages, handleAcceptSchedule}){
             </Box>
             <Box id="message-box" flex="1" overflow="auto" bgcolor="#E8E8E8" borderRadius={1}>
                 {messages.map((msg, index) => (
-                <MessageCard key={index} message={msg} handleAcceptSchedule={handleAcceptSchedule}/>
+                <MessageCard key={index} message={msg} handleDenySchedule={handleDenySchedule} handleAcceptSchedule={handleAcceptSchedule}/>
                 ))}
             </Box>
         </Box>

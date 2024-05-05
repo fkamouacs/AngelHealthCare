@@ -38,7 +38,7 @@ const AddProcess = (props) => {
 
       };
 
-      const handleSubmit = async (e) => {
+      const handleSubmit = (e) => {
         e.preventDefault();
         
 
@@ -46,19 +46,23 @@ const AddProcess = (props) => {
         console.log(value)
         //addProcess(formData.name, value);
 
-        apis.addProcess(formData.name, value).then(res =>
-        console.log(res))
+        apis.addProcess(formData.name, value).then(res => {
+          console.log(res)
+          apis.getAllProcesses().then(res => {
+            let reversed = res.data.reverse()
+            props.setProcesses(reversed)
+           console.log(res.data);
+           props.showAddProcess(false);
+         })
+        }
+       )
 
 
         // console.log(getAllProcesses())
         // props.setProcesses(getAllProcesses())
-        await apis.getAllProcesses().then(res => {
-          let reversed = res.data.reverse()
-          props.setProcesses(reversed)
-         console.log(res.data);
-       })
+        
        
-        props.showAddProcess(false);
+       
       
       
       };

@@ -12,7 +12,6 @@ const request = require('supertest');
 const path = require('path');
 const socketIO = require("socket.io");
 const app = express();
-const PORT = 3000;
 
 mongoose.connect('mongodb+srv://feridkamoua:test@cluster0.tlfbqfv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
@@ -40,10 +39,17 @@ io.on("connection", socket => {
         console.log("user logged in");
         socket.emit("connected");
     });
+
+    socket.on("message updated", () => io.emit("message updated"));
+    socket.on("schedule updated", () => io.emit("schedule updated"));
+    socket.on("room updated", () => io.emit("room updated"));
+    socket.on("patient updated", () => io.emit("patient updated"));
+    socket.on("resource updated", () => io.emit("resource updated"));
+
 })
 
-server.listen(5000, () => {
-    console.log('Listening on *:5000');
+server.listen(2456, () => {
+    console.log('Listening on *:2456');
 });
 
 // needed for deployment

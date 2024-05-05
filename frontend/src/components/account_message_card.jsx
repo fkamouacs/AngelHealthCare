@@ -18,15 +18,18 @@ import {
 
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
+import { useSocket } from "../SocketContext.jsx";
 
-export default function MessageCard({message, handleAcceptSchedule}){
+export default function MessageCard({message, handleAcceptSchedule, handleDenySchedule}){
+
+    const socket = useSocket();
 
     const handleAccept = () => {
-        handleAcceptSchedule(message.schedule);
+         handleAcceptSchedule(message.schedule);
     }
 
     const handleDeny = () => {
-        alert("not implemented yet, should one be able to deny a request or should that be handled in person?");
+        handleDenySchedule(message.schedule);
     }
 
     return(<>
@@ -40,8 +43,11 @@ export default function MessageCard({message, handleAcceptSchedule}){
                     <Grid item justifyContent={'left'} xs={6}>
                         {message.title}
                     </Grid>
-                    <Grid item alignItems={'right'} xs={6}  px={1}>
+                    <Grid item alignItems={'right'} xs={3}  px={1}>
                         from : {message.sender}
+                    </Grid>
+                    <Grid item alignItems={'right'} xs={3}  px={1}>
+                        {message.date}
                     </Grid>
                 </Grid>
                 </AccordionSummary>
@@ -51,10 +57,10 @@ export default function MessageCard({message, handleAcceptSchedule}){
                 </AccordionDetails>
                 {message.schedule == null ? <></> : 
                     <>
-                        <Button onClick={handleAccept}>
+                        <Button onClick={handleAccept} disabled={message.status == "accept"}>
                             <CheckCircleOutlineIcon/> Accept
                         </Button>
-                        <Button onClick={handleDeny}> 
+                        <Button onClick={handleDeny} disabled={message.status == "deny"}> 
                             <DoDisturbIcon/>Deny
                         </Button>
                     </>

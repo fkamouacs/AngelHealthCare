@@ -57,36 +57,42 @@ const [dateError, setDateError] = useState(false)
 
 useEffect(() => {
 
-  async function fetchData() {
+  // async function fetchData() {
 
-    // You can await here
-    await apis.getProcedureById(props._id).then(res => {
-      console.log(res.data)
-      setCurrentProcedure(res.data)
-      setAssignedStaff(res.data.staff)
-      setAssignedResources(res.data.resources)
-      setAssignedRoom(res.data.rooms)
-     
+  //   // You can await here
+  //   await
+  // }
+  // fetchData();
+
+  apis.getProcedureById(props._id).then(res => {
+    console.log(res.data)
+    setCurrentProcedure(res.data)
+    setAssignedStaff(res.data.staff)
+    setAssignedResources(res.data.resources)
+    setAssignedRoom(res.data.rooms)
+   
+  }).then (() => {
+    apis.getAvailableAccounts(currentProcedure._id,currentProcedure.date).then(res => {
+      console.log(res.data);
+      setAvailableStaff(res.data);
+    }).then( () => {
+      apis.getAvailableResources(currentProcedure._id, currentProcedure.date).then(res =>{
+        console.log(res.data)
+        setAvialableResources(res.data)
+      }).then( () => {
+        apis.getAvailableRooms(currentProcedure._id, currentProcedure.date).then(res => {
+          console.log(res.data)
+          setAvailableRooms(res.data)
+        })
+      })
     })
-  }
-  fetchData();
-
-
-
-  apis.getAvailableAccounts(currentProcedure._id,currentProcedure.date).then(res => {
-    console.log(res.data);
-    setAvailableStaff(res.data);
   })
 
-  apis.getAvailableResources(currentProcedure._id, currentProcedure.date).then(res =>{
-    console.log(res.data)
-    setAvialableResources(res.data)
-  })
+ 
 
-  apis.getAvailableRooms(currentProcedure._id, currentProcedure.date).then(res => {
-    console.log(res.data)
-    setAvailableRooms(res.data)
-  })
+  
+
+ 
 
 },[])
 

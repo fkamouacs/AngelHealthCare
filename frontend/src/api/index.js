@@ -250,10 +250,13 @@ export const sendEmail = (email, receivers, sender) => api.post("/email/", {emai
 
 export const getAllScheduleByUser = (email) => api.get('/schedule/' + email);
 export const acceptSchedule = (id,email) => api.put("/schedule/accept/" + id, {email: email});
+export const denySchedule = (id,email) => api.put("/schedule/deny/" + id, {email: email});
+
 
 const apis = {
     getAllScheduleByUser,
     acceptSchedule,
+    denySchedule,
     createProcess,
     deleteProcessById,
     getProcessById,
