@@ -16,12 +16,16 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const server = http.createServer(app);
 
+__dirname = path.resolve();
+    app.use(express.static(path.join(__dirname, '/frontend/build')))
+
 const io = socketIO(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
   },
 });
+
 
 app.use(cors({
   origin: "*",
