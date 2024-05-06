@@ -270,17 +270,35 @@ const AddProcedure = (props) => {
          const fetchData = async () => {
           for (let i = 0; i < assignedStaff.length; i++) {
             // get account emails
-            apis.getAccountById(assignedStaff[i]).then(res => {
-              receivers.push(res.data.email)
-            })
+
+            try {
+              const response = await apis.getAccountById(assignedStaff[i])
+              const data = await response.data.email
+              receivers.push(data);
+            } catch (error) {
+              console.error("error fetching data: ", error);
+            }
+
+            // console.log("assignedstaff " + assignedStaff[i])
+            // apis.getAccountById(assignedStaff[i]).then(res => {
+            //   console.log(res.data)
+            //   receivers.push(res.data.email)
+            // })
+
+            processResults(receivers);
           }
          }
          
-         fetchData().then(() => {
-          const sender = 'huifu.li@stonybrook.edu';
-          apis.sendEmail(email, receivers, sender)
-         })
 
+         const processResults = (results) => {
+          const sender = 'huifu.li@stonybrook.edu';
+          console.log("testxd " + receivers)
+          apis.sendEmail(email, receivers, sender).then((res) =>{
+            console.log("email" + res.data)
+          })
+         }
+
+         fetchData()
       
 
         apis.addProcedure(formData.name, props.currentProcess.patientId, date, [], assignedResources, assignedRoom, props.currentProcess._id).then(res => {

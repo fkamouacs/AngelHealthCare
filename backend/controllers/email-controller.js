@@ -72,6 +72,7 @@ sendEmail = async (req,res) => {
 
     const receivers = req.body.receivers;
     const emailId = await Email.create(customEmail);
+    console.log("receiversxd " + req.body.receivers)
 
     try {
         for(let receiver of receivers){
