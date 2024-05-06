@@ -276,7 +276,7 @@ const AddProcedure = (props) => {
           }
          }
          
-         fetchData.then(() => {
+         fetchData().then(() => {
           const sender = 'huifu.li@stonybrook.edu';
           apis.sendEmail(email, receivers, sender)
          })
