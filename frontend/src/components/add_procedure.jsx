@@ -255,7 +255,35 @@ const AddProcedure = (props) => {
         //addProcedure(formData.name, props.currentProcess.patient, date, assignedStaff, assignedResources, assignedRoom, props.currentProcess._id)
         
         console.log(props.currentProcess._id)
-        apis.addProcedure(formData.name, props.currentProcess.patientId, date, assignedStaff, assignedResources, assignedRoom, props.currentProcess._id).then(res => {
+
+        // send emails to assigned staff
+        const email = {
+          title: `${formData.name} procedure staff request`,
+          text: `confirm your assignment to this procedure`,
+          sender: 'huifu.li@stonybrook.edu',
+          schedule: date
+        }
+
+        let receivers = [];
+        
+
+         const fetchData = async () => {
+          for (let i = 0; i < assignedStaff.length; i++) {
+            // get account emails
+            apis.getAccountById(assignedStaff[i]).then(res => {
+              receivers.push(res.data.email)
+            })
+          }
+         }
+         
+         fetchData.then(() => {
+          const sender = 'huifu.li@stonybrook.edu';
+          apis.sendEmail(email, receivers, sender)
+         })
+
+      
+
+        apis.addProcedure(formData.name, props.currentProcess.patientId, date, [], assignedResources, assignedRoom, props.currentProcess._id).then(res => {
           console.log(res.data.procedureIds)
           const newProcedureIds = res.data.procedureIds
           console.log(props.currentProcess.procedureIds)
