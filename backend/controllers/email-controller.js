@@ -58,16 +58,21 @@ sendEmail = async (req,res) => {
     const customEmail = {
         title:req.body.email.title, 
         text: req.body.email.text, 
-        sender:sender
+        sender:sender,
+        schedule: req.body.email.schedule
     };
 
-    if(req.body.schedule !== undefined && req.body.schedule !== null){
-        customEmail["schedule"] = req.body.schedule;
-    }
+    // if(req.body.schedule !== undefined && req.body.schedule !== null){
+    //     customEmail["schedule"] = req.body.schedule;
+    // }else{
+    //     customEmail["schedule"] = await Schedule.findOne();
+    // }
+
 
 
     const receivers = req.body.receivers;
     const emailId = await Email.create(customEmail);
+    console.log("receiversxd " + req.body.receivers)
 
     try {
         for(let receiver of receivers){

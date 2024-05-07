@@ -80,8 +80,17 @@ addAccount = async (req, res) => {
 }
 
 getAccountById = async (req, res) => {
-    console.log(req.params._id);
+    console.log("paramsxd " + req.params.id);
     // Account.find({_id: req.params._id})
+    Account.findById(req.params.id).exec()
+    .then((docs) => {
+        // console.log(docs);
+        res.json(docs);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send(err);
+    });
 }
 
 getAllAccounts = async (req,res) => {
