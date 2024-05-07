@@ -9,9 +9,6 @@ const ScheduleSchema = new Schema(
         hidden: {type: Boolean, default: false},
         isDone: {type: Boolean, default: false},
         date: {type:Date, required:true},
-        acceptedBy : {type: [ObjectId], default:[]},
-        deniedBy : {type: [ObjectId], default:[]},
-        // pending : {type: [ObjectId], require:true}
     },{timestamps: true}
 )
 

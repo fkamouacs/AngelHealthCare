@@ -16,15 +16,15 @@ import { useSocket } from "../SocketContext.jsx";
 
 import apis from '../api';
 
-export default function AccountPage({PAGES, setPage}){
+export default function AccountPage({PAGES, setPage, user, messages, schedules}){
 
     const [viewContent, setViewContent] = React.useState("message");
     const [userInfo, setUserInfo] = React.useState({
-        username: "",
-        userId: "",
-        role: "",
-        phone_number: "",
-        status: "",
+        username: "N/A",
+        userId: "N/A",
+        role: "Staff",
+        phone_number: "N/A",
+        status: "ACTIVE",
         messages: [],
         schedules: [],
     });
@@ -38,13 +38,14 @@ export default function AccountPage({PAGES, setPage}){
         // console.log(auth)
         if (auth !== undefined && auth.loggedIn) {
             const user = {
-                username: `${auth.user.firstName} ${auth.user.lastName}`,
-                userId: auth.user._id,
-                isAdmin: auth.user.isAdmin,
-                phone_number: "",
-                status: "Active",
-                messages: (await apis.getAllEmailByUser(auth.user.email)).data,
-                schedules: (await apis.getAllScheduleByUser(auth.user.email)).data,
+                username: `${auth.user.firstName} ${auth.user.lastName}` || "N/A",
+                userId: auth.user._id || "N/A",
+                isAdmin: auth.user.isAdmin || false,
+                phone_number: auth.user.phone_number || "N/A",
+                email: auth.user.email || "",
+                status: auth.user.status || "Active",
+                messages: (await apis.getAllEmailByUser(auth.user.email)).data || [],
+                schedules: (await apis.getAllScheduleByUser(auth.user.email)).data || [],
             }
             // console.log("updated user info ",user);
             setUserInfo(user);
@@ -77,9 +78,9 @@ export default function AccountPage({PAGES, setPage}){
     }
 
     const handleSendEmail = (email, receivers) => {
-        email.sender = auth.user.email;
+        email.sender = user.email;
         // console.log(email);
-        apis.sendEmail(email, receivers, auth.user.email).then(response => {
+        apis.sendEmail(email, receivers, user.email).then(response => {
             socket.emit("message updated");
         })
         .catch(error => {
@@ -89,7 +90,7 @@ export default function AccountPage({PAGES, setPage}){
     }
 
     const handleAcceptSchedule = (id) => {
-        apis.acceptSchedule(id, auth.user.email).then(response => {
+        apis.acceptSchedule(id, user.email).then(response => {
             socket.emit("message updated");
             socket.emit("schedule updated");
         })
@@ -100,7 +101,7 @@ export default function AccountPage({PAGES, setPage}){
     }
 
     const handleDenySchedule = (id) => {
-        apis.denySchedule(id, auth.user.email).then(response => {
+        apis.denySchedule(id, user.email).then(response => {
             socket.emit("message updated");
             socket.emit("schedule updated");
         })

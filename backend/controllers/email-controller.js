@@ -63,8 +63,6 @@ sendEmail = async (req,res) => {
 
     if(req.body.schedule !== undefined && req.body.schedule !== null){
         customEmail["schedule"] = req.body.schedule;
-    }else{
-        customEmail["schedule"] = await Schedule.findOne();
     }
 
 
