@@ -27,6 +27,7 @@ export default function AccountPage({PAGES, setPage, user, messages, schedules})
         status: "ACTIVE",
         messages: [],
         schedules: [],
+        email: "N/A",
     });
 
     const {auth} = React.useContext(AuthContext) || {};
@@ -91,7 +92,7 @@ export default function AccountPage({PAGES, setPage, user, messages, schedules})
 
     const handleAcceptSchedule = (id) => {
      
-        apis.acceptSchedule(id._id, user.email).then(response => {
+        apis.acceptSchedule(id._id, userInfo.email).then(response => {
             socket.emit("message updated");
             socket.emit("schedule updated");
         })
