@@ -1,6 +1,7 @@
 const Account = require('../models/user-model.js')
 const Procedure = require('../models/procedure-model.js')
 const bcrypt = require('bcrypt');
+const os = require('os');
 const saltRounds = 10;
 
 
