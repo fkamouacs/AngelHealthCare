@@ -1,6 +1,7 @@
 const Email = require('../models/email-model.js')
 const User = require('../models/user-model.js')
-const Schedule = require('../models/schedule-model.js')
+const Schedule = require('../models/schedule-model.js');
+const  Procedure = require('../models/procedure-model.js');
 
 getAllEmailByUser = async (req,res) => {
     const email = req.params.user;  
@@ -67,32 +68,28 @@ sendEmail = async (req,res) => {
     
     };
 
-    // if(req.body.schedule !== undefined && req.body.schedule !== null){
-    //     customEmail["schedule"] = req.body.schedule;
-    // }else{
-    //     customEmail["schedule"] = await Schedule.findOne();
-    // }
+    if(req.body.email.procedureId !== undefined && req.body.email.procedureId !== null){
+        customEmail["schedule"] = req.body.schedule;
+        // make a new schedule object
+        
+        const procedure = await Procedure.findOne({_id:req.body.email.procedureId});
 
-    // make a new schedule object
-    const newSchedule = {
-        title: req.body.email.title,
-        text: req.body.email.text,
-        date: req.body.email.schedule
+        const newSchedule = {
+            title: req.body.email.title,
+            text: `Please accept prcedure : ${name}`,
+            date: req.body.email.schedule
+        }
+
+        if (req.body.email.procedureId !== undefined && req.body.email.procedureId !== null) {
+            newSchedule["procedureId"] = req.body.email.procedureId
+            customEmail["procedureId"] = req.body.email.procedureId
+        }
+
+        await Schedule.create(newSchedule).then((schedule) => {
+            customEmail["schedule"] = schedule;
+            console.log("schedule created " + schedule)
+        })
     }
-
-
-    if (req.body.email.procedureId !== undefined && req.body.email.procedureId !== null) {
-        newSchedule["procedureId"] = req.body.email.procedureId
-        customEmail["procedureId"] = req.body.email.procedureId
-    }
-
-    await Schedule.create(newSchedule).then((schedule) => {
-        customEmail["schedule"] = schedule;
-        console.log("schedule created " + schedule)
-    })
-
-
-   
 
     const receivers = req.body.receivers;
     const emailId = await Email.create(customEmail);
