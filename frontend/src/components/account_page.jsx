@@ -80,9 +80,9 @@ export default function AccountPage({PAGES, setPage, user, messages, schedules})
     }
 
     const handleSendEmail = (email, receivers) => {
-        email.sender = user.email;
+        email.sender = userInfo.email;
         // console.log(email);
-        apis.sendEmail(email, receivers, user.email).then(response => {
+        apis.sendEmail(email, receivers, userInfo.email).then(response => {
             socket.emit("message updated");
         })
         .catch(error => {
