@@ -31,7 +31,7 @@ export default function RoomsPage(){
 
     const updatePatient = () => {
         apis.getAllPatients().then(res=>{
-            setPatients(res.data)
+            setPatients(res.data);
         }).catch(err => {
             console.error('Failed to fetch patients:', err.message); // Log more specific error information
         });
@@ -186,14 +186,14 @@ export default function RoomsPage(){
                 {/* List of patients */}
                 <Paper sx={{ width: '100%', padding: 2 , borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', height: '500px', overflow: 'auto'}}>
                     <Grid container sx={{ borderBottom: 1, borderColor: 'divider', pb: 1 }}>
-                        <Grid item xs={6}>
+                        <Grid item xs={3}>
                             <Typography variant="subtitle1">Name</Typography>
                         </Grid>
-                        <Grid item xs={3}>
-                            <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>Room #</Typography>
+                        <Grid item xs={4}>
+                            <Typography variant="subtitle1" sx={{ textAlign: 'center'}}>Patient Id</Typography>
                         </Grid>
                         <Grid item xs={3}>
-                            <Typography variant="subtitle1" sx={{ textAlign: 'right', pr: 8 }}>{/*Patient Id*/}</Typography>
+                            <Typography variant="subtitle1" sx={{ textAlign: 'right' }}>Room #</Typography>
                         </Grid>
                     </Grid>
                     <List dense={true}>
@@ -210,15 +210,16 @@ export default function RoomsPage(){
                                     padding: '10px'
                                 }}>
                                 <Grid container spacing={2} alignItems="center">
-                                    <Grid item xs={6}>
+                                    <Grid item xs={3}>
                                     <ListItemText primary={patient.name} />
                                     </Grid>
-                                    <Grid item xs={3} sx={{ textAlign: 'center' }}>
-                                    <ListItemText primary={`Room #${patient.roomNumber}`} />
+                                    <Grid item xs={4} sx={{ textAlign: 'center' }}>
+                                        <ListItemText primary={patient._id} />
                                     </Grid>
-                                    <Grid item xs={2} sx={{ textAlign: 'right' }}>
-                                    {/* <ListItemText primary={patient._id} /> */}
+                                    <Grid item xs={3.5} sx={{ textAlign: 'right' }}>
+                                        <ListItemText primary={`Room #${patient.roomNumber}`} />
                                     </Grid>
+                                    
                                 </Grid>
                             </ListItem>
                         ))}
