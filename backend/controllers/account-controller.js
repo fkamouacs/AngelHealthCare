@@ -15,10 +15,23 @@ const transporter = nodemailer.createTransport({
     },
   });
 // async..await is not allowed in global scope, must use a wrapper
+
+function getLocalIpAddress() {
+    const networkInterfaces = os.networkInterfaces();
+    for (const interface in networkInterfaces) {
+        for (const networkInterface of networkInterfaces[interface]) {
+            if (!networkInterface.internal && networkInterface.family === 'IPv4') {
+                return networkInterface.address;
+            }
+        }
+    }
+    return 'localhost'; // fallback to localhost if no external IP found
+}
+
 async function sendVerifyLink(key, email) {
     // send mail with defined transport object
-    
-    const verifyLink = `http://localhost:3001/api/account/verify/${encodeURIComponent(email)}/${encodeURIComponent(key)}`;
+    const ip = getLocalIpAddress();
+    const verifyLink = `http://${ip}:3001/api/account/verify/${encodeURIComponent(email)}/${encodeURIComponent(key)}`;
 
     transporter.sendMail({
       from: 'stks01201@gmail.com', // sender address
