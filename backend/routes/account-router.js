@@ -13,6 +13,6 @@ router.post('/addAccountSchedule', AccountController.addAccountSchedule)
 router.put('/updateProcedureStaffDate', AccountController.updateProcedureStaffDate)
 router.post('/archiveAccount', AccountController.archiveAccount)
 router.post('/unarchiveAccount', AccountController.unarchiveAccount)
-
+router.put('/:id', AccountController.updateAccountById)
 
 module.exports = router

@@ -12,29 +12,26 @@ import {
 
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function EditPatientModal({openModal, handleModalClose, handleAdd}){
+export default function EditPatientModal({editData, handleEdit}){
 
     // const [openModal, setOpenModal] = useState(false);
-    const [firstName, setFirstname] = useState('');
-    const [lastName, setLastname] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [firstName, setFirstname] = useState(editData.firstName);
+    const [lastName, setLastname] = useState(editData.lastName);
+    const [email, setEmail] = useState(editData.email);
+    const [phoneNumber, setPhoneNumber] = useState(editData.phoneNumber);
+    const [otherContactNumber, setOtherContactNumber] = useState(editData.otherContactNumber);
+    const [roomNumber, setRoomNumber] = useState(editData.roomNumber);
 
-    const lables = ["Firstname", "Lastname", "Email", "Password"];
-    const handlers = [setFirstname, setLastname, setEmail, setPassword];
-
+    const lables = ["Firstname", "Lastname", "Email", "Phone Number", "Other Contact Number", "Room Number"];
+    const handlers = [setFirstname, setLastname, setEmail, setPhoneNumber, setOtherContactNumber, setRoomNumber];
+    const values = [firstName, lastName, email, phoneNumber, otherContactNumber, roomNumber];
     function handleAddItem(){
-        handleAdd(firstName, lastName, email, password);
+        handleEdit(firstName, lastName, email, phoneNumber, otherContactNumber, roomNumber);
     }
 
 
     
-    return (<Modal
-        open={openModal}
-        BackdropProps={{
-            style: { backgroundColor: 'rgba(0, 0, 0, 0.1)' } 
-        }}  
-    >
+    return (
         <Box
             sx={{
                 position: 'absolute', 
@@ -53,13 +50,6 @@ export default function EditPatientModal({openModal, handleModalClose, handleAdd
                     <Typography fontSize={'30px'} color={'#6682c4'} sx={{}}>
                             Patient
                     </Typography>
-                </Grid>
-                <Grid item xs={6} display="flex" justifyContent="flex-end">
-                    <IconButton 
-                        onClick={handleModalClose}
-                    >
-                        <CloseIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', color: '#6682c4'}}/>
-                    </IconButton>
                 </Grid>
             </Grid>
             <Grid container marginBottom={2}>
@@ -88,6 +78,7 @@ export default function EditPatientModal({openModal, handleModalClose, handleAdd
                             }}
                             size="small"
                             sx={{ width: '225px' }}
+                            value={values[index]}
                         />
                     </Grid>
                     ))}
@@ -105,5 +96,5 @@ export default function EditPatientModal({openModal, handleModalClose, handleAdd
                 </Button>
             </Box>
         </Box>
-    </Modal>);
+    );
 }

@@ -28,8 +28,6 @@ export default function NewUserModal({handleAdd}){
         handleAdd(firstName, lastName, email, password, isAdmin);
     }
 
-
-    
     return (
         <Box
             sx={{

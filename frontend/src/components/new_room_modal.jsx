@@ -16,15 +16,15 @@ export default function NewRoomModal({handleAdd}){
     const [number, setNumber] = useState('');
     const [max_capacity, setMaxCapacity] = useState(1);
     const [empty_capacity, setEmptyCapacity] = useState(-1);
-    const [patients, setPatients] = useState([]);
-    const [resources, setResources] = useState([]);
+    let [patients, setPatients] = useState('');
+    const [resources, setResources] = useState('');
     const [special_note, setSpecialNote] = useState('');
 
-    const lables = ["Number", "Max Capacity", "Empty Capacity", "Patients", "Resources (not implemented)", "Special Note"];
+    const lables = ["Number", "Max Capacity", "Empty Capacity", "Patients", "Resources", "Special Note"];
     const handlers = [setNumber, setMaxCapacity, setEmptyCapacity, setPatients, setResources, setSpecialNote];
 
     function handleAddItem(){
-        handleAdd(number, max_capacity, empty_capacity, patients, resources, special_note);
+        handleAdd(number, max_capacity, empty_capacity, patients.split(','), resources.split(','), special_note);
     }
 
     

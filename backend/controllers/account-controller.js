@@ -93,6 +93,30 @@ getAccountById = async (req, res) => {
     });
 }
 
+updateAccountById = async (req, res) => {
+    try {
+        const { firstName, lastName, email, password, isAdmin} = req.body;
+        if(password == ""){
+            const account = await Account.findByIdAndUpdate(req.params.id, { firstName, lastName, email, isAdmin }, { new: true });
+            if (!account) {
+                return res.status(404).json({ message: "Account not found" });
+            }
+            res.json(account);
+        }
+        else{
+            const hashedPassword = await bcrypt.hash(password, saltRounds);
+            const account = await Account.findByIdAndUpdate(req.params.id, { firstName, lastName, email, passwordHash: hashedPassword, isAdmin }, { new: true });
+            if (!account) {
+                return res.status(404).json({ message: "Account not found" });
+            }
+            res.json(account);
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
+}
+
 getAllAccounts = async (req,res) => {
     Account.find({})
     .exec()
@@ -196,6 +220,7 @@ module.exports = {
     unarchiveAccount,
     addAccount,
     getAccountById,
+    updateAccountById,
     verifyAccount
     
 }
