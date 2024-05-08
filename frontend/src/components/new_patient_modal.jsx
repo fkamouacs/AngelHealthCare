@@ -39,7 +39,6 @@ export default function NewPatientModal({handleAdd}){
                 left: '50%',
                 transform: 'translate(-50%, -50%)', 
                 width: 600,
-                bgcolor: '#F0F8FF',
                 p: 2,
                 borderRadius: 2,
                 outline: 0
