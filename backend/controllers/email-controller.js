@@ -59,7 +59,7 @@ sendEmail = async (req,res) => {
         title:req.body.email.title, 
         text: req.body.email.text, 
         sender:sender,
-        schedule: req.body.email.schedule
+    
     };
 
     // if(req.body.schedule !== undefined && req.body.schedule !== null){
@@ -67,6 +67,18 @@ sendEmail = async (req,res) => {
     // }else{
     //     customEmail["schedule"] = await Schedule.findOne();
     // }
+
+    // make a new schedule object
+    const newSchedule = {
+        title: req.body.email.title,
+        text: req.body.email.text,
+        date: req.body.email.schedule
+    }
+
+    await Schedule.create(newSchedule).then((schedule) => {
+        customEmail["schedule"] = schedule;
+        console.log("schedule created " + schedule)
+    })
 
 
 

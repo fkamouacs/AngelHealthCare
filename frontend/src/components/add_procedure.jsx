@@ -292,7 +292,7 @@ const AddProcedure = (props) => {
 
          const processResults = (results) => {
           const sender = 'huifu.li@stonybrook.edu';
-          console.log("testxd " + receivers)
+          console.log("testxd " + date)
           apis.sendEmail(email, receivers, sender).then((res) =>{
             console.log("email" + res.data)
           })
