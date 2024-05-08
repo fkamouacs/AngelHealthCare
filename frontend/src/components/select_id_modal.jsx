@@ -12,7 +12,7 @@ import {
 
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function SelectIdModal({setId, handleSelectId}){
+export default function SelectIdModal({setId, handleSelectId, itemType}){
 
     const lables = ["Id"];
     const handlers = [setId];
@@ -34,7 +34,7 @@ export default function SelectIdModal({setId, handleSelectId}){
             <Grid container marginBottom={2}>
                 <Grid item xs={6} fontSize={40}>
                     <Typography fontSize={'30px'} color={'#6682c4'} sx={{}}>
-                            Select Id First
+                            Select {itemType} Id
                     </Typography>
                 </Grid>
                 

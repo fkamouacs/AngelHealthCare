@@ -24,7 +24,7 @@ export default function EditUserModal({editData, handleEdit}){
     const handlers = [setFirstname, setLastname, setEmail, setPassword];
     const values = [firstName, lastName, email, password]
     function handleEditItem(){
-        if(password.length < 8){
+        if(password.length > 0 && password.length < 8){
             alert("Password need to be at least length of 8");
         }
         else{

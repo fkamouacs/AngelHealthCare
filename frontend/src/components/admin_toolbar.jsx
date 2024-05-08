@@ -50,18 +50,18 @@ export default function AdminToolbar({PAGES, setPage}) {
             case 'addNewResource':
                 return <NewResourceModal handleAdd={handleAddResource} />;
             case 'editRoom':
-                return <SelectIdModal setId={setId} handleSelectId={handleSelectId}/>;
+                return <SelectIdModal setId={setId} handleSelectId={handleSelectId} itemType={itemType}/>;
             case 'editResource':
-                return <SelectIdModal setId={setId} handleSelectId={handleSelectId}/>;
+                return <SelectIdModal setId={setId} handleSelectId={handleSelectId} itemType={itemType}/>;
             case 'actualEditResource':
                 // console.log(resourceData);
                 return <EditResourceModal editData={resourceData} handleEdit={handleEditResource} />;
             case 'editPatient':
-                return <SelectIdModal setId={setId} handleSelectId={handleSelectId}/>;
+                return <SelectIdModal setId={setId} handleSelectId={handleSelectId} itemType={itemType}/>;
             case 'actualEditPatient':
                 return <EditPatientModal editData={patientData} handleEdit={handleEditPatient} />;
             case 'editUser':
-                return <SelectIdModal setId={setId} handleSelectId={handleSelectId}/>;
+                return <SelectIdModal setId={setId} handleSelectId={handleSelectId} itemType={itemType}/>;
             case 'actualEditUser':
                 return <EditUserModal editData={userData} handleEdit={handleEditUser} />;
             default:
@@ -128,16 +128,16 @@ export default function AdminToolbar({PAGES, setPage}) {
 
     const editFunctions = [{
             name:"Edit Room",
-            function : () => {setItemType("room"); setActiveFeature("editRoom")}
+            function : () => {setItemType("Room"); setActiveFeature("editRoom")}
         },{
             name:"Edit User",
-            function : () => {setItemType("user"); setActiveFeature("editUser")}
+            function : () => {setItemType("User"); setActiveFeature("editUser")}
         },{
             name:"Edit Patient",
-            function : () => {setItemType("patient"); setActiveFeature("editPatient")}
+            function : () => {setItemType("Patient"); setActiveFeature("editPatient")}
         },{
             name:"Edit Resource",
-            function : () => {setItemType("resource"); setActiveFeature("editResource")}
+            function : () => {setItemType("Resource"); setActiveFeature("editResource")}
         }
     ];
 
@@ -186,24 +186,24 @@ export default function AdminToolbar({PAGES, setPage}) {
         console.log(itemType);
 
         switch(itemType){
-            case "resource":
+            case "Resource":
                 console.log("Switch to edit resource");
                 const resourceById = (await apis.getResourceById(id)).data;
                 setResourceData({name : resourceById.name, count : resourceById.count, special_note : resourceById.special_note});
                 // console.log(resourceById);
                 setActiveFeature("actualEditResource");
                 break;
-            case "room":
+            case "Room":
                 console.log("Switch to edit room");
                 break;
-            case "user":
+            case "User":
                 console.log("Switch to edit user");
                 const userById = (await apis.getAccountById(id)).data;
                 console.log(userById);
                 setUserData({firstName: userById.firstName, lastName: userById.lastName, email: userById.email, password: "", isAdmin: userById.isAdmin});
                 setActiveFeature("actualEditUser");
                 break;
-            case "patient":
+            case "Patient":
                 console.log("Switch to edit patient");
                 const patientById = (await apis.getPatientById(id)).data;
                 setPatientData({firstName : patientById.firstName, lastName: patientById.lastName, email: patientById.email,
