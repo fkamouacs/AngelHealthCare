@@ -214,7 +214,7 @@ export default function RoomsPage(){
                                     <ListItemText primary={patient.name} />
                                     </Grid>
                                     <Grid item xs={3} sx={{ textAlign: 'center' }}>
-                                    <ListItemText primary={`Room #${patient.room}`} />
+                                    <ListItemText primary={`Room #${patient.roomNumber}`} />
                                     </Grid>
                                     <Grid item xs={2} sx={{ textAlign: 'right' }}>
                                     {/* <ListItemText primary={patient._id} /> */}
