@@ -75,12 +75,19 @@ sendEmail = async (req,res) => {
         date: req.body.email.schedule
     }
 
+
+    if (req.body.email.procedureId !== undefined && req.body.email.procedureId !== null) {
+        newSchedule["procedureId"] = req.body.email.procedureId
+        customEmail["procedureId"] = req.body.email.procedureId
+    }
+
     await Schedule.create(newSchedule).then((schedule) => {
         customEmail["schedule"] = schedule;
         console.log("schedule created " + schedule)
     })
 
 
+   
 
     const receivers = req.body.receivers;
     const emailId = await Email.create(customEmail);

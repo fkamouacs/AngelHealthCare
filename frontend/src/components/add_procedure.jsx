@@ -256,12 +256,27 @@ const AddProcedure = (props) => {
         
         console.log(props.currentProcess._id)
 
-        // send emails to assigned staff
+       
+      
+
+        apis.addProcedure(formData.name, props.currentProcess.patientId, date, [], assignedResources, assignedRoom, props.currentProcess._id).then(res => {
+          console.log(res.data.procedureIds)
+          const newProcedureIds = res.data.procedureIds
+          console.log(props.currentProcess.procedureIds)
+          let difference = newProcedureIds.filter(x => !props.currentProcess.procedureIds.includes(x)) 
+
+          console.log(difference)
+          const newState = {...props.currentProcess}
+          newState.procedureIds = [...props.currentProcess.procedureIds, ...difference]
+
+
+           // send emails to assigned staff
         const email = {
           title: `${formData.name} procedure staff request`,
           text: `confirm your assignment to this procedure`,
           sender: 'huifu.li@stonybrook.edu',
-          schedule: date
+          schedule: date,
+          procedureId: difference[0],
         }
 
         let receivers = [];
@@ -299,17 +314,8 @@ const AddProcedure = (props) => {
          }
 
          fetchData()
-      
 
-        apis.addProcedure(formData.name, props.currentProcess.patientId, date, [], assignedResources, assignedRoom, props.currentProcess._id).then(res => {
-          console.log(res.data.procedureIds)
-          const newProcedureIds = res.data.procedureIds
-          console.log(props.currentProcess.procedureIds)
-          let difference = newProcedureIds.filter(x => !props.currentProcess.procedureIds.includes(x)) 
 
-          console.log(difference)
-          const newState = {...props.currentProcess}
-          newState.procedureIds = [...props.currentProcess.procedureIds, ...difference]
 
           props.setCurrentProcess(newState);
         })

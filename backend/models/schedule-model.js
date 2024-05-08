@@ -9,6 +9,7 @@ const ScheduleSchema = new Schema(
         hidden: {type: Boolean, default: false},
         isDone: {type: Boolean, default: false},
         date: {type: String, required:true},
+        procedureId: {type: ObjectId, default:"no procedure"}
     },{timestamps: true}
 )
 

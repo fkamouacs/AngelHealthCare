@@ -8,7 +8,8 @@ const EmailSchema = new Schema(
         text: {type: String, default: "no text"},
         sender: {type: ObjectId, required: true},
         hidden: {type: Boolean, default: false},
-        schedule: {type: Object, default: null}
+        schedule: {type: Object, default: null},
+        procedureId: {type: ObjectId, defualt: "no procedure"}
     },{timestamps: true}
 )
 

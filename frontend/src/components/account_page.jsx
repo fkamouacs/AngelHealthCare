@@ -47,6 +47,7 @@ export default function AccountPage({PAGES, setPage, user, messages, schedules})
                 status: auth.user.status || "Active",
                 messages: (await apis.getAllEmailByUser(auth.user.email)).data || [],
                 schedules: (await apis.getAllScheduleByUser(auth.user.email)).data || [],
+           
             }
             // console.log("updated user info ",user);
             setUserInfo(user);

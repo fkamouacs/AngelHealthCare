@@ -21,6 +21,7 @@ const UserSchema = new Schema(
         isAdmin: {type: Boolean, required: true},
         status: {type: String, default: 'active'},
         schedule: {type: [String], default: []},
+        scheduleObjects: {type: [ObjectId], default: []},
         emails: {type: [ObjectId], default: []},
         isArchived: {type: Boolean, default: false},
         hidden: {type: Boolean, default: false},

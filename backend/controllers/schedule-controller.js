@@ -1,12 +1,13 @@
 const User = require('../models/user-model.js')
 const Schedule = require('../models/schedule-model.js')
+const Procedure = require('../models/procedure-model.js')
 
 getScheduleByUser = async (req,res) => {
     const email = req.params.email;  
 
     User.findOne({email:email})
         .then(async (user) => {
-            const ScheduleIds = user.schedule;
+            const ScheduleIds = user.scheduleObjects;
             const output = [];
             // console.log(ScheduleIds.length);
             for(let id of ScheduleIds){
@@ -42,8 +43,13 @@ acceptSchedule = async (req, res) => {
             res.status(400).send("The user have already accepted this request.");
         }
 
-        await User.updateOne({ email: req.body.email }, { $push: { schedule: schedule._id } });
+        await User.updateOne({ email: req.body.email }, { $push: { scheduleObjects: schedule._id, schedule: schedule.date } });
         
+
+        // add staff to procedure
+        
+        await Procedure.updateOne({_id: schedule.procedureId},{$push: {staff: user._id}});
+
         res.status(200).send("Schedule accepted successfully.");
     } catch (error) {
         console.log("An error occurred: " + error.message);
