@@ -114,8 +114,6 @@ export default function AccountPage({PAGES, setPage, user, messages, schedules})
         });
     }
 
-    console.log( userInfo.messages)
-
     return(<>
         <Box py={1}  minHeight={600} height={"75%"}>
             <Grid container minHeight={100} maxHeight={120} height={"15%"} width={"100%"} maxWidth={"100%"}>
