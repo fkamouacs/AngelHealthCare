@@ -77,7 +77,7 @@ createRoom = async (req,res) => {
     let newRoom = {
         number: req.body.number,
         max_capacity: req.body.max_capacity,
-        empty_capacity: req.body.empty_capacity,
+        empty_capacity: req.body.max_capacity - req.body.patients.length,
         patients: req.body.patients,
         resources: req.body.resources,
         special_note: req.body.special_note
@@ -111,7 +111,8 @@ getRoomById = async (req, res) => {
 updateRoomById = async (req, res) => {
     try {
         const { number, max_capacity, empty_capacity, patients, resources, special_note } = req.body;
-        const room = await Room.findByIdAndUpdate(req.params.id, { number, max_capacity, empty_capacity, patients, resources, special_note  }, { new: true });
+        const new_empty_capacity = max_capacity - patients.length;
+        const room = await Room.findByIdAndUpdate(req.params.id, { number, max_capacity, empty_capacity: new_empty_capacity, patients, resources, special_note  }, { new: true });
         if (!room) {
             return res.status(404).json({ message: "Room not found" });
         }
