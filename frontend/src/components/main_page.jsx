@@ -20,16 +20,6 @@ MainPage.propTypes = {
 export default function MainPage({currentPage, PAGES, setPage}){
 
 
-    const [user, setUser] = React.useState(null);
-    const [messages, setMessages] = React.useState([]);
-    const [schedules, setSchedules] = React.useState([]);
-    const [rooms, setRooms] = React.useState([]);
-    const [patients, setPatients] = React.useState([]);
-    const [resources, setResources] = React.useState([]);
-    const [processes, setProcesses] = React.useState([]);
-    
-    
-
 
     switch(currentPage){
         case PAGES.HOME:

@@ -21,8 +21,8 @@ getAllEmailByUser = async (req,res) => {
                 let status = "deny";
 
                 if(email.schedule !== undefined && email.schedule !== null){
-                    for(let id of user.schedule){
-                        if(id == email.schedule._id){
+                    for(let obj of user.scheduleObjects){
+                        if(String(obj) === String(email.schedule._id)){
                             status = "accept";
                             break;
                         }

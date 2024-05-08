@@ -29,7 +29,7 @@ async function createDummyData() {
         // await Patient.deleteMany({});
         // await Procedure.deleteMany({});
         // await Process.deleteMany({});
-        // await Resource.deleteMany({});
+        await Resource.deleteMany({});
         await Room.deleteMany({});
         // await Schedule.deleteMany({});
         // await Email.deleteMany({});

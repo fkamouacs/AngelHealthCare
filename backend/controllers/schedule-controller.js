@@ -62,7 +62,9 @@ denySchedule = async (req, res) => {
         const schedule = await Schedule.findOne({_id:req.params.id});
         const user = await User.findOne({email:req.body.email});
 
-        await User.updateOne({ email: req.body.email }, { $pull: { schedule: schedule._id } });
+        await User.updateOne({ email: req.body.email }, { $pull: { scheduleObjects: schedule._id, schedule: schedule.date } });
+
+        await Procedure.updateOne({_id: schedule.procedureId},{$pull: {staff: user._id}});
 
         res.status(200).send("Schedule denied successfully.");
     } catch (error) {

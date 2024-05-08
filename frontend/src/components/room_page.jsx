@@ -131,7 +131,7 @@ export default function RoomsPage(){
                 </Paper>
 
                 {/* List of rooms */}
-                <Paper sx={{ padding: 2 , borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', maxHeight: '500px', overflow: 'auto'}}>
+                <Paper sx={{ padding: 2 , borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', height: '500px', overflow: 'auto'}}>
                     <Grid container sx={{ borderBottom: 1, borderColor: 'divider', pb: 1 }}>
                         <Grid item xs={9}>
                             <Typography variant="subtitle1">Room #</Typography>
@@ -184,7 +184,7 @@ export default function RoomsPage(){
                 </Paper>
 
                 {/* List of patients */}
-                <Paper sx={{ width: '100%', padding: 2 , borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', maxHeight: '500px', overflow: 'auto'}}>
+                <Paper sx={{ width: '100%', padding: 2 , borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', height: '500px', overflow: 'auto'}}>
                     <Grid container sx={{ borderBottom: 1, borderColor: 'divider', pb: 1 }}>
                         <Grid item xs={6}>
                             <Typography variant="subtitle1">Name</Typography>
