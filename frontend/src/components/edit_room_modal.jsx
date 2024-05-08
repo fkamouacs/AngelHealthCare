@@ -12,30 +12,24 @@ import {
 
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function EditRoomModal({openModal, handleModalClose, handleAdd}){
+export default function EditRoomModal({editData, handleEdit}){
 
-    // const [openModal, setOpenModal] = useState(false);
-    const [number, setNumber] = useState('');
-    const [max_capacity, setMaxCapacity] = useState(1);
-    const [empty_capacity, setEmptyCapacity] = useState(-1);
-    const [patients, setPatients] = useState([]);
-    const [resources, setResources] = useState([]);
-    const [special_note, setSpecialNote] = useState('');
+    const [number, setNumber] = useState(editData.number);
+    const [max_capacity, setMaxCapacity] = useState(editData.max_capacity);
+    const [empty_capacity, setEmptyCapacity] = useState(editData.empty_capacity);
+    const [patients, setPatients] = useState(editData.patients.join(','));
+    const [resources, setResources] = useState(editData.resources.join(','));
+    const [special_note, setSpecialNote] = useState(editData.special_note);
 
-    const lables = ["Number", "Max Capacity", "Empty Capacity", "Patients", "Resources (not implemented)", "Special Note"];
+    const lables = ["Number", "Max Capacity", "Empty Capacity", "Patients", "Resources", "Special Note"];
     const handlers = [setNumber, setMaxCapacity, setEmptyCapacity, setPatients, setResources, setSpecialNote];
-
-    function handleAddItem(){
-        handleAdd(number, max_capacity, empty_capacity, patients, resources, special_note);
+    const values = [number, max_capacity, empty_capacity, patients, resources, special_note];
+    function handleEditItem(){
+        handleEdit(number, max_capacity, empty_capacity, patients.split(','), resources.split(','), special_note);
     }
 
     
-    return (<Modal
-        open={openModal}
-        BackdropProps={{
-            style: { backgroundColor: 'rgba(0, 0, 0, 0.1)' } 
-        }}  
-    >
+    return (
         <Box
             sx={{
                 position: 'absolute', 
@@ -52,16 +46,10 @@ export default function EditRoomModal({openModal, handleModalClose, handleAdd}){
             <Grid container marginBottom={2}>
                 <Grid item xs={6} fontSize={40}>
                     <Typography fontSize={'30px'} color={'#6682c4'} sx={{}}>
-                            Add Room
+                            Edit Room
                     </Typography>
                 </Grid>
-                <Grid item xs={6} display="flex" justifyContent="flex-end">
-                    <IconButton 
-                        onClick={handleModalClose}
-                    >
-                        <CloseIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', color: '#6682c4'}}/>
-                    </IconButton>
-                </Grid>
+                
             </Grid>
             <Grid container marginBottom={2}>
                 <Grid container item xs={5} >
@@ -89,6 +77,7 @@ export default function EditRoomModal({openModal, handleModalClose, handleAdd}){
                             }}
                             size="small"
                             sx={{ width: '225px' }}
+                            value={values[index]}
                         />
                     </Grid>
                     ))}
@@ -100,11 +89,11 @@ export default function EditRoomModal({openModal, handleModalClose, handleAdd}){
                     sx={{
                         bgcolor: '#6682c4'
                     }}
-                    onClick={handleAddItem}
+                    onClick={handleEditItem}
                     >
                         Change Room
                 </Button>
             </Box>
         </Box>
-    </Modal>);
+    );
 }

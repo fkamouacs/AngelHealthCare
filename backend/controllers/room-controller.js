@@ -71,6 +71,7 @@
     
 const Room = require('../models/room-model.js')
 const Procedure = require('../models/procedure-model.js')
+const Patient = require('../models/patient-model.js')
 
 createRoom = async (req,res) => {
     let newRoom = {
@@ -81,11 +82,50 @@ createRoom = async (req,res) => {
         resources: req.body.resources,
         special_note: req.body.special_note
     } 
-
+    for(let i = 0; i < req.body.patients.length; i++){
+        const patient = await Patient.findByIdAndUpdate(req.body.patients[i], { roomNumber: req.body.number}, { new: true });
+        if (!patient) {
+            return res.status(404).json({ message: "Patient not found" });
+        }
+    }
     Room.create(newRoom).then(r => {
         res.json(r);
     })
 
+}
+
+getRoomById = async (req, res) => {
+    console.log(`getRoomById`);
+    try {
+        const room = await Room.findById(req.params.id);
+        if (!room) {
+            return res.status(404).json({ message: "Room not found" });
+        }
+        res.json(room);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
+}
+
+updateRoomById = async (req, res) => {
+    try {
+        const { number, max_capacity, empty_capacity, patients, resources, special_note } = req.body;
+        const room = await Room.findByIdAndUpdate(req.params.id, { number, max_capacity, empty_capacity, patients, resources, special_note  }, { new: true });
+        if (!room) {
+            return res.status(404).json({ message: "Room not found" });
+        }
+        res.json(room);
+        for(let i = 0; i < patients.length; i++){
+            const patient = await Patient.findByIdAndUpdate(patients[i], { roomNumber: number}, { new: true });
+            if (!patient) {
+                return res.status(404).json({ message: "Patient not found" });
+            }
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
 }
 
 getAllRooms = async (req,res) => {
@@ -178,7 +218,8 @@ module.exports = {
     addRoomSchedule,
     archiveRoom,
     unarchiveRoom,
-    createRoom
-    
+    createRoom,
+    getRoomById,
+    updateRoomById
 
 };

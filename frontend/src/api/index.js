@@ -198,10 +198,15 @@ export const removeRoomSchedule = (rid, date) => api.post('/room/removeRoomSched
 export const deleteRoomById = (id) => api.delete(`/room/${id}`)
 export const getRoomById = (id) => api.get(`/room/${id}`)
 export const getRoomPairs = () => api.get(`/room/`)
-export const updateRoomById = (id, room) => {
+export const updateRoomById = (id, number, max_capacity, empty_capacity, patients, resources, special_note) => {
     return api.put(`/room/${id}`, {
         // SPECIFY THE PAYLOAD
-        room : room
+        number: number,
+        max_capacity: max_capacity,
+        empty_capacity: empty_capacity,
+        patients: patients,
+        resources: resources,
+        special_note: special_note
     })
 }
 

@@ -10,7 +10,7 @@ const PatientSchema = new Schema(
         email: {type: String, required: true},
         phoneNumber: {type: String, required: true},
         otherContactNumber: {type: String, required: true},
-        roomNumber: {type: String, required: true},
+        roomNumber: {type: String},
         isArchived: {type: Boolean, default: false},
         hidden: {type: Boolean, default: false}
     },{timestamps: true}

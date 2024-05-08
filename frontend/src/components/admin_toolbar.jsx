@@ -37,6 +37,7 @@ export default function AdminToolbar({PAGES, setPage}) {
     const [resourceData, setResourceData] = useState(null);
     const [patientData, setPatientData] = useState(null);
     const [userData, setUserData] = useState(null);
+    const [roomData, setRoomData] = useState(null);
 
     const renderFeature = () => {
         switch (activeFeature) {
@@ -51,6 +52,8 @@ export default function AdminToolbar({PAGES, setPage}) {
                 return <NewResourceModal handleAdd={handleAddResource} />;
             case 'editRoom':
                 return <SelectIdModal setId={setId} handleSelectId={handleSelectId} itemType={itemType}/>;
+            case 'actualEditRoom':
+                return <EditRoomModal editData={roomData} handleEdit={handleEditRoom} />;
             case 'editResource':
                 return <SelectIdModal setId={setId} handleSelectId={handleSelectId} itemType={itemType}/>;
             case 'actualEditResource':
@@ -91,8 +94,16 @@ export default function AdminToolbar({PAGES, setPage}) {
         if(empty_capacity == -1){
             empty_capacity = max_capacity;
         }
+        if(patients == ''){
+            patients = [];
+        }
+        if(resources == ''){
+            resources = [];
+        }
+        console.log(patients);
+        console.log(resources);
         // apis.createRoom(number, max_capacity, empty_capacity, patients, resources, special_note);
-        apis.createRoom(number, max_capacity, empty_capacity, [], [], special_note).then(() => 
+        apis.createRoom(number, max_capacity, empty_capacity, patients, resources, special_note).then(() => 
             alert("Add complete")
         ).catch(() => 
             alert("Unable to Add")
@@ -158,12 +169,18 @@ export default function AdminToolbar({PAGES, setPage}) {
         );
     };
 
-    const handleEditRoom = (number, max_capacity, empty_capacity, patients, resources, special_note) => {
+    const handleEditRoom = async (number, max_capacity, empty_capacity, patients, resources, special_note) => {
         if(empty_capacity == -1){
             empty_capacity = max_capacity;
         }
+        if(patients == ''){
+            patients = [];
+        }
+        if(resources == ''){
+            resources = [];
+        }
         // apis.createRoom(number, max_capacity, empty_capacity, patients, resources, special_note);
-        apis.createRoom(number, max_capacity, empty_capacity, [], [], special_note).then(() => 
+        await apis.updateRoomById(id, number, max_capacity, empty_capacity, patients, resources, special_note).then(() => 
             alert("Edit complete")
         ).catch(() => 
             alert("Unable to Edit")
@@ -195,6 +212,11 @@ export default function AdminToolbar({PAGES, setPage}) {
                 break;
             case "Room":
                 console.log("Switch to edit room");
+                const roomById = (await apis.getRoomById(id)).data;
+                console.log(roomById);
+                setRoomData({number: roomById.number, max_capacity: roomById.max_capacity, empty_capacity: roomById.empty_capacity, 
+                patients: roomById.patients, resources: roomById.resources, special_note: roomById.special_note});
+                setActiveFeature("actualEditRoom");
                 break;
             case "User":
                 console.log("Switch to edit user");
@@ -207,7 +229,7 @@ export default function AdminToolbar({PAGES, setPage}) {
                 console.log("Switch to edit patient");
                 const patientById = (await apis.getPatientById(id)).data;
                 setPatientData({firstName : patientById.firstName, lastName: patientById.lastName, email: patientById.email,
-                    phoneNumber: patientById.phoneNumber, otherContactNumber: patientById.otherContactNumber, roomNumber: patientById.roomNumber
+                phoneNumber: patientById.phoneNumber, otherContactNumber: patientById.otherContactNumber, roomNumber: patientById.roomNumber
                 });
                 setActiveFeature("actualEditPatient");
                 // console.log(patientById);
