@@ -54,13 +54,12 @@ verifyAccount = async (req, res) => {
 
 addAccount = async (req, res) => {
 
-    const { firstname, lastname, email, password, isAdmin} = req.body;
-
+    const { firstName, lastName, email, password, isAdmin} = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         const newAccount = new Account({
-            firstName: firstname,
-            lastName: lastname,
+            firstName: firstName,
+            lastName: lastName,
             email: email,
             passwordHash: hashedPassword,
             isAdmin: isAdmin
