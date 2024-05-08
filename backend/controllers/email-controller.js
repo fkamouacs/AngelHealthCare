@@ -29,6 +29,11 @@ getAllEmailByUser = async (req,res) => {
                     }
                 }
 
+                if(sender == null || sender == undefined){
+                    sender = []
+                }
+                
+
                 const formatedEmail = {
                     _id: email._id,
                     title:email.title,
