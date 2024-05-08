@@ -34,11 +34,12 @@ getScheduleByUser = async (req,res) => {
 
 acceptSchedule = async (req, res) => {
     try {
+        console.log("acceptschedule " + req.params.id)
         const schedule = await Schedule.findOne({_id:req.params.id});
         const user = await User.findOne({email:req.body.email});
 
         if(user.schedule.includes(schedule)){
-            res.statu(400).send("The user have already accepted this request.");
+            res.status(400).send("The user have already accepted this request.");
         }
 
         await User.updateOne({ email: req.body.email }, { $push: { schedule: schedule._id } });
