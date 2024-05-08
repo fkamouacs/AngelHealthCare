@@ -7,34 +7,31 @@ import {
     Typography,
     IconButton,
     Button,
-
+    Checkbox
  } from "@mui/material";
 
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function EditUserModal({openModal, handleModalClose, handleAdd}){
+export default function EditUserModal({editData, handleEdit}){
 
     // const [openModal, setOpenModal] = useState(false);
-    const [firstName, setFirstname] = useState('');
-    const [lastName, setLastname] = useState('');
-    const [email, setEmail] = useState('');
+    const [firstName, setFirstname] = useState(editData.firstName);
+    const [lastName, setLastname] = useState(editData.lastName);
+    const [email, setEmail] = useState(editData.email);
     const [password, setPassword] = useState('');
-
+    const [isAdmin, setIsAminChecked] = useState(editData.isAdmin);
     const lables = ["Firstname", "Lastname", "Email", "Password"];
     const handlers = [setFirstname, setLastname, setEmail, setPassword];
-
-    function handleAddItem(){
-        handleAdd(firstName, lastName, email, password);
+    const values = [firstName, lastName, email, password]
+    function handleEditItem(){
+        if(password.length < 8){
+            alert("Password need to be at least length of 8");
+        }
+        else{
+            handleEdit(firstName, lastName, email, password, isAdmin);
+        }
     }
-
-
-    
-    return (<Modal
-        open={openModal}
-        BackdropProps={{
-            style: { backgroundColor: 'rgba(0, 0, 0, 0.1)' } 
-        }}  
-    >
+    return (
         <Box
             sx={{
                 position: 'absolute', 
@@ -51,15 +48,8 @@ export default function EditUserModal({openModal, handleModalClose, handleAdd}){
             <Grid container marginBottom={2}>
                 <Grid item xs={6} fontSize={40}>
                     <Typography fontSize={'30px'} color={'#6682c4'} sx={{}}>
-                            Add User
+                            Edit User
                     </Typography>
-                </Grid>
-                <Grid item xs={6} display="flex" justifyContent="flex-end">
-                    <IconButton 
-                        onClick={handleModalClose}
-                    >
-                        <CloseIcon sx={{ borderRadius: '50px', borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid', color: '#6682c4'}}/>
-                    </IconButton>
                 </Grid>
             </Grid>
             <Grid container marginBottom={2}>
@@ -71,6 +61,11 @@ export default function EditUserModal({openModal, handleModalClose, handleAdd}){
                         </Typography>
                     </Grid>
                     ))}
+                    <Grid key={`new-user-label-4`} item container xs={12} py={2} alignContent={'center'}>
+                        <Typography key={`new-user-modal-4`} fontWeight={'bold'} color={'#6682c4'}>
+                            IsAdmin
+                        </Typography>
+                    </Grid>
                 </Grid>
                 <Grid container item xs={6}>
                     {handlers.map((handler, index) => (
@@ -89,9 +84,21 @@ export default function EditUserModal({openModal, handleModalClose, handleAdd}){
                             }}
                             size="small"
                             sx={{ width: '225px' }}
+                            value={values[index]}
                         />
                     </Grid>
                     ))}
+                    <Grid key={`new-user-handler-4`} item container xs={12} alignContent={'center'}>
+                        <Checkbox
+                            size="small" 
+                            checked={isAdmin}
+                            onChange={(event) => setIsAminChecked(event.target.checked)}
+                            inputProps={{
+                                'aria-label': 'controlled'
+                            }}
+                            value={isAdmin}
+                        />
+                    </Grid>
                 </Grid>
             </Grid>
             <Box display="flex" marginTop={3} justifyContent="center">
@@ -100,11 +107,11 @@ export default function EditUserModal({openModal, handleModalClose, handleAdd}){
                     sx={{
                         bgcolor: '#6682c4'
                     }}
-                    onClick={handleAddItem}
+                    onClick={handleEditItem}
                     >
                         Change User
                 </Button>
             </Box>
         </Box>
-    </Modal>);
+    );
 }

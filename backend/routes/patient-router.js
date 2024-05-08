@@ -7,5 +7,5 @@ router.get('/:id', PatientController.getPatientById)
 router.post('/addpatient', PatientController.addPatient)
 router.post('/archivePatient', PatientController.archivePatient)
 router.post('/unarchivePatient', PatientController.unarchivePatient)
-
+router.put('/:id', PatientController.updatePatientById)
 module.exports = router

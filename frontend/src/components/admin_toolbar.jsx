@@ -35,6 +35,8 @@ export default function AdminToolbar({PAGES, setPage}) {
     const [OpenRoomModal, setOpenRoomModal] = useState(false);
     const [OpenResourceModal, setOpenResourceModal] = useState(false);
     const [resourceData, setResourceData] = useState(null);
+    const [patientData, setPatientData] = useState(null);
+    const [userData, setUserData] = useState(null);
 
     const renderFeature = () => {
         switch (activeFeature) {
@@ -52,24 +54,33 @@ export default function AdminToolbar({PAGES, setPage}) {
             case 'editResource':
                 return <SelectIdModal setId={setId} handleSelectId={handleSelectId}/>;
             case 'actualEditResource':
-                console.log(resourceData);
+                // console.log(resourceData);
                 return <EditResourceModal editData={resourceData} handleEdit={handleEditResource} />;
+            case 'editPatient':
+                return <SelectIdModal setId={setId} handleSelectId={handleSelectId}/>;
+            case 'actualEditPatient':
+                return <EditPatientModal editData={patientData} handleEdit={handleEditPatient} />;
+            case 'editUser':
+                return <SelectIdModal setId={setId} handleSelectId={handleSelectId}/>;
+            case 'actualEditUser':
+                return <EditUserModal editData={userData} handleEdit={handleEditUser} />;
             default:
                 return <NewRoomModal handleAdd={handleAddRoom} />;
         }
       };
 
     
-    const handleAddUser = (firstname, lastname, email, password, isAdmin) => {
-        apis.createAccount(firstname, lastname, email, password, isAdmin).then(() => 
+    const handleAddUser = (firstName, lastName, email, password, isAdmin) => {
+        apis.createAccount(firstName, lastName, email, password, isAdmin).then(() => 
             alert("Add complete")
         ).catch(() => 
             alert("Unable to Add")
         );
     };
 
-    const handleAddPatient = (firstName, lastName, email, password) => {
-        apis.addPatient(`${firstName} ${lastName}`).then(() => 
+    const handleAddPatient =(firstName, lastName, email, 
+        phoneNumber, otherContactNumber, roomNumber) => {
+        apis.addPatient(firstName, lastName, `${firstName} ${lastName}`, email, phoneNumber, otherContactNumber, roomNumber).then(() => 
             alert("Add complete")
         ).catch(() => 
             alert("Unable to Add")
@@ -113,7 +124,6 @@ export default function AdminToolbar({PAGES, setPage}) {
     ];
 
     const [id, setId] = useState('');
-    const [OpenSelectIdModal, setOpenSelectIdModal] = useState(false);
     const [itemType, setItemType] = useState(null);
 
     const editFunctions = [{
@@ -121,26 +131,27 @@ export default function AdminToolbar({PAGES, setPage}) {
             function : () => {setItemType("room"); setActiveFeature("editRoom")}
         },{
             name:"Edit User",
-            function : () => {setItemType("user"); setOpenSelectIdModal(true)}
+            function : () => {setItemType("user"); setActiveFeature("editUser")}
         },{
             name:"Edit Patient",
-            function : () => {setItemType("patient"); setOpenSelectIdModal(true)}
+            function : () => {setItemType("patient"); setActiveFeature("editPatient")}
         },{
             name:"Edit Resource",
             function : () => {setItemType("resource"); setActiveFeature("editResource")}
         }
     ];
 
-    const handleEditUser = (firstname, lastname, email, password) => {
-        apis.createAccount(firstname, lastname, email, password).then(() => 
+    const handleEditUser = async (firstName, lastName, email, password, isAdmin) => {
+        await apis.updateAccountById(id, firstName, lastName, email, password, isAdmin).then(() => 
             alert("Edit complete")
         ).catch(() => 
             alert("Unable to Edit")
         );
     };
 
-    const handleEditPatient = (firstName, lastName, email, password) => {
-        apis.addPatient(`${firstName} ${lastName}`).then(() => 
+    const handleEditPatient = async (firstName, lastName, email, 
+        phoneNumber, otherContactNumber, roomNumber) => {
+        await apis.updatePatientById(id, firstName, lastName, `${firstName} ${lastName}`, email, phoneNumber, otherContactNumber, roomNumber).then(() => 
             alert("Edit complete")
         ).catch(() => 
             alert("Unable to Edit")
@@ -176,26 +187,30 @@ export default function AdminToolbar({PAGES, setPage}) {
 
         switch(itemType){
             case "resource":
-                console.log("Switch to add new resource page");
+                console.log("Switch to edit resource");
                 const resourceById = (await apis.getResourceById(id)).data;
                 setResourceData({name : resourceById.name, count : resourceById.count, special_note : resourceById.special_note});
-                console.log(resourceById);
+                // console.log(resourceById);
                 setActiveFeature("actualEditResource");
                 break;
             case "room":
-                console.log("Switch to add new room page");
-                await apis.getRoomById(id).then(() => 
-                    alert("get Room by Id complete")
-                ).catch(() => 
-                    alert("Unable get Room by Id")
-                );
-                setActiveFeature("addNewRoom");
+                console.log("Switch to edit room");
                 break;
             case "user":
-                setOpenUserModal(true)
+                console.log("Switch to edit user");
+                const userById = (await apis.getAccountById(id)).data;
+                console.log(userById);
+                setUserData({firstName: userById.firstName, lastName: userById.lastName, email: userById.email, password: "", isAdmin: userById.isAdmin});
+                setActiveFeature("actualEditUser");
                 break;
             case "patient":
-                setOpenPatientModal(true)
+                console.log("Switch to edit patient");
+                const patientById = (await apis.getPatientById(id)).data;
+                setPatientData({firstName : patientById.firstName, lastName: patientById.lastName, email: patientById.email,
+                    phoneNumber: patientById.phoneNumber, otherContactNumber: patientById.otherContactNumber, roomNumber: patientById.roomNumber
+                });
+                setActiveFeature("actualEditPatient");
+                // console.log(patientById);
                 break;
         }
     }
@@ -211,7 +226,7 @@ export default function AdminToolbar({PAGES, setPage}) {
                 <Box sx={{ width: 250 , borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}} role="presentation">
                 <List>
                     {addFunctions.map((f) => (
-                    <ListItem key={f.name} disablePadding >
+                    <ListItem key={f.name} disablePadding>
                         <ListItemButton onClick={f.function}>
                         <ListItemText primary={f.name} />
                         </ListItemButton>

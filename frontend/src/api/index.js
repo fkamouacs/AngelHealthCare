@@ -54,11 +54,11 @@ export const createProcedure = (name, patient, step, stage, staff, resources, ro
     })
 }
 
-export const createAccount = ( firstname, lastname, email, password, isAdmin) => {
+export const createAccount = ( firstName, lastName, email, password, isAdmin) => {
     return api.post(`/account/`, {
         // SPECIFY THE PAYLOAD
-        firstname: firstname,
-        lastname : lastname,
+        firstName: firstName,
+        lastName : lastName,
         email: email,
         password: password,
         isAdmin: isAdmin
@@ -168,10 +168,14 @@ export const removeRoomProcedure = (pid, roomId) => api.post('/procedure/removeR
 export const deleteAccountById = (id) => api.delete(`/account/${id}`)
 
 export const getAccountPairs = () => api.get(`/accountpairs/`)
-export const updateAccountById = (id, account) => {
+export const updateAccountById = (id, firstName, lastName, email, password, isAdmin) => {
     return api.put(`/account/${id}`, {
         // SPECIFY THE PAYLOAD
-        account : account
+        firstName: firstName, 
+        lastName: lastName, 
+        email: email, 
+        password: password, 
+        isAdmin: isAdmin
     })
 }
 
@@ -231,17 +235,24 @@ export const addResourceSchedule = (rid, date) =>  api.post('/resource/addResour
 export const deletePatientById = (id) => api.delete(`/patient/${id}`)
 
 export const getPatientPairs = () => api.get(`/`)
-export const updatePatientById = (id, patient) => {
+export const updatePatientById = (id, firstName, lastName, name, email, phoneNumber, otherContactNumber, roomNumber) => {
     return api.put(`/patient/${id}`, {
         // SPECIFY THE PAYLOAD
-        patient : patient
+        firstName: firstName, 
+        lastName: lastName, 
+        name: name, 
+        email: email, 
+        phoneNumber: phoneNumber, 
+        otherContactNumber: otherContactNumber, 
+        roomNumber: roomNumber
     })
 }
 
 
 export const getPatientById = (id) => api.get(`/patient/${id}`)
 export const getAllPatients = () => api.get('/patient/')
-export const addPatient = (name) => api.post('/patient/addPatient', {name: name})
+export const addPatient = (firstName, lastName, name, email, phoneNumber, otherContactNumber, roomNumber) => api.post('/patient/addPatient', {firstName: firstName, lastName: lastName, email: email, 
+                                                                                    name: name, phoneNumber: phoneNumber, otherContactNumber: otherContactNumber, roomNumber: roomNumber})
 export const archivePatient = (id) => api.post('/patient/archivePatient', {patientId: id})
 export const unarchivePatient = (id) => api.post('/patient/unarchivePatient', {patientId: id})
 
@@ -250,14 +261,10 @@ export const sendEmail = (email, receivers, sender) => api.post("/email/", {emai
 
 export const getAllScheduleByUser = (email) => api.get('/schedule/' + email);
 export const acceptSchedule = (id,email) => api.put("/schedule/accept/" + id, {email: email});
-export const denySchedule = (id,email) => api.put("/schedule/deny/" + id, {email: email});
-
-
 
 const apis = {
     getAllScheduleByUser,
     acceptSchedule,
-    denySchedule,
     createProcess,
     deleteProcessById,
     getProcessById,

@@ -18,13 +18,15 @@ export default function NewPatientModal({handleAdd}){
     const [firstName, setFirstname] = useState('');
     const [lastName, setLastname] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [otherContactNumber, setOtherContactNumber] = useState('');
+    const [roomNumber, setRoomNumber] = useState('');
 
-    const lables = ["Firstname", "Lastname", "Email", "Password"];
-    const handlers = [setFirstname, setLastname, setEmail, setPassword];
+    const lables = ["Firstname", "Lastname", "Email", "Phone Number", "Other Contact Number", "Room Number"];
+    const handlers = [setFirstname, setLastname, setEmail, setPhoneNumber, setOtherContactNumber, setRoomNumber];
 
     function handleAddItem(){
-        handleAdd(firstName, lastName, email, password);
+        handleAdd(firstName, lastName, email, phoneNumber, otherContactNumber, roomNumber);
     }
 
 
