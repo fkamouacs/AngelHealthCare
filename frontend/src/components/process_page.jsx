@@ -10,7 +10,7 @@ import Link from '@mui/joy/Link';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Procedure from "./procedure_page"
 //import {processes, procedures} from "../fakedatabase.js"
-import {Button} from '@mui/material';
+import {Button, Grid} from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AddProcedure from "./add_procedure.jsx"
 import apis from "../api/index.js"
@@ -128,25 +128,30 @@ const ProcessPage = (props) => {
 
 <div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
     <h1>{`${currentPatientName}'s ${currentProcess.name} - ID: ${currentProcess._id}`}</h1>
-    <div > 
-    <Button 
-       style={{margin: "0 1rem"}}
-        variant="contained" 
-        sx={{bgcolor: '#6682c4'}}
-        startIcon={<AddCircleOutlineIcon />}
-        onClick={() => setShowAddProcedure(true)}
-    >
-        Add Procedure
-    </Button>
-    <Button 
-        variant="contained" 
-        sx={{bgcolor: '#6682c4'}}
-        startIcon={<AddCircleOutlineIcon />}
-        onClick={handleDeleteProcedure}
-    >
-        Delete Procedure
-    </Button>
-    </div>
+    <Grid container justifyContent={"right"}>
+      <Grid item xs={5}>
+        <Button 
+        style={{margin: "0 1rem"}}
+          variant="contained" 
+          sx={{bgcolor: '#6682c4'}}
+          startIcon={<AddCircleOutlineIcon />}
+          onClick={() => setShowAddProcedure(true)}
+          
+      >
+          Add Procedure
+      </Button>
+      </Grid>
+      <Grid item xs={5}>
+        <Button 
+            variant="contained" 
+            sx={{bgcolor: '#6682c4'}}
+            startIcon={<AddCircleOutlineIcon />}
+            onClick={handleDeleteProcedure}
+        >
+            Delete Procedure
+        </Button>
+      </Grid>
+    </Grid>
 </div>
 
     <Stepper
