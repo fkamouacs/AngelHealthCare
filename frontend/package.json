@@ -54,5 +54,5 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1"
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "https://angelhealthcare-6befd2c18f64.herokuapp.com:3001"
 }

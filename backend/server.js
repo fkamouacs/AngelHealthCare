@@ -21,14 +21,14 @@ __dirname = path.resolve();
 
 const io = socketIO(server, {
   cors: {
-    origin: "*",
+    origin: "https://angelhealthcare-6befd2c18f64.herokuapp.com, http://localhost:3000",
     methods: ["GET", "POST"],
   },
 });
 
 
 app.use(cors({
-  origin: "*",
+  origin: "https://angelhealthcare-6befd2c18f64.herokuapp.com, http://localhost:3000",
   methods: ["GET", "POST", "PUT"],
   credentials: true
 }));
