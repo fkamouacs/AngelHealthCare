@@ -107,8 +107,9 @@ const ProcessPage = (props) => {
 
   return (
     <div style={{
-       
-        marginTop: '2rem'
+        
+        marginTop: '2rem',
+     
     }}>
 
         {showProcedure ? <Procedure _id={currentProcedureId} showProcedure={setShowProcedure} currentPatientName={currentPatientName}
@@ -155,6 +156,7 @@ const ProcessPage = (props) => {
 </div>
 
     <Stepper
+     style={{margin: '1rem 0',maxHeight: '50vh', overflow: 'auto'}}
       orientation="vertical"
       sx={{
         '--Stepper-verticalGap': '2.5rem',

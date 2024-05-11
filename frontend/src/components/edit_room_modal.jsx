@@ -24,8 +24,9 @@ export default function EditRoomModal({editData, handleEdit}){
     const lables = ["Number", "Max Capacity", "Empty Capacity", "Patients", "Resources", "Special Note"];
     const handlers = [setNumber, setMaxCapacity, setEmptyCapacity, setPatients, setResources, setSpecialNote];
     const values = [number, max_capacity, empty_capacity, patients, resources, special_note];
+    const oldPatients = editData.patients;
     function handleEditItem(){
-        handleEdit(number, max_capacity, empty_capacity, patients.split(','), resources.split(','), special_note);
+        handleEdit(number, max_capacity, empty_capacity, patients.split(','), oldPatients, resources.split(','), special_note);
     }
 
     

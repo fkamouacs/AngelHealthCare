@@ -59,7 +59,7 @@ getAllEmailByUser = async (req,res) => {
 
 
 sendEmail = async (req,res) => {
-    // console.log("sendEmail");
+
     const sender = await User.findOne({email:req.body.sender});
     const customEmail = {
         title:req.body.email.title, 
@@ -69,14 +69,15 @@ sendEmail = async (req,res) => {
     };
 
     if(req.body.email.procedureId !== undefined && req.body.email.procedureId !== null){
+        console.log("sendEmail");
         customEmail["schedule"] = req.body.schedule;
         // make a new schedule object
         
-        const procedure = await Procedure.findOne({_id:req.body.email.procedureId});
+        //const procedure = await Procedure.findOne({_id:req.body.email.procedureId});
 
         const newSchedule = {
             title: req.body.email.title,
-            text: `Please accept prcedure : ${name}`,
+            text: `Please accept prcedure : ${req.body.email.name}`,
             date: req.body.email.schedule
         }
 
@@ -92,10 +93,11 @@ sendEmail = async (req,res) => {
     }
 
     const receivers = req.body.receivers;
-    const emailId = await Email.create(customEmail);
+   
     console.log("receiversxd " + req.body.receivers)
 
     try {
+        const emailId = await Email.create(customEmail);
         for(let receiver of receivers){
             const updatedUser = await User.findOneAndUpdate(
                 { email: receiver },
