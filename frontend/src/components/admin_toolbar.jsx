@@ -169,7 +169,7 @@ export default function AdminToolbar({PAGES, setPage}) {
         );
     };
 
-    const handleEditRoom = async (number, max_capacity, empty_capacity, patients, resources, special_note) => {
+    const handleEditRoom = async (number, max_capacity, empty_capacity, patients, oldPatients, resources, special_note) => {
         if(empty_capacity == -1){
             empty_capacity = max_capacity;
         }
@@ -180,7 +180,8 @@ export default function AdminToolbar({PAGES, setPage}) {
             resources = [];
         }
         // apis.createRoom(number, max_capacity, empty_capacity, patients, resources, special_note);
-        await apis.updateRoomById(id, number, max_capacity, empty_capacity, patients, resources, special_note).then(() => 
+        console.log(id);
+        await apis.updateRoomById(id, number, max_capacity, empty_capacity, patients, oldPatients, resources, special_note).then(() => 
             alert("Edit complete")
         ).catch(() => 
             alert("Unable to Edit")
@@ -213,9 +214,10 @@ export default function AdminToolbar({PAGES, setPage}) {
             case "Room":
                 console.log("Switch to edit room");
                 const roomById = (await apis.getRoomById(id)).data;
+                setId(roomById._id);
                 console.log(roomById);
                 setRoomData({number: roomById.number, max_capacity: roomById.max_capacity, empty_capacity: roomById.empty_capacity, 
-                patients: roomById.patients, resources: roomById.resources, special_note: roomById.special_note});
+                patients: roomById.patients, oldPatients: roomById.patients,resources: roomById.resources, special_note: roomById.special_note});
                 setActiveFeature("actualEditRoom");
                 break;
             case "User":

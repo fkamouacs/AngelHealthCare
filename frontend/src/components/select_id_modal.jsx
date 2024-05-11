@@ -34,7 +34,7 @@ export default function SelectIdModal({setId, handleSelectId, itemType}){
             <Grid container marginBottom={2}>
                 <Grid item xs={6} fontSize={40}>
                     <Typography fontSize={'30px'} color={'#6682c4'} sx={{}}>
-                            Select {itemType} Id
+                            Select {itemType} {itemType === "Room" ? "Number" : "Id"}
                     </Typography>
                 </Grid>
                 
@@ -44,7 +44,7 @@ export default function SelectIdModal({setId, handleSelectId, itemType}){
                     {lables.map((lable, index) => (
                         <Grid key={`new-resource-label-${index}`} item container xs={12} py={2} alignContent={'center'}>
                         <Typography key={`new-resource-label-${index}`} fontWeight={'bold'} color={'#6682c4'}>
-                            {lable}
+                        {itemType === "Room" ? "Room Number" : lables}
                         </Typography>
                     </Grid>
                     ))}

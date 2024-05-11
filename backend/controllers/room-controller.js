@@ -79,6 +79,7 @@ createRoom = async (req,res) => {
         max_capacity: req.body.max_capacity,
         empty_capacity: req.body.max_capacity - req.body.patients.length,
         patients: req.body.patients,
+        oldPatients: req.body.patients,
         resources: req.body.resources,
         special_note: req.body.special_note
     } 
@@ -97,7 +98,10 @@ createRoom = async (req,res) => {
 getRoomById = async (req, res) => {
     console.log(`getRoomById`);
     try {
-        const room = await Room.findById(req.params.id);
+        const { id } = req.params;
+        console.log(req.params);
+        console.log(id);
+        const room = await Room.findOne({ number: id });
         if (!room) {
             return res.status(404).json({ message: "Room not found" });
         }
@@ -110,13 +114,28 @@ getRoomById = async (req, res) => {
 
 updateRoomById = async (req, res) => {
     try {
-        const { number, max_capacity, empty_capacity, patients, resources, special_note } = req.body;
+        const { number, max_capacity, empty_capacity, patients, oldPatients, resources, special_note } = req.body;
         const new_empty_capacity = max_capacity - patients.length;
         const room = await Room.findByIdAndUpdate(req.params.id, { number, max_capacity, empty_capacity: new_empty_capacity, patients, resources, special_note  }, { new: true });
         if (!room) {
             return res.status(404).json({ message: "Room not found" });
         }
         res.json(room);
+        console.log(oldPatients);
+        for(let i = 0; i < oldPatients.length; i++){
+            let check = false;
+            for(let j = 0; j < patients.length; j++){
+                if(oldPatients[i] == patients[j]){
+                    check = true;
+                }
+            }
+            if(check == false){
+                const oldPatient = await Patient.findByIdAndUpdate(oldPatients[i], { roomNumber: ""}, { new: true });
+                if (!oldPatient) {
+                    return res.status(404).json({ message: "Patient not found" });
+                }
+            }
+        }
         for(let i = 0; i < patients.length; i++){
             const patient = await Patient.findByIdAndUpdate(patients[i], { roomNumber: number}, { new: true });
             if (!patient) {
