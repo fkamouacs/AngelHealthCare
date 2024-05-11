@@ -183,7 +183,7 @@ const AddProcedure = (props) => {
 
       const displayStaff = () => {
     
-        if (members.length === availableStaff.length ){
+        if (members.length === availableStaff.length && availableStaff.length != 0){
         
         return availableStaff.map((a, index )=> (
         <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
@@ -205,7 +205,7 @@ const AddProcedure = (props) => {
 
 
       const displayRoom = () => {
-        if (roomMembers.length === availableRooms.length ) {
+        if (roomMembers.length === availableRooms.length && availableRooms.length != 0) {
         
         return availableRooms.map((a, index )=> (
         <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
@@ -226,7 +226,7 @@ const AddProcedure = (props) => {
       }
 
       const displayResources = () => {
-        if (resourceMembers.length === availableResources.length ){
+        if (resourceMembers.length === availableResources.length && availableResources.length != 0 ){
         
         return availableResources.map((a, index )=> (
         <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
