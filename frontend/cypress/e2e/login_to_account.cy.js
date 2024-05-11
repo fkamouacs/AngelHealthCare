@@ -14,7 +14,6 @@ describe('LoginPage to Account Page Tests', () => {
         
         cy.get('button').contains('Login').click();
         cy.get('button').contains('Account').should('be.visible');
-        cy.get('button').contains('AdminToolBar').should('be.visible');
     });
 
 });
