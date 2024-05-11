@@ -8,9 +8,9 @@ const PatientSchema = new Schema(
         lastName: {type: String, required: true},
         name: {type: String, required: true},
         email: {type: String, default: "N/A"},
-        phoneNumber: {type: String, required: true},
+        phoneNumber: {type: String, default: "N/A"},
         otherContactNumber: {type: String, default: "N/A"},
-        roomNumber: {type: String, required: true},
+        roomNumber: {type: String, default: "N/A"},
         isArchived: {type: Boolean, default: false},
         hidden: {type: Boolean, default: false}
     },{timestamps: true}
