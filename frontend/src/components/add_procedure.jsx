@@ -183,7 +183,7 @@ const AddProcedure = (props) => {
 
       const displayStaff = () => {
     
-        if (members.length === availableStaff.length )
+        if (members.length === availableStaff.length ){
         
         return availableStaff.map((a, index )=> (
         <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
@@ -198,11 +198,14 @@ const AddProcedure = (props) => {
           onChange={toggleMember(index, a._id)}
         />
       </ListItem>))
+        } else {
+          return <div>No available Staff</div>
+        }
       }
 
 
       const displayRoom = () => {
-        if (roomMembers.length === availableRooms.length )
+        if (roomMembers.length === availableRooms.length ) {
         
         return availableRooms.map((a, index )=> (
         <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
@@ -217,10 +220,13 @@ const AddProcedure = (props) => {
           onChange={toggleMemberRooms(index, a._id)}
         />
       </ListItem>))
+        } else {
+          return <div>No available Rooms</div>
+        }
       }
 
       const displayResources = () => {
-        if (resourceMembers.length === availableResources.length )
+        if (resourceMembers.length === availableResources.length ){
         
         return availableResources.map((a, index )=> (
         <ListItem key={a._id} {...(a && { variant: 'soft', color: 'neutral' })}>
@@ -235,6 +241,10 @@ const AddProcedure = (props) => {
           onChange={toggleMemberResources(index, a._id)}
         />
       </ListItem>))
+        }
+        else {
+          return <div>No available Resources</div>
+        }
       }
 
 
@@ -277,6 +287,7 @@ const AddProcedure = (props) => {
           sender: 'huifu.li@stonybrook.edu',
           schedule: date,
           procedureId: difference[0],
+          name: `${formData.name}`
         }
 
         let receivers = [];
@@ -300,14 +311,15 @@ const AddProcedure = (props) => {
             //   receivers.push(res.data.email)
             // })
 
-            processResults(receivers);
+           
           }
+          processResults(receivers);
          }
          
 
-         const processResults = (results) => {
+         const processResults = (receivers) => {
           const sender = 'huifu.li@stonybrook.edu';
-          console.log("testxd " + date)
+          console.log("testxd " + receivers)
           apis.sendEmail(email, receivers, sender).then((res) =>{
             console.log("email" + res.data)
           })
