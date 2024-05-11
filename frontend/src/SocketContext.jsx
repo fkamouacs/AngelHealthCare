@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'; // Import PropTypes
 
 // Create a new Context for the socket
 const SocketContext = createContext();
-const PORT = process.env.PORT || 3001;
 
 // Custom hook to use the socket context
 export const useSocket = () => {
@@ -20,7 +19,7 @@ export const SocketProvider = ({ children }) => {
     // Effect hook to initialize the socket connection when the component mounts
     useEffect(() => {
         // Create a new socket connection to the server
-        const newSocket = io("http://localhost:" + PORT);
+        const newSocket = io("http://localhost");
         setSocket(newSocket);
 
         // Cleanup function to close the socket connection when the component unmounts
