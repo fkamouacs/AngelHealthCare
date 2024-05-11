@@ -103,7 +103,7 @@ app.put('/*', (req,res) => {
   res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
 });
 
-server.listen(PORT, function(err){
+server.listen(3001, function(err){
   if (err) console.log("Error in server setup")
-  console.log("Server listening on Port", PORT);
+  console.log("Server listening on Port", 3001);
 });
