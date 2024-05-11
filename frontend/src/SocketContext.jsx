@@ -19,7 +19,7 @@ export const SocketProvider = ({ children }) => {
     // Effect hook to initialize the socket connection when the component mounts
     useEffect(() => {
         // Create a new socket connection to the server
-        const newSocket = io("http://localhost");
+        const newSocket = io("http://localhost:3001");
         setSocket(newSocket);
 
         // Cleanup function to close the socket connection when the component unmounts
