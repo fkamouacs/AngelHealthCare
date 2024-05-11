@@ -50,15 +50,15 @@ addProcedure = async (req,res) => {
           }
 
 
-            // update room schedules
-            for (let i = 0; i < req.body.rooms.length; i++) {
-                Room.findOneAndUpdate({_id: req.body.rooms[i]}, {$push: {schedule: req.body.date}}).exec()
-              }
-       
-            // update resource schedules
-            for (let i = 0; i < req.body.resources.length; i++) {
-                Resource.findOneAndUpdate({_id: req.body.resources[i]}, {$push: {schedule: req.body.date}}).exec()
-              }
+          // update room schedules
+          for (let i = 0; i < req.body.rooms.length; i++) {
+              Room.findOneAndUpdate({_id: req.body.rooms[i]}, {$push: {schedule: req.body.date}}).exec()
+            }
+      
+          // update resource schedules
+          for (let i = 0; i < req.body.resources.length; i++) {
+              Resource.findOneAndUpdate({_id: req.body.resources[i]}, {$push: {schedule: req.body.date}}).exec()
+            }
 
               
 
