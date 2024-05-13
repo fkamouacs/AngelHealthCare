@@ -29,20 +29,31 @@ getProcedureById = async (req,res) => {
 
 addProcedure = async (req,res) => {
     console.log("processId " + req.body.processId + " hello")
-    Process.findOne({_id: req.body.processId}).exec().then(currentProcess => {
+    Process.findOne({_id: req.body.processId}).exec().then(async currentProcess => {
 
         let newProcedure = {
             name: req.body.name,
             patientId: req.body.patientId,
             step: currentProcess.procedureIds.length+1,
-            stage: "disabled",
+           
             staff: req.body.staff,
             resources: req.body.resources,
             rooms: req.body.rooms,
             date: req.body.date
         } 
-    
-        
+
+          // get stage of new procedure
+          if (currentProcess.procedureIds.length == 0) {
+            newProcedure["stage"] = "primary"
+          }  else {
+            // get last procedure
+            const lastProcedure = await Procedure.findOne({_id: currentProcess.procedureIds[currentProcess.procedureIds.length - 1]})
+            if (lastProcedure.stage == "completed") {
+              newProcedure["stage"]  = "primary"
+            } else {
+              newProcedure["stage"] = "disabled" 
+            }
+          }
     
           // update staff account schedules
           for (let i = 0; i < req.body.staff.length; i++) {
