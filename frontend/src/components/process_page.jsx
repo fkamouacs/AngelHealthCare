@@ -78,7 +78,52 @@ const ProcessPage = (props) => {
 
    const displayProcedures = () => {
    if (currentProcess.procedureIds)
-    return procedures.map(p => { if (currentProcess.procedureIds.includes(p._id)) {return (
+    return procedures.map(p => { if (currentProcess.procedureIds.includes(p._id)) {
+  
+      if (p.stage == "disabled") {
+        return (
+          <Step
+          key={p._id}
+          style={{
+              cursor: "pointer"
+          }}
+          onClick={() => handleProcedureClick(p)}
+          disabled
+          indicator={
+            <StepIndicator variant="solid" color={p.stage}>
+              <CheckRoundedIcon />
+            </StepIndicator>
+          }
+        >
+          <div>
+            <Typography level="title-sm">{`Step ${p.step}`}</Typography>
+            {p.name}
+          </div>
+        </Step>)
+      } else if (p.stage == "primary") {
+        return (
+          <Step
+        key={p._id}
+        style={{
+            cursor: "pointer"
+        }}
+        onClick={() => handleProcedureClick(p)}
+        active
+        indicator={
+          <StepIndicator variant="solid" color={p.stage}>
+            <CheckRoundedIcon />
+          </StepIndicator>
+        }
+      >
+        <div>
+          <Typography level="title-sm">{`Step ${p.step}`}</Typography>
+          {p.name}
+        </div>
+      </Step>
+        )
+      }
+  
+      return (
         <Step
         key={p._id}
         style={{

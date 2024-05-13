@@ -2,6 +2,8 @@ import axios from 'axios'
 axios.defaults.withCredentials = true;
 const api = axios.create({
     baseURL: 'https://angelhealthcare-6befd2c18f64.herokuapp.com/auth',
+ 
+    // baseURL: '/auth',
     withCredentials: true,
 })
 

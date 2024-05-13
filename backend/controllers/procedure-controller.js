@@ -142,6 +142,10 @@ removeRoomProcedure = async (req, res) => {
 })
 }
 
+completeProcedure = async (req, res) => {
+
+}
+
 
 module.exports = {
     getAllProcedures,
@@ -152,5 +156,6 @@ module.exports = {
     addResourceProcedure,
     removeResourceProcedure,
     addRoomProcedure,
-    removeRoomProcedure
+    removeRoomProcedure,
+    completeProcedure
 }

@@ -20,6 +20,7 @@ export const SocketProvider = ({ children }) => {
     useEffect(() => {
         // Create a new socket connection to the server
         const newSocket = io("https://angelhealthcare-6befd2c18f64.herokuapp.com");
+        
         setSocket(newSocket);
 
         // Cleanup function to close the socket connection when the component unmounts
