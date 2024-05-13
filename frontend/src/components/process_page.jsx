@@ -14,7 +14,7 @@ import {Button, Grid} from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AddProcedure from "./add_procedure.jsx"
 import apis from "../api/index.js"
-
+import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
 
 const ProcessPage = (props) => {
     const isId = (row) => {
@@ -111,7 +111,7 @@ const ProcessPage = (props) => {
         active
         indicator={
           <StepIndicator variant="solid" color={p.stage}>
-            <CheckRoundedIcon />
+            <AppRegistrationRoundedIcon />
           </StepIndicator>
         }
       >
