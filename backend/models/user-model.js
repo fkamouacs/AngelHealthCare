@@ -25,7 +25,8 @@ const UserSchema = new Schema(
         emails: {type: [ObjectId], default: []},
         isArchived: {type: Boolean, default: false},
         hidden: {type: Boolean, default: false},
-        verifyKey : {type:String, default: generateRandomString()}
+        verifyKey : {type:String, default: generateRandomString()},
+        resetCode : {type: String, default: null},
         
     },{timestamps: true}
 )

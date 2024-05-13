@@ -2,6 +2,7 @@
 import React, { createContext, useEffect, useState } from "react";
 //import { useHistory } from 'react-router-dom'
 import api from './auth.js'
+import { ConnectingAirportsOutlined } from "@mui/icons-material";
 
 const AuthContext = createContext();
 console.log("create AuthContext: " + AuthContext);
@@ -23,9 +24,9 @@ function AuthContextProvider(props) {
     //const history = useHistory();
 
     useEffect(() => {
-        console.log("hi")
-        auth.getLoggedIn()
-    }, []);
+        if(auth)
+            auth.getLoggedIn()
+    }, [auth]);
 
     const authReducer = (action) => {
         const { type, payload } = action;
@@ -64,7 +65,8 @@ function AuthContextProvider(props) {
     }
 
     auth.getLoggedIn = async function () {
-        const response = await api.getLoggedIn();
+        const response = await api.getLoggedIn()
+        console.log(response.status)
         if (response.status === 200) {
             authReducer({
                 type: AuthActionType.GET_LOGGED_IN,
@@ -75,6 +77,7 @@ function AuthContextProvider(props) {
             });
             return response.data;
         }
+        console.log("network error")
     }
 
     auth.registerUser = async function(firstName, lastName, email, password, passwordVerify) {
