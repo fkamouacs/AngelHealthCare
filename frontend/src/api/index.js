@@ -270,7 +270,7 @@ export const getAllScheduleByUser = (email) => api.get('/schedule/' + email);
 export const acceptSchedule = (id,email) => api.put("/schedule/accept/" + id, {email: email});
 export const denySchedule = (id,email) => api.put("/schedule/deny/" + id, {email: email});
 
-export const forgotPassword = (email) => api.post("/account/forgot");
+export const forgotPassword = (email) => api.post("/account/forgot", {email:email});
 export const resetPassword = (email, code, password) => api.post("/account/reset", {email:email, code:code, password:password});
 
 const apis = {
