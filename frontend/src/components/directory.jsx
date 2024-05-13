@@ -30,8 +30,13 @@ export default function Directory(){
     const socket = useSocket();
 
     useEffect(() => {
+
+        if(!socket){
+            console.log("socket not conencted")
+        }
+
         console.log("directory: " + auth.loggedIn)
-        if (auth.loggedIn) {
+        if (auth && auth.loggedIn) {
             socket.emit("logged in");
             setPage(PAGES.ACCOUNTS);
             socket.on("connected", () => {
@@ -42,7 +47,7 @@ export default function Directory(){
         }
 
         
-    },[auth.loggedIn])
+    },[auth])
 
 
     function changePage(newPage){

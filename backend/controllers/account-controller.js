@@ -40,7 +40,6 @@ async function sendVerifyLink(key, email) {
 verifyAccount = async (req, res) => {
     const email = req.params.email;
     const key = req.params.key;
-    console.log("info : ", email, key);
     Account.findOneAndUpdate(
         { email: email, verifyKey: key }, 
         { $set: { verifyKey: null } }, 
@@ -48,9 +47,61 @@ verifyAccount = async (req, res) => {
     )
     .then(updatedUser => {
         console.log("Updated User:", updatedUser);
+        res.redirect('https://angelhealthcare-6befd2c18f64.herokuapp.com');
     })
     .catch(err => {
         console.error("Error updating user:", err);
+        res.redirect('https://angelhealthcare-6befd2c18f64.herokuapp.com/error');
+    });
+}
+
+resetPassword = async (req, res) => {
+    Account.findOneAndUpdate(
+        { email: req.body.email, resetCode: req.body.code }, 
+        { $set: { passwordHash: await bcrypt.hash(req.body.password, saltRounds), resetCode: null } }, 
+        { new: true }
+    )
+    .then(updatedUser => {
+        console.log("Updated User:", updatedUser);
+        res.status(200);
+    })
+    .catch(err => {
+        console.error("Error updating user:", err);
+        res.status(400);
+    });
+}
+
+generateCode = () => {
+    const code = Math.floor(100000 + Math.random() * 900000);
+    return code.toString(); // Convert to string
+}
+
+forgotPassword = async (req, res) => {
+    const email = req.body.email;
+    const code = generateCode()
+    Account.findOneAndUpdate(
+        { email: email}, 
+        { $set: { resetCode:  code} }, 
+        { new: true }
+    )
+    .then(() => {
+        transporter.sendMail({
+            from: 'stks01201@gmail.com', // sender address
+            to: email, // list of receivers
+            subject: "Verifcation link", // Subject line
+            text: `Your code for resetting password : ${code}`, // plain text body
+        }, (error, info) => {
+            if (error) {
+                console.error("Error sending email: ", error);
+            } else {
+                console.log("Email sent: ", info.response);
+            }
+            });
+        res.status(200);
+    })
+    .catch(err => {
+        console.error("Error updating user:", err);
+        res.status(400);
     });
 }
 
@@ -70,7 +121,6 @@ addAccount = async (req, res) => {
         const unverifiedAccount = await newAccount.save();
 
         sendVerifyLink(unverifiedAccount.verifyKey, unverifiedAccount.email)
-
 
         res.status(201).send('Account created successfully');
     } catch (error) {
@@ -222,6 +272,8 @@ module.exports = {
     addAccount,
     getAccountById,
     updateAccountById,
-    verifyAccount
+    verifyAccount,
+    forgotPassword,
+    resetPassword
     
 }
