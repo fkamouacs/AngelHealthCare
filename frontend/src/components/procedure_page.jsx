@@ -357,6 +357,14 @@ const toggleMemberResources = (index, id) => (event) => {
   }
 
 
+  const convertDate = (date) => {
+    if(date == null)
+      return;
+    const onlyDate = date.slice(0,10);
+    return onlyDate;
+   }
+
+
   return (
     <div>
 <Breadcrumbs aria-label="breadcrumbs">
@@ -379,10 +387,11 @@ const toggleMemberResources = (index, id) => (event) => {
 
 <div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
   <h1>{`${props.currentPatientName}'s ${currentProcedure.name} - ID: ${currentProcedure._id}`}</h1>
-  
-  <div onClick={() => setShowEditDate(true)}>{`${currentProcedure.date} `}</div>
+  <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+ 
   
   {props.isAdmin ? ( <Button 
+            style={{marginLeft: "1rem"}}
             variant="contained" 
             sx={{bgcolor: '#6682c4'}}
             startIcon={<AddCircleOutlineIcon />}
@@ -392,7 +401,9 @@ const toggleMemberResources = (index, id) => (event) => {
         </Button>) : <></>}
  
 </div>
-
+  </div>
+ 
+  <div style={{fontWeight: "bold"}}>{`${convertDate(currentProcedure.date)} `}</div>
 
 <div style={{display: 'flex'}}>
 <div style={{margin: '0 1rem 0 0'}}>
