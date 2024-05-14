@@ -349,6 +349,54 @@ const toggleMemberResources = (index, id) => (event) => {
   const handleDeleteProcedure = () => {
     apis.deleteProcedure(currentProcedure._id, props.currProcess).then((res) => {
     
+
+
+         // send emails to assigned staff
+         const email = {
+          title: `${currentProcedure.name} procedure deleted`,
+          text: `this procedure was deleted`,
+          sender: 'huifu.li@stonybrook.edu',
+          schedule: date,
+        }
+
+        let receivers = [];
+        
+
+         const fetchData = async () => {
+          for (let i = 0; i < assignedStaff.length; i++) {
+            // get account emails
+
+            try {
+              const response = await apis.getAccountById(assignedStaff[i])
+              const data = await response.data.email
+              receivers.push(data);
+            } catch (error) {
+              console.error("error fetching data: ", error);
+            }
+
+            // console.log("assignedstaff " + assignedStaff[i])
+            // apis.getAccountById(assignedStaff[i]).then(res => {
+            //   console.log(res.data)
+            //   receivers.push(res.data.email)
+            // })
+
+           
+          }
+          processResults(receivers);
+         }
+         
+
+         const processResults = (receivers) => {
+          const sender = 'huifu.li@stonybrook.edu';
+          console.log("testxd " + receivers)
+          apis.sendEmail(email, receivers, sender).then((res) =>{
+            console.log("email" + res.data)
+          })
+         }
+
+         fetchData()
+
+
       props.setCurrentProcess(res.data)
       console.log(res);
       props.showProcedure(false);
