@@ -81,7 +81,8 @@ const ProcessPage = (props) => {
    
 
    const displayProcedures = () => {
-   if (currentProcess.procedureIds)
+   if (currentProcess.procedureIds != 0){
+
     return procedures.map(p => { if (currentProcess.procedureIds.includes(p._id)) {
   
       if (p.stage == "disabled") {
@@ -148,11 +149,13 @@ const ProcessPage = (props) => {
       </Step>
     ) } return <div style={{display: 'none'}}key={p._id} ></div>}
     )  
+   } else {
+    return <div>No Procedures</div>
+   }
+    
    }
 
-   const handleDeleteProcedure = () => {
-
-   }
+ 
 
 
    console.log(procedures)
@@ -164,7 +167,7 @@ const ProcessPage = (props) => {
      
     }}>
 
-        {showProcedure ? <Procedure _id={currentProcedureId} showProcedure={setShowProcedure} currentPatientName={currentPatientName}
+        {showProcedure ? <Procedure _id={currentProcedureId} showProcedure={setShowProcedure} currentPatientName={currentPatientName} isAdmin={props.isAdmin}
         currentProcedure={setCurrentProcedureId} showProcess={props.showProcess} currentProcess={props.currentProcess} currProcess={props._id} setCurrentProcess={setCurrentProcess} /> : showAddProcedure ? <AddProcedure showAddProcedure={setShowAddProcedure}
         currentProcess={currentProcess} setCurrentProcess={setCurrentProcess} currentPatientName={currentPatientName} /> : <>
 
@@ -196,18 +199,7 @@ const ProcessPage = (props) => {
        
 
       </Grid>
-      <Grid item xs={5}>
-
-        {props.isAdmin ? ( <Button 
-            variant="contained" 
-            sx={{bgcolor: '#6682c4'}}
-            startIcon={<AddCircleOutlineIcon />}
-            onClick={handleDeleteProcedure}
-        >
-            Delete Procedure
-        </Button>) : <></>}
-       
-      </Grid>
+      
     </Grid>
 </div>
 

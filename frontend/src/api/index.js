@@ -275,8 +275,10 @@ export const resetPassword = (email, code, password) => api.post("/account/reset
 
 
 export const completeProcedure = (procedureId, processId) => api.post('/procedure/completeProcedure', {procedureId: procedureId, processId: processId})
+export const deleteProcedure = (procedureId, processId) => api.post('/procedure/deleteProcedure', {procedureId: procedureId, processId: processId})
 
 const apis = {
+    deleteProcedure,
     completeProcedure,
     forgotPassword,
     resetPassword,

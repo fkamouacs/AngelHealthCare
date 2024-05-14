@@ -12,5 +12,6 @@ router.post('/removeResourceProcedure', ProcedureController.removeResourceProced
 router.post('/addRoomProcedure', ProcedureController.addRoomProcedure)
 router.post('/removeRoomProcedure', ProcedureController.removeRoomProcedure)
 router.post('/completeProcedure', ProcedureController.completeProcedure)
+router.post('/deleteProcedure', ProcedureController.deleteProcedure)
 
 module.exports = router

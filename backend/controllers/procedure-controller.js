@@ -3,6 +3,7 @@ const Process = require('../models/process-model.js')
 const Procedure = require('../models/procedure-model.js')
 const Room = require('../models/room-model.js')
 const Resource = require('../models/resource-model.js')
+const Schedule = require('../models/schedule-model.js')
 
 getAllProcedures = async (req,res) => {
    const query = Procedure.find({})
@@ -171,6 +172,77 @@ completeProcedure = async (req, res) => {
 }
 
 
+deleteProcedure = async (req, res) => {
+  // get procedure
+
+  const procedure = await Procedure.findOne({_id: req.body.procedureId})
+  const process = await Process.findOne({_id: req.body.processId})
+
+
+  let notdone = true;
+  const currStep = procedure.step
+
+  console.log(procedure.step)
+  for (let i = 0; i < process.procedureIds.length; i++) {
+    const currProcedure = await Procedure.findOne({_id: process.procedureIds[i]})
+
+    //  // update procedure stages
+    if (procedure.stage == "primary" &&  currProcedure.step == currStep+1 && notdone) {
+      await Procedure.findOneAndUpdate({_id: process.procedureIds[i]}, {stage: "primary"})
+      done = false;  
+   }
+
+    // update procedure steps
+   
+    if (currProcedure.step > currStep) {
+      await Procedure.findOneAndUpdate({_id: process.procedureIds[i]}, {step: currProcedure.step - 1})
+    }
+
+   
+
+  }
+
+
+  // delete schedule
+
+  for (let i = 0; i < procedure.staff.length; i++) {
+    const currAccount = await Account.findOneAndUpdate({_id: procedure.staff[i]}, {$pull: {schedule: procedure.date}})
+
+      // delete staff schedule object
+
+      for (let i = 0; i < currAccount.scheduleObjects.length; i++) {
+        const scheduleObject = await Schedule.findOne({_id: currAccount.scheduleObjects[i]})
+        if (scheduleObject.procedureId == procedure._id) {
+          // remove staff schedule object from account
+          await Account.findOneAndUpdate({_id: procedure.staff[i]}, {$pull: {scheduleObjects: scheduleObject._id}})
+        }
+      }
+      
+      
+  }
+
+  // update room schedules
+  for (let i = 0; i < procedure.rooms.length; i++) {
+      Room.findOneAndUpdate({_id: procedure.rooms[i]}, {$pull: {schedule: procedure.date}}).exec()
+    }
+
+  // update resource schedules
+  for (let i = 0; i < procedure.resources.length; i++) {
+      Resource.findOneAndUpdate({_id: procedure.resources[i]}, {$pull: {schedule: procedure.date}}).exec()
+    }
+
+
+
+
+
+
+
+  Process.findOneAndUpdate({_id: process._id}, {$pull: {procedureIds: procedure._id}},{ returnOriginal: false }).exec().then((process) =>{
+    res.json(process);
+})
+
+}
+
 module.exports = {
     getAllProcedures,
     getProcedureById,
@@ -181,5 +253,6 @@ module.exports = {
     removeResourceProcedure,
     addRoomProcedure,
     removeRoomProcedure,
-    completeProcedure
+    completeProcedure,
+    deleteProcedure
 }

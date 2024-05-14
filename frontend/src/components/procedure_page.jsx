@@ -13,6 +13,7 @@ import Sheet from '@mui/joy/Sheet';
 import Input from '@mui/joy/Input';
 import {Button} from '@mui/material';
 import apis from "../api/index.js"
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import { getAvailableAccounts, getProcedureById, 
 removeStaffProcedure, addStaffProcedure, getAvailableRooms,
@@ -344,6 +345,18 @@ const toggleMemberResources = (index, id) => (event) => {
     })
   }
 
+
+  const handleDeleteProcedure = () => {
+    apis.deleteProcedure(currentProcedure._id, props.currProcess).then((res) => {
+    
+      props.setCurrentProcess(res.data)
+      console.log(res);
+      props.showProcedure(false);
+      props.currentProcedure(null);
+    })
+  }
+
+
   return (
     <div>
 <Breadcrumbs aria-label="breadcrumbs">
@@ -368,6 +381,16 @@ const toggleMemberResources = (index, id) => (event) => {
   <h1>{`${props.currentPatientName}'s ${currentProcedure.name} - ID: ${currentProcedure._id}`}</h1>
   
   {showEditDate ? <Input onKeyDown={handleEnter} onChange={(e)=> setDate(e.target.value)} placeholder={currentProcedure.date} variant="solid" /> : <div onClick={() => setShowEditDate(true)}>{`${currentProcedure.date} Edit Date`}</div>}
+  
+  {props.isAdmin ? ( <Button 
+            variant="contained" 
+            sx={{bgcolor: '#6682c4'}}
+            startIcon={<AddCircleOutlineIcon />}
+            onClick={handleDeleteProcedure}
+        >
+            Delete Procedure
+        </Button>) : <></>}
+ 
 </div>
 
 
