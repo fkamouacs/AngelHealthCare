@@ -150,6 +150,9 @@ const ProcessPage = (props) => {
 
    }
 
+
+   console.log(procedures)
+
   return (
     <div style={{
         
@@ -158,7 +161,7 @@ const ProcessPage = (props) => {
     }}>
 
         {showProcedure ? <Procedure _id={currentProcedureId} showProcedure={setShowProcedure} currentPatientName={currentPatientName}
-        currentProcedure={setCurrentProcedureId} showProcess={props.showProcess} currentProcess={props.currentProcess} currProcess={props._id}/> : showAddProcedure ? <AddProcedure showAddProcedure={setShowAddProcedure}
+        currentProcedure={setCurrentProcedureId} showProcess={props.showProcess} currentProcess={props.currentProcess} currProcess={props._id} setCurrentProcess={setCurrentProcess} /> : showAddProcedure ? <AddProcedure showAddProcedure={setShowAddProcedure}
         currentProcess={currentProcess} setCurrentProcess={setCurrentProcess} currentPatientName={currentPatientName} /> : <>
 
 <Breadcrumbs aria-label="breadcrumbs">

@@ -48,7 +48,7 @@ addProcedure = async (req,res) => {
           }  else {
             // get last procedure
             const lastProcedure = await Procedure.findOne({_id: currentProcess.procedureIds[currentProcess.procedureIds.length - 1]})
-            if (lastProcedure.stage == "completed") {
+            if (lastProcedure.stage == "success") {
               newProcedure["stage"]  = "primary"
             } else {
               newProcedure["stage"] = "disabled" 
@@ -143,6 +143,30 @@ removeRoomProcedure = async (req, res) => {
 }
 
 completeProcedure = async (req, res) => {
+
+  // get current procedure 
+  const currProcedure = await Procedure.findOneAndUpdate({_id: req.body.procedureId}, {stage: "success"})
+
+  // move to next procedure 
+
+  const currProcess = await Process.findOne({_id: req.body.processId})
+
+  // get next procedure 
+
+  const nextStep = currProcedure.step + 1;
+  const procedureIds = currProcess.procedureIds; 
+
+  for(let i = 0; i < procedureIds.length; i++) {
+    const procedure = await Procedure.findOne({_id: procedureIds[i]})
+    if (procedure.step === nextStep) {
+      await Procedure.findOneAndUpdate({_id: procedureIds[i]}, {stage: "primary"})
+      
+    }
+  }
+
+  // return current process
+
+  res.json(currProcess);
 
 }
 

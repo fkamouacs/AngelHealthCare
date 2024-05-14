@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
-import {React, useState, Fragment, useEffect} from 'react'
+import {React, useState, useEffect} from 'react'
 import Link from '@mui/joy/Link';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Avatar from '@mui/joy/Avatar';
@@ -54,6 +54,8 @@ const [showEditDate, setShowEditDate] = useState(false);
 const [date, setDate] = useState();
 const [dateError, setDateError] = useState(false)
 
+const [completeProcedure, setCompleteProcedure] = useState(false);
+
 
 useEffect(() => {
 
@@ -95,6 +97,7 @@ useEffect(() => {
  
 
 },[])
+
 
 
 
@@ -330,7 +333,15 @@ const toggleMemberResources = (index, id) => (event) => {
   }
 
   const handleCompleteClick = () => {
-    completeProcedure(currentProcedure._id,props.currProcess);
+    //completeProcedure(currentProcedure._id,props.currProcess);
+    console.log(props.currProcess)
+    apis.completeProcedure(currentProcedure._id, props.currProcess).then((res) => {
+
+      setCompleteProcedure(true);
+      console.log(res.data)
+      props.setCurrentProcess(res.data)
+      
+    })
   }
 
   return (
@@ -493,7 +504,7 @@ const toggleMemberResources = (index, id) => (event) => {
 
 
     </Sheet>
-    {currentProcedure.stage === "primary" ? 
+    {currentProcedure.stage === "primary"  && !completeProcedure ? 
     (<Button 
       style={{margin: "0 1rem"}}
        variant="contained" 
@@ -503,6 +514,8 @@ const toggleMemberResources = (index, id) => (event) => {
    >
        Complete Procedure
    </Button>) : <></>}
+
+   {completeProcedure ? <>Procedure completed</> : <></>}
     </div>
 
     

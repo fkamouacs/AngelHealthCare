@@ -15,7 +15,7 @@ axios.defaults.withCredentials = true;
 
 
 const api = axios.create({
-    baseURL: 'https://angelhealthcare-6befd2c18f64.herokuapp.com/api',
+    baseURL: 'https://angelhealthcare-6befd2c18f64.herokuapp.com/api'
     // baseURL: '/api'
 })
 
@@ -273,7 +273,11 @@ export const denySchedule = (id,email) => api.put("/schedule/deny/" + id, {email
 export const forgotPassword = (email) => api.post("/account/forgot", {email:email});
 export const resetPassword = (email, code, password) => api.post("/account/reset", {email:email, code:code, password:password});
 
+
+export const completeProcedure = (procedureId, processId) => api.post('/procedure/completeProcedure', {procedureId: procedureId, processId: processId})
+
 const apis = {
+    completeProcedure,
     forgotPassword,
     resetPassword,
     getAllScheduleByUser,
