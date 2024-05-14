@@ -380,7 +380,7 @@ const toggleMemberResources = (index, id) => (event) => {
 <div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
   <h1>{`${props.currentPatientName}'s ${currentProcedure.name} - ID: ${currentProcedure._id}`}</h1>
   
-  {showEditDate ? <Input onKeyDown={handleEnter} onChange={(e)=> setDate(e.target.value)} placeholder={currentProcedure.date} variant="solid" /> : <div onClick={() => setShowEditDate(true)}>{`${currentProcedure.date} Edit Date`}</div>}
+  <div onClick={() => setShowEditDate(true)}>{`${currentProcedure.date} `}</div>
   
   {props.isAdmin ? ( <Button 
             variant="contained" 
