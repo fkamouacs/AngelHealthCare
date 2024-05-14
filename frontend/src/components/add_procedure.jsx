@@ -41,6 +41,8 @@ const AddProcedure = (props) => {
     const [resourceMembers, setResourceMembers] = useState([])
     const [date, setDate] = useState(dayjs('2022-04-17'));
 
+    const [error, setError] = useState(false)
+
     // useEffect(() => {
     //     if(date !== '') {
     //         setAvailableStaff(getAvailableAccountsDate(date));
@@ -267,82 +269,86 @@ const AddProcedure = (props) => {
         console.log(props.currentProcess._id)
 
        
-      
-
-        apis.addProcedure(formData.name, props.currentProcess.patientId, date, [], assignedResources, assignedRoom, props.currentProcess._id).then(res => {
-          console.log(res.data.procedureIds)
-          const newProcedureIds = res.data.procedureIds
-          console.log(props.currentProcess.procedureIds)
-          let difference = newProcedureIds.filter(x => !props.currentProcess.procedureIds.includes(x)) 
-
-          console.log(difference)
-          const newState = {...props.currentProcess}
-          newState.procedureIds = [...props.currentProcess.procedureIds, ...difference]
-
-
-           // send emails to assigned staff
-        const email = {
-          title: `${formData.name} procedure staff request`,
-          text: `confirm your assignment to this procedure`,
-          sender: 'huifu.li@stonybrook.edu',
-          schedule: date,
-          procedureId: difference[0],
-          name: `${formData.name}`
+        if (formData.name != '') {
+          apis.addProcedure(formData.name, props.currentProcess.patientId, date, [], assignedResources, assignedRoom, props.currentProcess._id).then(res => {
+            console.log(res.data.procedureIds)
+            const newProcedureIds = res.data.procedureIds
+            console.log(props.currentProcess.procedureIds)
+            let difference = newProcedureIds.filter(x => !props.currentProcess.procedureIds.includes(x)) 
+  
+            console.log(difference)
+            const newState = {...props.currentProcess}
+            newState.procedureIds = [...props.currentProcess.procedureIds, ...difference]
+  
+  
+             // send emails to assigned staff
+          const email = {
+            title: `${formData.name} procedure staff request`,
+            text: `confirm your assignment to this procedure`,
+            sender: 'huifu.li@stonybrook.edu',
+            schedule: date,
+            procedureId: difference[0],
+            name: `${formData.name}`
+          }
+  
+          let receivers = [];
+          
+  
+           const fetchData = async () => {
+            for (let i = 0; i < assignedStaff.length; i++) {
+              // get account emails
+  
+              try {
+                const response = await apis.getAccountById(assignedStaff[i])
+                const data = await response.data.email
+                receivers.push(data);
+              } catch (error) {
+                console.error("error fetching data: ", error);
+              }
+  
+              // console.log("assignedstaff " + assignedStaff[i])
+              // apis.getAccountById(assignedStaff[i]).then(res => {
+              //   console.log(res.data)
+              //   receivers.push(res.data.email)
+              // })
+  
+             
+            }
+            processResults(receivers);
+           }
+           
+  
+           const processResults = (receivers) => {
+            const sender = 'huifu.li@stonybrook.edu';
+            console.log("testxd " + receivers)
+            apis.sendEmail(email, receivers, sender).then((res) =>{
+              console.log("email" + res.data)
+            })
+           }
+  
+           fetchData()
+  
+  
+  
+            props.setCurrentProcess(newState);
+          })
+  
+          // const newProcedureIds = getProcessById(props.currentProcess._id).procedureIds
+          
+          // let difference = newProcedureIds.filter(x => !props.currentProcess.procedureIds.includes(x));
+          
+          // const newState = {...props.currentProcess}
+          // newState.procedureIds = [...props.currentProcess.procedureIds, ...difference]
+          
+          // props.setCurrentProcess(newState)
+  
+  
+          props.showAddProcedure(false);
+        } else {
+          setError(true);
         }
 
-        let receivers = [];
-        
-
-         const fetchData = async () => {
-          for (let i = 0; i < assignedStaff.length; i++) {
-            // get account emails
-
-            try {
-              const response = await apis.getAccountById(assignedStaff[i])
-              const data = await response.data.email
-              receivers.push(data);
-            } catch (error) {
-              console.error("error fetching data: ", error);
-            }
-
-            // console.log("assignedstaff " + assignedStaff[i])
-            // apis.getAccountById(assignedStaff[i]).then(res => {
-            //   console.log(res.data)
-            //   receivers.push(res.data.email)
-            // })
-
-           
-          }
-          processResults(receivers);
-         }
-         
-
-         const processResults = (receivers) => {
-          const sender = 'huifu.li@stonybrook.edu';
-          console.log("testxd " + receivers)
-          apis.sendEmail(email, receivers, sender).then((res) =>{
-            console.log("email" + res.data)
-          })
-         }
-
-         fetchData()
-
-
-
-          props.setCurrentProcess(newState);
-        })
-
-        // const newProcedureIds = getProcessById(props.currentProcess._id).procedureIds
-        
-        // let difference = newProcedureIds.filter(x => !props.currentProcess.procedureIds.includes(x));
-        
-        // const newState = {...props.currentProcess}
-        // newState.procedureIds = [...props.currentProcess.procedureIds, ...difference]
-        
-        // props.setCurrentProcess(newState)
-
-
-        props.showAddProcedure(false);
+       
       };
 
     
@@ -497,7 +503,7 @@ const AddProcedure = (props) => {
         </List>
       </div>
     </Sheet>
-
+          {error ? <>Name should not be blank</> : <></>}
 
         <Button
           type="submit"

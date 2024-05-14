@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import Stepper from '@mui/joy/Stepper';
 import Step, { stepClasses } from '@mui/joy/Step';
 import StepIndicator, { stepIndicatorClasses } from '@mui/joy/StepIndicator';
@@ -16,6 +16,7 @@ import AddProcedure from "./add_procedure.jsx"
 import apis from "../api/index.js"
 import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
 
+
 const ProcessPage = (props) => {
     const isId = (row) => {
         return row._id === props._id;
@@ -28,6 +29,9 @@ const ProcessPage = (props) => {
     
     const [procedures, setProcedures] = useState([])
     const [currentPatientName, setCurrentPatientName] = useState("");
+
+
+  
 
     useEffect(() => {
       apis.getProcessById(props._id).then(res => {
@@ -179,7 +183,7 @@ const ProcessPage = (props) => {
     <h1>{`${currentPatientName}'s ${currentProcess.name} - ID: ${currentProcess._id}`}</h1>
     <Grid container justifyContent={"right"}>
       <Grid item xs={5}>
-        <Button 
+        {props.isAdmin ? ( <Button 
         style={{margin: "0 1rem"}}
           variant="contained" 
           sx={{bgcolor: '#6682c4'}}
@@ -188,17 +192,21 @@ const ProcessPage = (props) => {
           
       >
           Add Procedure
-      </Button>
+      </Button>) : <></>}
+       
+
       </Grid>
       <Grid item xs={5}>
-        <Button 
+
+        {props.isAdmin ? ( <Button 
             variant="contained" 
             sx={{bgcolor: '#6682c4'}}
             startIcon={<AddCircleOutlineIcon />}
             onClick={handleDeleteProcedure}
         >
             Delete Procedure
-        </Button>
+        </Button>) : <></>}
+       
       </Grid>
     </Grid>
 </div>

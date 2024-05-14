@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Table from '@mui/joy/Table';
 import { Grid, Paper, Typography, ToggleButtonGroup, ToggleButton, IconButton, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction, Box, Modal} from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -9,6 +9,7 @@ import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
 import Process from "./process_page"
 import AddProcess from "./add_process.jsx"
 import apis from "../api/index.js"
+import AuthContext from "../api/auth/index.js"
 
 const ProcessesPage = () => {
     const [processes, setProcesses] = useState([])
@@ -21,6 +22,53 @@ const ProcessesPage = () => {
     const [name, setName] = useState("");
     const [ascended, setAscended] = useState(true);
     
+
+
+    const [userInfo, setUserInfo] = useState({
+      username: "N/A",
+      userId: "N/A",
+      role: "Staff",
+      phone_number: "N/A",
+      status: "ACTIVE",
+      messages: [],
+      schedules: [],
+      email: "N/A",
+  });
+  const {auth} = useContext(AuthContext) || {};
+
+
+  async function getUpdatedUser(){
+    // console.log("in account page");
+    // console.log(auth)
+    if (auth !== undefined && auth.loggedIn) {
+        const user = {
+            username: `${auth.user.firstName} ${auth.user.lastName}` || "N/A",
+            userId: auth.user._id || "N/A",
+            isAdmin: auth.user.isAdmin || false,
+            phone_number: auth.user.phone_number || "N/A",
+            email: auth.user.email || "",
+            status: auth.user.status || "Active",
+            messages: (await apis.getAllEmailByUser(auth.user.email)).data || [],
+            schedules: (await apis.getAllScheduleByUser(auth.user.email)).data || [],
+       
+        }
+        // console.log("updated user info ",user);
+        setUserInfo(user);
+        console.log("updated");
+    }
+    else{
+        console.log("no user");
+    }
+}
+
+useEffect(() => {
+    getUpdatedUser();
+},[auth])
+
+
+  console.log(userInfo.isAdmin)
+
+
 
 
     const handleSort = (event, newSortBy) => {
@@ -61,7 +109,7 @@ const ProcessesPage = () => {
     return (
    <>
 
-    {showProcess ? <Process _id={currentProcessId} showProcess={setShowProcess} currentProcess={setCurrentProcessId}/> : 
+    {showProcess ? <Process _id={currentProcessId} showProcess={setShowProcess} currentProcess={setCurrentProcessId} isAdmin={userInfo.isAdmin}/> : 
     showAddProcess ? <AddProcess showAddProcess={setShowAddProcess} setProcesses={setProcesses}/> :
    <>
    
@@ -75,14 +123,16 @@ const ProcessesPage = () => {
    <h1>
     Processes list
    </h1>
-    <Button 
+
+   {userInfo.isAdmin ? (<Button 
         variant="contained" 
         sx={{bgcolor: '#6682c4'}}
         startIcon={<AddCircleOutlineIcon />}
         onClick={() => setShowAddProcess(true)}
     >
         Add Item
-    </Button>
+    </Button>) : <></>}
+    
    </div>
    <Paper sx={{padding: 2, display: 'flex', alignItems: 'center', marginBottom: 1, gap: 10, borderColor: '#6682c4', borderWidth: '1', borderStyle: 'solid'}}>
       <Typography variant="h6">Sort By</Typography>

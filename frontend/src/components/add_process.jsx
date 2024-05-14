@@ -18,6 +18,8 @@ const AddProcess = (props) => {
 
       // const [patients, setPatients] = useState(getAllPatients())
       const [patients, setPatients] = useState([])
+      const [error, setError] = useState(false)
+
 
       useEffect(() => {
         apis.getAllPatients().then(res => {
@@ -45,17 +47,22 @@ const AddProcess = (props) => {
         console.log(formData);
         console.log(value)
         //addProcess(formData.name, value);
-
-        apis.addProcess(formData.name, value).then(res => {
-          console.log(res)
-          apis.getAllProcesses().then(res => {
-            let reversed = res.data.reverse()
-            props.setProcesses(reversed)
-           console.log(res.data);
-           props.showAddProcess(false);
-         })
+       
+        if (formData.name != '' && value != '') {
+          apis.addProcess(formData.name, value).then(res => {
+            console.log(res)
+            apis.getAllProcesses().then(res => {
+              let reversed = res.data.reverse()
+              props.setProcesses(reversed)
+             console.log(res.data);
+             props.showAddProcess(false);
+           })
+          }
+         )
+        } else {
+            setError(true)
         }
-       )
+     
 
 
         // console.log(getAllProcesses())
@@ -103,6 +110,8 @@ const AddProcess = (props) => {
       >
         {displayPatients()}
       </RadioGroup>
+
+    {error ? <>Error: No fields should be blank</> : <></>}
 
 <Button
           type="submit"
