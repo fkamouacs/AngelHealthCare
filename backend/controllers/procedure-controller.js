@@ -4,6 +4,7 @@ const Procedure = require('../models/procedure-model.js')
 const Room = require('../models/room-model.js')
 const Resource = require('../models/resource-model.js')
 const Schedule = require('../models/schedule-model.js')
+const mongoose = require('mongoose')
 
 getAllProcedures = async (req,res) => {
    const query = Procedure.find({})
@@ -212,9 +213,13 @@ deleteProcedure = async (req, res) => {
 
       for (let i = 0; i < currAccount.scheduleObjects.length; i++) {
         const scheduleObject = await Schedule.findOne({_id: currAccount.scheduleObjects[i]})
-        if (scheduleObject.procedureId == procedure._id) {
+       
+        if (scheduleObject.procedureId.equals(procedure._id)) {
           // remove staff schedule object from account
-          await Account.findOneAndUpdate({_id: procedure.staff[i]}, {$pull: {scheduleObjects: scheduleObject._id}})
+          console.log("hihi123")
+          console.log(currAccount.scheduleObjects)
+          console.log(scheduleObject._id)
+          await Account.findOneAndUpdate({_id: procedure.staff[i]}, {$pull: {scheduleObjects: new mongoose.Types.ObjectId(scheduleObject._id)}})
         }
       }
       
@@ -223,12 +228,16 @@ deleteProcedure = async (req, res) => {
 
   // update room schedules
   for (let i = 0; i < procedure.rooms.length; i++) {
-      Room.findOneAndUpdate({_id: procedure.rooms[i]}, {$pull: {schedule: procedure.date}}).exec()
+      await Room.findOneAndUpdate({_id: procedure.rooms[i]}, {$pull: {schedule: procedure.date}})
     }
+
+
 
   // update resource schedules
   for (let i = 0; i < procedure.resources.length; i++) {
-      Resource.findOneAndUpdate({_id: procedure.resources[i]}, {$pull: {schedule: procedure.date}}).exec()
+    console.log("hixdxd")
+    console.log(procedure.resources[i])
+     await Resource.findOneAndUpdate({_id: procedure.resources[i]}, {$pull: {schedule: procedure.date}})
     }
 
 

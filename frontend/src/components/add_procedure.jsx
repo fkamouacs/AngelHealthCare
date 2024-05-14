@@ -503,7 +503,7 @@ const AddProcedure = (props) => {
         </List>
       </div>
     </Sheet>
-          {error ? <>Name should not be blank</> : <></>}
+          {error ? <h3 style={{textAlign: "center", marginTop: "2rem", color: "red"}}>Error: Name should not be blank</h3> : <></>}
 
         <Button
           type="submit"
@@ -511,7 +511,7 @@ const AddProcedure = (props) => {
           color="primary"
           fullWidth
           size="large"
-          style={{ marginTop: '1rem' }}
+          style={{  }}
         >
           Submit
         </Button>

@@ -8,7 +8,7 @@ const ScheduleSchema = new Schema(
         text: {type: String, required: true},
         hidden: {type: Boolean, default: false},
         isDone: {type: Boolean, default: false},
-        date: {type: String, required:true},
+        date: {type: Date, required:true},
         procedureId: {type: ObjectId, default:"no procedure"}
     },{timestamps: true}
 )

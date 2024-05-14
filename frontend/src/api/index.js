@@ -153,7 +153,7 @@ export const addResourceProcedure = (pid, resourceId) => api.post("/procedure/ad
 
 export const removeResourceProcedure = (pid, resourceId) => api.post('/procedure/removeResourceProcedure', {
     pid: pid,
-    reousrceId: resourceId
+    resourceId: resourceId
 })
 
 export const addRoomProcedure = (pid, roomId) => api.post('/procedure/addRoomProcedure', {

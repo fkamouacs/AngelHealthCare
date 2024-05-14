@@ -150,7 +150,7 @@ const ProcessPage = (props) => {
     ) } return <div style={{display: 'none'}}key={p._id} ></div>}
     )  
    } else {
-    return <div>No Procedures</div>
+    return <h2 style={{textAlign: "center", color: "#808080"}}>No Procedures Added</h2>
    }
     
    }

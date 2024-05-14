@@ -11,7 +11,7 @@ const RoomSchema = new Schema(
         oldPatients: {type: [ObjectId], default: []},
         resources:{type:[ObjectId], default: []},
         special_note: {type:String, default:""},
-        schedule:{type: [String], default: []},
+        schedule:{type: [Date], default: []},
         hidden: {type: Boolean, default: false}
     },{timestamps: true}
 )
