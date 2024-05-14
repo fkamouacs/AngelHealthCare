@@ -246,7 +246,7 @@ deleteProcedure = async (req, res) => {
 
 
 
-
+  await Procedure.findOneAndDelete({_id: procedure._id});
 
   Process.findOneAndUpdate({_id: process._id}, {$pull: {procedureIds: procedure._id}},{ returnOriginal: false }).exec().then((process) =>{
     res.json(process);
