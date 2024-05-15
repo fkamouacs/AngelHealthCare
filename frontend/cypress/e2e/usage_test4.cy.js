@@ -21,7 +21,7 @@ describe('usage test 4', () => {
         cy.get('button').contains('admintoolbar', {matchCase: false}).should('be.visible').click({ force: true });wait();
         cy.get('span').contains('add new room', {matchCase: false}).click({ force: true });wait();
 
-        const inputValues = ['111', '30', '30', '663f456ae36b7b95f67a024a', '663bc089afe54470c5a70c4f', 'test for room'];
+        const inputValues = ['666', '30', '30', '66425a843932a98ca42b5dbc', '663fd691f03810ea03bec98c', 'test for room'];
         cy.get('input').each((element, index) => {
             // Use `cy.wrap()` to convert the yielded jQuery element back into a Cypress chainable object
             cy.wrap(element).type(inputValues[index], { force: true });wait();
