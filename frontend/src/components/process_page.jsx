@@ -81,77 +81,80 @@ const ProcessPage = (props) => {
    
 
    const displayProcedures = () => {
-   if (currentProcess.procedureIds != 0 && currentProcess){
+    if (currentProcess) {
+      if (currentProcess.procedureIds != 0 ){
 
-    return procedures.map(p => { if (currentProcess.procedureIds.includes(p._id)) {
-  
-      if (p.stage == "disabled") {
-        return (
-          <Step
-          key={p._id}
-          style={{
-              cursor: "pointer"
-          }}
-          onClick={() => handleProcedureClick(p)}
-          disabled
-          indicator={
-            <StepIndicator variant="solid" color={p.stage}>
-              <CheckRoundedIcon />
-            </StepIndicator>
+        return procedures.map(p => { if (currentProcess.procedureIds.includes(p._id)) {
+      
+          if (p.stage == "disabled") {
+            return (
+              <Step
+              key={p._id}
+              style={{
+                  cursor: "pointer"
+              }}
+              onClick={() => handleProcedureClick(p)}
+              disabled
+              indicator={
+                <StepIndicator variant="solid" color={p.stage}>
+                  <CheckRoundedIcon />
+                </StepIndicator>
+              }
+            >
+              <div>
+                <Typography level="title-sm">{`Step ${p.step}`}</Typography>
+                {p.name}
+              </div>
+            </Step>)
+          } else if (p.stage == "primary") {
+            return (
+              <Step
+            key={p._id}
+            style={{
+                cursor: "pointer"
+            }}
+            onClick={() => handleProcedureClick(p)}
+            active
+            indicator={
+              <StepIndicator variant="solid" color={p.stage}>
+                <AppRegistrationRoundedIcon />
+              </StepIndicator>
+            }
+          >
+            <div>
+              <Typography level="title-sm">{`Step ${p.step}`}</Typography>
+              {p.name}
+            </div>
+          </Step>
+            )
           }
-        >
-          <div>
-            <Typography level="title-sm">{`Step ${p.step}`}</Typography>
-            {p.name}
-          </div>
-        </Step>)
-      } else if (p.stage == "primary") {
-        return (
-          <Step
-        key={p._id}
-        style={{
-            cursor: "pointer"
-        }}
-        onClick={() => handleProcedureClick(p)}
-        active
-        indicator={
-          <StepIndicator variant="solid" color={p.stage}>
-            <AppRegistrationRoundedIcon />
-          </StepIndicator>
-        }
-      >
-        <div>
-          <Typography level="title-sm">{`Step ${p.step}`}</Typography>
-          {p.name}
-        </div>
-      </Step>
-        )
-      }
-  
-      return (
-        <Step
-        key={p._id}
-        style={{
-            cursor: "pointer"
-        }}
-        onClick={() => handleProcedureClick(p)}
-        completed
-        indicator={
-          <StepIndicator variant="solid" color={p.stage}>
-            <CheckRoundedIcon />
-          </StepIndicator>
-        }
-      >
-        <div>
-          <Typography level="title-sm">{`Step ${p.step}`}</Typography>
-          {p.name}
-        </div>
-      </Step>
-    ) } return <div style={{display: 'none'}}key={p._id} ></div>}
-    )  
-   } else {
-    return <h2 style={{textAlign: "center", color: "#808080"}}>No Procedures Added</h2>
-   }
+      
+          return (
+            <Step
+            key={p._id}
+            style={{
+                cursor: "pointer"
+            }}
+            onClick={() => handleProcedureClick(p)}
+            completed
+            indicator={
+              <StepIndicator variant="solid" color={p.stage}>
+                <CheckRoundedIcon />
+              </StepIndicator>
+            }
+          >
+            <div>
+              <Typography level="title-sm">{`Step ${p.step}`}</Typography>
+              {p.name}
+            </div>
+          </Step>
+        ) } return <div style={{display: 'none'}}key={p._id} ></div>}
+        )  
+       } else {
+        return <h2 style={{textAlign: "center", color: "#808080"}}>No Procedures Added</h2>
+       }
+    }
+   
     
    }
 
