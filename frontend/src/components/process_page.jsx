@@ -81,7 +81,7 @@ const ProcessPage = (props) => {
    
 
    const displayProcedures = () => {
-   if (currentProcess.procedureIds != 0){
+   if (currentProcess.procedureIds != 0 && currentProcess){
 
     return procedures.map(p => { if (currentProcess.procedureIds.includes(p._id)) {
   
